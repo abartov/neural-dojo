@@ -1,0 +1,12 @@
+# Module 2: Prompt Engineering Fundamentals
+# Examples and experiments dependencies
+
+# LLM APIs
+anthropic>=0.39.0  # Claude API
+openai>=1.54.0     # OpenAI API (optional)
+
+# Environment management
+python-dotenv>=1.0.0
+
+# Utilities
+rich>=13.7.0       # Pretty terminal output

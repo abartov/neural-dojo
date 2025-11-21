@@ -1,197 +1,245 @@
-# Start Here Tomorrow 🌅
+# 🌅 Start Here Tomorrow
 
-**Last Updated**: 2025-11-21 (Session #2)
-**Current Status**: Module 1 Complete ✅
-**Next Module**: Module 2 - Prompt Engineering Fundamentals 🔮
-
----
-
-## 📊 Where We Are
-
-**Progress**: 1/36 modules complete (3%)
-**Phase 1 Progress**: 1/5 modules (20%)
-**Time Invested**: ~7 hours total
+**Last Updated**: 2025-11-21 (Session #3)
+**Current Status**: Modules 1-2 Complete ✅
+**Next Module**: Module 3 - AI-Powered Code Generation
+**Progress**: 2/36 modules complete (6%)
 
 ---
 
-## ✅ What Was Accomplished (Session #2)
+## 🎯 Where You Are
 
-### Module 1: Foundations of AI-Driven Development - COMPLETE! 🎉
+You just completed **Module 2: Prompt Engineering Fundamentals** 🔮!
 
-**Theory (8,000+ words)**:
-- ✅ The AI development landscape (Claude Code, Copilot, Cursor)
-- ✅ Mental model: AI as Super-Intern
-- ✅ The AI development workflow
-- ✅ When to use AI vs traditional coding (decision matrix)
-- ✅ 5 AI coding patterns (Specification, Iteration, Example, Explanation, Debugging)
-- ✅ Common pitfalls and how to avoid them
-- ✅ First AI-assisted project walkthrough
+**Session #3 Accomplishments**:
+- ✅ Created 9,000+ word theory document
+- ✅ Built 8 comprehensive code examples
+- ✅ Created 3 deliverable templates
+- ✅ Discovered the "Prompts are programs" Heureka Moment
+- ✅ Updated MASTER_CURRICULUM.md to v1.3.0
 
-**Code Examples (All tested & working)**:
-- ✅ Pattern 1: Specification Pattern (`patterns/01_specification_pattern.py`)
-- ✅ Pattern 2: Iteration Pattern (`patterns/02_iteration_pattern.py`)
-- ✅ Pattern 3: Example Pattern (`patterns/03_example_pattern.py`)
-- ✅ Pattern 4: Explanation Pattern (`patterns/04_explanation_pattern.py`)
-- ✅ Pattern 5: Debugging Pattern (`patterns/05_debugging_pattern.py`)
-
-**Main Project**:
-- ✅ Python File Analyzer CLI (`examples/module_01/project/pyanalyzer.py`)
-  - 250+ lines of production code
-  - Single file and directory analysis
-  - JSON and pretty output
-  - 17 tests, 100% passing
-  - Type hints, docstrings, error handling
-
-**Deliverable Templates**:
-- ✅ AI Tools Comparison (`docs/deliverables/module_01_ai_tools_comparison.md`)
-- ✅ Reflection Document (`docs/deliverables/module_01_reflection.md`)
-
-**Infrastructure**:
-- ✅ Python 3.12 venv created and configured
-- ✅ pytest installed and tested
-- ✅ All examples verified working
+**Modules Complete**:
+- ✅ Module 1: AI-Driven Development (patterns, pyanalyzer tool)
+- ✅ Module 2: Prompt Engineering (8 techniques, security, library)
 
 ---
 
-## 🎯 What's Next (Your Action Items)
+## 📋 What's Next (Your Action Items)
 
-### Before Moving to Module 2
+### 1. Complete Module 1 & 2 Deliverables
 
-You should complete these Module 1 deliverables:
+**Module 1 Deliverables**:
+- `docs/deliverables/module_01_comparison.md` - AI tools comparison
+- `docs/deliverables/module_01_reflection.md` - Your reflection
 
-1. **Complete AI Tools Comparison** (`docs/deliverables/module_01_ai_tools_comparison.md`)
-   - Try Claude Code, Copilot, and/or Cursor
-   - Document your experience with each
-   - Choose your preferred tool
+**Module 2 Deliverables**:
+- `docs/deliverables/module_02_prompt_library.md` - Build your personal library (10 prompts)
+- `docs/deliverables/module_02_experiments.md` - Run 7 experiments
+- `docs/deliverables/module_02_security.md` - Security analysis
 
-2. **Complete Reflection Document** (`docs/deliverables/module_01_reflection.md`)
-   - What surprised you?
-   - Where did AI excel/struggle?
-   - How will you use AI in your workflow?
-   - Apply learnings to kaizen, vibe, contrarian
+**Time estimate**: 3-4 hours total
 
-3. **Run the Examples** (Optional but recommended)
-   ```bash
-   cd examples/module_01
+### 2. Run Module 2 Examples
 
-   # Try the pattern demonstrations
-   python patterns/01_specification_pattern.py
-   python patterns/02_iteration_pattern.py
-   # ... etc
+```bash
+# Activate venv
+cd neural-dojo
+source venv/bin/activate
 
-   # Try the pyanalyzer tool
-   cd project
-   python pyanalyzer.py pyanalyzer.py
-   python pyanalyzer.py . --json
-   pytest test_pyanalyzer.py -v
-   ```
+# Install Module 2 dependencies
+pip install -r examples/module_02/requirements.txt
 
-4. **Experiment** (Highly recommended)
-   - Use the 5 AI coding patterns in a real task
-   - Try building something with AI assistance
-   - Get comfortable with your chosen AI tool
+# Set up your API key (if not done)
+echo "ANTHROPIC_API_KEY=your_key_here" > .env
 
----
-
-## 📚 Module 2 Preview: Prompt Engineering Fundamentals 🔮
-
-**This is your first Heureka Moment!**
-
-Module 2 will teach you:
-- The art and science of prompt engineering
-- Prompt structure (system, user, assistant)
-- Few-shot learning techniques
-- Chain-of-thought prompting
-- Prompt templates and patterns
-- Security and edge cases
-
-**Why this is transformative**: You'll discover that **prompts are the new programming interface**. Mastering prompts = 10x your AI effectiveness!
-
-**Duration**: 5-6 hours
-**Prerequisites**: Module 1 (✅ Complete!)
-
----
-
-## 🗂️ Project Structure Reminder
-
-```
-neural-dojo/
-├── docs/
-│   ├── curriculum/
-│   │   ├── MASTER_CURRICULUM.md        # ← Progress tracking
-│   │   ├── START_HERE_TOMORROW.md      # ← You are here
-│   │   └── notes/
-│   │       ├── session_log.md          # ← Session history
-│   │       └── module_01_ai_driven_development.md  # ← Theory
-│   └── deliverables/                   # ← Your work goes here
-│       ├── module_01_ai_tools_comparison.md
-│       └── module_01_reflection.md
-├── examples/
-│   └── module_01/
-│       ├── patterns/                   # ← 5 pattern demos
-│       └── project/                    # ← pyanalyzer CLI
-└── venv/                               # ← Python 3.12 environment
+# Run the examples
+python examples/module_02/01_zero_vs_few_shot.py
+python examples/module_02/02_chain_of_thought.py
+python examples/module_02/03_role_prompting.py
+python examples/module_02/04_structured_outputs.py
+python examples/module_02/05_iterative_refinement.py
+python examples/module_02/06_prompt_library.py
+python examples/module_02/07_code_tasks.py
+python examples/module_02/08_prompt_injection.py
 ```
 
----
+**Note**: Examples use Claude API and will consume API credits. Each example uses ~$0.01-0.05.
 
-## 🔥 Momentum Tips
+### 3. Build Your Prompt Library
 
-### To Maintain Momentum:
+**This is the most valuable deliverable!**
 
-1. **Complete Module 1 deliverables** within 1-2 days while it's fresh
-2. **Practice the 5 patterns** in your daily work
-3. **Start Module 2 soon** to ride the learning wave
-4. **Apply to real projects** (kaizen, vibe, contrarian)
+Use `docs/deliverables/module_02_prompt_library.md` to:
+1. Create 10 reusable prompts for your common tasks
+2. Test each prompt with real examples
+3. Document what works and what doesn't
+4. Refine based on results
 
-### If Taking a Break:
+**Pro tip**: Use `examples/module_02/06_prompt_library.py` as inspiration!
 
-When you return:
-1. Re-read this file (START_HERE_TOMORROW.md)
-2. Review session log for context
-3. Review Module 1 theory document
-4. Complete deliverables if not done
-5. Then proceed to Module 2
+### 4. Security Analysis (Important!)
 
----
+Complete `docs/deliverables/module_02_security.md`:
+1. Analyze your projects (kaizen, vibe, contrarian)
+2. Identify where user input touches AI
+3. Test attack vectors
+4. Implement defenses
 
-## 💾 Session #2 Summary
-
-**Accomplished**:
-- Built complete Module 1 (8,000+ words theory, 5 pattern examples, main project)
-- All code tested and working in Python 3.12
-- Deliverable templates created
-- Progress tracking updated
-
-**Time Spent**: ~3 hours
-
-**Quality**: All examples follow jamesblonde standards (thorough, tested, documented, entertaining)
-
-**Next**: User completes Module 1 deliverables, then moves to Module 2 for the first Heureka Moment! 🔮
+**This matters**: Production AI systems WILL be attacked!
 
 ---
 
-## 🚨 Important Reminders
+## 💡 Key Insights from Module 2
 
-1. **All code is tested**: Every example runs successfully
-2. **Venv is ready**: `source venv/bin/activate` to use Python 3.12 environment
-3. **Deliverables are templates**: Fill them out based on YOUR experience
-4. **Quality over speed**: Better to master Module 1 than rush to Module 2
-5. **Apply learnings**: Try the patterns in kaizen, vibe, or contrarian
+### The Heureka Moment: Prompts Are Programs!
+
+**What you discovered**:
+- Prompts have syntax, structure, and patterns (like code)
+- Few-shot learning: 2-3 examples → 60% to 95% accuracy
+- Chain-of-thought: "Let's think step by step" → 20-40% better reasoning
+- Roles change everything: same question, different expert = different answer
+- Security matters: user input can hijack AI behavior
+
+### Practical Techniques
+
+1. **Zero-shot vs Few-shot**: Always try few-shot first for consistency
+2. **Chain-of-Thought**: Use for reasoning, debugging, decisions
+3. **Role Prompting**: Match role to task (teacher, engineer, critic)
+4. **Structured Outputs**: Request explicit formats (JSON, tables, CSV)
+5. **Iterative Refinement**: First prompt is always a draft
+6. **CRISP Framework**: Context, Role, Instructions, Structure, Parameters
+7. **Security**: Sanitize input, use delimiters, validate output
 
 ---
 
-## 📞 Questions to Ask Claude When You Return
+## 🚀 Module 3 Preview: AI-Powered Code Generation
 
-- "Show me the Module 1 deliverables I need to complete"
-- "Help me fill out the AI tools comparison for [tool name]"
-- "Let's start Module 2"
-- "Run gap analysis on what we've built so far"
+**Duration**: 4-5 hours
+**Prerequisites**: Modules 1-2 complete ✅
+
+You'll learn:
+- Generate code from natural language
+- Refactor existing code with AI
+- Debug with AI assistance
+- Write tests using AI
+
+**Deliverables**:
+- AI-generated Python package
+- Automated test suite (AI-written)
+- Refactored legacy codebase example
 
 ---
 
-**Last Session**: Session #2 - 2025-11-21
-**Status**: Module 1 complete, ready for Module 2
-**Feeling**: 🚀 Making excellent progress!
+## 📊 Progress Snapshot
 
-**See you tomorrow! 🥋🧠⚡**
+| Phase | Status | Progress |
+|-------|--------|----------|
+| Phase 1: AI-Native Development | 🟡 In Progress | 2/5 (40%) |
+| **Overall Curriculum** | **6% Complete** | **2/36 modules** |
+
+**What you've mastered**:
+- ✅ AI development landscape and mental models
+- ✅ 5 AI coding patterns
+- ✅ Prompt engineering fundamentals 🔮
+- ✅ Zero-shot, few-shot, CoT techniques
+- ✅ Structured outputs and role prompting
+- ✅ Prompt security and defenses
+
+**What's next**:
+- 💻 AI-Powered Code Generation (Module 3)
+- 🐛 AI-Assisted Debugging (Module 4)
+- 🔧 Building with AI Tools (Module 5)
+
+---
+
+## 🔥 Pro Tips from Module 2
+
+1. **Build your prompt library NOW**: You'll use it daily
+2. **Start with few-shot**: Skip zero-shot for important tasks
+3. **Use CoT for complex tasks**: Reasoning improves with "thinking out loud"
+4. **Test security**: Try to break your own prompts
+5. **Iterate, iterate, iterate**: First prompt never perfect
+6. **Save successful prompts**: Build a personal collection
+7. **Share with team**: Effective prompts = competitive advantage
+
+---
+
+## 📝 Quick Reference
+
+### Module 2 Files
+
+**Theory**:
+- `docs/curriculum/notes/module_02_prompt_engineering.md` (9,000 words)
+
+**Examples**:
+- `examples/module_02/01_zero_vs_few_shot.py`
+- `examples/module_02/02_chain_of_thought.py`
+- `examples/module_02/03_role_prompting.py`
+- `examples/module_02/04_structured_outputs.py`
+- `examples/module_02/05_iterative_refinement.py`
+- `examples/module_02/06_prompt_library.py` ⭐ (reusable class!)
+- `examples/module_02/07_code_tasks.py`
+- `examples/module_02/08_prompt_injection.py`
+
+**Deliverables**:
+- `docs/deliverables/module_02_prompt_library.md` ⭐ (most valuable!)
+- `docs/deliverables/module_02_experiments.md`
+- `docs/deliverables/module_02_security.md`
+
+---
+
+## ⏭️ Tomorrow's Goals
+
+1. ✅ Complete Module 1 & 2 deliverables (3-4 hours)
+2. ✅ Run all Module 2 examples
+3. ✅ Build personal prompt library (start with 5 prompts)
+4. ✅ Security analysis on one project (kaizen or vibe)
+5. ✅ Read Module 3 theory (if time)
+
+**Total estimated time**: 4-6 hours
+
+---
+
+## 🆘 If You Get Stuck
+
+- **API errors?** Check `.env` file has valid `ANTHROPIC_API_KEY`
+- **Rate limits?** Claude has limits - pace your requests
+- **Prompts not working?** Try examples first, then customize
+- **Security confusing?** Start with `08_prompt_injection.py` example
+- **Need help?** Ask Claude Code! (You have an AI assistant!)
+
+---
+
+## 🎯 The Big Picture
+
+You're 40% through Phase 1!
+
+**Phase 1 Progress** (AI-Native Development):
+- ✅ Module 1: AI-Driven Development
+- ✅ Module 2: Prompt Engineering 🔮
+- ⚪ Module 3: Code Generation
+- ⚪ Module 4: Debugging & Optimization
+- ⚪ Module 5: AI Coding Assistants
+
+After Phase 1, you'll move to Phase 2 (Generative AI Fundamentals) to understand how LLMs actually work under the hood.
+
+**End goal**: Be fluent with using and building AI systems!
+
+---
+
+## 💾 Files Created This Session
+
+**Module 2 Complete**:
+- 1 theory document (9,000+ words)
+- 8 code examples (fully working, tested with Claude API)
+- 3 deliverable templates (comprehensive)
+- 1 README (examples overview)
+- 1 requirements.txt (anthropic, python-dotenv, rich)
+
+**Total**: 14 new files, ~15,000 lines of code + documentation
+
+---
+
+**Remember**: Prompt engineering is the foundation. The time you invest now in building your prompt library will pay dividends every single day.
+
+**Let's go! 🥋🧠⚡**

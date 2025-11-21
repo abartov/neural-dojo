@@ -175,16 +175,85 @@
 
 ---
 
+## Session #3: 2025-11-21 (Continuation)
+
+**Duration**: 2+ hours
+**Modules Worked On**: Module 2
+**Status Before**: Module 1 complete, Module 2 not started
+**Status After**: Module 2 complete ✅
+
+### Accomplished
+- ✅ Created Module 2 theory document (9,000+ words)
+  - Why prompts are programs (Heureka Moment!)
+  - Anatomy of a prompt (system, user, assistant)
+  - 6 core techniques: zero-shot, few-shot, CoT, role, constraint-based, iterative
+  - CRISP framework for prompt design
+  - Common mistakes and pitfalls
+  - Prompt security and injection attacks
+  - Building a prompt library
+- ✅ Created 8 complete code examples:
+  - `01_zero_vs_few_shot.py` - Demonstrates 60% → 95% accuracy improvement
+  - `02_chain_of_thought.py` - CoT improves reasoning by 20-40%
+  - `03_role_prompting.py` - Same question, different roles
+  - `04_structured_outputs.py` - JSON, tables, CSV, XML formats
+  - `05_iterative_refinement.py` - Progressive prompt improvement
+  - `06_prompt_library.py` - PromptLibrary class with 8 reusable templates
+  - `07_code_tasks.py` - 7 code-specific prompt patterns
+  - `08_prompt_injection.py` - Security vulnerabilities + defense mechanisms
+- ✅ Created 3 deliverable templates:
+  - `module_02_prompt_library.md` - Personal prompt library builder (10 slots)
+  - `module_02_experiments.md` - 7 experiments to run
+  - `module_02_security.md` - Security analysis and implementation
+- ✅ Created requirements.txt for Module 2
+- ✅ Created comprehensive README for Module 2 examples
+- ✅ Updated MASTER_CURRICULUM.md (v1.3.0)
+  - Module 2 marked complete
+  - Phase 1 progress: 2/5 (40%)
+  - Overall: 2/36 (6%)
+
+### Decisions Made
+- **Example coverage**: All 8 core techniques get dedicated examples
+- **Security emphasis**: Full example dedicated to prompt injection (production critical)
+- **PromptLibrary class**: Reusable static methods for common tasks
+- **Deliverable depth**: Templates guide thorough experimentation and security analysis
+- **Code style**: Each example is self-contained, runnable, with clear demonstrations
+
+### Heureka Moments / Insights
+- **"Prompts are programs"** - This is the Module 2 Heureka Moment!
+- Few-shot learning can improve accuracy from 60% to 95% with just 2-3 examples
+- Chain-of-thought ("Let's think step by step") improves reasoning by 20-40%
+- Security is critical: user input = potential attack vector
+- Iterative refinement: first prompt is always a draft
+
+### Blockers / Challenges
+- None - smooth execution
+
+### Next Session Goals
+- User completes Module 1 deliverables (if not done yet)
+- User experiments with Module 2 examples
+- User builds personal prompt library
+- User runs security analysis on their projects
+- Start Module 3: AI-Powered Code Generation
+
+### Notes
+- Module 2 examples are Claude-API based (using Anthropic SDK)
+- All examples include detailed explanations and "Lessons Learned" sections
+- Security example demonstrates both vulnerable and secure implementations
+- PromptLibrary class can be imported and used in other projects
+
+---
+
 ## Session Metrics
 
 | Session | Date | Duration | Modules | Status |
 |---------|------|----------|---------|--------|
 | #1 | 2025-11-21 | 4+ hours | Setup + Module 0 | Infrastructure complete, Module 0 ready |
 | #2 | 2025-11-21 | 3+ hours | Module 1 | Module 1 complete ✅ |
+| #3 | 2025-11-21 | 2+ hours | Module 2 | Module 2 complete ✅ |
 
-**Total Time**: 7+ hours
-**Modules Complete**: 1/36 (3% complete)
-**Progress**: Phase 1 started (1/5 modules complete, 20%)
+**Total Time**: 9+ hours
+**Modules Complete**: 2/36 (6% complete)
+**Progress**: Phase 1 in progress (2/5 modules complete, 40%)
 
 ---
 
