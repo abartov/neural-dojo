@@ -1,0 +1,8 @@
+# Python File Analyzer Dependencies
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Note: pyanalyzer.py uses only standard library (ast, argparse, json, pathlib)
+# No additional runtime dependencies required!

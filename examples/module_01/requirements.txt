@@ -1,0 +1,10 @@
+# Module 1: AI-Driven Development
+# Examples and project dependencies
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# CLI and formatting
+rich>=13.7.0  # For pretty terminal output
+click>=8.1.7  # Alternative CLI framework (optional)
