@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neural-dojo"
+version = "0.1.0"
+description = "From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Private"}
+authors = [
+    {name = "Krisztian Koos", email = "krisztiankoos@users.noreply.github.com"}
+]
+keywords = [
+    "ai",
+    "ml",
+    "llm",
+    "machine-learning",
+    "deep-learning",
+    "pytorch",
+    "langchain",
+    "rag",
+    "ai-development",
+    "curriculum"
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# Dependencies will be added progressively through modules
+dependencies = [
+    # Phase 1: AI-Native Development (Modules 1-5)
+    # Will add: openai, anthropic, etc.
+
+    # Phase 2: Generative AI Fundamentals (Modules 6-10)
+    # Will add: transformers, sentence-transformers, etc.
+
+    # Phase 3: Building with AI Toolkits (Modules 11-18)
+    # Will add: langchain, qdrant-client, etc.
+
+    # Phase 4: Deep Learning Foundations (Modules 19-25)
+    # Will add: torch, numpy, pandas, matplotlib, etc.
+
+    # Phase 5: Advanced Generative AI (Modules 26-29)
+    # Will add: diffusers, peft, etc.
+
+    # Phase 6: Production ML Systems (Modules 30-32)
+    # Will add: mlflow, fastapi, etc.
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/krisztiankoos/neural-dojo"
+Repository = "https://github.com/krisztiankoos/neural-dojo"
+Issues = "https://github.com/krisztiankoos/neural-dojo/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=src/neural_dojo --cov-report=term-missing --cov-report=html"

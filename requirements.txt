@@ -1,0 +1,62 @@
+# Neural Dojo Requirements
+# Dependencies will be added progressively through modules
+
+# Development tools (start with these)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.7.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.5.0
+
+# Phase 1: AI-Native Development (Modules 1-5)
+# To be added in Module 1-5:
+# - openai
+# - anthropic
+# - python-dotenv
+
+# Phase 2: Generative AI Fundamentals (Modules 6-10)
+# To be added in Modules 6-10:
+# - transformers
+# - sentence-transformers
+# - tiktoken
+
+# Phase 3: Building with AI Toolkits (Modules 11-18)
+# To be added in Modules 11-18:
+# - langchain
+# - langchain-anthropic
+# - langgraph
+# - qdrant-client
+# - llama-index
+
+# Phase 4: Deep Learning Foundations (Modules 19-25)
+# To be added in Modules 19-25:
+# - torch
+# - torchvision
+# - numpy
+# - pandas
+# - matplotlib
+# - seaborn
+# - scikit-learn
+
+# Phase 5: Advanced Generative AI (Modules 26-29)
+# To be added in Modules 26-29:
+# - diffusers
+# - peft
+# - accelerate
+# - bitsandbytes
+
+# Phase 6: Production ML Systems (Modules 30-32)
+# To be added in Modules 30-32:
+# - mlflow
+# - fastapi
+# - uvicorn
+# - pydantic
+
+# Phase 7: AI for Infrastructure (Modules 33-34)
+# To be added in Modules 33-34:
+# - prophet (time series)
+# - scikit-learn (anomaly detection)
+
+# Note: Dependencies will be uncommented and added as we progress through modules
+# This progressive approach keeps the environment clean and focused
