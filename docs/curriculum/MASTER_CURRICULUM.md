@@ -3,8 +3,8 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-21
-**Version**: 1.7.0
-**Status**: Phase 2 In Progress (Modules 6-8 Complete)
+**Version**: 1.8.0
+**Status**: Phase 2 Complete! 🎉 Ready for Phase 3
 **Total Duration**: 36 modules, 35-40 weeks (142-203 hours)
 
 ---
@@ -51,14 +51,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 |-------|---------|--------|------------|
 | Module 0: Prerequisites | 0 | ⚪ Not Started | 0/1 |
 | Phase 1: AI-Native Development | 1-5 | 🟢 Complete | 5/5 (100%) |
-| Phase 2: Generative AI Fundamentals | 6-10 | 🟡 In Progress | 3/5 (60%) |
+| Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
 | Phase 5: Advanced Generative AI | 26-29 | ⚪ Not Started | 0/4 |
 | Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35 | ⚪ Not Started | 0/1 |
-| **TOTAL** | **36 modules** | **22% Complete** | **8/36** |
+| **TOTAL** | **36 modules** | **28% Complete** | **10/36** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -396,52 +396,59 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ---
 
 ### Module 9: Embeddings & Semantic Similarity
-- **Duration**: 5-6 hours
-- **Prerequisites**: Modules 6-8
-- **Status**: ⚪ Not Started
-
-**Learning Objectives**:
-- Understand what embeddings are
-- Learn about embedding models (BERT, sentence-transformers)
-- Calculate semantic similarity
-- Visualize embedding spaces
+- **Duration**: 2-3 hours
+- **Prerequisites**: Module 6 (LLMs), Module 8 (Text Generation)
+- **Status**: 🟢 Complete
 
 **Deliverables**:
-- Embedding visualization tool
-- Semantic search prototype
-- Embedding model comparison
+- ✅ Embedding generation examples (OpenAI, Sentence Transformers)
+- ✅ Semantic similarity calculator
+- ✅ Practical applications (search, clustering, recommendations, classification)
 
 **Key Concepts**:
-- Word embeddings vs sentence embeddings
-- Cosine similarity
-- Embedding dimensions
-- Embedding model selection
+- Embeddings as dense vectors representing meaning
+- Cosine similarity vs Euclidean distance
+- Dense vs sparse embeddings (neural vs TF-IDF)
+- Embedding model comparison (OpenAI, Sentence-BERT)
+- Applications: semantic search, clustering, recommendations, zero-shot classification, duplicate detection
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_09_embeddings.md` (~8,000 words)
+- Example 1: `examples/module_09/01_embedding_basics.py` (embedding generation, similarity)
+- Example 2: `examples/module_09/02_semantic_applications.py` (5 practical applications)
+- Deliverable: `docs/deliverables/module_09_embeddings_analysis.md` (implementation guide)
+- Supporting: `examples/module_09/README.md` and `requirements.txt`
 
 ---
 
 ### Module 10: Vector Spaces & Semantic Search 🔮
-- **Duration**: 5-6 hours
-- **Prerequisites**: Module 9
-- **Status**: ⚪ Not Started
-
-**Learning Objectives**:
-- Master vector space concepts
-- Implement semantic search from scratch
-- Understand approximate nearest neighbor (ANN)
-- Learn about vector indexing
+- **Duration**: 2-3 hours
+- **Prerequisites**: Module 9 (Embeddings)
+- **Status**: 🟢 Complete
 
 **Deliverables**:
-- Semantic search engine
-- Vector space visualization
-- ANN algorithm comparison
+- ✅ Vector arithmetic demonstrations (king - man + woman ≈ queen)
+- ✅ 2D/3D visualizations of semantic space
+- ✅ Production semantic search with FAISS (100-1000x speedup)
+- ✅ Hybrid search (semantic + metadata)
 
 **Key Concepts**:
-- Vector spaces as semantic coordinates
-- Nearest neighbor search
-- HNSW, IVF, LSH algorithms
-- Vector quantization
+- 🔮 **Heureka Moment**: Math works on meaning! Vector arithmetic transforms concepts
+- Semantic space as geometry (distance = similarity, direction = relationships)
+- Vector arithmetic: `king - man + woman ≈ queen`, `Paris - France + Italy ≈ Rome`
+- ANN algorithms: HNSW, IVF, LSH (O(log N) vs O(N))
+- Production optimization: batching, quantization, dimensionality reduction
+- Vector databases: FAISS, Qdrant, Pinecone, Weaviate
 
-**💡 Heureka Moment**: Embeddings create a semantic coordinate system where "meaning" has geometry!
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_10_vector_spaces.md` (~10,000 words, 🔮 Heureka!)
+- Example 1: `examples/module_10/01_vector_arithmetic.py` (vector math + visualizations)
+- Example 2: `examples/module_10/02_production_search.py` (FAISS, performance benchmarking)
+- Deliverable: `docs/deliverables/module_10_production_search.md` (build production search)
+- Supporting: `examples/module_10/README.md` and `requirements.txt`
+- Visualizations: `semantic_space_2d.png`, `topic_clusters.png`
+
+**💡 Heureka Moment Achieved**: Embeddings create semantic space where mathematical operations correspond to meaning transformations!
 
 ---
 
