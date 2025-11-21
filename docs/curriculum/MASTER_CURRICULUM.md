@@ -3,9 +3,9 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-21
-**Version**: 1.8.0
-**Status**: Phase 2 Complete! 🎉 Ready for Phase 3
-**Total Duration**: 36 modules, 35-40 weeks (142-203 hours)
+**Version**: 1.9.0
+**Status**: Module 0 + Phase 2 Complete! 🎉 Ready for Phase 3
+**Total Duration**: 37 modules (including Module 0), 35-40 weeks (144-206 hours)
 
 ---
 
@@ -49,7 +49,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 | Phase | Modules | Status | Completion |
 |-------|---------|--------|------------|
-| Module 0: Prerequisites | 0 | ⚪ Not Started | 0/1 |
+| Module 0: Prerequisites | 0 | 🟢 Complete | 1/1 (100%) |
 | Phase 1: AI-Native Development | 1-5 | 🟢 Complete | 5/5 (100%) |
 | Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
@@ -58,7 +58,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35 | ⚪ Not Started | 0/1 |
-| **TOTAL** | **36 modules** | **28% Complete** | **10/36** |
+| **TOTAL** | **37 modules** | **30% Complete** | **11/37** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -75,7 +75,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 0: Prerequisites & Environment Setup
 - **Duration**: 2-3 hours
 - **Prerequisites**: None - this is where you start!
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Verify you have the required prerequisites (Python 3.10+, command line basics)
@@ -85,11 +85,11 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Verify everything works before diving into Module 1
 
 **Deliverables**:
-- Python 3.10+ environment verified
-- Virtual environment created and activated
-- `.env` file with API key(s) configured
-- All test scripts passing (test_environment.py, test_claude_api.py)
-- Development tools ready (text editor/IDE)
+- ✅ Python 3.10+ environment verified
+- ✅ Virtual environment created and activated
+- ✅ `.env` file with API key(s) configured
+- ✅ All test scripts passing (test_environment.py, test_claude_api.py)
+- ✅ Development tools ready (text editor/IDE)
 
 **Key Concepts**:
 - Virtual environments for Python
@@ -97,9 +97,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Testing API connections
 - Basic Python package management
 
-**Files**:
-- Theory: `docs/curriculum/notes/module_00_prerequisites.md`
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_00_prerequisites.md` (~600 lines, comprehensive setup guide)
 - Examples: `examples/module_00/`
+  - `test_environment.py` (Python version, venv, dependencies check)
+  - `test_claude_api.py` (Claude API connection test)
+  - `test_openai_api.py` (OpenAI API connection test - optional)
+  - `README.md` (Module overview and instructions)
+  - `requirements.txt` (anthropic, openai, python-dotenv, dev tools)
 
 ---
 

@@ -1,0 +1,16 @@
+# Module 0: Prerequisites & Environment Setup
+# Required packages for testing your development environment
+
+# API clients
+anthropic>=0.25.0         # Anthropic Claude API client
+openai>=1.10.0            # OpenAI API client
+
+# Environment management
+python-dotenv>=1.0.0      # Load environment variables from .env file
+
+# Development tools (optional but recommended)
+pytest>=7.4.0             # Testing framework
+black>=23.0.0             # Code formatter
+isort>=5.12.0             # Import sorter
+flake8>=6.1.0             # Linter
+mypy>=1.7.0               # Type checker
