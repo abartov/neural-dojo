@@ -345,6 +345,98 @@
 
 ---
 
+## Session #5: 2025-11-21 (Continuation)
+
+**Duration**: 2+ hours
+**Modules Worked On**: Modules 6, 7
+**Status Before**: Phase 1 complete (5/5), Phase 2 not started
+**Status After**: Phase 2 in progress - Module 6 complete ✅, Module 7 theory complete 🟡
+
+### Accomplished
+- ✅ **Module 6: Introduction to Large Language Models** - Complete
+  - Theory document (~8,000 words)
+    - Transformer architecture: attention mechanism, encoder vs decoder
+    - LLM landscape: GPT-4, Claude 3.5, Gemini, Llama 3, Mistral
+    - Model sizes and capabilities: parameter counts, scaling laws
+    - Pre-training vs fine-tuning vs RAG decision matrix
+    - Context windows: 4K → 200K → 1M tokens
+    - API integration with Claude and OpenAI
+    - Cost analysis and privacy considerations
+  - Code example: `01_model_comparison.py` (343 lines)
+    - API integration demo with Claude
+    - Latency measurement and token counting
+    - Testing across capability types (factual, reasoning, code, long context)
+    - System prompts and temperature control
+  - Deliverable: `module_06_llm_analysis.md` (comprehensive analysis template)
+    - Model comparison matrices (proprietary + open-source)
+    - Hands-on API testing scenarios (4 tests)
+    - Model selection for use cases
+    - Cost analysis for kaizen/vibe/contrarian projects
+    - Fine-tuning vs RAG decisions
+    - Privacy/security audit
+  - Supporting files: README.md, requirements.txt
+
+- ✅ **Module 7: Tokenization & Text Processing** - Theory Complete
+  - Theory document (~6,000 words)
+    - What tokens are: not words, not characters, but subwords
+    - BPE (Byte-Pair Encoding): step-by-step algorithm explanation
+    - WordPiece and SentencePiece algorithms
+    - Token counting examples: text, code, multilingual
+    - Token math for API costs and context windows
+    - 6 token optimization strategies
+    - Token counter tools (tiktoken, Anthropic API)
+    - Multilingual tokenization challenges
+    - 5 common gotchas (whitespace, capitalization, numbers, code, emoji)
+    - Real-world applications (RAG, conversations, cost optimization)
+  - Examples: **Pending** (to be created next session)
+  - Deliverable: **Pending** (token optimization analysis template)
+  - Supporting files: **Pending**
+
+- ✅ Updated MASTER_CURRICULUM.md (v1.5.0)
+  - Module 6 marked 🟢 Complete with files created list
+  - Module 7 marked 🟡 In Progress (theory complete, examples pending)
+  - Phase 2 progress: 1/5 (20%)
+  - Overall progress: 6/36 (17%)
+  - Updated version info and next session goals
+
+### Decisions Made
+- **Phase 2 scope**: Build Modules 6-10 incrementally across multiple sessions (not all at once)
+- **Module 6 focus**: Comprehensive LLM landscape + hands-on API integration
+- **Module 7 split**: Complete theory first, examples/deliverables next session
+- **Token optimization emphasis**: Critical for cost management and RAG systems
+- **Quality maintained**: Same jamesblonde standards (thorough theory, working code, comprehensive deliverables)
+
+### Heureka Moments / Insights
+- **Context windows**: Understanding 4K vs 200K vs 1M tokens changes system architecture
+- **Token economics**: Code uses 3-4x more tokens than prose (critical for cost planning)
+- **Pre-training vs Fine-tuning vs RAG**: Different problems, different solutions
+- **Tokenization isn't simple**: Space matters, capitalization matters, emoji are expensive!
+- **BPE algorithm**: Elegant solution to vocabulary problem (balance between characters and words)
+
+### Blockers / Challenges
+- None - smooth execution through Module 6 and Module 7 theory
+- User requested save/commit after Module 7 theory (before examples) to manage session scope
+
+### Next Session Goals
+- Complete Module 7 remaining work:
+  - Create code examples (token counter, optimization demos)
+  - Create deliverable template (token optimization analysis)
+  - Create supporting files (README.md, requirements.txt)
+  - Mark Module 7 as 🟢 Complete
+- Start Module 8: Text Generation & Sampling Strategies
+- Start Module 9: Embeddings & Semantic Similarity
+- Continue building Phase 2 (target: complete Modules 8-10)
+
+### Notes
+- Module 6 API example uses Claude Sonnet 4.5 (claude-sonnet-4-5-20250929)
+- Deliverable templates connect to user's real projects (kaizen, vibe, contrarian)
+- Token optimization is critical skill for production AI systems
+- BPE algorithm explained step-by-step (character → merge frequent pairs → vocabulary)
+- Module 7 theory covers all major tokenizers: BPE (GPT), WordPiece (BERT), SentencePiece (Llama)
+- Next modules will cover: text generation, embeddings, vector spaces (foundation for RAG)
+
+---
+
 ## Session Metrics
 
 | Session | Date | Duration | Modules | Status |
@@ -353,11 +445,12 @@
 | #2 | 2025-11-21 | 3+ hours | Module 1 | Module 1 complete ✅ |
 | #3 | 2025-11-21 | 2+ hours | Module 2 | Module 2 complete ✅ |
 | #4 | 2025-11-21 | 3+ hours | Modules 3, 4, 5 | Phase 1 complete! ✅ 🎉 |
+| #5 | 2025-11-21 | 2+ hours | Modules 6, 7 | Module 6 complete ✅, Module 7 theory complete 🟡 |
 
-**Total Time**: 12+ hours
-**Modules Complete**: 5/36 (14% complete)
-**Progress**: Phase 1 complete! (5/5 modules, 100%) 🎉
-**Next Phase**: Phase 2 - Generative AI Fundamentals (Modules 6-10)
+**Total Time**: 14+ hours
+**Modules Complete**: 6/36 (17% complete)
+**Progress**: Phase 1 complete (5/5), Phase 2 in progress (1/5, 20%)
+**Next Phase**: Continue Phase 2 - Complete Module 7, build Modules 8-10
 
 ---
 

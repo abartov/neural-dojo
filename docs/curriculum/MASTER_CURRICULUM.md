@@ -51,14 +51,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 |-------|---------|--------|------------|
 | Module 0: Prerequisites | 0 | ⚪ Not Started | 0/1 |
 | Phase 1: AI-Native Development | 1-5 | 🟢 Complete | 5/5 (100%) |
-| Phase 2: Generative AI Fundamentals | 6-10 | ⚪ Not Started | 0/5 |
+| Phase 2: Generative AI Fundamentals | 6-10 | 🟡 In Progress | 1/5 (20%) |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
 | Phase 5: Advanced Generative AI | 26-29 | ⚪ Not Started | 0/4 |
 | Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35 | ⚪ Not Started | 0/1 |
-| **TOTAL** | **36 modules** | **14% Complete** | **5/36** |
+| **TOTAL** | **36 modules** | **17% Complete** | **6/36** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -286,48 +286,71 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 6: Introduction to Large Language Models
 - **Duration**: 5-6 hours
 - **Prerequisites**: Phase 1 complete
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand transformer architecture at a high level
 - Learn about GPT, Claude, Llama, and other LLMs
 - Understand model sizes and capabilities
 - Compare open-source vs proprietary models
+- Make your first direct API integration
+- Choose the right model for your use case
 
 **Deliverables**:
-- LLM landscape analysis document
-- Model comparison matrix
-- Your first API integration (Claude/OpenAI)
+- ✅ LLM landscape analysis template
+- ✅ Model comparison and API integration examples
+- ✅ Cost and privacy analysis
 
 **Key Concepts**:
-- Transformer basics
-- Pre-training vs fine-tuning
-- Context windows
-- Model families (GPT, Llama, Claude)
+- Transformer architecture (attention mechanism, encoder/decoder)
+- LLM landscape (GPT-4, Claude 3.5, Gemini, Llama 3, Mistral)
+- Pre-training vs fine-tuning vs RAG
+- Context windows (4K to 200K to 1M tokens)
+- Model families and their strengths
+- API integration with Claude/OpenAI
+- Cost considerations and optimization
+- Privacy and security trade-offs
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_06_intro_to_llms.md` (~8,000 words)
+- Example: `examples/module_06/01_model_comparison.py` (API integration demo)
+- Deliverable: `docs/deliverables/module_06_llm_analysis.md` (comprehensive analysis template)
+- `examples/module_06/README.md` and `requirements.txt`
 
 ---
 
 ### Module 7: Tokenization & Text Processing
 - **Duration**: 4-5 hours
 - **Prerequisites**: Module 6
-- **Status**: ⚪ Not Started
+- **Status**: 🟡 In Progress (Theory complete, examples pending)
 
 **Learning Objectives**:
 - Understand how text becomes tokens
 - Learn about different tokenizers (BPE, WordPiece, SentencePiece)
 - Master token counting and optimization
-- Handle multilingual text
+- Understand why token limits matter for costs and performance
+- Handle multilingual text tokenization
+- Optimize prompts for token efficiency
 
 **Deliverables**:
-- Tokenization analysis tool
-- Token optimization examples
-- Multilingual tokenization comparison
+- ⏳ Tokenization analysis tool (pending)
+- ⏳ Token optimization examples (pending)
+- ⏳ Multilingual tokenization comparison (pending)
 
 **Key Concepts**:
-- Byte-pair encoding (BPE)
-- Token limits and costs
-- Subword tokenization
-- Special tokens
+- Tokens ≠ words: Subword tokenization
+- BPE, WordPiece, SentencePiece algorithms
+- Token counting for cost optimization
+- Code uses 3-4x more tokens than prose
+- Multilingual tokenization challenges
+- Token optimization strategies
+- RAG and conversation token management
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_07_tokenization.md` (~6,000 words)
+- Examples: **Pending** (token counter, optimization demos)
+- Deliverable: **Pending** (token optimization analysis template)
+- Supporting files: **Pending** (README.md, requirements.txt)
 
 ---
 
@@ -1158,8 +1181,8 @@ By the end of Neural Dojo, you will:
 ---
 
 _Last updated: 2025-11-21_
-_Version: 1.4.0 - Phase 1 Complete! All 5 modules done (AI-Native Development)_
-_Next session: Start Phase 2, Module 6 - Introduction to Large Language Models_
+_Version: 1.5.0 - Phase 2 In Progress! Modules 6-7 underway_
+_Next session: Complete Module 7 examples, continue with Modules 8-10_
 
 **🎉 Phase 1 Achievement Unlocked! 🎉**
 You've mastered AI-Native Development:
@@ -1169,4 +1192,7 @@ You've mastered AI-Native Development:
 - ✅ AI-assisted debugging and optimization
 - ✅ AI coding assistants (Claude Code, Copilot, Cursor)
 
-**Ready for Phase 2**: Now you'll learn how LLMs and generative AI actually work under the hood!
+**Phase 2 Progress** (Generative AI Fundamentals):
+- ✅ Module 6: Introduction to Large Language Models - **Complete!**
+- 🟡 Module 7: Tokenization & Text Processing - **Theory Complete, Examples Pending**
+- ⏳ Modules 8-10: Coming up next!

@@ -1,403 +1,523 @@
 # 🌅 Start Here Tomorrow
 
-**Last Updated**: 2025-11-21 (Session #4)
-**Current Status**: Phase 1 Complete! ✅ 🎉
-**Next Module**: Module 6 - Introduction to Large Language Models
-**Progress**: 5/36 modules complete (14%)
+**Last Updated**: 2025-11-21 (Session #5)
+**Current Status**: Phase 2 In Progress 🟡
+**Next Module**: Module 7 completion + Modules 8-10
+**Progress**: 6/36 modules complete (17%)
 
 ---
 
-## 🎉 PHASE 1 COMPLETE! 🎉
+## 📍 Where You Are
 
-**Congratulations!** You've completed all 5 modules of **Phase 1: AI-Native Development**!
+**Session #5 Just Completed!**
 
-**Session #4 Accomplishments**:
-- ✅ Module 3: AI-Powered Code Generation (theory + examples + deliverable)
-- ✅ Module 4: AI-Assisted Debugging & Optimization (theory + deliverable)
-- ✅ Module 5: Building with AI Coding Assistants (theory + deliverable)
-- ✅ Updated MASTER_CURRICULUM.md to v1.4.0
-- ✅ Phase 1: 5/5 modules (100%)
-- ✅ Overall: 5/36 (14% of entire curriculum)
+You've made excellent progress on Phase 2: Generative AI Fundamentals.
 
-**Phase 1 Mastery**:
-- ✅ Module 1: AI development patterns and mental models
-- ✅ Module 2: Prompt engineering fundamentals (Heureka Moment! 🔮)
-- ✅ Module 3: AI-powered code generation
-- ✅ Module 4: AI-assisted debugging and optimization
-- ✅ Module 5: AI coding assistants mastery
+**What's Done**:
+- ✅ **Module 6: Introduction to Large Language Models** - COMPLETE!
+  - ~8,000 word theory document
+  - API integration code example (343 lines)
+  - Comprehensive deliverable template
+- ✅ **Module 7: Tokenization & Text Processing** - Theory Complete
+  - ~6,000 word theory document
+  - Examples and deliverables pending
 
----
-
-## 🎯 What You've Accomplished
-
-### From Zero to AI-Native Developer
-
-You started knowing how to code. Now you know how to code **with AI as your partner**.
-
-**Concrete Skills Acquired**:
-1. **AI Development Patterns**: 5 patterns (specification, iteration, example, explanation, debugging)
-2. **Prompt Engineering**: Zero-shot, few-shot, CoT, role prompting, structured outputs, iterative refinement
-3. **Code Generation**: Specification-driven generation, test-driven generation, context management
-4. **AI Debugging**: 4-step workflow, bug categorization (⭐ ratings), performance optimization
-5. **AI Tools Mastery**: Claude Code, GitHub Copilot, Cursor IDE - when to use each
-
-**Theory Consumed**: ~25,000 words across 5 comprehensive modules
-**Code Examples**: 10+ working demonstrations
-**Deliverable Templates**: 6 comprehensive templates to guide practice
+**Current State**:
+- Phase 1: 🟢 Complete (5/5 modules, 100%)
+- Phase 2: 🟡 In Progress (1/5 modules complete, 20%)
+- Overall: 6/36 modules (17% of curriculum)
 
 ---
 
-## 📋 What's Next (Your Action Items)
+## 🎯 Session #5 Accomplishments
 
-### 1. Complete Phase 1 Deliverables ⭐ IMPORTANT!
+### Module 6: Introduction to Large Language Models ✅
 
-Theory without practice is incomplete. Complete these deliverables to solidify your learning:
+**Theory covered**:
+- Transformer architecture (attention mechanism, encoder vs decoder)
+- LLM landscape: GPT-4, Claude 3.5, Gemini, Llama 3, Mistral
+- Model sizes and capabilities: parameter counts (1B → 175B+), scaling laws
+- Pre-training vs fine-tuning vs RAG decision matrix
+- Context windows: 4K → 200K → 1M tokens
+- API integration with Claude and OpenAI
+- Cost analysis and privacy considerations
 
-**Module 1 Deliverables**:
-- `docs/deliverables/module_01_comparison.md` - AI tools comparison
-- `docs/deliverables/module_01_reflection.md` - Your reflection on AI-driven development
+**Code example**: `examples/module_06/01_model_comparison.py`
+- API integration demo with Claude Sonnet 4.5
+- Latency measurement and token counting
+- Testing across capability types (factual, reasoning, code, long context)
+- System prompts and temperature control
 
-**Module 2 Deliverables**:
-- `docs/deliverables/module_02_prompt_library.md` - Build your personal prompt library (10 prompts) ⭐
-- `docs/deliverables/module_02_experiments.md` - Run 7 experiments comparing techniques
-- `docs/deliverables/module_02_security.md` - Security analysis of your projects
+**Deliverable**: `docs/deliverables/module_06_llm_analysis.md`
+- Model comparison matrices (proprietary + open-source)
+- Hands-on API testing scenarios (4 tests)
+- Model selection for use cases
+- Cost analysis for kaizen/vibe/contrarian projects
+- Fine-tuning vs RAG decisions
+- Privacy/security audit
 
-**Module 3 Deliverables**:
-- `docs/deliverables/module_03_generated_package.md` - Build complete Python package with AI
+### Module 7: Tokenization & Text Processing 🟡
 
-**Module 4 Deliverables**:
-- `docs/deliverables/module_04_debugging_log.md` - Document 5+ debugging sessions with AI
+**Theory covered** (~6,000 words):
+- What tokens are: not words, not characters, but subwords
+- BPE (Byte-Pair Encoding): step-by-step algorithm explanation
+- WordPiece and SentencePiece algorithms
+- Token counting examples: text, code, multilingual
+- Token math for API costs and context windows
+- 6 token optimization strategies
+- Token counter tools (tiktoken, Anthropic API)
+- Multilingual tokenization challenges
+- 5 common gotchas (whitespace, capitalization, numbers, code, emoji)
+- Real-world applications (RAG, conversations, cost optimization)
 
-**Module 5 Deliverables**:
-- `docs/deliverables/module_05_ai_workflow.md` - Design and document your personal AI workflow
-
-**Time estimate**: 8-12 hours total (spread over multiple sessions)
-
-**Priority order**:
-1. Module 2 prompt library (most valuable!)
-2. Module 5 AI workflow (defines your daily practice)
-3. Module 4 debugging log (learn by doing)
-4. Module 3 generated package (hands-on code generation)
-5. Module 1 reflection + comparison
-6. Module 2 experiments + security
-
----
-
-### 2. Apply to Your Real Projects
-
-**Use your new skills on**:
-- **kaizen** (Lean DevOps Platform)
-  - Optimize prompts for RAG queries
-  - Debug agent workflows with AI
-  - Generate tests for new features
-
-- **vibe** (Teaching Platform)
-  - Generate content with better prompts
-  - Use AI to debug issues faster
-  - Build features with AI assistance
-
-- **contrarian** (Stock Analysis)
-  - Improve analysis prompts
-  - Generate data processing code
-  - Debug algorithms with AI
-
-- **Work** (Geospatial + Cloud)
-  - Use AI for infrastructure code
-  - Debug complex systems faster
-  - Generate monitoring scripts
+**Still pending**:
+- Code examples (token counter, optimization demos)
+- Deliverable template (token optimization analysis)
+- Supporting files (README.md, requirements.txt)
 
 ---
 
-### 3. Reflect on Your Journey
+## 🔑 Key Insights from Session #5
 
-**Answer these questions** (can add to Module 1 reflection):
+### Context Windows Change Everything
+Understanding the difference between 4K, 200K, and 1M token context windows fundamentally changes how you architect AI systems:
+- 4K: Careful context management, summarization required
+- 200K: Entire codebases, long conversations, extensive RAG context
+- 1M: Novel-length documents, comprehensive system analysis
 
-1. **How has your development workflow changed?**
-   - Before Neural Dojo: [?]
-   - After Phase 1: [?]
+### Token Economics Are Critical
+- Code uses **3-4x more tokens** than English prose (same character count)
+- API costs scale with tokens: GPT-4 at $0.03-0.06 per 1K tokens
+- At 1M requests/month, even small prompt optimizations = thousands in savings
 
-2. **What surprised you most?**
-   - About prompt engineering: [?]
-   - About code generation: [?]
-   - About debugging with AI: [?]
+### Pre-training vs Fine-tuning vs RAG
+Different problems require different solutions:
+- **Pre-training**: Foundational knowledge (done by model creators)
+- **Fine-tuning**: Change behavior/style, needs stable knowledge
+- **RAG**: Dynamic knowledge, cite sources, frequently updating info
 
-3. **What will you do differently now?**
-   - In your daily coding: [?]
-   - In your projects: [?]
-   - In your team: [?]
+### Tokenization Isn't Simple
+- "Hello world" = 2 tokens, "Helloworld" = 2 *different* tokens
+- "PYTHON" (all caps) = 2-3 tokens, "python" = 1 token
+- "😀" = 1-2 tokens, "🏴󠁧󠁢󠁳󠁣󠁴󠁿" (Scotland flag) = 7-8 tokens
+- Whitespace matters, capitalization matters, every character counts
 
-4. **Which technique/tool has the biggest impact?**
-   - [Your answer]
-
-5. **What's your biggest takeaway from Phase 1?**
-   - [Your answer]
-
----
-
-## 🚀 Phase 2 Preview: Generative AI Fundamentals
-
-**You've learned to USE AI. Now learn how AI WORKS.**
-
-Phase 2 shifts focus from **using AI tools** → **understanding AI systems**.
-
-**Modules 6-10** (5-6 hours each):
-- **Module 6**: Introduction to Large Language Models
-  - Transformer architecture
-  - Model families (GPT, Claude, Llama)
-  - Open-source vs proprietary
-  - Your first API integration
-
-- **Module 7**: Tokenization & Text Processing
-  - How text becomes tokens
-  - BPE, WordPiece, SentencePiece
-  - Token counting and optimization
-
-- **Module 8**: Text Generation & Sampling Strategies
-  - How LLMs generate text
-  - Temperature, top-p, top-k
-  - Controlling generation quality
-
-- **Module 9**: Embeddings & Semantic Similarity
-  - What embeddings are
-  - Semantic similarity
-  - Embedding models
-
-- **Module 10**: Vector Spaces & Semantic Search 🔮
-  - Vector space concepts
-  - Build semantic search from scratch
-  - **Heureka Moment**: Embeddings as semantic coordinates!
-
-**Phase 2 Duration**: 25-30 hours
-**Phase 2 Outcome**: Deep understanding of how LLMs work under the hood
+### BPE Algorithm Elegance
+Start with characters → iteratively merge most frequent pairs → balance between character-level and word-level tokenization. Simple, elegant, powerful.
 
 ---
 
-## 💡 Key Insights from Phase 1
+## 📋 Next Session Goals
 
-### Module 1: The Mental Model
-- **AI is a tool, not magic**: Like a super-intern with superpowers and limitations
-- **Human in the loop**: Always review, never trust blindly
-- **5 patterns**: Specification, iteration, example, explanation, debugging
+### Priority 1: Complete Module 7 ⭐
 
-### Module 2: Prompts Are Programs 🔮
-- **Few-shot learning**: 2-3 examples → 60% to 95% accuracy
-- **Chain-of-thought**: "Let's think step by step" → 20-40% better reasoning
-- **CRISP framework**: Context, Role, Instructions, Structure, Parameters
-- **Security matters**: User input = attack vector
+**Create code examples**:
+- Token counter demonstration (using tiktoken)
+- Token optimization examples (compare different prompt styles)
+- Multilingual tokenization comparison
+- RAG context management with token counting
 
-### Module 3: Quality of Spec = Quality of Code
-- **Specification-driven**: Clear requirements → quality generated code
-- **Iterative refinement**: First generation rarely perfect
-- **Test-driven**: Generate tests first or alongside code
-- **Security**: Always validate inputs, check for SQL injection/XSS
+**Create deliverable template**:
+- Token optimization analysis
+- Prompt analysis (before/after optimization)
+- Cost calculations for user's projects
 
-### Module 4: Not All Bugs Are Equal
-- **AI effectiveness ratings**: Syntax ⭐⭐⭐⭐⭐, Async ⭐⭐
-- **4-step workflow**: Gather context → investigate → verify → prevent
-- **Combine tools**: AI + profiling tools = powerful debugging
-- **When AI fails**: System-level issues, timing bugs, memory leaks
+**Create supporting files**:
+- `examples/module_07/README.md`
+- `examples/module_07/requirements.txt`
 
-### Module 5: The Right Tool for the Right Job
-- **Claude Code**: Architecture, complex reasoning, file operations
-- **GitHub Copilot**: Fast autocomplete, boilerplate, inline suggestions
-- **Cursor IDE**: Full IDE, codebase understanding, rapid prototyping
-- **Decision matrix**: Task type determines best tool
-- **Combine tools**: Use multiple tools for their strengths
+**Mark Module 7 as** 🟢 **Complete**
+
+---
+
+### Priority 2: Start Module 8 (Text Generation & Sampling)
+
+**Topics to cover**:
+- How LLMs generate text (autoregressive generation)
+- Temperature, top-p (nucleus sampling), top-k sampling
+- Controlling generation quality
+- Repetition penalties
+- When to use deterministic vs creative generation
+
+**Deliverables**:
+- Text generation playground
+- Sampling strategy comparison
+- Generation quality metrics
+
+---
+
+### Priority 3: Continue Phase 2 Momentum
+
+**If time allows**:
+- Start Module 9: Embeddings & Semantic Similarity
+- Start Module 10: Vector Spaces & Semantic Search 🔮
+
+**Goal**: Complete Phase 2 (Modules 6-10) over next 2-3 sessions
+
+---
+
+## 📚 Phase 2: Generative AI Fundamentals
+
+### What This Phase Teaches
+
+You've learned to **use AI tools**. Phase 2 teaches you **how AI works under the hood**.
+
+**Module 6** ✅: Introduction to Large Language Models
+- Transformer architecture
+- LLM landscape (GPT, Claude, Llama, Mistral, Gemini)
+- Model sizes and capabilities
+- API integration
+
+**Module 7** 🟡: Tokenization & Text Processing
+- How text becomes tokens
+- BPE, WordPiece, SentencePiece algorithms
+- Token counting and optimization
+- Multilingual tokenization
+
+**Module 8** ⚪: Text Generation & Sampling Strategies
+- Autoregressive generation
+- Temperature, top-p, top-k
+- Controlling output quality
+
+**Module 9** ⚪: Embeddings & Semantic Similarity
+- What embeddings are
+- Semantic similarity calculations
+- Embedding models
+
+**Module 10** ⚪: Vector Spaces & Semantic Search 🔮
+- Vector space concepts
+- Build semantic search from scratch
+- **Heureka Moment**: Embeddings as semantic coordinates!
+
+**Phase 2 Duration**: 25-30 hours total
+**Phase 2 Progress**: 1/5 modules complete (20%)
+
+---
+
+## 💡 Key Concepts Learned So Far
+
+### Module 6: LLM Fundamentals
+
+**Transformer Architecture**:
+- Self-attention mechanism: each token attends to all other tokens
+- Encoder-only (BERT): bidirectional understanding
+- Decoder-only (GPT, Claude, Llama): text generation
+- Encoder-decoder (T5, BART): translation, summarization
+
+**Model Families**:
+- **Proprietary**: GPT-4 (OpenAI), Claude 3.5 (Anthropic), Gemini (Google)
+- **Open-source**: Llama 3 (Meta), Mistral 7B, Mixtral 8x7B
+
+**Context Windows**:
+- GPT-3.5: 16K tokens
+- GPT-4: 8K/32K/128K tokens
+- Claude 3.5 Sonnet: 200K tokens
+- Gemini 1.5 Pro: 1M tokens
+
+**When to Fine-tune vs RAG**:
+- Fine-tune: Change behavior/style, stable knowledge, need consistency
+- RAG: Dynamic knowledge, cite sources, frequently updating, limited training data
+
+### Module 7: Tokenization
+
+**Core Concepts**:
+- Tokens ≠ words: subword tokenization is the standard
+- 1 token ≈ 0.75 words (English), ≈ 4 characters
+- Code uses 3-4x more tokens than prose
+
+**Algorithms**:
+- **BPE**: Start with characters, merge frequent pairs (used by GPT)
+- **WordPiece**: Similar to BPE, uses `##` prefix (used by BERT)
+- **SentencePiece**: Treats space as character `▁`, language-agnostic (used by Llama)
+
+**Token Optimization**:
+1. Shorter prompts (remove verbosity)
+2. Remove boilerplate (minimal system prompts)
+3. Efficient formatting (minified JSON)
+4. Careful abbreviations (balance clarity)
+5. Batch processing (reuse system prompts)
+6. Pre-count tokens (avoid surprises)
+
+**Common Gotchas**:
+- Whitespace matters: "Hello world" ≠ "Helloworld"
+- Capitalization matters: "PYTHON" uses more tokens than "python"
+- Numbers tokenize differently than text
+- Code is expensive: 3-4x tokens compared to prose
+- Emoji can be surprisingly expensive (1-8 tokens)
+
+---
+
+## 🎯 Files Created This Session
+
+### Module 6 Files
+- `docs/curriculum/notes/module_06_intro_to_llms.md` (~8,000 words)
+- `examples/module_06/01_model_comparison.py` (343 lines)
+- `examples/module_06/README.md`
+- `examples/module_06/requirements.txt`
+- `docs/deliverables/module_06_llm_analysis.md`
+
+### Module 7 Files
+- `docs/curriculum/notes/module_07_tokenization.md` (~6,000 words)
+- Examples: **Pending**
+- Deliverable: **Pending**
+- Supporting files: **Pending**
+
+### Tracking Files Updated
+- `docs/curriculum/MASTER_CURRICULUM.md` (v1.5.0)
+- `docs/curriculum/notes/session_log.md` (Session #5 added)
+- `docs/curriculum/START_HERE_TOMORROW.md` (this file)
 
 ---
 
 ## 📊 Progress Snapshot
 
-| Phase | Status | Progress |
-|-------|--------|----------|
-| Phase 1: AI-Native Development | 🟢 Complete! | 5/5 (100%) ✅ |
-| Phase 2: Generative AI Fundamentals | ⚪ Not Started | 0/5 |
-| **Overall Curriculum** | **14% Complete** | **5/36 modules** |
-
-**Phases Remaining**:
-- Phase 2: Generative AI Fundamentals (Modules 6-10)
-- Phase 3: Building with AI Toolkits (Modules 11-18) - RAG, LangChain, agents
-- Phase 4: Deep Learning Foundations (Modules 19-25) - PyTorch, transformers
-- Phase 5: Advanced Generative AI (Modules 26-29) - Fine-tuning, multimodal
-- Phase 6: Production ML Systems (Modules 30-32) - MLOps, deployment
-- Phase 7: AI for Infrastructure (Modules 33-34) - AIOps, cloud management
-- Phase 8: Capstone Projects (Module 35) - Apply everything!
+| Phase | Status | Progress | Details |
+|-------|--------|----------|---------|
+| Module 0: Prerequisites | ⚪ Ready | 0/1 | Environment setup |
+| Phase 1: AI-Native Development | 🟢 Complete | 5/5 (100%) | Modules 1-5 ✅ |
+| Phase 2: Generative AI Fundamentals | 🟡 In Progress | 1/5 (20%) | Module 6 ✅, Module 7 🟡 |
+| Phase 3: Building with AI Toolkits | ⚪ Not Started | 0/8 | RAG, LangChain, agents |
+| Phase 4: Deep Learning Foundations | ⚪ Not Started | 0/7 | PyTorch, transformers |
+| Phase 5: Advanced Generative AI | ⚪ Not Started | 0/4 | Fine-tuning, multimodal |
+| Phase 6: Production ML Systems | ⚪ Not Started | 0/3 | MLOps, deployment |
+| Phase 7: AI for Infrastructure | ⚪ Not Started | 0/2 | AIOps, cloud |
+| Phase 8: Capstone Projects | ⚪ Not Started | 0/1 | Real projects |
+| **TOTAL** | **17% Complete** | **6/36** | **~14 hours invested** |
 
 ---
 
-## 🔥 Pro Tips from Phase 1
+## 🔥 What You've Mastered So Far
 
-### Prompt Engineering
-1. **Build prompt library**: Save successful prompts for reuse
-2. **Start with few-shot**: Don't waste time on zero-shot for important tasks
-3. **Use CoT for reasoning**: Always for complex decisions/debugging
-4. **Test security**: Try to break your prompts with injection attacks
-5. **Iterate constantly**: First prompt never perfect
+### Phase 1: AI-Native Development ✅
+- AI development patterns and mental models
+- Prompt engineering fundamentals 🔮
+- AI-powered code generation
+- AI-assisted debugging and optimization
+- AI coding assistants mastery (Claude Code, Copilot, Cursor)
 
-### Code Generation
-1. **Specification first**: Spend time on clear requirements
-2. **Generate tests too**: Don't just generate implementation
-3. **Review security**: Check for SQL injection, XSS, input validation
-4. **Iterate in stages**: Generate → review → refine → test
-5. **Context matters**: Provide relevant code for consistency
-
-### Debugging
-1. **Gather context first**: Error message, minimal reproduction, environment
-2. **Systematic approach**: Follow 4-step workflow
-3. **Know AI limits**: Don't use AI for timing bugs, memory leaks
-4. **Combine tools**: AI + profiler = powerful
-5. **Always verify**: Test the fix, don't trust blindly
-
-### Tool Selection
-1. **Architecture**: Claude Code
-2. **Autocomplete**: GitHub Copilot
-3. **Prototyping**: Cursor IDE
-4. **Combine tools**: Use multiple for different tasks
-5. **Review everything**: Never autopilot mode
+### Phase 2: In Progress 🟡
+- ✅ Transformer architecture and LLM landscape
+- ✅ Model selection (proprietary vs open-source)
+- ✅ API integration (Claude, OpenAI)
+- ✅ Context windows and their implications
+- ✅ Pre-training vs fine-tuning vs RAG
+- ✅ Tokenization fundamentals (BPE, WordPiece, SentencePiece)
+- ✅ Token counting and optimization
+- ⏳ Text generation (coming next)
+- ⏳ Embeddings and vector spaces (coming next)
 
 ---
 
-## 📝 Quick Reference
+## 🎓 Learning Velocity
 
-### Phase 1 Files Created
+**Session Metrics**:
 
-**Module 3**:
-- Theory: `docs/curriculum/notes/module_03_code_generation.md` (~7,000 words)
-- Example: `examples/module_03/01_basic_generation.py`
-- Deliverable: `docs/deliverables/module_03_generated_package.md`
+| Session | Modules | Duration | Avg per Module |
+|---------|---------|----------|----------------|
+| #1 | Setup + Module 0 | 4+ hours | - |
+| #2 | Module 1 | 3+ hours | 3 hours |
+| #3 | Module 2 | 2+ hours | 2 hours |
+| #4 | Modules 3, 4, 5 | 3+ hours | 1 hour each |
+| #5 | Module 6 + Module 7 theory | 2+ hours | ~1.5 hours |
 
-**Module 4**:
-- Theory: `docs/curriculum/notes/module_04_debugging.md` (~5,000 words)
-- Deliverable: `docs/deliverables/module_04_debugging_log.md`
-
-**Module 5**:
-- Theory: `docs/curriculum/notes/module_05_ai_tools.md` (~6,000 words)
-- Deliverable: `docs/deliverables/module_05_ai_workflow.md`
-
-### All Phase 1 Theory Documents
-1. `docs/curriculum/notes/module_01_ai_driven_development.md` (8,000+ words)
-2. `docs/curriculum/notes/module_02_prompt_engineering.md` (9,000+ words)
-3. `docs/curriculum/notes/module_03_code_generation.md` (7,000 words)
-4. `docs/curriculum/notes/module_04_debugging.md` (5,000 words)
-5. `docs/curriculum/notes/module_05_ai_tools.md` (6,000 words)
-
-**Total**: ~35,000 words of comprehensive theory
-
-### All Phase 1 Code Examples
-- `examples/module_01/patterns/` (5 pattern demonstrations)
-- `examples/module_01/project/pyanalyzer.py` (CLI tool + tests)
-- `examples/module_02/` (8 prompt engineering examples)
-- `examples/module_03/01_basic_generation.py`
-
-**Total**: 14+ working code examples
-
-### All Phase 1 Deliverables
-1. `docs/deliverables/module_01_comparison.md`
-2. `docs/deliverables/module_01_reflection.md`
-3. `docs/deliverables/module_02_prompt_library.md` ⭐
-4. `docs/deliverables/module_02_experiments.md`
-5. `docs/deliverables/module_02_security.md`
-6. `docs/deliverables/module_03_generated_package.md`
-7. `docs/deliverables/module_04_debugging_log.md`
-8. `docs/deliverables/module_05_ai_workflow.md`
+**Total time invested**: ~14 hours
+**Modules complete**: 6/36 (17%)
+**On track for**: ~80-100 hours total (excellent pace!)
 
 ---
 
-## ⏭️ Tomorrow's Goals
+## 💪 Momentum Tips
 
-**Option 1: Work on Deliverables** (recommended)
-1. ✅ Build personal prompt library (Module 2) - 2-3 hours
-2. ✅ Design AI workflow (Module 5) - 1-2 hours
-3. ✅ Document 2-3 debugging sessions (Module 4) - 1-2 hours
-4. ✅ Apply to real project (kaizen/vibe/contrarian) - 1-2 hours
+### Keep the Flow Going
 
-**Option 2: Start Phase 2** (if you prefer theory first)
-1. ✅ Read Module 6 theory (once created)
-2. ✅ Understand LLM landscape
-3. ✅ Explore transformer architecture
-4. ✅ Come back to deliverables later
+**You're in a great rhythm!** Here's how to maintain momentum:
 
-**Option 3: Hybrid Approach**
-1. ✅ Build prompt library (most valuable)
-2. ✅ Read Module 6 theory
-3. ✅ Start designing AI workflow
-4. ✅ Continue Phase 2 while completing deliverables
+1. **Complete Module 7 quickly** (~2-3 hours)
+   - Code examples are straightforward (token counting demos)
+   - Deliverable is practical (analyze your own prompts)
 
-**My Recommendation**: Complete Module 2 prompt library (2-3 hours) and Module 5 AI workflow (1-2 hours), then start Phase 2. Other deliverables can be completed as you use those techniques in real work.
+2. **Start Module 8 while concepts are fresh**
+   - Text generation builds on tokenization
+   - Natural progression from "what are tokens" → "how are they generated"
+
+3. **Aim for Phase 2 completion** (5 modules)
+   - At current pace: 2-3 more sessions
+   - Strong foundation for Phase 3 (RAG systems)
+
+4. **Apply to real projects**
+   - Use token counting in kaizen RAG system
+   - Optimize prompts in vibe and contrarian
+   - Immediate practical value!
 
 ---
 
-## 🎯 The Big Picture
+## 🎯 Tomorrow's Recommended Workflow
 
-**Where You Are**: 14% through Neural Dojo (5/36 modules)
+### Session Plan (3-4 hours)
 
-**What You've Mastered**:
-- Using AI as development partner
-- Prompt engineering fundamentals
-- Code generation with AI
-- Debugging with AI assistance
-- Choosing the right AI tools
+**Hour 1: Complete Module 7 Examples**
+- Create `examples/module_07/01_token_counter.py` (demonstrate tiktoken)
+- Create `examples/module_07/02_optimization.py` (compare prompt styles)
+- Create `examples/module_07/03_multilingual.py` (token count comparison)
 
-**What's Next**:
-- Understanding how LLMs work (Phase 2)
-- Building RAG systems (Phase 3)
-- Deep learning with PyTorch (Phase 4)
-- Advanced generative AI (Phase 5)
-- Production ML systems (Phase 6)
-- AI for infrastructure (Phase 7)
-- Real-world capstone projects (Phase 8)
+**Hour 2: Complete Module 7 Deliverable**
+- Create `docs/deliverables/module_07_token_analysis.md`
+- Include template for analyzing prompts
+- Include cost calculation worksheets
+- Mark Module 7 🟢 Complete!
 
-**End Goal**: Be fluent with using AND building AI systems!
+**Hour 3: Start Module 8 Theory**
+- Write `docs/curriculum/notes/module_08_text_generation.md`
+- Cover autoregressive generation
+- Explain temperature, top-p, top-k
+- Include sampling strategy comparisons
+
+**Hour 4: Module 8 Examples (if time)**
+- Create generation playground
+- Demonstrate temperature effects
+- Show sampling strategy impacts
+
+---
+
+## 🚀 The Big Picture
+
+### Journey So Far
+- **Week 1**: Setup + Phase 1 foundations (Modules 0-5)
+- **Today**: Phase 2 launch (Modules 6-7 in progress)
+
+### Path Ahead
+- **This Week**: Complete Phase 2 (Modules 6-10)
+  - Foundation for everything that follows
+  - Understanding > using
+
+- **Weeks 2-4**: Phase 3 (Modules 11-18)
+  - RAG systems (like kaizen!)
+  - LangChain and LangGraph
+  - Multi-agent orchestration
+
+- **Weeks 5-8**: Phase 4 (Modules 19-25)
+  - Deep learning fundamentals
+  - PyTorch mastery
+  - Build transformers from scratch
+
+- **Weeks 9-12**: Phases 5-8
+  - Fine-tuning LLMs
+  - Multimodal AI
+  - Production MLOps
+  - AI for infrastructure
+  - Capstone projects
+
+**End goal**: Be fluent in using AND building AI systems!
+
+---
+
+## 💡 Session #5 Highlights
+
+### What Went Well
+- ✅ Module 6 completed with comprehensive coverage
+- ✅ Module 7 theory thorough and practical
+- ✅ Clean decision to split work across sessions (quality over speed)
+- ✅ All tracking files updated
+- ✅ Smooth progress, no blockers
+
+### Key Decisions
+- Build Phase 2 incrementally (not all 5 modules at once)
+- Maintain jamesblonde quality standards
+- Complete theory before examples (allows for better planning)
+
+### Lessons Applied
+- Token optimization critical for production systems
+- Context windows change architecture decisions
+- BPE algorithm is elegantly simple
+- Code tokenization significantly impacts costs
+
+---
+
+## 📖 Quick Reference
+
+### Phase 2 Theory Documents
+1. ✅ `docs/curriculum/notes/module_06_intro_to_llms.md` (~8,000 words)
+2. ✅ `docs/curriculum/notes/module_07_tokenization.md` (~6,000 words)
+3. ⏳ `docs/curriculum/notes/module_08_text_generation.md` (coming)
+4. ⏳ `docs/curriculum/notes/module_09_embeddings.md` (coming)
+5. ⏳ `docs/curriculum/notes/module_10_vector_spaces.md` (coming)
+
+### Phase 2 Code Examples
+1. ✅ `examples/module_06/01_model_comparison.py` (343 lines)
+2. ⏳ `examples/module_07/` (pending)
+3. ⏳ `examples/module_08/` (coming)
+4. ⏳ `examples/module_09/` (coming)
+5. ⏳ `examples/module_10/` (coming)
+
+### Phase 2 Deliverables
+1. ✅ `docs/deliverables/module_06_llm_analysis.md`
+2. ⏳ `docs/deliverables/module_07_token_analysis.md` (pending)
+3. ⏳ Module 8-10 deliverables (coming)
+
+---
+
+## 🔗 Connections to Your Projects
+
+### kaizen (Lean DevOps Platform)
+- **Module 6**: Choose right LLM for RAG (Claude vs GPT vs Llama)
+- **Module 7**: Optimize RAG prompts for token efficiency
+- **Module 8**: Control generation quality for code output
+- **Module 9-10**: Improve semantic search in RAG system
+
+### vibe (Teaching Platform)
+- **Module 6**: Select cost-effective models for content generation
+- **Module 7**: Optimize content prompts for token costs
+- **Module 8**: Control creativity in generated content
+
+### contrarian (Stock Analysis)
+- **Module 6**: Choose models for financial analysis
+- **Module 7**: Optimize analysis prompts
+- **Module 8**: Control generation for report quality
+
+### Work (Geospatial + Cloud)
+- **Module 6**: Select models for infrastructure tasks
+- **Module 7**: Optimize operational prompts
+- **Module 8**: Control generation for scripts and reports
 
 ---
 
 ## 🆘 If You Need Help
 
-- **Deliverables unclear?** Read the template thoroughly - they guide you step-by-step
-- **Examples not working?** Check venv activated, API key in `.env`, requirements installed
-- **Concepts fuzzy?** Re-read theory documents - they're comprehensive
-- **Need guidance?** Ask Claude Code! (You have an AI assistant who knows this curriculum!)
-- **Stuck on deliverable?** Start small - even partial completion is valuable
+- **Theory unclear?** Re-read the modules - they're comprehensive
+- **Examples not working?** Check venv, API keys, requirements.txt
+- **Stuck on concept?** Ask Claude Code - it knows the curriculum!
+- **Want to discuss?** Review your notes, write reflections
+- **Need break?** That's fine! Quality over speed always
 
 ---
 
-## 💾 Session Summary
+## 🎉 Celebrate Progress!
 
-**Session #4 Created**:
-- 3 theory documents (~18,000 words)
-- 1 code example (Module 3)
-- 3 deliverable templates
-- Updated MASTER_CURRICULUM.md
-- Updated session_log.md
-- Updated this START_HERE_TOMORROW.md
+**6 modules down, 30 to go!**
 
-**Phase 1 Totals**:
-- 5 theory documents (~35,000 words)
-- 14+ code examples (all working)
-- 8 deliverable templates
-- Complete AI-native development foundation
+You're **17% through Neural Dojo** and making excellent progress!
 
----
+**What you've achieved**:
+- ✅ Complete understanding of AI-native development (Phase 1)
+- ✅ Understanding of LLM fundamentals (Module 6)
+- ✅ Deep knowledge of tokenization (Module 7 theory)
+- ✅ ~14 hours of focused learning
+- ✅ ~14,000 words of theory absorbed
+- ✅ Working code examples to experiment with
 
-## 🎉 Celebrate This Milestone!
-
-**You've completed Phase 1!**
-
-This is a significant achievement. You now have:
-- ✅ AI development mental models
-- ✅ Prompt engineering mastery
-- ✅ Code generation skills
-- ✅ Debugging strategies
-- ✅ Tool selection expertise
-
-Most developers never get formal training in AI-assisted development. You're now ahead of the curve!
-
-**Phase 1 unlocked** → **Ready for Phase 2**
+**What's coming**:
+- Text generation and sampling strategies
+- Embeddings and semantic similarity
+- Vector spaces and semantic search
+- Foundation for building RAG systems!
 
 ---
 
-**Remember**: AI is your partner, not your replacement. You're the architect. The time you invested in Phase 1 will pay dividends every single day.
+**Keep up the momentum! You're building real expertise! 🥋🧠⚡**
 
-**Now go build something amazing! 🥋🧠⚡**
+**Next session**: Complete Module 7, start Module 8, continue Phase 2!
 
-**Next session**: Either complete deliverables or dive into Module 6 to learn how LLMs actually work!
+---
+
+_Last updated: 2025-11-21 after Session #5_
+_Next update: After Session #6_
