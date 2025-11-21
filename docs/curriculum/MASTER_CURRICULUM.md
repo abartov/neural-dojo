@@ -3,8 +3,8 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-21
-**Version**: 1.4.0
-**Status**: Phase 1 Complete (Modules 1-5) - Ready for Phase 2
+**Version**: 1.7.0
+**Status**: Phase 2 In Progress (Modules 6-8 Complete)
 **Total Duration**: 36 modules, 35-40 weeks (142-203 hours)
 
 ---
@@ -51,14 +51,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 |-------|---------|--------|------------|
 | Module 0: Prerequisites | 0 | ⚪ Not Started | 0/1 |
 | Phase 1: AI-Native Development | 1-5 | 🟢 Complete | 5/5 (100%) |
-| Phase 2: Generative AI Fundamentals | 6-10 | 🟡 In Progress | 1/5 (20%) |
+| Phase 2: Generative AI Fundamentals | 6-10 | 🟡 In Progress | 3/5 (60%) |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
 | Phase 5: Advanced Generative AI | 26-29 | ⚪ Not Started | 0/4 |
 | Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35 | ⚪ Not Started | 0/1 |
-| **TOTAL** | **36 modules** | **17% Complete** | **6/36** |
+| **TOTAL** | **36 modules** | **22% Complete** | **8/36** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -322,7 +322,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 7: Tokenization & Text Processing
 - **Duration**: 4-5 hours
 - **Prerequisites**: Module 6
-- **Status**: 🟡 In Progress (Theory complete, examples pending)
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand how text becomes tokens
@@ -333,50 +333,65 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Optimize prompts for token efficiency
 
 **Deliverables**:
-- ⏳ Tokenization analysis tool (pending)
-- ⏳ Token optimization examples (pending)
-- ⏳ Multilingual tokenization comparison (pending)
+- ✅ Token counter tool with tiktoken (visualizes tokenization)
+- ✅ Token optimization examples (6 strategies with cost analysis)
+- ✅ Multilingual tokenization comparison (15+ languages)
+- ✅ Token analysis and optimization report template
 
 **Key Concepts**:
 - Tokens ≠ words: Subword tokenization
 - BPE, WordPiece, SentencePiece algorithms
 - Token counting for cost optimization
 - Code uses 3-4x more tokens than prose
-- Multilingual tokenization challenges
-- Token optimization strategies
+- Multilingual tokenization challenges (non-English = 1.5-3x tokens)
+- Token optimization strategies (6 strategies: verbosity, system prompts, formatting, abbreviations, batching, examples)
 - RAG and conversation token management
+- Emoji tokenization (1-10 tokens depending on complexity)
 
 **Files Created**:
 - Theory: `docs/curriculum/notes/module_07_tokenization.md` (~6,000 words)
-- Examples: **Pending** (token counter, optimization demos)
-- Deliverable: **Pending** (token optimization analysis template)
-- Supporting files: **Pending** (README.md, requirements.txt)
+- Example 1: `examples/module_07/01_token_counter.py` (token counting, visualization, API cost estimation)
+- Example 2: `examples/module_07/02_optimization.py` (6 optimization strategies with cost savings)
+- Example 3: `examples/module_07/03_multilingual.py` (multilingual tokenization analysis)
+- Deliverable: `docs/deliverables/module_07_token_analysis.md` (comprehensive analysis template)
+- Supporting: `examples/module_07/README.md` and `requirements.txt`
 
 ---
 
 ### Module 8: Text Generation & Sampling Strategies
 - **Duration**: 5-6 hours
 - **Prerequisites**: Modules 6-7
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
-- Understand how LLMs generate text
+- Understand how LLMs generate text (autoregressive generation)
 - Master temperature, top-p, top-k sampling
-- Learn about repetition penalties
-- Control generation quality
+- Learn about repetition penalties and length control
+- Control generation quality and creativity
+- Choose optimal sampling strategies for different use cases
 
 **Deliverables**:
-- Text generation playground
-- Sampling strategy comparison
-- Generation quality metrics
+- ✅ Text generation playground (7 real-world demos with Claude API)
+- ✅ Temperature explorer (statistical analysis of variation)
+- ✅ Sampling strategy analysis template (comprehensive optimization guide)
 
 **Key Concepts**:
-- Autoregressive generation
-- Temperature scaling
-- Nucleus sampling (top-p)
-- Top-k sampling
+- Autoregressive generation (one token at a time)
+- Temperature scaling (0.0 = deterministic, 1.0+ = creative)
+- Nucleus sampling / top-p (filters unlikely tokens)
+- Top-k sampling (fixed number of top tokens)
+- Repetition penalty (prevent loops)
+- Quality vs creativity trade-off
+- Use case-specific configurations
 
-**💡 Heureka Moment** (Module 17 preview): Temperature isn't just "creativity" - it's probability distribution control!
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_08_text_generation.md` (~10,000 words)
+- Example 1: `examples/module_08/01_sampling_playground.py` (comprehensive demos)
+- Example 2: `examples/module_08/02_temperature_explorer.py` (statistical analysis)
+- Deliverable: `docs/deliverables/module_08_sampling_analysis.md` (optimization template)
+- Supporting: `examples/module_08/README.md` and `requirements.txt`
+
+**💡 Heureka Moment**: Temperature isn't just "creativity" - it's probability distribution control! Low temp = sharp distribution (focus on likely tokens), high temp = flat distribution (consider more options).
 
 ---
 
