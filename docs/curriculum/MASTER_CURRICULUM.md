@@ -3,9 +3,9 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-21
-**Version**: 1.0.0
-**Status**: Planning Phase
-**Total Duration**: 35-40 weeks (140-200 hours)
+**Version**: 1.1.0
+**Status**: Module 0 Ready - Starting Phase
+**Total Duration**: 36 modules, 35-40 weeks (142-203 hours)
 
 ---
 
@@ -49,6 +49,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 | Phase | Modules | Status | Completion |
 |-------|---------|--------|------------|
+| Module 0: Prerequisites | 0 | ⚪ Not Started | 0/1 |
 | Phase 1: AI-Native Development | 1-5 | ⚪ Not Started | 0/5 |
 | Phase 2: Generative AI Fundamentals | 6-10 | ⚪ Not Started | 0/5 |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
@@ -57,13 +58,48 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35 | ⚪ Not Started | 0/1 |
-| **TOTAL** | **35 modules** | **0% Complete** | **0/35** |
+| **TOTAL** | **36 modules** | **0% Complete** | **0/36** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
 ---
 
 ## 📚 Curriculum Structure
+
+---
+
+## Module 0: Prerequisites & Environment Setup (Pre-Phase 1)
+
+**Goal**: Prepare your development environment before starting Module 1
+
+### Module 0: Prerequisites & Environment Setup
+- **Duration**: 2-3 hours
+- **Prerequisites**: None - this is where you start!
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Verify you have the required prerequisites (Python 3.10+, command line basics)
+- Set up your development environment (venv, pip, IDE/editor)
+- Configure API keys for Claude and/or OpenAI
+- Make your first LLM API call
+- Verify everything works before diving into Module 1
+
+**Deliverables**:
+- Python 3.10+ environment verified
+- Virtual environment created and activated
+- `.env` file with API key(s) configured
+- All test scripts passing (test_environment.py, test_claude_api.py)
+- Development tools ready (text editor/IDE)
+
+**Key Concepts**:
+- Virtual environments for Python
+- Environment variables and API keys
+- Testing API connections
+- Basic Python package management
+
+**Files**:
+- Theory: `docs/curriculum/notes/module_00_prerequisites.md`
+- Examples: `examples/module_00/`
 
 ---
 
@@ -1072,4 +1108,5 @@ By the end of Neural Dojo, you will:
 ---
 
 _Last updated: 2025-11-21_
-_Next session: Start with Module 1 setup_
+_Version: 1.1.0 - Module 0 added, gap analysis complete_
+_Next session: Complete Module 0, then start Module 1_
