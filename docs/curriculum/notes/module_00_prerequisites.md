@@ -111,7 +111,7 @@ total = calculate_total(items)
 ### What You Actually Need
 
 **The essentials** (can't proceed without these):
-1. **Python 3.10+** - The programming language
+1. **Python 3.12+** - The programming language (we require modern Python for performance and features)
 2. **pip** - Package installer (comes with Python)
 3. **Terminal/Command Prompt** - Access to command line
 4. **Text editor or IDE** - Any code editor works
@@ -135,7 +135,7 @@ total = calculate_total(items)
 ┌─────────────────────────────────────────────────────┐
 │ Your System (macOS/Windows/Linux)                   │
 │                                                      │
-│  Step 1: Verify Python 3.10+                        │
+│  Step 1: Verify Python 3.12+                        │
 │           ↓                                          │
 │  Step 2: Choose Editor (VS Code/Cursor/PyCharm)     │
 │           ↓                                          │
@@ -161,8 +161,16 @@ total = calculate_total(items)
 
 **The Personality**: Python is your **universal translator** - it speaks to AI models, processes data, and builds applications.
 
+**Why Python 3.12+?**
+- ⚡ **5-10% faster** than 3.11 (matters for ML workloads!)
+- 🎯 **Better error messages** (easier debugging)
+- 🔧 **Improved type system** (better IDE support)
+- 🚀 **Per-interpreter GIL** (experimental, useful for parallel ML)
+- ✅ **All major ML libraries support it** (PyTorch, TensorFlow, Transformers)
+- 📅 **Future-proof** - curriculum stays relevant for years
+
 ```bash
-# Check Python version (must be 3.10 or higher)
+# Check Python version (must be 3.12 or higher)
 python --version
 # or on macOS/Linux:
 python3 --version
@@ -175,8 +183,8 @@ pip3 --version
 
 **Expected Output**:
 ```
-Python 3.10.x (or 3.11, 3.12, 3.13 - all work!)
-pip 23.x.x (or higher)
+Python 3.12.x or 3.13.x (3.12+ required)
+pip 24.x.x (or higher)
 ```
 
 #### Common Mistakes 🚨
@@ -192,37 +200,69 @@ which python3
 # Output: /usr/local/bin/python3 or /opt/homebrew/bin/python3
 ```
 
-**Why it matters**: System Python is often old (2.7 or 3.8) and shouldn't be modified. Always use `python3`.
+**Why it matters**: System Python is often outdated (3.9 on macOS, 3.8 on some Linux) and shouldn't be modified. Always use `python3`.
 
 **Mistake #2: Multiple Python versions causing confusion**
 ```bash
 # Check all Python installations
 ls -la /usr/bin/python*
 ls -la /usr/local/bin/python*
+ls -la /opt/homebrew/bin/python*  # macOS with Apple Silicon
 
-# If you see python, python3, python3.10, python3.12...
-# Use the HIGHEST version number explicitly
+# If you see python, python3, python3.9, python3.12, python3.13...
+# Use version 3.12+ explicitly
 python3.12 --version
+# or
+python3.13 --version
 ```
 
-**Fix**: Use `python3.12` (or your highest version) throughout the curriculum.
+**Fix**: Use `python3.12` or `python3.13` throughout the curriculum.
 
 #### Troubleshooting
 
 **macOS**:
-- Default macOS Python is 2.7 (ancient!)
-- Install modern Python: `brew install python@3.12`
-- Use `python3` and `pip3` commands
+- **Default macOS Python is 3.9** (Monterey/Ventura/Sonoma)
+- ⚠️ Too old for this curriculum! We need 3.12+
+- **Install Python 3.12+**:
+  ```bash
+  # Using Homebrew (recommended)
+  brew install python@3.12
+
+  # Verify installation
+  python3.12 --version
+
+  # Make it the default (optional)
+  echo 'alias python3=python3.12' >> ~/.zshrc
+  echo 'alias pip3=pip3.12' >> ~/.zshrc
+  source ~/.zshrc
+  ```
+- Alternative: Download from https://python.org/downloads/
+- Use `python3.12` and `pip3.12` commands explicitly
 
 **Windows**:
-- Download from https://python.org
-- **CHECK** "Add Python to PATH" during installation
+- Download **Python 3.12+** from https://python.org/downloads/
+- **CRITICAL**: ✅ CHECK "Add Python to PATH" during installation
 - Restart terminal after installing
+- Verify: `python --version` (should show 3.12+)
 
 **Linux**:
-- Ubuntu/Debian: `sudo apt install python3.12 python3-pip`
-- Fedora: `sudo dnf install python3.12`
-- Verify with `python3.12 --version`
+- Ubuntu/Debian:
+  ```bash
+  sudo apt update
+  sudo apt install python3.12 python3.12-venv python3-pip
+  python3.12 --version
+  ```
+- Fedora:
+  ```bash
+  sudo dnf install python3.12
+  python3.12 --version
+  ```
+- If 3.12 not available in repos, use deadsnakes PPA (Ubuntu):
+  ```bash
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt update
+  sudo apt install python3.12 python3.12-venv
+  ```
 
 ---
 
@@ -654,7 +694,7 @@ python test_environment.py
 ```
 
 **What it checks**:
-- ✅ Python 3.10+
+- ✅ Python 3.12+
 - ✅ pip works
 - ✅ python-dotenv installed
 
@@ -738,7 +778,7 @@ python test_openai_api.py
 Use this to verify you're 100% ready:
 
 ### Environment Setup
-- [ ] Python 3.10+ installed and verified (`python3 --version`)
+- [ ] Python 3.12+ installed and verified (`python3 --version`)
 - [ ] Virtual environment created (`python3 -m venv venv`)
 - [ ] Virtual environment activated (see `(venv)` in prompt)
 - [ ] pip upgraded (`pip install --upgrade pip`)
