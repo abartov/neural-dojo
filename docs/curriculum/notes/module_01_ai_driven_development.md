@@ -43,7 +43,13 @@ The best developers in 2025 aren't those who can write the most code. They're th
 
 ## 🌍 The AI Development Landscape (2024-2025)
 
-### The Big Three AI Coding Assistants
+### Major AI Coding Assistants (2024-2025)
+
+The landscape has exploded with options. Here are the major categories and tools:
+
+---
+
+## 🔧 IDE-Integrated Autocomplete
 
 #### 1. **GitHub Copilot** (First Wave - 2021)
 
@@ -68,7 +74,123 @@ The best developers in 2025 aren't those who can write the most code. They're th
 
 ---
 
-#### 2. **Claude Code** (Second Wave - 2024)
+#### 2. **Tabnine**
+
+**What it is**: Privacy-focused AI code completion
+
+**Strengths**:
+- Can run locally (on-device models)
+- Privacy-first (doesn't send code to cloud by default)
+- Supports many IDEs
+- Team training on your codebase
+
+**Best for**: Enterprises with strict privacy requirements, autocomplete without cloud dependency
+
+**Pricing**: Free tier available, ~$12/month Pro
+
+---
+
+#### 3. **Codeium**
+
+**What it is**: Free AI code completion and chat
+
+**Strengths**:
+- Completely free for individuals
+- Autocomplete + chat interface
+- Multi-file context
+- 70+ languages supported
+
+**Best for**: Free alternative to Copilot
+
+**Pricing**: Free for individuals, paid for teams
+
+---
+
+## 🎨 AI-First IDEs
+
+#### 4. **Cursor** (Hybrid - 2023-2024)
+
+**What it is**: VS Code fork with AI deeply integrated throughout
+
+**Strengths**:
+- Sees your whole project
+- Can edit multiple files
+- Runs terminal commands
+- Explains reasoning
+- Long context window (200K+ tokens)
+- Agentic (takes multi-step actions)
+
+**Limitations**:
+- Requires Claude API key (costs per use)
+- Not as fast as inline autocomplete
+- Can make mistakes (needs verification)
+
+**Best for**: Complex refactoring, debugging, architecture changes, learning
+
+**Pricing**: Pay-per-use (~$3-5 for this entire curriculum)
+
+---
+
+#### 5. **Windsurf** (by Codeium)
+
+**What it is**: VS Code-based IDE with "Cascade" agentic AI
+
+**Strengths**:
+- Free tier available
+- Agentic workflows
+- Codebase-aware suggestions
+- Modern UI
+
+**Best for**: Those wanting Cursor-like experience for free
+
+**Pricing**: Free tier, ~$10/month Pro
+
+---
+
+## 🖥️ Terminal & CLI-Based
+
+#### 6. **Aider.ai**
+
+**What it is**: AI pair programming in your terminal
+
+**Strengths**:
+- Works with any editor (terminal-based)
+- Git integration (auto-commits)
+- Can edit multiple files
+- Uses GPT-4, Claude, or local models
+- Great for CLI workflows
+
+**Limitations**:
+- Terminal-only (no IDE integration)
+- Requires comfortable with command line
+
+**Best for**: Terminal power users, automated workflows, git-integrated AI coding
+
+**Pricing**: Free (bring your own API key)
+
+**Website**: https://aider.chat/
+
+---
+
+#### 7. **Cline** (formerly Claude Dev)
+
+**What it is**: VS Code extension for agentic AI coding
+
+**Strengths**:
+- Autonomous coding agent
+- Can create files, run commands
+- Works with Claude, GPT-4, local models
+- Browser automation capabilities
+
+**Best for**: Agentic workflows within VS Code
+
+**Pricing**: Free extension (bring your own API key)
+
+---
+
+## 🤖 Agentic Assistants (Extensions)
+
+#### 8. **Claude Code** (Second Wave - 2024)
 
 **What it is**: AI assistant that can read your entire codebase, write files, run commands, and reason about complex tasks
 
@@ -91,46 +213,108 @@ The best developers in 2025 aren't those who can write the most code. They're th
 
 ---
 
-#### 3. **Cursor** (Hybrid - 2023-2024)
+#### 9. **Continue.dev**
 
-**What it is**: VS Code fork with AI deeply integrated
+**What it is**: Open-source AI code assistant for VS Code/JetBrains
 
 **Strengths**:
-- Best of both worlds (autocomplete + agentic)
-- Ctrl+K for inline AI editing
-- Chat with codebase
-- Composer for multi-file edits
-- Fast and responsive
+- Open source
+- Works with any LLM (Claude, GPT-4, local models)
+- Autocomplete + chat
+- Fully customizable
 
-**Limitations**:
-- Separate IDE (not an extension)
-- Subscription pricing
-- Less context than Claude
+**Best for**: Developers wanting open-source solution, custom LLM setups
 
-**Best for**: Daily coding workflow, fast iterations
+**Pricing**: Free (bring your own API key)
 
-**Pricing**: ~$20/month
+**Website**: https://continue.dev/
+
+---
+
+## 💬 General AI for Coding
+
+#### 10. **ChatGPT** (OpenAI)
+
+**What it is**: General-purpose AI that's excellent for coding tasks
+
+**Strengths**:
+- ChatGPT Plus ($20/month) or free tier
+- Canvas mode for iterative code editing
+- Code interpreter for running Python
+- Great for learning, debugging, code review
+- No IDE integration needed
+
+**Best for**: Ad-hoc coding help, learning, debugging, code review outside your editor
+
+**Pricing**: Free tier or $20/month Plus
+
+---
+
+#### 11. **Gemini** (Google)
+
+**What it is**: Google's AI assistant with coding capabilities
+
+**Strengths**:
+- Free tier available
+- Integrated with Google Workspace
+- Long context window (2M tokens in Pro)
+- Code execution capabilities
+- Multimodal (can analyze images, diagrams)
+
+**Best for**: Those in Google ecosystem, long-context code analysis
+
+**Pricing**: Free tier, ~$20/month for Advanced
+
+**Website**: https://gemini.google.com/
 
 ---
 
 ### The Landscape Map
 
 ```
-Low Context ←──────────────────→ High Context
-Fast        ←──────────────────→ Thoughtful
+AUTOCOMPLETE FOCUS ←────────────→ AGENTIC FOCUS
+IDE-Integrated     ←────────────→ Terminal/Standalone
 
-Copilot                 Cursor              Claude Code
-   │                       │                     │
-   ├─ Autocomplete         ├─ Hybrid             ├─ Agentic
-   ├─ Line suggestions     ├─ Multi-file         ├─ Terminal access
-   ├─ Pattern completion   ├─ Chat + autocomplete├─ Full reasoning
-   └─ Fast                 └─ Balanced           └─ Deep analysis
+Copilot/Tabnine    Cursor/Windsurf    Aider.ai        ChatGPT/Gemini
+Codeium           Continue.dev        Cline           Claude Code
+    │                  │                │                  │
+    ├─ Line-by-line    ├─ Hybrid        ├─ Terminal       ├─ General AI
+    ├─ Fast            ├─ Multi-file    ├─ Git-aware      ├─ Long context
+    ├─ Autocomplete    ├─ Chat+code     ├─ CLI-native     ├─ Reasoning
+    └─ $0-20/mo        └─ $10-20/mo     └─ BYOK           └─ Free-$20/mo
+
+BYOK = Bring Your Own (API) Key
 ```
 
+**Categories at a Glance**:
+
+1. **Autocomplete-First** (Copilot, Tabnine, Codeium)
+   - Best for: Fast, inline suggestions as you type
+   - Learning curve: Minimal
+
+2. **AI-First IDEs** (Cursor, Windsurf)
+   - Best for: Complete AI-integrated development environment
+   - Learning curve: Moderate (new IDE)
+
+3. **Terminal/CLI** (Aider.ai, Cline)
+   - Best for: Automated workflows, git integration, power users
+   - Learning curve: Moderate-High (CLI comfort needed)
+
+4. **Agentic Extensions** (Claude Code, Continue.dev)
+   - Best for: Complex multi-file tasks, learning, architecture
+   - Learning curve: Low-Moderate
+
+5. **General AI** (ChatGPT, Gemini)
+   - Best for: Ad-hoc help, learning, no IDE setup needed
+   - Learning curve: Minimal
+
 **The Modern Developer Stack** (2025):
-- **Primary**: Cursor or VS Code + Copilot (daily coding)
-- **Complex Tasks**: Claude Code (architecture, debugging, learning)
-- **Learning**: Claude Code (understanding new concepts)
+
+**Recommended Combo**:
+- **Daily Coding**: Cursor or VS Code + Copilot (autocomplete)
+- **Complex Tasks**: Claude Code or Aider.ai (agentic work)
+- **Learning**: ChatGPT or Claude Code (explanations)
+- **Free Option**: Codeium + Continue.dev + ChatGPT free tier
 
 **You'll learn all three approaches in this curriculum.**
 
@@ -791,10 +975,28 @@ In the hands-on portion of this module (see `examples/module_01/`), you'll build
 - [Andrej Karpathy on AI Assistants](https://www.youtube.com/@AndrejKarpathy) - Insights from leading AI researcher
 - [GitHub Copilot](https://www.youtube.com/watch?v=V5eHQ_aRzsc) - Official demo
 
-### Documentation
-- [Claude Code Docs](https://docs.anthropic.com/)
+### Documentation & Tools
+
+**Autocomplete-First**:
 - [GitHub Copilot Docs](https://docs.github.com/en/copilot)
-- [Cursor Docs](https://cursor.sh/docs)
+- [Tabnine](https://www.tabnine.com/)
+- [Codeium](https://codeium.com/)
+
+**AI-First IDEs**:
+- [Cursor](https://cursor.sh/)
+- [Windsurf](https://codeium.com/windsurf)
+
+**Terminal/CLI**:
+- [Aider.ai](https://aider.chat/)
+- [Cline](https://github.com/cline/cline)
+
+**Agentic Extensions**:
+- [Claude Code](https://docs.anthropic.com/)
+- [Continue.dev](https://continue.dev/)
+
+**General AI for Coding**:
+- [ChatGPT](https://chat.openai.com/)
+- [Gemini](https://gemini.google.com/)
 
 ---
 

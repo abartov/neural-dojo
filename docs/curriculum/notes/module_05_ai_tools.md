@@ -31,29 +31,28 @@ You've learned AI development patterns (Module 1), prompt engineering (Module 2)
 
 ### Current Tools (2024-2025)
 
-**1. Claude Code**
-- Context-aware conversations
-- Long context windows (200K tokens)
-- Excellent for complex reasoning
-- File operations and git integration
-- **Best for**: Architecture, refactoring, complex problems
+**🔧 Autocomplete-First**:
+1. **GitHub Copilot** - Inline suggestions, fast autocomplete
+2. **Tabnine** - Privacy-focused, can run locally
+3. **Codeium** - Free alternative to Copilot
 
-**2. GitHub Copilot**
-- Inline code suggestions
-- Fast autocomplete
-- IDE integration
-- **Best for**: Boilerplate, standard patterns, quick completions
+**🎨 AI-First IDEs**:
+4. **Cursor** - VS Code fork with deep AI integration
+5. **Windsurf** - Codeium's AI-first IDE with Cascade
 
-**3. Cursor IDE**
-- Full IDE with AI built-in
-- Chat + inline suggestions
-- Codebase understanding
-- **Best for**: Greenfield projects, rapid prototyping
+**🖥️ Terminal/CLI-Based**:
+6. **Aider.ai** - Terminal AI pair programming, git-aware
+7. **Cline** - VS Code extension for agentic coding
 
-**4. Others**
-- Tabnine: Privacy-focused
-- Codeium: Free alternative
-- Amazon CodeWhisperer: AWS-optimized
+**🤖 Agentic Extensions**:
+8. **Claude Code** - Long context, multi-file reasoning
+9. **Continue.dev** - Open-source, customizable
+
+**💬 General AI for Coding**:
+10. **ChatGPT** - General AI with Canvas mode for code
+11. **Gemini** - Google's AI with long context (2M tokens)
+
+**This module focuses on the most popular tools** (Claude Code, Copilot, Cursor) with additional coverage of Aider.ai and ChatGPT/Gemini workflows. See Module 1 for full landscape overview.
 
 ---
 
@@ -378,6 +377,153 @@ Chat: "Where should I add a new admin role?"
 
 ---
 
+## 🖥️ Aider.ai: Terminal AI Pair Programming
+
+### What Makes Aider Special
+
+**Strengths**:
+- ✅ Terminal-native (works with any editor)
+- ✅ Git-aware (auto-commits with descriptive messages)
+- ✅ Multi-file editing
+- ✅ Works with Claude, GPT-4, or local models
+- ✅ Great for automated workflows
+
+**Limitations**:
+- ❌ No IDE integration
+- ❌ Terminal-only interface
+- ❌ Requires CLI comfort
+
+### Aider Workflows
+
+**Basic Usage**:
+```bash
+# Install aider
+pip install aider-chat
+
+# Set your API key
+export ANTHROPIC_API_KEY=your_key_here
+
+# Start aider in your project
+cd your-project
+aider
+
+# Add files to context
+/add src/main.py tests/test_main.py
+
+# Ask aider to make changes
+> Add error handling to the parse_config function
+
+# Aider edits files and auto-commits!
+```
+
+**Git Integration**:
+```bash
+# Aider automatically:
+# 1. Creates descriptive commit messages
+# 2. Commits after each successful change
+# 3. Provides diff preview before applying
+
+# Example session:
+> Refactor the database connection to use connection pooling
+
+# Aider shows diff, applies changes, commits:
+# "Refactor database connection to use connection pooling"
+```
+
+**Best For**:
+- Automated refactoring with git history
+- Terminal-based workflows
+- CI/CD integration
+- Batch operations across multiple files
+
+**Website**: https://aider.chat/
+
+---
+
+## 💬 ChatGPT & Gemini: General AI for Coding
+
+### ChatGPT (OpenAI)
+
+**Workflows**:
+
+**1. Code Review & Debugging**:
+```
+Paste code snippet:
+
+[your code]
+
+"Review this code for bugs, performance issues, and best practices"
+```
+
+**2. Learning & Explanations**:
+```
+"Explain how async/await works in Python with examples"
+"What's the difference between Docker and VMs?"
+```
+
+**3. Canvas Mode** (ChatGPT Plus):
+- Interactive code editing
+- Iterate on code without copy/paste
+- Great for standalone scripts/functions
+
+**Best For**:
+- Ad-hoc coding questions
+- Learning new concepts
+- Code review outside your editor
+- When you don't want to context-switch from browser
+
+---
+
+### Gemini (Google)
+
+**Strengths**:
+- **Huge context**: 2M tokens (can analyze entire codebases)
+- Code execution built-in
+- Multimodal (can analyze architecture diagrams, screenshots)
+- Free tier available
+
+**Workflows**:
+
+**1. Large Codebase Analysis**:
+```
+Upload multiple files or paste large sections:
+
+"Analyze this codebase and explain the authentication flow"
+"Find all database queries and suggest optimizations"
+```
+
+**2. Diagram-to-Code**:
+```
+[Upload architecture diagram image]
+
+"Generate code structure based on this architecture diagram"
+```
+
+**Best For**:
+- Very large context analysis
+- Multimodal tasks (diagrams, screenshots)
+- Long-running conversations about architecture
+- Those in Google Workspace ecosystem
+
+**Website**: https://gemini.google.com/
+
+---
+
+## 🎯 Tool Selection Guide
+
+| Task | Best Tool | Alternative | Why |
+|------|-----------|-------------|-----|
+| Inline autocomplete | Copilot | Codeium | Fastest, most seamless |
+| Multi-file refactor | Claude Code | Aider.ai | Full context awareness |
+| Terminal workflow | Aider.ai | Cline | Git integration |
+| Complete IDE | Cursor | Windsurf | AI-first design |
+| Ad-hoc questions | ChatGPT | Gemini | No setup needed |
+| Large codebase | Gemini | Claude Code | 2M token context |
+| Learning | ChatGPT | Claude Code | Great explanations |
+| Budget-conscious | Codeium | Continue.dev | Free options |
+
+---
+
 ## 🏗️ Real-World Project Workflow
 
 ### Project: Building a REST API
@@ -639,11 +785,34 @@ def test_payment_processing():
 
 ## 📚 Further Reading
 
-- GitHub Copilot Documentation
-- Cursor IDE Docs
-- Anthropic Claude for Code
-- "AI-Assisted Programming" research papers
-- r/ClaudeAI, r/github_copilot communities
+### Tool Documentation
+
+**Autocomplete-First**:
+- [GitHub Copilot Docs](https://docs.github.com/en/copilot)
+- [Tabnine](https://www.tabnine.com/)
+- [Codeium](https://codeium.com/)
+
+**AI-First IDEs**:
+- [Cursor](https://cursor.sh/)
+- [Windsurf](https://codeium.com/windsurf)
+
+**Terminal/CLI**:
+- [Aider.ai](https://aider.chat/) - Highly recommended!
+- [Cline](https://github.com/cline/cline)
+
+**Agentic Extensions**:
+- [Claude Code](https://docs.anthropic.com/)
+- [Continue.dev](https://continue.dev/)
+
+**General AI**:
+- [ChatGPT](https://chat.openai.com/)
+- [Gemini](https://gemini.google.com/)
+
+### Communities
+- r/ClaudeAI - Claude discussions
+- r/github_copilot - Copilot tips
+- r/cursor - Cursor IDE community
+- Aider Discord - https://discord.gg/Tv2uQnR5vY
 
 ---
 
