@@ -22,6 +22,8 @@ pip install -r requirements.txt
 OPENAI_API_KEY=your_api_key_here
 ```
 
+**Note**: If using OpenAI API, remember that API access is separate from ChatGPT Plus subscription. See [Module 0 theory](../../docs/curriculum/notes/module_00_prerequisites.md#-api-keys-setup) for setup instructions.
+
 ## Examples
 
 ### Example 1: Embedding Basics (`01_embedding_basics.py`)

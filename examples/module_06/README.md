@@ -13,6 +13,8 @@ Make sure you have your API key in `.env`:
 ANTHROPIC_API_KEY=your_key_here
 ```
 
+**Note**: API access is separate from Claude Pro/ChatGPT Plus subscriptions. See [Module 0 theory](../../docs/curriculum/notes/module_00_prerequisites.md#-api-keys-setup) for setup instructions and free alternatives.
+
 ## Examples
 
 ### 01_model_comparison.py

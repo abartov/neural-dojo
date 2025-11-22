@@ -862,9 +862,11 @@ prompt = PROMPTS["explain"].format(
 
 ---
 
-## 🎯 Module 2 Deliverables
+## 💻 Hands-On Practice: What You'll Build
 
-By the end of this module, you will have:
+**You've completed the theory!** Now it's time to apply what you've learned through hands-on practice.
+
+In the hands-on portion of this module (see `examples/module_02/`), you'll build:
 
 ### 1. ✅ Personal Prompt Library
 - [ ] Created `docs/deliverables/module_02_prompt_library.md`

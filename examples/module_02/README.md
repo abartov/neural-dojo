@@ -16,6 +16,8 @@ cp ../../.env.example .env
 pip install -r requirements.txt
 ```
 
+**Note**: API access is separate from Claude Pro/ChatGPT Plus subscriptions. See [Module 0 theory](../../docs/curriculum/notes/module_00_prerequisites.md#-api-keys-setup) for setup instructions and free alternatives.
+
 ---
 
 ## 📂 Examples Structure

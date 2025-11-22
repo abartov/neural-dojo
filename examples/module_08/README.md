@@ -22,6 +22,8 @@ pip install -r requirements.txt
 ANTHROPIC_API_KEY=your_api_key_here
 ```
 
+**Note**: API access is separate from Claude Pro/ChatGPT Plus subscriptions. See [Module 0 theory](../../docs/curriculum/notes/module_00_prerequisites.md#-api-keys-setup) for setup instructions and free alternatives.
+
 ## Examples
 
 ### Example 1: Sampling Strategy Playground (`01_sampling_playground.py`)

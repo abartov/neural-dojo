@@ -126,6 +126,20 @@ python test_openai_api.py
 
 ---
 
+## ⚠️ Important: API Access vs Subscriptions
+
+**Common confusion**: If you have ChatGPT Plus or Claude Pro, those are **web subscriptions** and do NOT include API access!
+
+- **Web subscription** = Use AI in browser/app (ChatGPT Plus, Claude Pro)
+- **API access** = Use AI in your code (what we need for examples)
+
+**You need API access** for these examples to work. See Module 0 theory document for:
+- How to get API keys (separate from subscriptions)
+- Free tier options and trial credits
+- Alternative free APIs (Hugging Face, Groq, Together AI, Replicate)
+
+**Estimated cost**: $3-5 for entire curriculum with Claude/OpenAI APIs
+
 ## Troubleshooting
 
 ### "ANTHROPIC_API_KEY not found"
@@ -133,6 +147,7 @@ python test_openai_api.py
 1. Check `.env` file exists in project root
 2. Check format: `ANTHROPIC_API_KEY=sk-ant-your-key-here` (no spaces around `=`)
 3. Get API key from: https://console.anthropic.com/
+4. **Note**: API access is separate from Claude Pro subscription!
 
 ### "Module 'anthropic' not found"
 

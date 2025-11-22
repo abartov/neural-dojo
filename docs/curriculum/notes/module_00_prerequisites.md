@@ -199,17 +199,44 @@ black, 23.x.x
 
 You'll need API keys to use LLMs. Let's set them up:
 
+### ⚠️ Important: Subscriptions vs API Access
+
+**Common confusion**: ChatGPT Plus, Claude Pro, and similar subscriptions give you access to use AI via their **web interfaces**, but they do NOT include API access!
+
+**What's the difference?**
+- **Subscription (ChatGPT Plus, Claude Pro)**: Pay for web/app access, unlimited usage in browser/app
+- **API Access**: Pay-per-use for programmatic access via code (what we need for this curriculum)
+
+**If you have a subscription**:
+- ✅ Great for daily use and learning concepts
+- ❌ Cannot use it for code examples in this curriculum
+- ✅ You can still sign up for API access separately (different billing)
+
+**Good news**: Most providers offer free API credits or very low startup costs!
+
 ### Option 1: Anthropic Claude API (Recommended)
 
 1. **Create Account**: https://console.anthropic.com/
 2. **Get API Key**: Settings → API Keys → Create Key
-3. **Pricing**: $3-5 for this entire curriculum (very affordable!)
+3. **Pricing**:
+   - Pay-as-you-go (no subscription required)
+   - New accounts often get free credits to start
+   - Estimated cost for entire curriculum: $3-5
+   - You only pay for what you use
+
+**Why recommended**: Latest Sonnet 4.5 model, great for code, generous context window
 
 ### Option 2: OpenAI API
 
 1. **Create Account**: https://platform.openai.com/
 2. **Get API Key**: API Keys → Create new secret key
-3. **Pricing**: Similar to Claude, $5-10 for curriculum
+3. **Pricing**:
+   - Pay-as-you-go
+   - Some accounts get $5-18 in free trial credits
+   - Estimated cost for curriculum: $5-10
+   - Usage limits may apply to new accounts
+
+**Note**: GPT-4 is powerful but more expensive than Claude for similar tasks
 
 ### Option 3: Local Models (Free but needs GPU)
 
@@ -217,7 +244,31 @@ You'll need API keys to use LLMs. Let's set them up:
 - **llama.cpp**: Run Llama models on your machine
 - **Note**: We'll cover this in Module 6
 
-**For now**: Get at least one API key (Claude or OpenAI)
+### Option 4: Free API Alternatives (For Experimentation)
+
+If you want to experiment without immediately setting up paid API access:
+
+1. **Hugging Face Inference API** (Free tier available)
+   - https://huggingface.co/inference-api
+   - Access to many open-source models
+   - Limited free usage, then pay-as-you-go
+
+2. **Groq** (Free tier with rate limits)
+   - https://console.groq.com/
+   - Very fast inference
+   - Free tier: 30 requests/minute
+
+3. **Together AI** (Free trial credits)
+   - https://www.together.ai/
+   - Access to Llama, Mixtral, and other models
+   - $25 free credits for new users
+
+4. **Replicate** (Pay-per-use, very low cost)
+   - https://replicate.com/
+   - Many models available
+   - Pay only for compute time used
+
+**For this curriculum**: We recommend starting with Claude or OpenAI API (very affordable!) for best learning experience, but the free alternatives work for initial experimentation.
 
 ---
 
