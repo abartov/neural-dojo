@@ -3,9 +3,10 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 [![Status](https://img.shields.io/badge/Status-In%20Progress-green)]()
-[![Progress](https://img.shields.io/badge/Progress-30%25-green)]()
-[![Modules](https://img.shields.io/badge/Modules-11%2F37%20Complete-blue)]()
+[![Progress](https://img.shields.io/badge/Progress-28%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-11%2F40%20Complete-blue)]()
 [![Phase](https://img.shields.io/badge/Phase-Foundation%20Complete-brightgreen)]()
+[![Quality](https://img.shields.io/badge/Quality-Chef's%20Kiss%20%E2%9C%A8-gold)]()
 
 ---
 
@@ -20,18 +21,31 @@ Transform from AI novice to AI-fluent developer capable of building production A
 - 🎨 Generative AI (text, images, code generation)
 - 🚀 Production ML (MLOps, deployment, monitoring)
 - ☁️ AI for infrastructure (AIOps, proactive management)
+- 🕰️ **NEW**: History of AI/ML (optional enrichment)
 
 ---
 
 ## 🧭 Why Neural Dojo?
 
-This isn't another ML course. This is a **practical, production-focused curriculum** designed for developers who want to:
+This isn't another ML course. This is a **practical, production-focused, engaging curriculum** designed for developers who want to:
 
 1. **Use AI effectively** - Master prompt engineering and AI-driven coding
 2. **Build AI systems** - Create production RAG pipelines, agents, and workflows
-3. **Understand deeply** - Know how transformers, embeddings, and LLMs actually work
+3. **Understand deeply** - Know how transformers, embeddings, and LLMs actually work (with engaging analogies!)
 4. **Deploy confidently** - Build MLOps workflows and monitor production systems
-5. **Apply immediately** - Use AI in your real projects (like kaizen, vibe, contrarian)
+5. **Apply immediately** - Use AI in your real projects (kaizen, vibe, contrarian)
+6. **Learn enjoyably** - Content that's technical AND entertaining (inspired by jamesblonde's quality standards)
+
+### The Quality Commitment ✨
+
+Neural Dojo applies **proven quality patterns** to every module:
+- 🎭 **Personality-driven explanations** - Technical concepts come alive as characters
+- 🎯 **Layered analogies** - Multiple perspectives for different learning styles
+- 📊 **Real-world case studies** - Concrete examples with actual numbers and impact
+- 💡 **"Did You Know?" sections** - Fascinating facts that make concepts stick
+- ⚠️ **Best practices** - Domain-specific guidance (e.g., "Python AI Best Practices")
+- 🧪 **Interactive examples** - "Try This" challenges and experiments
+- 🚨 **Common mistakes** - Learn from failures and debugging walkthroughs
 
 ### The JamesBlonde Pattern
 
@@ -41,12 +55,13 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 - ✅ **Production-ready**: Build real systems, not toys
 - ✅ **Progressive**: Each module builds on previous knowledge
 - ✅ **Practical**: Focus on tools you'll actually use
+- ✅ **Engaging**: Content that's fun to read and memorable
 
 ---
 
 ## 📚 Curriculum Overview
 
-**37 modules** organized into **8 phases** + prerequisites (35-40 weeks, 144-206 hours):
+**40 modules** organized into **9 phases** + prerequisites (37-42 weeks, 150-214 hours):
 
 ### Module 0: Prerequisites & Environment Setup ✅
 **Foundation module** - Set up your development environment

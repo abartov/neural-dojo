@@ -1,7 +1,7 @@
 # Neural Dojo: Module Index
 
-**Last Updated**: 2025-11-21 (Session #8)
-**Quick Reference**: All 37 modules at a glance
+**Last Updated**: 2025-11-22 (Session #8 - Quality Enhanced)
+**Quick Reference**: All 40 modules at a glance
 
 ---
 
@@ -16,11 +16,12 @@
 
 ## 📊 Quick Stats
 
-- **Total Modules**: 37 (Module 0 + Phases 1-8)
-- **Total Duration**: 144-206 hours
-- **Completed**: 11/37 (30%) 🎉
+- **Total Modules**: 40 (Module 0 + Phases 1-9)
+- **Total Duration**: 150-214 hours
+- **Completed**: 11/40 (28%) 🎉
 - **Foundation**: Module 0 + Phases 1-2 Complete!
 - **Next Up**: Phase 3 - Building with AI Toolkits
+- **New**: Phase 9 (Modules 38-40) - History of AI/ML (Optional)
 
 ---
 
@@ -334,6 +335,50 @@
 
 ---
 
+## Phase 8: Capstone Projects (Modules 35-37)
+
+### Module 35: Kaizen Enhancement - Advanced AI Features
+**Duration**: 8-10 hours | **Prerequisites**: Phases 1-7 | **Status**: ⚪
+**Topics**: Hybrid search RAG, multi-agent workflows, autonomous debugging, AI code review
+**Project**: Enhance kaizen with production-grade AI features
+
+### Module 36: Vibe AI Features - Generative Content Platform
+**Duration**: 8-10 hours | **Prerequisites**: Phases 1-7 | **Status**: ⚪
+**Topics**: AI content generation, multimodal learning, RAG knowledge management, personalization
+**Project**: Build AI-powered features for teaching platform
+
+### Module 37: Contrarian AI Analytics - Stock Intelligence System
+**Duration**: 8-10 hours | **Prerequisites**: Phases 1-7 | **Status**: ⚪
+**Topics**: Financial NLP, sentiment analysis, time series forecasting, anomaly detection
+**Project**: AI-driven stock analysis and insights
+
+---
+
+## Phase 9: History of AI/ML - Optional Enrichment 🕰️
+
+**Note**: Optional phase for historical context. Best taken AFTER Phase 2+ for deeper appreciation.
+
+### Module 38: The Foundations (1950s-1980s) - The Dark Ages Before Deep Learning 🕰️
+**Duration**: 3-4 hours | **Prerequisites**: None (best after Phase 2+) | **Status**: ⚪
+**Topics**: Birth of AI (1956), perceptron, AI winters, expert systems, backpropagation (1986)
+**Stories**: Perceptron controversy, ELIZA chatbot, AI winter causes, Hinton's persistence
+**💡 Fascinating Facts**: Why XOR broke the perceptron, LISP machine collapse, backpropagation discovered 3 times
+
+### Module 39: The Deep Learning Revolution (2000s-2010s) - How Cat Pictures Saved AI 🔥
+**Duration**: 3-4 hours | **Prerequisites**: None (best after Phase 2+) | **Status**: ⚪
+**Topics**: ImageNet/AlexNet (2012), Word2Vec (2013), CNN/RNN/LSTM evolution, GPU revolution
+**Stories**: Fei-Fei Li's ImageNet, AlexNet's 10% leap, "king - man + woman = queen" moment
+**💡 Fascinating Facts**: Why GPUs beat CPUs 50×, Hinton almost quit academia, the "bitter lesson"
+
+### Module 40: The Transformer Era (2017-Present) - Eight Researchers Changed Everything 🚀
+**Duration**: 4-5 hours | **Prerequisites**: None (best after Phase 4+) | **Status**: ⚪
+**Topics**: "Attention Is All You Need" (2017), BERT/GPT evolution, scaling laws, ChatGPT moment
+**Stories**: Paper almost rejected, GPT-2 "too dangerous", ChatGPT's 100M users in 2 months
+**💡 Fascinating Facts**: Transformer had 8 authors, GPT-4 cost $100M to train, fastest app growth ever
+**Future**: Multimodal models, reasoning systems, AI agents, where we're headed (2025+)
+
+---
+
 ## 🔮 Heureka Moments
 
 Transformative insights that change how you think about AI:
@@ -380,7 +425,7 @@ Transformative insights that change how you think about AI:
 
 ---
 
-_Last updated: 2025-11-21 (Session #8)_
-_Total modules: 37 (Module 0 + Phases 1-8)_
-_Total duration: 144-206 hours_
-_Progress: 11/37 modules complete (30%)_
+_Last updated: 2025-11-22 (Session #8 - Quality Enhanced)_
+_Total modules: 40 (Module 0 + Phases 1-9, includes 3 optional history modules)_
+_Total duration: 150-214 hours_
+_Progress: 11/40 modules complete (28%)_
