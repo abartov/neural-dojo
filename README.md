@@ -2,10 +2,10 @@
 
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
-[![Status](https://img.shields.io/badge/Status-Planning-yellow)]()
-[![Progress](https://img.shields.io/badge/Progress-0%25-red)]()
-[![Modules](https://img.shields.io/badge/Modules-35-blue)]()
-[![Duration](https://img.shields.io/badge/Duration-35--40%20weeks-green)]()
+[![Status](https://img.shields.io/badge/Status-In%20Progress-green)]()
+[![Progress](https://img.shields.io/badge/Progress-30%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-11%2F37%20Complete-blue)]()
+[![Phase](https://img.shields.io/badge/Phase-Foundation%20Complete-brightgreen)]()
 
 ---
 
@@ -46,19 +46,29 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 
 ## 📚 Curriculum Overview
 
-**35 modules** organized into **8 phases** (35-40 weeks, 140-200 hours):
+**37 modules** organized into **8 phases** + prerequisites (35-40 weeks, 144-206 hours):
 
-### Phase 1: AI-Native Development (Weeks 1-5)
-Master using AI as your development partner
-- Modules 1-5: AI coding assistants, prompt engineering, AI-powered debugging
+### Module 0: Prerequisites & Environment Setup ✅
+**Foundation module** - Set up your development environment
+- **Status**: 🟢 Complete
+- **Theory**: [module_00_prerequisites.md](docs/curriculum/notes/module_00_prerequisites.md)
+- **Examples**: [examples/module_00](examples/module_00/)
+- **Duration**: 2-3 hours
+- **Skills**: Python 3.10+, venv, API keys, first LLM call
+
+### Phase 1: AI-Native Development (Weeks 1-5) ✅
+**Master using AI as your development partner**
+- **Status**: 🟢 Complete (5/5 modules)
+- **Modules**: [1](docs/curriculum/MASTER_CURRICULUM.md#module-1-foundations-of-ai-driven-development), [2](docs/curriculum/MASTER_CURRICULUM.md#module-2-prompt-engineering-fundamentals-), [3](docs/curriculum/MASTER_CURRICULUM.md#module-3-ai-powered-code-generation), [4](docs/curriculum/MASTER_CURRICULUM.md#module-4-ai-assisted-debugging--optimization), [5](docs/curriculum/MASTER_CURRICULUM.md#module-5-building-with-ai-coding-assistants)
 - **Skills**: Prompt engineering, Claude Code, Cursor, GitHub Copilot
 
-### Phase 2: Generative AI Fundamentals (Weeks 6-10)
-Understand how LLMs work under the hood
-- Modules 6-10: LLMs, tokenization, embeddings, vector spaces
-- **Skills**: Text generation, semantic search, embeddings
+### Phase 2: Generative AI Fundamentals (Weeks 6-10) ✅
+**Understand how LLMs work under the hood**
+- **Status**: 🟢 Complete (5/5 modules)
+- **Modules**: [6](docs/curriculum/MASTER_CURRICULUM.md#module-6-introduction-to-large-language-models), [7](docs/curriculum/MASTER_CURRICULUM.md#module-7-tokenization--text-processing), [8](docs/curriculum/MASTER_CURRICULUM.md#module-8-text-generation--sampling-strategies), [9](docs/curriculum/MASTER_CURRICULUM.md#module-9-embeddings--semantic-similarity), [10](docs/curriculum/MASTER_CURRICULUM.md#module-10-vector-spaces--semantic-search-) 🔮
+- **Skills**: Text generation, semantic search, embeddings, vector arithmetic
 
-### Phase 3: Building with AI Toolkits (Weeks 11-18)
+### Phase 3: Building with AI Toolkits (Weeks 11-18) ⏭️ NEXT
 Master tools for production AI systems
 - Modules 11-18: Vector DBs, RAG, LangChain, LangGraph, agents
 - **Skills**: Qdrant, RAG pipelines, multi-agent systems
@@ -166,10 +176,20 @@ cat docs/curriculum/MASTER_CURRICULUM.md
 
 ### Your First Session
 
-1. Read [`docs/curriculum/MASTER_CURRICULUM.md`](docs/curriculum/MASTER_CURRICULUM.md)
-2. Start with **Module 1: Foundations of AI-Driven Development**
-3. Follow the theory → code → deliverables pattern
-4. Track your progress in the curriculum
+1. **Start with Module 0**: [Prerequisites & Environment Setup](docs/curriculum/notes/module_00_prerequisites.md)
+   - Set up Python 3.10+, venv, API keys
+   - Run test scripts to verify everything works
+   - Make your first LLM API call!
+
+2. **Read the Master Curriculum**: [MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md)
+   - Understand the full journey ahead
+   - See what you'll master in each phase
+
+3. **Begin Phase 1**: [Module 1 - AI-Driven Development](docs/curriculum/MASTER_CURRICULUM.md#module-1-foundations-of-ai-driven-development)
+   - Follow the theory → examples → deliverables pattern
+   - Track your progress using [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md)
+
+4. **Check Session Handoff**: [START_HERE_TOMORROW.md](docs/curriculum/START_HERE_TOMORROW.md) (updated after each session)
 
 ---
 
@@ -177,15 +197,18 @@ cat docs/curriculum/MASTER_CURRICULUM.md
 
 | Phase | Completion | Status |
 |-------|------------|--------|
-| Phase 1: AI-Native Development | 0/5 | ⚪ Not Started |
-| Phase 2: Generative AI Fundamentals | 0/5 | ⚪ Not Started |
-| Phase 3: Building with AI Toolkits | 0/8 | ⚪ Not Started |
-| Phase 4: Deep Learning Foundations | 0/7 | ⚪ Not Started |
-| Phase 5: Advanced Generative AI | 0/4 | ⚪ Not Started |
-| Phase 6: Production ML Systems | 0/3 | ⚪ Not Started |
-| Phase 7: AI for Infrastructure | 0/2 | ⚪ Not Started |
-| Phase 8: Capstone Projects | 0/1 | ⚪ Not Started |
-| **TOTAL** | **0/35** | **0% Complete** |
+| [Module 0: Prerequisites](docs/curriculum/MASTER_CURRICULUM.md#module-0-prerequisites--environment-setup-pre-phase-1) | 1/1 | 🟢 Complete |
+| [Phase 1: AI-Native Development](docs/curriculum/MASTER_CURRICULUM.md#phase-1-ai-native-development-weeks-1-5) | 5/5 | 🟢 Complete |
+| [Phase 2: Generative AI Fundamentals](docs/curriculum/MASTER_CURRICULUM.md#phase-2-generative-ai-fundamentals-weeks-6-10) | 5/5 | 🟢 Complete |
+| [Phase 3: Building with AI Toolkits](docs/curriculum/MASTER_CURRICULUM.md#phase-3-building-with-ai-toolkits-weeks-11-18) | 0/8 | ⏭️ Next |
+| [Phase 4: Deep Learning Foundations](docs/curriculum/MASTER_CURRICULUM.md#phase-4-deep-learning-foundations-weeks-19-25) | 0/7 | ⚪ Not Started |
+| [Phase 5: Advanced Generative AI](docs/curriculum/MASTER_CURRICULUM.md#phase-5-advanced-generative-ai-weeks-26-29) | 0/4 | ⚪ Not Started |
+| [Phase 6: Production ML Systems](docs/curriculum/MASTER_CURRICULUM.md#phase-6-production-ml-systems-weeks-30-32) | 0/3 | ⚪ Not Started |
+| [Phase 7: AI for Infrastructure](docs/curriculum/MASTER_CURRICULUM.md#phase-7-ai-for-infrastructure-weeks-33-34) | 0/2 | ⚪ Not Started |
+| [Phase 8: Capstone Projects](docs/curriculum/MASTER_CURRICULUM.md#phase-8-capstone-projects-weeks-35-40) | 0/1 | ⚪ Not Started |
+| **TOTAL** | **11/37** | **30% Complete** 🎉 |
+
+**Last Updated**: 2025-11-21 (Session #8)
 
 ---
 
@@ -290,9 +313,23 @@ Neural Dojo is designed to support your existing AI work:
 
 ## 📖 Documentation
 
-- **[MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md)** - Complete curriculum (35 modules)
-- **[START_HERE_TOMORROW.md](docs/curriculum/START_HERE_TOMORROW.md)** - Session handoff file
-- **[MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md)** - Module quick reference (coming soon)
+**Quick Links**:
+- 🎯 **[MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md)** - Complete curriculum (37 modules)
+- 🌅 **[START_HERE_TOMORROW.md](docs/curriculum/START_HERE_TOMORROW.md)** - Session handoff (updated after each session)
+- 📑 **[MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md)** - Module quick reference with links
+- 📝 **[session_log.md](docs/curriculum/notes/session_log.md)** - Chronological learning history
+
+**Theory Documents** (in `docs/curriculum/notes/`):
+- [module_00_prerequisites.md](docs/curriculum/notes/module_00_prerequisites.md) - Environment setup
+- [module_01_ai_driven_development.md](docs/curriculum/notes/module_01_ai_driven_development.md) - AI coding fundamentals
+- [module_02_prompt_engineering.md](docs/curriculum/notes/module_02_prompt_engineering.md) - Prompt engineering 🔮
+- ...and 34 more modules!
+
+**Examples** (in `examples/`):
+- [module_00/](examples/module_00/) - Setup test scripts
+- [module_01/](examples/module_01/) - AI coding patterns
+- [module_02/](examples/module_02/) - Prompt engineering demos
+- ...complete working code for all modules
 
 ---
 
@@ -332,8 +369,22 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ---
 
-**Ready to start your AI journey? Begin with [Module 1](docs/curriculum/MASTER_CURRICULUM.md#module-1-foundations-of-ai-driven-development)!** 🥋🧠⚡
+## 🚀 Ready to Start?
+
+**Current Status**: Foundation Complete (Module 0 + Phases 1-2) 🎉
+
+**Next Steps**:
+1. ✅ **Already completed Module 0-10?** Jump to [Phase 3 - Module 11 (RAG)](docs/curriculum/MASTER_CURRICULUM.md#module-11-introduction-to-vector-databases)
+2. 🆕 **Just getting started?** Begin with [Module 0 - Prerequisites](docs/curriculum/notes/module_00_prerequisites.md)
+3. 📚 **Want to review?** Check the [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md) to find specific topics
+
+**Quick Access**:
+- [📄 View Full Curriculum](docs/curriculum/MASTER_CURRICULUM.md)
+- [🌅 Check Current Session Status](docs/curriculum/START_HERE_TOMORROW.md)
+- [📊 Browse Module Index](docs/curriculum/MODULE_INDEX.md)
+- [📂 Explore Code Examples](examples/)
 
 ---
 
-_Last updated: 2025-11-21_
+_Last updated: 2025-11-21 (Session #8)_
+_Progress: 11/37 modules (30%) - Foundation Complete! 🎉_

@@ -1,101 +1,118 @@
 # Neural Dojo: Module Index
 
-**Last Updated**: 2025-11-21
-**Quick Reference**: All 36 modules at a glance
+**Last Updated**: 2025-11-21 (Session #8)
+**Quick Reference**: All 37 modules at a glance
 
 ---
 
 ## 🔍 How to Use This Index
 
-- **Jump to module**: Find module by number or topic
-- **Check status**: See what's complete vs in progress
-- **Find prerequisites**: Know what to complete first
-- **Search by topic**: Keywords for each module
+- **Jump to module**: Click module links to view theory/examples
+- **Check status**: 🟢 Complete | 🟡 In Progress | ⚪ Not Started
+- **Find prerequisites**: See what to complete first
+- **Search by topic**: Use keywords to find relevant modules
 
 ---
 
 ## 📊 Quick Stats
 
-- **Total Modules**: 36 (Module 0 + 35 main modules)
-- **Total Duration**: 142-203 hours
-- **Completed**: 0/36 (0%)
-- **In Progress**: 0/36
-- **Not Started**: 36/36
+- **Total Modules**: 37 (Module 0 + Phases 1-8)
+- **Total Duration**: 144-206 hours
+- **Completed**: 11/37 (30%) 🎉
+- **Foundation**: Module 0 + Phases 1-2 Complete!
+- **Next Up**: Phase 3 - Building with AI Toolkits
 
 ---
 
 ## Module 0: Prerequisites & Environment Setup
 
-**Duration**: 2-3 hours
-**Prerequisites**: None - start here!
-**Status**: ⚪ Not Started
-**Topics**: Python setup, venv, API keys, environment verification
-**Location**: `docs/curriculum/notes/module_00_prerequisites.md`
+**Duration**: 2-3 hours | **Prerequisites**: None - start here! | **Status**: 🟢 Complete
+**Topics**: Python 3.10+ setup, venv, API keys (Claude/OpenAI), environment verification
+**📖 Theory**: [module_00_prerequisites.md](notes/module_00_prerequisites.md)
+**💻 Examples**: [module_00/](../../examples/module_00/) (test_environment.py, test_claude_api.py, test_openai_api.py)
 
 ---
 
-## Phase 1: AI-Native Development (Modules 1-5)
+## Phase 1: AI-Native Development (Modules 1-5) ✅
+
+**Status**: 🟢 Complete (5/5 modules)
 
 ### Module 1: Foundations of AI-Driven Development
-**Duration**: 4-5 hours | **Prerequisites**: Module 0 | **Status**: ⚪
+**Duration**: 4-5 hours | **Prerequisites**: Module 0 | **Status**: 🟢 Complete
 **Topics**: AI development landscape, AI coding assistants, pair programming, when to use AI
-**Heureka**: None
+**📖 Theory**: [module_01_ai_driven_development.md](notes/module_01_ai_driven_development.md)
+**💻 Examples**: [module_01/](../../examples/module_01/) (patterns/, project/pyanalyzer.py)
 
 ### Module 2: Prompt Engineering Fundamentals 🔮
-**Duration**: 5-6 hours | **Prerequisites**: Module 1 | **Status**: ⚪
+**Duration**: 5-6 hours | **Prerequisites**: Module 1 | **Status**: 🟢 Complete
 **Topics**: Prompt structure, few-shot learning, chain-of-thought, prompt security
-**Heureka**: Prompts as programming interface (already discovered!)
+**📖 Theory**: [module_02_prompt_engineering.md](notes/module_02_prompt_engineering.md)
+**💻 Examples**: [module_02/](../../examples/module_02/) (8 prompt examples)
+**🔮 Heureka**: Prompts are the new programming interface!
 
 ### Module 3: AI-Powered Code Generation
-**Duration**: 4-5 hours | **Prerequisites**: Modules 1-2 | **Status**: ⚪
+**Duration**: 4-5 hours | **Prerequisites**: Modules 1-2 | **Status**: 🟢 Complete
 **Topics**: Code from natural language, refactoring, debugging, test generation
-**Heureka**: None
+**📖 Theory**: [module_03_code_generation.md](notes/module_03_code_generation.md)
+**💻 Examples**: [module_03/](../../examples/module_03/) (basic_generation.py)
 
 ### Module 4: AI-Assisted Debugging & Optimization
-**Duration**: 4-5 hours | **Prerequisites**: Modules 1-3 | **Status**: ⚪
+**Duration**: 4-5 hours | **Prerequisites**: Modules 1-3 | **Status**: 🟢 Complete
 **Topics**: Bug finding, performance optimization, AI debugging strategies
-**Heureka**: None
+**📖 Theory**: [module_04_debugging.md](notes/module_04_debugging.md)
+**📋 Deliverable**: [module_04_debugging_log.md](../deliverables/module_04_debugging_log.md)
 
 ### Module 5: Building with AI Coding Assistants
-**Duration**: 5-6 hours | **Prerequisites**: Modules 1-4 | **Status**: ⚪
+**Duration**: 5-6 hours | **Prerequisites**: Modules 1-4 | **Status**: 🟢 Complete
 **Topics**: Claude Code workflows, GitHub Copilot, Cursor IDE, complete project
-**Heureka**: None
+**📖 Theory**: [module_05_ai_tools.md](notes/module_05_ai_tools.md)
+**📋 Deliverable**: [module_05_ai_workflow.md](../deliverables/module_05_ai_workflow.md)
 
 ---
 
-## Phase 2: Generative AI Fundamentals (Modules 6-10)
+## Phase 2: Generative AI Fundamentals (Modules 6-10) ✅
+
+**Status**: 🟢 Complete (5/5 modules)
 
 ### Module 6: Introduction to Large Language Models
-**Duration**: 5-6 hours | **Prerequisites**: Phase 1 complete | **Status**: ⚪
+**Duration**: 5-6 hours | **Prerequisites**: Phase 1 complete | **Status**: 🟢 Complete
 **Topics**: Transformer architecture, GPT/Claude/Llama, model sizes, open vs proprietary
-**Heureka**: None
+**📖 Theory**: [module_06_intro_to_llms.md](notes/module_06_intro_to_llms.md)
+**💻 Examples**: [module_06/](../../examples/module_06/) (01_model_comparison.py)
 
 ### Module 7: Tokenization & Text Processing
-**Duration**: 4-5 hours | **Prerequisites**: Module 6 | **Status**: ⚪
-**Topics**: BPE, WordPiece, SentencePiece, token counting, multilingual
-**Heureka**: None
+**Duration**: 4-5 hours | **Prerequisites**: Module 6 | **Status**: 🟢 Complete
+**Topics**: BPE, WordPiece, SentencePiece, token counting, multilingual tokenization
+**📖 Theory**: [module_07_tokenization.md](notes/module_07_tokenization.md)
+**💻 Examples**: [module_07/](../../examples/module_07/) (token_counter.py, optimization.py, multilingual.py)
 
 ### Module 8: Text Generation & Sampling Strategies
-**Duration**: 5-6 hours | **Prerequisites**: Modules 6-7 | **Status**: ⚪
+**Duration**: 5-6 hours | **Prerequisites**: Modules 6-7 | **Status**: 🟢 Complete
 **Topics**: Autoregressive generation, temperature, top-p, top-k, repetition penalties
-**Heureka**: Preview of temperature insight (full in Module 17)
+**📖 Theory**: [module_08_text_generation.md](notes/module_08_text_generation.md)
+**💻 Examples**: [module_08/](../../examples/module_08/) (sampling_playground.py, temperature_explorer.py)
 
 ### Module 9: Embeddings & Semantic Similarity
-**Duration**: 5-6 hours | **Prerequisites**: Modules 6-8 | **Status**: ⚪
-**Topics**: What embeddings are, BERT, sentence-transformers, cosine similarity, visualization
-**Heureka**: None
+**Duration**: 2-3 hours | **Prerequisites**: Modules 6-8 | **Status**: 🟢 Complete
+**Topics**: Dense vectors, cosine similarity, semantic applications, OpenAI/Sentence-BERT
+**📖 Theory**: [module_09_embeddings.md](notes/module_09_embeddings.md)
+**💻 Examples**: [module_09/](../../examples/module_09/) (embedding_basics.py, semantic_applications.py)
 
 ### Module 10: Vector Spaces & Semantic Search 🔮
-**Duration**: 5-6 hours | **Prerequisites**: Module 9 | **Status**: ⚪
-**Topics**: Vector space concepts, semantic search, ANN, HNSW/IVF/LSH, quantization
-**Heureka**: Embeddings as semantic coordinates - meaning has geometry!
+**Duration**: 2-3 hours | **Prerequisites**: Module 9 | **Status**: 🟢 Complete
+**Topics**: Vector arithmetic, semantic space geometry, FAISS, ANN, HNSW
+**📖 Theory**: [module_10_vector_spaces.md](notes/module_10_vector_spaces.md)
+**💻 Examples**: [module_10/](../../examples/module_10/) (vector_arithmetic.py, production_search.py)
+**🔮 Heureka**: Math works on meaning! `king - man + woman ≈ queen`
 
 ---
 
-## Phase 3: Building with AI Toolkits (Modules 11-18)
+## Phase 3: Building with AI Toolkits (Modules 11-18) ⏭️
+
+**Status**: ⚪ Not Started (0/8 modules) - **NEXT UP!**
 
 ### Module 11: Introduction to Vector Databases
-**Duration**: 5-6 hours | **Prerequisites**: Modules 9-10 | **Status**: ⚪
+**Duration**: 5-6 hours | **Prerequisites**: Modules 9-10 | **Status**: ⚪ Not Started
 **Topics**: Qdrant, Pinecone, Weaviate, Chroma, indexing, metadata filtering
 **Heureka**: None
 
@@ -321,8 +338,8 @@
 
 Transformative insights that change how you think about AI:
 
-1. **Module 2**: Prompt Engineering - Prompts as programming interface ✅ (already discovered)
-2. **Module 10**: Embeddings as Semantic Space - Meaning has geometry
+1. **Module 2**: Prompt Engineering - Prompts as programming interface ✅ (discovered!)
+2. **Module 10**: Embeddings as Semantic Space - Meaning has geometry ✅ (discovered!)
 3. **Module 13**: RAG vs Fine-tuning - Different problems, different solutions
 4. **Module 16**: Chain-of-Thought - Making AI show its work
 5. **Module 17**: Temperature - Probability distribution control
@@ -363,6 +380,7 @@ Transformative insights that change how you think about AI:
 
 ---
 
-_Last updated: 2025-11-21_
-_Total modules: 36 (Module 0 + 35 main modules)_
-_Total duration: 142-203 hours_
+_Last updated: 2025-11-21 (Session #8)_
+_Total modules: 37 (Module 0 + Phases 1-8)_
+_Total duration: 144-206 hours_
+_Progress: 11/37 modules complete (30%)_
