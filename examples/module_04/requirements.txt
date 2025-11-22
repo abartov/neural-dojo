@@ -1,0 +1,25 @@
+# Module 4: AI-Assisted Debugging & Optimization
+# Requirements for hands-on examples
+# Last updated: 2025-11-22
+
+# Performance Profiling
+memory-profiler>=0.61.0       # Memory usage profiling
+psutil>=5.9.0                 # System and process utilities
+
+# Async/Concurrency
+aiohttp>=3.9.0                # Async HTTP client/server
+asyncio>=3.4.3                # Async I/O (built-in but listed for clarity)
+
+# Testing
+pytest>=8.0.0                 # Testing framework
+pytest-asyncio>=0.23.0        # Async test support
+
+# HTTP Requests (for integration examples)
+requests>=2.31.0              # HTTP library
+
+# Type Checking
+mypy>=1.8.0                   # Static type checker
+
+# Development Tools
+ipython>=8.20.0               # Enhanced Python shell for debugging
+rich>=13.7.0                  # Pretty terminal output (optional)
