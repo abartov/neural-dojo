@@ -1,0 +1,136 @@
+{
+  "models": [
+    {
+      "title": "Qwen 2.5 Coder 7B (Local - Recommended)",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:7b",
+      "apiBase": "http://localhost:11434",
+      "contextLength": 32768,
+      "completionOptions": {
+        "temperature": 0.2,
+        "topP": 0.9,
+        "presencePenalty": 0.0,
+        "frequencyPenalty": 0.0
+      }
+    },
+    {
+      "title": "DeepSeek Coder V2 16B (Local - High Quality)",
+      "provider": "ollama",
+      "model": "deepseek-coder-v2:16b",
+      "apiBase": "http://localhost:11434",
+      "contextLength": 16384,
+      "completionOptions": {
+        "temperature": 0.1,
+        "topP": 0.95
+      }
+    },
+    {
+      "title": "Phi-3.5 3.8B (Local - Low Resource)",
+      "provider": "ollama",
+      "model": "phi3.5:3.8b",
+      "apiBase": "http://localhost:11434",
+      "contextLength": 4096,
+      "completionOptions": {
+        "temperature": 0.3,
+        "topP": 0.9
+      }
+    },
+    {
+      "title": "Gemini 2.5 Flash (API - FREE Tier)",
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "apiKey": "YOUR_GEMINI_API_KEY_HERE",
+      "contextLength": 1000000,
+      "completionOptions": {
+        "temperature": 0.2,
+        "topP": 0.95
+      }
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Qwen Autocomplete (Local)",
+    "provider": "ollama",
+    "model": "qwen2.5-coder:7b",
+    "apiBase": "http://localhost:11434"
+  },
+  "embeddingsProvider": {
+    "provider": "ollama",
+    "model": "nomic-embed-text",
+    "apiBase": "http://localhost:11434"
+  },
+  "slashCommands": [
+    {
+      "name": "edit",
+      "description": "Edit selected code"
+    },
+    {
+      "name": "comment",
+      "description": "Add comments to code"
+    },
+    {
+      "name": "share",
+      "description": "Share code snippet"
+    },
+    {
+      "name": "cmd",
+      "description": "Generate a shell command"
+    },
+    {
+      "name": "commit",
+      "description": "Generate git commit message"
+    }
+  ],
+  "contextProviders": [
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "folder",
+      "params": {}
+    },
+    {
+      "name": "codebase",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {}
+    },
+    {
+      "name": "problems",
+      "params": {}
+    },
+    {
+      "name": "open",
+      "params": {}
+    },
+    {
+      "name": "git",
+      "params": {}
+    }
+  ],
+  "allowAnonymousTelemetry": false,
+  "docs": [
+    {
+      "title": "Python Docs",
+      "startUrl": "https://docs.python.org/3/"
+    },
+    {
+      "title": "PyTorch Docs",
+      "startUrl": "https://pytorch.org/docs/"
+    },
+    {
+      "title": "FastAPI Docs",
+      "startUrl": "https://fastapi.tiangolo.com/"
+    }
+  ],
+  "experimental": {
+    "modelRoles": {
+      "default": "Qwen 2.5 Coder 7B (Local - Recommended)",
+      "summarize": "Qwen 2.5 Coder 7B (Local - Recommended)",
+      "edit": "Qwen 2.5 Coder 7B (Local - Recommended)",
+      "chat": "Qwen 2.5 Coder 7B (Local - Recommended)"
+    }
+  }
+}

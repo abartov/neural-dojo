@@ -1,0 +1,28 @@
+# Module 1.2: Local Models for AI Coding
+# Requirements for hands-on exercises
+# Last updated: 2025-11-22
+
+# AI Coding Assistants
+aider-chat>=0.50.0            # Terminal AI coding with git integration
+# continue is a VS Code extension, install via marketplace
+
+# Ollama is installed via system package manager:
+# - macOS: brew install ollama
+# - Linux: curl -fsSL https://ollama.com/install.sh | sh
+# - Windows: https://ollama.com/download
+
+# API Clients (optional, for hybrid approach)
+google-generativeai>=0.3.0    # Google Gemini API
+anthropic>=0.18.0             # Anthropic Claude API (optional)
+openai>=1.12.0                # OpenAI API (optional)
+
+# Utilities
+python-dotenv>=1.0.0          # Environment variable management
+requests>=2.31.0              # HTTP library for API testing
+rich>=13.7.0                  # Pretty terminal output (optional)
+
+# Development Tools (optional but recommended)
+pytest>=8.0.0                 # Testing framework
+black>=24.0.0                 # Code formatter
+ruff>=0.2.0                   # Fast Python linter
+mypy>=1.8.0                   # Type checker

@@ -3,9 +3,9 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-22
-**Version**: 2.0.0 - Quality Enhanced + History Modules Added
-**Status**: Module 0 + Phase 2 Complete! 🎉 Ready for Phase 3
-**Total Duration**: 40 modules (including Module 0 + 3 optional history modules), 37-42 weeks (150-214 hours)
+**Version**: 2.1.0 - Module 1 Split into 1.1 (Tools) + 1.2 (Local Models)
+**Status**: Module 0 + Phase 1 + Phase 2 Complete! 🎉 Ready for Phase 3
+**Total Duration**: 41 modules (including Module 0 + 1.1, 1.2 + 3 optional history modules), 38-43 weeks (153-217 hours)
 
 ---
 
@@ -50,7 +50,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase | Modules | Status | Completion |
 |-------|---------|--------|------------|
 | Module 0: Prerequisites | 0 | 🟢 Complete | 1/1 (100%) |
-| Phase 1: AI-Native Development | 1-5 | 🟢 Complete | 5/5 (100%) |
+| Phase 1: AI-Native Development | 1.1, 1.2, 2-5 | 🟢 Complete | 6/6 (100%) |
 | Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
@@ -59,7 +59,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 35-37 | ⚪ Not Started | 0/3 |
 | Phase 9: History of AI/ML (Optional) | 38-40 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **40 modules** | **28% Complete** | **11/40** |
+| **TOTAL** | **41 modules** | **29% Complete** | **12/41** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -113,35 +113,82 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 **Goal**: Master using AI as your development partner
 
-### Module 1: Foundations of AI-Driven Development
+### Module 1.1: AI Coding Tools Landscape
 - **Duration**: 4-5 hours
 - **Prerequisites**: None (start here!)
 - **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand the AI development landscape (2024-2025)
-- Set up AI coding assistants (Claude Code, Cursor, GitHub Copilot)
+- Set up AI coding assistants (Claude Code, Cursor, GitHub Copilot, Aider, Continue.dev)
 - Learn the mental model of AI pair programming
 - Understand when to use AI vs traditional coding
+- Master subscriptions vs API access distinction
 
 **Deliverables**:
 - ✅ Configured development environment with Claude Code
 - ✅ 5 AI coding pattern demonstrations (200+ lines each)
 - ✅ Python File Analyzer CLI tool (250+ lines, full test coverage)
-- ✅ AI tools comparison template
+- ✅ AI tools comparison template (13 tools evaluated)
 - ✅ Reflection document template
+- ✅ Subscriptions vs API Access comprehensive guide
 
 **Key Concepts**:
 - AI as a tool, not a replacement
 - The human-in-the-loop principle
 - AI strengths and limitations
 - 5 AI coding patterns (Specification, Iteration, Example, Explanation, Debugging)
+- Subscription access (web only) vs API access (programmatic)
+- Cost optimization strategies
 
 **Files Created**:
-- Theory: `docs/curriculum/notes/module_01_ai_driven_development.md` (8,000+ words)
+- Theory: `docs/curriculum/notes/module_01.1_ai_coding_tools.md` (~2,500 lines, 2025-verified pricing)
 - Examples: `examples/module_01/patterns/` (5 pattern demonstrations)
 - Project: `examples/module_01/project/pyanalyzer.py` (CLI tool with tests)
 - Deliverables: `docs/deliverables/module_01_*.md` (2 templates)
+
+---
+
+### Module 1.2: Local Models for AI Coding
+- **Duration**: 3-4 hours
+- **Prerequisites**: Module 1.1
+- **Status**: 🟢 Complete
+
+**Learning Objectives**:
+- Understand local AI model landscape (DeepSeek, Qwen, Llama, Mistral, Gemma, Phi)
+- Install and run Ollama (local model management)
+- Use local models with Aider (terminal AI coding)
+- Configure Continue.dev with local models (VS Code extension)
+- Implement hybrid approach (80% local, 20% API)
+- Optimize costs ($0-5/month vs $50-150/month)
+
+**Deliverables**:
+- ✅ Ollama installation and setup (macOS/Linux/Windows)
+- ✅ Local model testing suite
+- ✅ Aider + local models configuration
+- ✅ Continue.dev + local models setup
+- ✅ Cost comparison analysis ($600-1,800/year savings potential)
+- ✅ Hybrid workflow implementation
+
+**Key Concepts**:
+- Local vs API models (cost, privacy, performance)
+- Model quantization (Q4, Q8)
+- Ollama model management
+- Aider terminal workflows
+- Continue.dev VS Code integration
+- Hybrid cost optimization (local daily work, API for complex tasks)
+- Model sizing and hardware requirements
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_01.2_local_models.md` (~1,100 lines, comprehensive guide)
+- Examples: `examples/module_01.2/`
+  - `setup_ollama.sh` (automated installation script)
+  - `test_local_models.py` (model testing and verification)
+  - `aider_with_local.md` (Aider setup guide)
+  - `continue_config.json` (Continue.dev configuration)
+  - `cost_comparison.md` (detailed cost analysis)
+  - `requirements.txt` (dependencies)
+  - `README.md` (module overview)
 
 ---
 
@@ -1378,19 +1425,23 @@ By the end of Neural Dojo, you will:
 
 ---
 
-_Last updated: 2025-11-21_
-_Version: 1.5.0 - Phase 2 In Progress! Modules 6-7 underway_
-_Next session: Complete Module 7 examples, continue with Modules 8-10_
+_Last updated: 2025-11-22_
+_Version: 2.1.0 - Module 1 Split into 1.1 (Tools) + 1.2 (Local Models)_
+_Next session: Continue with Phase 3 (Building with AI Toolkits) or enhance Phase 1-2 modules_
 
 **🎉 Phase 1 Achievement Unlocked! 🎉**
 You've mastered AI-Native Development:
-- ✅ AI development patterns and mental models
-- ✅ Prompt engineering fundamentals
-- ✅ AI-powered code generation
-- ✅ AI-assisted debugging and optimization
-- ✅ AI coding assistants (Claude Code, Copilot, Cursor)
+- ✅ Module 1.1: AI Coding Tools Landscape (13 tools, subscriptions vs API)
+- ✅ Module 1.2: Local Models for AI Coding (Ollama, Aider, Continue.dev)
+- ✅ Module 2: Prompt engineering fundamentals
+- ✅ Module 3: AI-powered code generation
+- ✅ Module 4: AI-assisted debugging and optimization
+- ✅ Module 5: AI coding assistants (Claude Code, Copilot, Cursor)
 
-**Phase 2 Progress** (Generative AI Fundamentals):
-- ✅ Module 6: Introduction to Large Language Models - **Complete!**
-- 🟡 Module 7: Tokenization & Text Processing - **Theory Complete, Examples Pending**
-- ⏳ Modules 8-10: Coming up next!
+**🎉 Phase 2 Achievement Unlocked! 🎉**
+You've mastered Generative AI Fundamentals:
+- ✅ Module 6: Introduction to Large Language Models
+- ✅ Module 7: Tokenization & Text Processing
+- ✅ Module 8: Text Generation & Sampling Strategies
+- ✅ Module 9: Embeddings & Semantic Similarity
+- ✅ Module 10: Vector Spaces & Semantic Search 🔮
