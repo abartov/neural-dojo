@@ -2,8 +2,8 @@
 
 **Your AI Pair Programmer Awakens**: Learn to 10x your coding velocity with AI assistants 🤖
 
-**Last Updated**: 2025-11-22
-**Status**: 🟢 Complete (Enhanced with Quality Patterns)
+**Last Updated**: 2025-11-22 (Fact-Checked for 2025)
+**Status**: 🟢 Complete (Enhanced + Fact-Checked)
 **Duration**: 4-5 hours
 **Prerequisites**: Module 0 complete
 
@@ -22,6 +22,8 @@ By the end of this module, you will:
 - Understand the limitations and ethical considerations
 
 **Why this matters**: AI coding assistants are the most significant productivity tool since IDEs were invented. Developers who master them are 3-10x more productive. Those who don't are being left behind.
+
+**2025 Update**: The landscape has evolved dramatically! Terminal/CLI coding agents (OpenAI Codex CLI, Gemini CLI) are now the most powerful category. FREE tiers have improved significantly (Gemini CLI is excellent!). This module now covers **13 major tools** with verified 2025 pricing.
 
 ---
 
@@ -227,7 +229,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 **The Personality**: These are **AI-native workshops** - built from ground up for AI-driven development.
 
-#### 4. **Cursor** (The Game-Changer - 2023)
+#### 4. **Cursor** (The Game-Changer - 2023) ⭐ MOST POPULAR AI-FIRST IDE
 
 **What it is**: VS Code fork with AI deeply integrated throughout
 
@@ -240,10 +242,11 @@ The landscape has exploded with options. Here's your decision matrix:
 - ✅ Agentic (takes multi-step actions without asking)
 - ✅ Composer mode for complex refactoring
 - ✅ Import all VS Code extensions
+- ✅ Supports Claude, GPT-4, or bring your own API key (BYOK)
 
 **The Not-So-Good**:
 - ⚠️ Requires switching from your current IDE
-- ⚠️ Costs per API usage (brings own Claude/GPT key)
+- ⚠️ Monthly subscription + usage credits model
 - ⚠️ Can make mistakes (always verify!)
 - ⚠️ Some VS Code features lag behind
 
@@ -252,8 +255,26 @@ The landscape has exploded with options. Here's your decision matrix:
 - Debugging mysterious issues
 - Architecture changes
 - Learning new codebases
+- Developers who want best-in-class AI IDE experience
 
-**Pricing**: Free trial, then pay-per-use API costs (~$3-10/month typical usage)
+**Pricing (CORRECTED for 2025)**:
+- **Hobby**: FREE (entry-level limits on Tab autocomplete and Agent)
+- **Pro**: $20/month
+  - Unlimited Tab (autocomplete)
+  - Unlimited Auto
+  - $20/month credit pool for frontier models (charged at API pricing)
+  - Can add overages if you exceed credit pool
+- **Ultra**: $200/month
+  - 20× more usage than Pro
+  - For power users
+- **Teams**: $40/user/month
+  - All Pro features + SSO and admin controls
+- **Annual plans**: 20% discount
+
+**Recent Changes (2025)**:
+- June 2025: Replaced request caps with usage credit pool system
+- August 2025: Auto (agentic coding) now contributes to monthly usage
+- Hybrid model: flat monthly fee + included usage credits + optional overages
 
 **Real-world example**: "Refactor this Express app to use TypeScript and add input validation to all endpoints" - Cursor edits 15 files, adds types, validation, tests in 5 minutes.
 
@@ -286,11 +307,85 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-## 🖥️ Category 3: Terminal & CLI-Based
+## 🖥️ Category 3: Terminal & CLI-Based Coding Agents ⭐ 2025 BREAKTHROUGH
 
-**The Personality**: These are **command-line wizards** - for developers who live in the terminal.
+**The Personality**: These are **command-line wizards** - autonomous coding agents that live in your terminal. The newest and most powerful category!
 
-#### 6. **Aider.ai** (The Terminal Power User's Dream)
+---
+
+#### 6. **OpenAI Codex CLI** ⭐ NEW 2025 (Game-Changing!)
+
+**What it is**: Official OpenAI terminal coding agent (launched October 2025)
+
+**The Good**:
+- ✅ **INCLUDED with ChatGPT Plus/Pro** ($20/month) - NO additional API costs!
+- ✅ Zero-setup: `npm install -g @openai/codex`
+- ✅ IDE extensions available (VSCode, Cursor, Windsurf)
+- ✅ Uses GPT-5.1-Codex-Max (most advanced OpenAI coding model)
+- ✅ Works across millions of tokens (project-scale refactors)
+- ✅ 95% of OpenAI engineers use it weekly
+- ✅ ReAct loop for complex multi-step tasks
+- ✅ Available in CLI, IDE extensions, and web
+
+**The Not-So-Good**:
+- ⚠️ Requires ChatGPT Plus/Pro subscription
+- ⚠️ Terminal-focused (but IDE extensions available)
+- ⚠️ Newer tool (launched Oct 2025, still maturing)
+
+**Best for**:
+- Developers already paying for ChatGPT Plus ($20/month gets you BOTH chat + CLI agent!)
+- Large-scale refactoring (millions of tokens context)
+- Multi-step autonomous coding tasks
+- Terminal-first workflows
+
+**Pricing**: **INCLUDED** with ChatGPT Plus ($20/month), Pro ($200/month), Business, Edu, Enterprise - No additional API costs!
+
+**Real-world impact**:
+- Used by Duolingo, Vanta, Cisco, Rakuten
+- Engineers ship **70% more PRs** after adopting Codex
+- "Migrate entire Python 2 codebase to Python 3 across 200 files" - Codex CLI works autonomously for hours
+
+**This is huge!** OpenAI Codex CLI is the ONLY major coding tool included in a chat subscription. ChatGPT Plus now gives you both unlimited web chat AND a powerful terminal coding agent!
+
+---
+
+#### 7. **Google Gemini CLI** ⭐ FREE TIER (Best Free Option 2025!)
+
+**What it is**: Open-source terminal AI agent from Google (launched June 2025)
+
+**The Good**:
+- ✅ **FREE tier** with generous limits (just login with Google account!)
+- ✅ Gemini 2.5 Pro with **1 million token** context window (largest available!)
+- ✅ 60 requests/minute, 1,000 requests/day on free tier
+- ✅ Open source (70,000+ GitHub stars, 2,800+ community PRs)
+- ✅ ReAct loop with tool use
+- ✅ MCP server support
+- ✅ Integrated with Gemini Code Assist (Agent Mode in VS Code)
+
+**The Not-So-Good**:
+- ⚠️ CLI UX still improving (community feedback: rougher than competitors)
+- ⚠️ Newer than established tools (launched June 2025)
+- ⚠️ Some features still in development
+
+**Best for**:
+- **Budget-conscious developers** (best free tier available in 2025!)
+- Long context tasks (1M tokens beats most competitors)
+- Google ecosystem users
+- Open source enthusiasts
+- Students and learners
+
+**Pricing**:
+- **Free**: Gemini Code Assist license (2.5 Pro, 1M context, 60 req/min, 1K req/day)
+- **Standard**: Paid tier for higher limits
+- **Enterprise**: Enterprise features and support
+
+**Real-world example**: "Analyze this 500-file codebase and find all security vulnerabilities" - Gemini CLI loads entire project in 1M context window, systematically scans.
+
+**Note**: User mentioned "Gemini CLI sucks" - but the **free tier is actually excellent** for most use cases! CLI UX is improving rapidly with community contributions.
+
+---
+
+#### 8. **Aider.ai** (The Terminal Power User's Dream)
 
 **What it is**: AI pair programming in your terminal with git integration
 
@@ -322,7 +417,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-#### 7. **Cline** (formerly Claude Dev)
+#### 9. **Cline** (formerly Claude Dev)
 
 **What it is**: VS Code extension for agentic AI coding with terminal access
 
@@ -353,38 +448,50 @@ The landscape has exploded with options. Here's your decision matrix:
 
 **The Personality**: These are **autonomous agents** - they can reason, plan, and execute multi-step tasks.
 
-#### 8. **Claude Code** (The Learning Companion)
+#### 10. **Anthropic Claude Code CLI** ⭐ WHAT YOU'RE USING RIGHT NOW
 
-**What it is**: AI assistant that can read your entire codebase, write files, run commands, and reason about complex tasks
+**What it is**: Official Anthropic terminal coding agent - the AI assistant you're using right now to learn!
 
 **The Good**:
-- ✅ Sees your whole project (200K token context)
-- ✅ Can edit multiple files simultaneously
-- ✅ Runs terminal commands and interprets output
-- ✅ Explains reasoning clearly (best for learning!)
-- ✅ Long conversations with context retention
-- ✅ Agentic (takes multi-step actions autonomously)
-- ✅ Excellent at debugging and explaining
+- ✅ Agentic multi-file editing
+- ✅ Git workflow integration
+- ✅ Understands entire codebase (200K token context)
+- ✅ Uses Claude Opus 4.1, Sonnet 4.5, Haiku 3.5
+- ✅ Works on macOS, Linux, Windows
+- ✅ Open source (GitHub: anthropics/claude-code)
+- ✅ No backend server needed (runs locally)
+- ✅ Excellent at explaining and teaching (best for learning!)
 
 **The Not-So-Good**:
 - ⚠️ Requires Claude API key (pay-per-use)
-- ⚠️ Not as fast as inline autocomplete
-- ⚠️ Can make mistakes (always verify output!)
-- ⚠️ Usage costs can add up for large projects
+- ⚠️ **NOT included with Claude Pro subscription** ($20/month web chat subscription does NOT give you API access!)
+- ⚠️ Standard API pricing (can add up with heavy use)
+- ⚠️ Terminal-only (no GUI)
 
 **Best for**:
-- Complex refactoring across multiple files
-- Debugging mysterious issues
-- Architecture changes
-- **Learning** (explains WHY, not just WHAT)
+- Complex multi-file refactoring
+- Git-integrated workflows
+- **Learning** (Claude explains WHY, not just WHAT)
+- Developers who prefer Claude models
+- Terminal power users
 
-**Pricing**: Pay-per-use (~$3-5 for this entire curriculum)
+**Pricing**:
+- **API-based**: Standard Claude API pricing
+  - Sonnet 4.5: $3/M input tokens, $15/M output tokens
+  - Opus 4.1: More expensive (check current pricing)
+  - Haiku 3.5: Cheapest option
+- **~$3-5 for this entire Neural Dojo curriculum**
+- **⚠️ IMPORTANT**: Claude Pro ($20/month) subscription only gives you web chat access, NOT API access for Claude Code CLI!
+
+**Real-world example**: "Read this GitHub issue, write code to fix it, run tests, commit with descriptive message, open PR" - Claude Code handles entire workflow.
+
+**Why you're using this for Neural Dojo**: Claude excels at explaining concepts while coding - perfect for learning!
 
 **Real-world example**: "Debug why my React app is re-rendering too much" - Claude reads component tree, finds memo() bugs, explains React rendering lifecycle, fixes issue across 4 files.
 
 ---
 
-#### 9. **Continue.dev** (The Open Source Champion)
+#### 11. **Continue.dev** (The Open Source Champion)
 
 **What it is**: Open-source AI code assistant for VS Code/JetBrains
 
@@ -419,7 +526,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 **The Personality**: These are **versatile mentors** - not specialized for code, but excellent at it.
 
-#### 10. **ChatGPT** (OpenAI)
+#### 12. **ChatGPT** (OpenAI)
 
 **What it is**: General-purpose AI that's excellent for coding tasks
 
@@ -451,7 +558,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-#### 11. **Gemini** (Google)
+#### 13. **Gemini Advanced** (Google Web)
 
 **What it is**: Google's AI assistant with strong coding capabilities
 
@@ -482,20 +589,224 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-### 🗺️ The Landscape Map (Visual Guide)
+## 🚨 CRITICAL: Subscriptions vs API Access (Read This Carefully!)
+
+### The #1 Confusion in AI Coding (90% of Beginners Get This Wrong!)
+
+**Question**: "I have ChatGPT Plus. Can I use it with Aider.ai?"
+**Answer**: **NO** ❌ (Except: OpenAI Codex CLI IS included!)
+
+**Question**: "I have Claude Pro. Can I use it with Claude Code CLI?"
+**Answer**: **NO** ❌
+
+**Question**: "I have Gemini Advanced. Can I use it with Continue.dev?"
+**Answer**: **NO** ❌
+
+**Question from user**: "Gemini CLI sucks, can I use my Gemini Advanced subscription instead?"
+**Answer**: **NO** ❌ (They're separate products!)
+
+---
+
+### Why Not? Understanding the Two Separate Ecosystems
+
+#### Ecosystem 1: **Chat Subscriptions** (Web Interface Only)
+
+| Product | Price | What You Get | Can Use With Coding Tools? |
+|---------|-------|--------------|---------------------------|
+| **ChatGPT Plus** | $20/mo | Unlimited web chat + **Codex CLI** | ❌ No (except Codex CLI) |
+| **Claude Pro** | $20/mo | 5× more web chat usage | ❌ No - web only |
+| **Gemini Advanced** | $20/mo | Web chat + Google Workspace | ❌ No - web only |
+
+**What subscriptions give you**:
+- ✅ Unlimited access to web chat interface
+- ✅ Click buttons in a browser to get AI help
+- ✅ Great for ad-hoc questions, learning, brainstorming
+- ❌ **Cannot** be used programmatically by external tools
+- ❌ **Separate billing** from API access
+
+**Exception**: ChatGPT Plus/Pro **DOES** include OpenAI Codex CLI! (Only subscription that includes a coding tool)
+
+---
+
+#### Ecosystem 2: **API Access** (For Coding Tools)
+
+| Product | Pricing Model | What You Get | Can Use With Coding Tools? |
+|---------|---------------|--------------|---------------------------|
+| **OpenAI API** | Pay-per-use | Programmatic access to GPT models | ✅ Yes - Aider, Continue.dev, Cursor BYOK |
+| **Anthropic API** | Pay-per-use | Programmatic access to Claude models | ✅ Yes - Claude Code CLI, Aider, etc. |
+| **Google AI API** | Free tier + paid | Programmatic access to Gemini | ✅ Yes - Continue.dev, custom tools |
+
+**What API access gives you**:
+- ✅ Your **code/tools** can call AI models
+- ✅ Works with terminal agents (Aider.ai, Claude Code CLI)
+- ✅ Works with IDE extensions (Continue.dev, Cursor BYOK)
+- ✅ Pay per request (typically $3-20/month for moderate use)
+- ⚠️ **Completely separate** from chat subscriptions
+
+---
+
+### The Confusion Explained (With Examples)
+
+**Scenario 1: You have ChatGPT Plus ($20/month)**
+
+What you CAN do:
+- ✅ Use ChatGPT web interface for coding help
+- ✅ Use OpenAI Codex CLI (INCLUDED!)
+- ✅ Copy-paste code for debugging/review
+
+What you CANNOT do:
+- ❌ Use Aider.ai (needs separate OpenAI API account)
+- ❌ Use Continue.dev with GPT-4 (needs separate API key)
+- ❌ Use Cursor BYOK with GPT-4 (needs API key)
+
+**To use those tools**: Sign up for OpenAI API separately at platform.openai.com (different from chat.openai.com!)
+
+---
+
+**Scenario 2: You have Claude Pro ($20/month)**
+
+What you CAN do:
+- ✅ Use Claude web interface (claude.ai) for coding help
+- ✅ 200K token context for code analysis
+- ✅ Artifacts for code editing
+
+What you CANNOT do:
+- ❌ Use Claude Code CLI (needs separate Anthropic API key)
+- ❌ Use Aider.ai with Claude (needs API key)
+- ❌ Use Continue.dev with Claude (needs API key)
+
+**To use Claude Code CLI**: Get separate API key from console.anthropic.com (pay-per-use, ~$3-10/month)
+
+---
+
+**Scenario 3: You have Gemini Advanced ($20/month)**
+
+What you CAN do:
+- ✅ Use Gemini web interface for coding help
+- ✅ 2M token context window
+- ✅ Google Workspace integration
+
+What you CANNOT do:
+- ❌ Use Gemini CLI (it's FREE but separate - just login with Google!)
+- ❌ Use Continue.dev with Gemini (needs Google AI API key)
+- ❌ Use custom integrations
+
+**Good news**: Gemini CLI has an excellent FREE tier! Just login with your Google account at ai.google.dev
+
+---
+
+### Can You Have Both? (Subscription + API)
+
+**YES!** Many developers have:
+- ChatGPT Plus for daily ad-hoc help ($20/month)
+- Claude API for Claude Code CLI (~$5-10/month usage)
+- **Total**: ~$25-30/month for complete AI coding setup
+
+Or even better in 2025:
+- ChatGPT Plus ($20/month) → includes Codex CLI!
+- Gemini CLI (FREE tier) → for long context tasks
+- **Total**: $20/month, two powerful terminal agents!
+
+---
+
+### Cost Comparison by Use Case
+
+**"I'm a student on tight budget"**:
+- ✅ Skip subscriptions
+- ✅ Use Gemini CLI (FREE tier - 1K req/day!)
+- ✅ Use Codeium (FREE autocomplete)
+- ✅ Use Continue.dev + Google AI API (FREE tier)
+- **Cost**: $0/month
+
+**"I want best experience, budget not an issue"**:
+- ✅ ChatGPT Plus ($20/mo) → includes Codex CLI
+- ✅ Cursor Pro ($20/mo) → best AI IDE
+- ✅ Claude API (~$10/mo) → for Claude Code CLI when needed
+- **Cost**: $50/month, every tool available
+
+**"I'm a professional developer, moderate budget"**:
+- ✅ Cursor Pro ($20/mo) → all-in-one: autocomplete + agentic AI + IDE
+- ✅ Gemini CLI (FREE) → for long context tasks
+- **Cost**: $20/month
+
+**"I prefer terminal/CLI workflows"**:
+- ✅ ChatGPT Plus ($20/mo) → includes Codex CLI
+- ✅ Gemini CLI (FREE)
+- ✅ Use your favorite editor (Vim, Emacs, VS Code)
+- **Cost**: $20/month
+
+---
+
+### Common Mistakes to Avoid
+
+**Mistake #1**: "I paid for Claude Pro, so I can use Claude Code CLI"
+- **Reality**: Claude Pro = web chat only, separate from API
+- **Fix**: Get Claude API key from console.anthropic.com (~$3-10/month usage)
+
+**Mistake #2**: "Gemini CLI sucks, I'll use my Gemini Advanced subscription"
+- **Reality**: Gemini Advanced = web only, can't help with CLI
+- **Fix**: Gemini CLI is FREE with Google account - try the free tier! UX improving rapidly
+
+**Mistake #3**: "I'll buy ChatGPT Plus and use Aider.ai with it"
+- **Reality**: ChatGPT Plus doesn't give API access for Aider.ai
+- **Fix**: Use included Codex CLI instead, OR get separate OpenAI API account
+
+**Mistake #4**: "All $20/month subscriptions are the same"
+- **Reality**: They're for different things:
+  - ChatGPT Plus = web chat + **Codex CLI** (unique!)
+  - Claude Pro = web chat only
+  - Gemini Advanced = web chat only
+  - Cursor Pro = AI IDE (not a chat service)
+
+---
+
+### Bottom Line
+
+**Three separate product ecosystems - don't confuse them**:
+
+1. **Chat Subscriptions** ($20/month each)
+   - ChatGPT Plus, Claude Pro, Gemini Advanced
+   - For web-based AI assistance
+   - **Exception**: ChatGPT Plus includes Codex CLI!
+
+2. **API Access** (pay-per-use or free tiers)
+   - OpenAI API, Anthropic API, Google AI API
+   - For terminal tools (Claude Code CLI, Aider.ai, Continue.dev)
+   - Typically $0-20/month depending on usage
+   - Gemini has generous FREE tier!
+
+3. **IDE Subscriptions** ($10-200/month)
+   - Cursor, GitHub Copilot, Windsurf
+   - For integrated IDE experiences
+   - Some allow BYOK to reduce costs
+
+**Want coding tools?** → You need #2 (API Access) or #3 (IDE subscriptions)
+**Want unlimited chat?** → You need #1 (Chat Subscriptions)
+**Want both?** → Get both (separate billing, ~$20-50/month total)
+
+**Can't afford both?** → Start with API access or free tiers ($0-10/month), skip chat subscriptions
+
+---
+
+### 🗺️ The Landscape Map (Visual Guide - 2025)
 
 ```
-AUTOCOMPLETE FOCUS ←────────────────→ AGENTIC FOCUS
-IDE-Integrated     ←────────────────→ Terminal/Standalone
+AUTOCOMPLETE FOCUS ←──────────────────────→ AGENTIC FOCUS
+IDE-Integrated     ←──────────────────────→ Terminal/Standalone
 
-Copilot/Tabnine    Cursor/Windsurf    Aider.ai        ChatGPT/Gemini
-Codeium            Continue.dev        Cline           Claude Code
-    │                  │                │                  │
-    ├─ Line-by-line    ├─ Hybrid        ├─ Terminal       ├─ General AI
-    ├─ Fast (<1s)      ├─ Multi-file    ├─ Git-aware      ├─ Long context
-    ├─ Autocomplete    ├─ Chat+code     ├─ CLI-native     ├─ Reasoning
-    ├─ Limited context ├─ Agentic       ├─ Scriptable     ├─ Teaching
-    └─ $0-20/mo        └─ $10-20/mo     └─ BYOK           └─ Free-$20/mo
+Copilot/Tabnine    Cursor/Windsurf    Codex CLI/Gemini CLI    ChatGPT/Gemini Advanced
+Codeium            Gemini Code Assist  Aider.ai/Cline          Claude Web
+    │                  │                    │                       │
+    ├─ Line-by-line    ├─ Hybrid            ├─ Terminal agents      ├─ General AI
+    ├─ Fast (<1s)      ├─ Multi-file        ├─ Git-aware            ├─ Long context
+    ├─ Autocomplete    ├─ Chat+code         ├─ Multi-step tasks     ├─ Reasoning
+    ├─ Limited context ├─ Agentic           ├─ Autonomous           ├─ Teaching
+    └─ $0-20/mo        └─ $20-200/mo        └─ $0-20/mo             └─ Free-$20/mo
+
+NEW 2025 Breakthrough: Terminal/CLI Coding Agents
+- OpenAI Codex CLI (included with ChatGPT Plus!)
+- Gemini CLI (FREE tier with 1M context!)
+- Claude Code CLI (API-based)
 
 BYOK = Bring Your Own (API) Key
 ```
@@ -554,77 +865,106 @@ Claude Code/Cursor ──────→ (power)
 
 #### 🏆 Best Overall Combo (If Budget Allows)
 
-**Daily Coding**: Cursor IDE ($10-20/month)
-- Autocomplete + agentic AI in one
-- Best all-around experience
-- Worth switching from VS Code
+**Option A: All-in-One**
+- **Cursor Pro**: $20/month (IDE + autocomplete + agentic AI)
+- **ChatGPT Plus**: $20/month (web chat + Codex CLI included!)
+- **Total**: $40/month
+- **What you get**: Complete AI coding setup, every major tool covered
 
-**+ Learning**: ChatGPT Plus ($20/month)
-- Best for explanations and learning
-- No context limitations
-- O1 for complex reasoning
-
-**Total**: ~$40/month for ultimate setup
+**Option B: Premium Everything**
+- **Cursor Ultra**: $200/month (20× more usage)
+- **ChatGPT Pro**: $200/month (unlimited o1, o3-mini)
+- **Total**: $400/month
+- **What you get**: Unlimited everything, maximum productivity
 
 ---
 
 #### 💰 Best Value Combo (Budget-Conscious)
 
-**Daily Coding**: VS Code + Codeium (FREE)
-- Free autocomplete
-- Decent chat capabilities
-- No cost!
+**FREE Tier (Student/Learner)**:
+- **Gemini CLI**: FREE (1M context, 1K req/day)
+- **Codeium**: FREE (unlimited autocomplete)
+- **ChatGPT Free**: FREE (ad-hoc help)
+- **VS Code**: FREE
+- **Total**: $0/month
+- **What you get**: Surprisingly powerful setup with zero cost!
 
-**+ Agentic**: Continue.dev (FREE) + Anthropic API ($3-10/month)
-- Multi-file editing
-- Bring your own Claude key
-- Customize everything
-
-**+ Learning**: ChatGPT Free Tier (FREE)
-- Good enough for learning
-- Upgrade to Plus when needed
-
-**Total**: ~$3-10/month (just API costs)
+**Budget Pro ($20/month)**:
+- **ChatGPT Plus**: $20/month (includes Codex CLI!)
+- **Gemini CLI**: FREE (long context tasks)
+- **Codeium**: FREE (autocomplete)
+- **Total**: $20/month
+- **What you get**: Two terminal agents (Codex + Gemini) + autocomplete
 
 ---
 
 #### 🎓 Best for Learning (Neural Dojo Recommendation)
 
-**Primary**: VS Code + Claude Code (pay-per-use)
+**Primary**: VS Code + Claude Code CLI (pay-per-use)
 - Explains reasoning (critical for learning!)
 - Can read entire project
 - This curriculum uses Claude Code in examples
 - Cost: ~$3-5 for entire Neural Dojo curriculum
+- Why: Claude excels at teaching WHY, not just WHAT
 
-**Backup**: Copilot or Codeium (for autocomplete)
-- Fast daily coding
-- Complements Claude Code
-- Free (Codeium) or $10/month (Copilot)
+**Supplementary FREE tools**:
+- **Gemini CLI**: FREE (1M context) - for long codebase analysis
+- **Codeium**: FREE - fast autocomplete while learning
+- **ChatGPT Free**: FREE - quick questions
 
-**Total**: ~$10-15/month
+**Total**: ~$3-10/month (mostly Claude API usage)
+
+**Alternative if you already have ChatGPT Plus**:
+- **ChatGPT Plus**: $20/month (includes Codex CLI!)
+- **Gemini CLI**: FREE
+- **Total**: $20/month, covers most needs
 
 ---
 
-### 💡 Choosing Your Stack: Decision Tree
+### 💡 Choosing Your Stack: Decision Tree (2025 Edition)
 
 ```
-START: Do you want to switch IDEs?
+START: What's your budget?
   │
-  ├─ YES → Try Cursor ($10-20/mo) or Windsurf (free tier)
-  │        Best all-in-one experience
-  │
-  └─ NO → Keep VS Code/JetBrains/Vim
-      │
-      ├─ Want autocomplete? → GitHub Copilot ($10/mo) or Codeium (free)
-      │
-      ├─ Want agentic coding? → Claude Code (BYOK) or Continue.dev (free)
-      │
-      ├─ Terminal user? → Aider.ai (BYOK) or Cline (free extension)
-      │
-      └─ Just learning? → ChatGPT (free tier) + VS Code
+  ├─ $0/month (FREE) ────────────────────────────┐
+  │   └─ Gemini CLI (FREE, 1M context)           │
+  │      + Codeium (FREE autocomplete)            │ ← Best free setup 2025!
+  │      + Continue.dev (FREE)                    │
+  │      = Powerful AI coding, zero cost          │
+  │                                                │
+  ├─ ~$20/month ──────────────────────────────────┤
+  │   ├─ Want terminal agents?                    │
+  │   │   └─ ChatGPT Plus ($20) → includes Codex CLI!
+  │   │      + Gemini CLI (FREE)                  │
+  │   │      = Two CLI agents for $20/month       │
+  │   │                                            │
+  │   └─ Want AI-first IDE?                       │
+  │       └─ Cursor Pro ($20)                     │
+  │          + Gemini CLI (FREE)                  │
+  │          = Best all-in-one experience         │
+  │                                                │
+  ├─ ~$40/month (Recommended) ────────────────────┤
+  │   └─ Cursor Pro ($20) + ChatGPT Plus ($20)   │
+  │      + Gemini CLI (FREE)                      │
+  │      = Complete setup: IDE + agents + chat    │
+  │                                                │
+  └─ $200+/month (Ultimate) ──────────────────────┘
+      └─ Cursor Ultra ($200) or ChatGPT Pro ($200)
+         = Unlimited everything
+
+LEARNING (Neural Dojo students)?
+  └─ VS Code (FREE)
+     + Claude Code CLI (~$3-5 for curriculum)
+     + Gemini CLI (FREE)
+     = Learn with best explanations, minimal cost
 ```
 
-**Pro tip**: Start with ONE tool, master it, then add more. Don't try to use 5 tools on day one!
+**2025 Pro Tips**:
+- **Start FREE**: Gemini CLI + Codeium costs $0, surprisingly powerful!
+- **Best $20 value**: ChatGPT Plus (includes Codex CLI + web chat)
+- **Best learning**: Claude Code CLI (explains WHY, not just WHAT)
+- **Don't confuse**: Subscriptions ≠ API access (read CRITICAL section above!)
+- **Master ONE first**: Don't use 5 tools on day one, start simple!
 
 ---
 
@@ -2087,7 +2427,7 @@ Use this to verify you're ready for Module 2:
 **Congratulations!** You now understand the AI development landscape and how to use AI as your coding partner.
 
 **You've learned**:
-- ✅ The 11 major AI coding tools and when to use each
+- ✅ The 13 major AI coding tools (2025-verified) and when to use each
 - ✅ How to think about AI as a "super-intern" coding partner
 - ✅ When AI excels vs when to code yourself
 - ✅ AI coding best practices (8 critical practices)
@@ -2112,5 +2452,7 @@ In Module 2, you'll learn:
 
 ---
 
-_Last updated: 2025-11-22 (Enhanced with Quality Patterns)_
-_Module status: 🟢 Complete_
+_Last updated: 2025-11-22 (Fact-Checked for 2025 - All Pricing Verified)_
+_Module status: 🟢 Complete + Fact-Checked_
+_Tools covered: 13 (Added: OpenAI Codex CLI, Gemini CLI)_
+_Critical addition: Subscriptions vs API Access section_
