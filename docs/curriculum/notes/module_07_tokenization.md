@@ -34,6 +34,55 @@ LLMs don't process raw text. They process **tokens** - and the number of tokens 
 
 ---
 
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now let's count some tokens!**
+
+Before diving deeper into tokenization algorithms, get hands-on experience with how text becomes tokens. Each example builds your intuition about what makes tokenization efficient or expensive.
+
+### Practice Path (~3-3.5 hours total)
+
+**1. [Token Counter](../../examples/module_07/01_token_counter.py)** - See tokenization in action
+   - 📖 Concept: Basic token counting and visualization
+   - ⏱️ Time: 45-60 minutes
+   - 🎯 Goal: Understand how different text types tokenize
+   - 💡 What you'll learn: Code uses 3-4x more tokens than prose!
+
+**2. [Token Optimization](../../examples/module_07/02_optimization.py)** - Save 30-50% on API costs
+   - 📖 Concept: 6 strategies to reduce token counts
+   - ⏱️ Time: 60-75 minutes
+   - 🎯 Goal: Optimize prompts without losing quality
+   - 💡 What you'll learn: Simple changes = massive savings at scale
+
+**3. [Multilingual Tokenization](../../examples/module_07/03_multilingual.py)** - Compare 15+ languages
+   - 📖 Concept: Why non-English costs 2-3x more
+   - ⏱️ Time: 45-60 minutes
+   - 🎯 Goal: Budget accurately for multilingual apps
+   - 💡 What you'll learn: English bias in tokenizers is real
+
+### 🎯 Deliverable: Token Optimization Report
+
+**What**: Analyze your own prompts/codebase for token efficiency
+**Time**: 2-3 hours
+**Portfolio Value**: Shows cost-awareness and production optimization skills
+
+**Requirements**:
+1. Run token counter on 5-10 prompts from your projects (kaizen, vibe, contrarian)
+2. Identify optimization opportunities (verbosity, formatting, etc.)
+3. Implement optimizations and measure savings
+4. Calculate monthly cost savings at scale (100K-1M requests)
+5. Document findings in a Markdown report with before/after comparisons
+
+**Success Criteria**:
+- ✅ Token counts measured before/after optimization
+- ✅ At least 20% token reduction achieved
+- ✅ Cost savings calculated for production volumes
+- ✅ Best practices documented for future use
+
+**Real-World Impact**: Token optimization is critical for production AI - this deliverable proves you can reduce costs without sacrificing quality!
+
+---
+
 ## 🔤 What Are Tokens?
 
 ### The Simple Definition
@@ -70,6 +119,8 @@ LLMs don't process raw text. They process **tokens** - and the number of tokens 
 - Vocabulary = 30K-100K tokens
 - Handles new words (break into known parts)
 - Efficient sequence lengths
+
+**👉 Want to see this in action? Run [01_token_counter.py](../../examples/module_07/01_token_counter.py) to visualize how text splits into tokens!**
 
 ---
 
@@ -161,6 +212,9 @@ The `##` indicates this is not the start of a word.
 
 **This is the modern standard for new models!**
 
+**Did You Know?** 🤓
+SentencePiece was developed by Google for their neural machine translation systems. The breakthrough was treating whitespace as just another character (▁), making it work seamlessly across ALL languages - including those without spaces like Chinese and Japanese. This is why modern multilingual models (Llama, T5, BLOOM) all use SentencePiece!
+
 ---
 
 ## 📊 Token Counting Examples
@@ -202,6 +256,8 @@ def fibonacci(n):
 **Did You Know?** 🤓
 Code typically uses 3-4x more tokens than English prose for the same character count. This is why API costs add up fast for code generation!
 
+**👉 Experience this cost difference firsthand: [01_token_counter.py](../../examples/module_07/01_token_counter.py) compares prose vs code tokenization!**
+
 ---
 
 ### Multilingual Text
@@ -216,6 +272,9 @@ Code typically uses 3-4x more tokens than English prose for the same character c
 **Key insight**: Models trained primarily on English tokenize non-English less efficiently.
 
 **This is why**: Multilingual models use SentencePiece and train on diverse languages!
+
+**Did You Know?** 🤓
+The reason English tokenizes more efficiently isn't just training data - it's also that English has relatively simple morphology (word structure). Languages with complex morphology like Finnish or Turkish can have a single word with dozens of suffixes, making them harder to tokenize efficiently. For example, "I wouldn't have been able to go" is 8 English tokens, but the equivalent in Finnish "En olisi voinut mennä" might be just 4 tokens in a Finnish-optimized tokenizer!
 
 ---
 
@@ -255,6 +314,8 @@ Cost = (6 + 9) * $0.03/1000 + 200 * $0.06/1000
 **At scale**:
 - 1M requests/month = $12,450/month
 - Optimizing prompt from 100 → 50 tokens = 50% cost savings!
+
+**👉 Ready to optimize? [02_optimization.py](../../examples/module_07/02_optimization.py) shows 6 strategies to cut costs by 30-50%!**
 
 ---
 
@@ -354,6 +415,8 @@ System: "You are a helpful assistant."
 **But**: Only if it doesn't hurt clarity!
 
 **Balance**: Token savings vs model performance
+
+**👉 See all optimization strategies in action: [02_optimization.py](../../examples/module_07/02_optimization.py) measures exact savings!**
 
 ---
 
@@ -475,6 +538,8 @@ estimated_tokens = len(text) / 4
 3. Consider language-specific models for high-volume languages
 4. Use SentencePiece-based models (Llama, T5)
 
+**👉 Building multilingual apps? [03_multilingual.py](../../examples/module_07/03_multilingual.py) compares 15+ languages!**
+
 ---
 
 ## 🐛 Common Tokenization Gotchas
@@ -533,6 +598,9 @@ estimated_tokens = len(text) / 4
 ```
 
 **Lesson**: Emoji can be surprisingly expensive!
+
+**Did You Know?** 🤓
+The flag emoji 🏴󠁧󠁢󠁳󠁣󠁴󠁿 (Scotland flag) can be 7-8 tokens because flags are actually composed of multiple Unicode characters called "Regional Indicator Symbols" that combine to form the flag. The simple smiley 😀 is usually 1-2 tokens, but complex emoji like family compositions 👨‍👩‍👧‍👦 can be 5+ tokens! If you're building a social media chatbot that handles lots of emoji, this can add up fast.
 
 ---
 
@@ -618,6 +686,9 @@ response = call_llm(prompt)
 6. **Optimize prompts**: Shorter prompts = lower costs + faster
 7. **Context limits are real**: Token counting prevents failures
 8. **Special tokens exist**: Don't forget about system prompts and message boundaries
+
+**Did You Know?** 🤓
+OpenAI's GPT-4 tokenizer has a vocabulary of ~100,000 tokens, but only uses ~50,000 of them frequently. The rest are for rare words, special characters, and multilingual support. This is why the tokenizer file is so large (several MB) - it's essentially a massive lookup table mapping text patterns to token IDs. Fun fact: The most common token in the GPT-4 tokenizer is " " (space + common word endings like "the", "and", "is"), which appears in almost every sentence!
 
 ---
 
