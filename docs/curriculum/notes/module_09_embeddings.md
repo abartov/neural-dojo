@@ -66,6 +66,64 @@ This transforms the search problem from **matching strings** to **measuring dist
 
 ---
 
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now let's build with embeddings!**
+
+Embeddings are the foundation of modern AI applications. Theory alone won't give you intuition - you need to see how texts with similar meanings cluster together in vector space, and how dramatically better semantic search is compared to keyword matching.
+
+### Practice Path (~2.5-3 hours total)
+
+**1. [Embedding Basics](../../examples/module_09/01_embedding_basics.py)** - Generate and compare embeddings
+   - 📖 Concept: Creating embeddings and measuring cosine similarity
+   - ⏱️ Time: 60-75 minutes
+   - 🎯 Goal: Build intuition for how meaning becomes math
+   - 💡 What you'll learn: Similar texts = similar vectors!
+
+**2. [Semantic Applications](../../examples/module_09/02_semantic_applications.py)** - Build real-world systems
+   - 📖 Concept: Search, clustering, recommendations, classification
+   - ⏱️ Time: 75-90 minutes
+   - 🎯 Goal: Apply embeddings to 5 different use cases
+   - 💡 What you'll learn: One technology, infinite applications!
+
+### 🎯 Deliverable: Semantic Search Engine
+
+**What**: Build a production-ready semantic search system for one of your projects
+**Time**: 4-5 hours
+**Portfolio Value**: Demonstrates end-to-end AI system building skills
+
+**Requirements**:
+1. Choose a data source from your projects:
+   - kaizen: Documentation search
+   - vibe: Course content recommendations
+   - contrarian: Financial news clustering
+   - Work: Infrastructure runbook search
+2. Implement complete system:
+   - Data ingestion and preprocessing
+   - Embedding generation (with caching!)
+   - Similarity search with ranking
+   - API endpoint or CLI interface
+   - Performance metrics (recall@k, latency)
+3. Compare 2+ embedding models:
+   - Measure quality (relevance) on test queries
+   - Measure cost and latency
+   - Document trade-offs
+4. Include examples:
+   - 5-10 example queries with results
+   - Show keyword search vs semantic search comparison
+5. Deploy or package for production use
+
+**Success Criteria**:
+- ✅ System handles 100+ documents
+- ✅ Sub-second query latency
+- ✅ Embeddings cached/persisted efficiently
+- ✅ Measurable improvement over keyword search
+- ✅ Production-ready code (error handling, logging)
+
+**Real-World Impact**: Semantic search is a fundamental capability in modern applications - this deliverable proves you can build it from scratch!
+
+---
+
 ## 💡 Did You Know?
 
 The word "embedding" comes from mathematics: you're **embedding** a high-dimensional discrete space (words/texts) into a continuous vector space. It's like taking discrete cities and placing them on a continuous map where proximity represents similarity!
@@ -106,6 +164,8 @@ Think of each dimension as capturing one aspect of meaning:
 - Dimension 1536: [Some subtle semantic feature]
 
 With 1536 dimensions, you can capture incredibly nuanced meaning!
+
+**👉 See dimensionality in action: [01_embedding_basics.py](../../examples/module_09/01_embedding_basics.py) generates and visualizes embeddings!**
 
 ---
 
@@ -443,6 +503,8 @@ cosine = cosine_similarity(vec_1, vec_2)  # → 1.0
 
 For text, **direction matters more than magnitude**. Two texts about the same topic (same direction) are similar even if one is more detailed (larger magnitude).
 
+**👉 Compare similarity measures: [01_embedding_basics.py](../../examples/module_09/01_embedding_basics.py) shows cosine vs Euclidean!**
+
 ---
 
 ## 💡 Did You Know?
@@ -548,6 +610,8 @@ Cluster 1:
 ```
 
 **Perfect clustering!** Programming docs vs ML docs automatically separated.
+
+**👉 Build all 5 use cases: [02_semantic_applications.py](../../examples/module_09/02_semantic_applications.py) implements search, clustering, recommendations, classification, and duplicates!**
 
 ### 3. Recommendation System
 
