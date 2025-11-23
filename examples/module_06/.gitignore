@@ -1,0 +1,5 @@
+.model_benchmark/
+model_comparison_report.md
+__pycache__/
+*.pyc
+.env
