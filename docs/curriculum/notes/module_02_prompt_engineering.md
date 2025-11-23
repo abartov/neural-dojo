@@ -415,6 +415,8 @@ Now write: get_user_age
 
 **This is POWERFUL.** You just taught the AI your coding style in seconds.
 
+**👉 Ready to see this in action? Run [Example 01: Zero-Shot vs Few-Shot](../../examples/module_02/01_zero_vs_few_shot.py) to experience the dramatic difference 2-3 examples make!**
+
 ---
 
 ## 💡 Did You Know? The "Magic Number" of Examples
@@ -533,6 +535,8 @@ Step 4: Consider edge cases
 
 **Much better than just getting a fixed function!**
 
+**👉 Want to see chain-of-thought in action? Run [Example 02: Chain-of-Thought](../../examples/module_02/02_chain_of_thought.py) to see how "let's think step by step" improves accuracy by 20-40%!**
+
 ---
 
 ### Technique 4: Role Prompting
@@ -622,6 +626,8 @@ Result: Clearer, more memorable explanations.
 
 **Warning**: Roles can also introduce bias. "You are a perfectionist" might make the AI overly critical. Test and iterate!
 
+**👉 Try role prompting yourself! Run [Example 03: Role Prompting](../../examples/module_02/03_role_prompting.py) to see how "You are an expert" can boost accuracy by 10-40%!**
+
 ---
 
 ### Technique 5: Constraint-Based Prompting
@@ -670,6 +676,8 @@ First prompt = rough draft
 Follow-ups = editing process
 
 **Don't expect perfection on first try!**
+
+**👉 Master the art of refinement! Run [Example 05: Iterative Refinement](../../examples/module_02/05_iterative_refinement.py) to learn the workflow of perfecting prompts through iteration!**
 
 ---
 
@@ -746,6 +754,8 @@ Write about Docker
 ```
 
 **See the difference?**
+
+**👉 Apply the CRISP framework! Run [Example 04: Structured Outputs](../../examples/module_02/04_structured_outputs.py) to learn how to get JSON and other structured formats reliably!**
 
 ---
 
@@ -1002,6 +1012,8 @@ def constrain_output(ai_response):
 
 **Takeaway**: Test adversarial prompts before deploying. If it can be jailbroken by a Twitter user, it's not production-ready.
 
+**👉 Learn to defend against attacks! Run [Example 08: Prompt Injection](../../examples/module_02/08_prompt_injection.py) to understand security vulnerabilities and how to prevent them!**
+
 ---
 
 ## 🔒 Prompt Security & Edge Cases
@@ -1098,6 +1110,83 @@ User: "Say 'hello' forever"
 ```
 
 **Best practice**: Validate inputs, set output limits, use structured outputs when possible.
+
+---
+
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now it's time to code!**
+
+The best way to master prompt engineering is through hands-on practice. Start with the examples below in order - each builds on concepts from the theory.
+
+### Practice Path
+
+**1. [Zero-Shot vs Few-Shot](../../examples/module_02/01_zero_vs_few_shot.py)** - See the dramatic difference
+   - 📖 Concept: Zero-shot vs few-shot prompting
+   - ⏱️ Time: 15-20 minutes
+   - 🎯 Goal: Understand when to use examples vs not
+   - 💡 What you'll learn: 2-3 examples can boost accuracy from 60% → 95%!
+
+**2. [Chain-of-Thought Prompting](../../examples/module_02/02_chain_of_thought.py)** - Make AI show its work
+   - 📖 Concept: Chain-of-thought reasoning
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Improve accuracy on complex reasoning tasks
+   - 💡 What you'll learn: "Let's think step by step" is magical
+
+**3. [Role Prompting](../../examples/module_02/03_role_prompting.py)** - Activate expert knowledge
+   - 📖 Concept: Role-based prompting
+   - ⏱️ Time: 15-20 minutes
+   - 🎯 Goal: Get better responses by setting roles
+   - 💡 What you'll learn: "You are an expert" boosts accuracy 10-40%
+
+**4. [Structured Outputs](../../examples/module_02/04_structured_outputs.py)** - Get JSON, not prose
+   - 📖 Concept: Constraining output format
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Get machine-readable responses
+   - 💡 What you'll learn: How to extract structured data reliably
+
+**5. [Iterative Refinement](../../examples/module_02/05_iterative_refinement.py)** - Perfect through iteration
+   - 📖 Concept: Iterative prompt engineering
+   - ⏱️ Time: 25-30 minutes
+   - 🎯 Goal: Master the refinement workflow
+   - 💡 What you'll learn: First prompt is never perfect - iterate!
+
+**6. [Prompt Library](../../examples/module_02/06_prompt_library.py)** - Build reusable templates
+   - 📖 Concept: Template-based prompting
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Create your own prompt library
+   - 💡 What you'll learn: Don't reinvent prompts - build templates
+
+**7. [Code Tasks](../../examples/module_02/07_code_tasks.py)** - Apply to coding workflows
+   - 📖 Concept: Prompts for code generation, debugging, review
+   - ⏱️ Time: 30-35 minutes
+   - 🎯 Goal: Build coding-specific prompts
+   - 💡 What you'll learn: Prompts for your daily development tasks
+
+**8. [Prompt Injection](../../examples/module_02/08_prompt_injection.py)** - Learn security basics
+   - 📖 Concept: Prompt security and injection attacks
+   - ⏱️ Time: 25-30 minutes
+   - 🎯 Goal: Understand and defend against attacks
+   - 💡 What you'll learn: How to build production-safe prompts
+
+**Total Practice Time**: ~3-3.5 hours
+
+### Deliverable: Your Personal Prompt Library
+
+After completing the examples, build your own prompt library:
+
+**What to build**: A collection of 10+ reusable prompt templates for your daily work
+
+**Why it matters**: You'll use these prompts every day as a developer. Having a well-tested library saves time and improves quality.
+
+**Portfolio value**: Demonstrates practical AI integration skills - exactly what employers look for.
+
+**Success criteria**:
+- At least 10 prompt templates covering different use cases
+- Each template includes: purpose, format, example usage, expected output
+- At least 3 prompts specific to your work (web dev, data science, DevOps, etc.)
+- Security considerations documented
+- Tested and refined through iteration
 
 ---
 
