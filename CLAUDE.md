@@ -1,7 +1,7 @@
 # Claude AI Assistant Guidelines for Neural Dojo
 
-**Last Updated**: 2025-11-21
-**Version**: 1.0.0
+**Last Updated**: 2025-11-23
+**Version**: 1.1.0 (Added Deliverable Patterns from Sessions #10-12)
 
 This document provides guidelines for AI assistants (Claude) working on the Neural Dojo project. It ensures consistency, quality, and adherence to project standards.
 
@@ -48,11 +48,94 @@ Every module MUST meet these standards before being marked complete:
 - **Error Handling**: Proper exception handling
 - **Type Hints**: Use Python type annotations
 
-#### 3. **Deliverables**
-- **Concrete**: Specific, measurable outputs
-- **Practical**: Usable in real projects
-- **Documented**: Clear success criteria
-- **Tested**: Verify deliverables work as expected
+#### 3. **Deliverables** (`examples/module_XX/deliverable_*.py`)
+
+**CRITICAL**: Follow the established deliverable pattern from Modules 02-10!
+
+**Structure** (MUST include all of these):
+- **Main Python file**: `deliverable_[name].py` (350-800+ lines)
+- **README**: `DELIVERABLE_README.md` (comprehensive documentation)
+- **Dependencies**: `requirements.txt` (specific versions)
+- **Gitignore**: `.gitignore` (exclude cache directories)
+
+**Code Architecture** (MUST follow this pattern):
+- **Dataclasses**: Use `@dataclass` with type hints for all data structures
+- **JSON Persistence**: Save/load results with `json.dump()` and `json.load()`
+- **Storage Directory**: Create `.{tool_name}/` for caching/persistence
+- **CLI Interface**: Use `sys.argv` for command-line arguments
+- **Demo Functions**: Include 3-4 `demo_N_*()` functions showcasing features
+- **Main Function**: Standard `if __name__ == "__main__":` pattern
+- **Graceful Degradation**: Work without API keys where possible
+- **Error Handling**: Try/except with informative messages
+- **Type Hints**: Full type annotations throughout
+
+**Required Features**:
+- ✅ At least 3 demo functions (demo1, demo2, demo3)
+- ✅ Production-quality error handling
+- ✅ Comprehensive docstrings (module-level and function-level)
+- ✅ JSON-based data persistence
+- ✅ CLI help/usage information
+- ✅ Progress indicators (print statements showing what's happening)
+- ✅ Success/failure indicators (✅ ❌ ⚠️ emojis)
+
+**DELIVERABLE_README.md Format**:
+```markdown
+# Module XX Deliverable: [Name]
+
+**[One-line value proposition]**
+
+## Features
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+
+## Quick Start
+```bash
+python deliverable_[name].py demo1  # [Description]
+python deliverable_[name].py demo2  # [Description]
+python deliverable_[name].py demo3  # [Description]
+```
+
+## [Core Concept Section]
+[Explain key concepts, presets, configurations, etc.]
+
+## [Metrics/Results Section]
+[Show performance, quality metrics, or outcomes]
+
+**Time**: ~X hours | **Lines**: XXX+ | **Author**: Neural Dojo
+```
+
+**Testing Requirements**:
+- ✅ Test ALL demo functions before committing
+- ✅ Verify output is correct and informative
+- ✅ Check error handling works
+- ✅ Confirm help text is clear
+
+**Examples of Established Patterns**:
+1. **Module 02**: Prompt Library (templates, A/B testing, version control)
+2. **Module 03**: Code Generation (AST parsing, security analysis)
+3. **Module 04**: AI Debugging (cProfile integration, error analysis)
+4. **Module 05**: Tools Comparison (multi-API, benchmarking)
+5. **Module 06**: Model Benchmark (statistical analysis)
+6. **Module 07**: Token Optimizer (cost analysis, optimization)
+7. **Module 08**: Sampling Tuner (presets, quality scoring)
+8. **Module 09**: Semantic Search (embeddings, caching)
+9. **Module 10**: Vector Explorer (PCA, t-SNE, visualization)
+
+**Deliverable Completion Checklist**:
+- [ ] Main Python file (350-800+ lines)
+- [ ] DELIVERABLE_README.md (comprehensive)
+- [ ] requirements.txt (with specific versions)
+- [ ] .gitignore (excludes cache/data directories)
+- [ ] 3+ demo functions implemented
+- [ ] All demos tested and working
+- [ ] JSON persistence implemented
+- [ ] CLI interface functional
+- [ ] Error handling comprehensive
+- [ ] Type hints throughout
+- [ ] Docstrings for all functions
+- [ ] Committed to git
+- [ ] Tested successfully
 
 #### 4. **Module Completion Criteria**
 - [ ] Theory document written and reviewed
@@ -637,5 +720,20 @@ Neural Dojo is about transformation - from zero to hero in AI/ML. Every module i
 
 ---
 
-_Last updated: 2025-11-21_
-_Version: 1.0.0_
+_Last updated: 2025-11-23_
+_Version: 1.1.0_
+
+## 📝 Version History
+
+**v1.1.0** (2025-11-23):
+- Added comprehensive deliverable patterns section
+- Documented code architecture requirements
+- Added deliverable completion checklist
+- Referenced all 9 completed deliverables as examples
+- Established JSON persistence, dataclass, and CLI patterns
+
+**v1.0.0** (2025-11-21):
+- Initial guidelines document
+- Module quality standards
+- Session management protocol
+- Writing style guidelines
