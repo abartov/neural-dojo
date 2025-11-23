@@ -35,6 +35,58 @@ When an LLM generates text, it doesn't just pick "the best" word. It **samples**
 
 ---
 
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now let's control some text generation!**
+
+Understanding sampling parameters is like learning to drive - theory is important, but you need hands-on practice to develop intuition. These examples let you experiment with temperature, top-p, and repetition penalties to see their effects in real-time.
+
+### Practice Path (~2.5-3 hours total)
+
+**1. [Sampling Playground](../../examples/module_08/01_sampling_playground.py)** - Experiment with all parameters
+   - 📖 Concept: Interactive exploration of sampling strategies
+   - ⏱️ Time: 75-90 minutes
+   - 🎯 Goal: Build intuition for temperature, top-p, and repetition penalty
+   - 💡 What you'll learn: Same prompt + different parameters = dramatically different outputs!
+
+**2. [Temperature Explorer](../../examples/module_08/02_temperature_explorer.py)** - Deep dive into temperature
+   - 📖 Concept: Systematic temperature comparison (0.0 to 2.0)
+   - ⏱️ Time: 60-75 minutes
+   - 🎯 Goal: Find the perfect temperature for different use cases
+   - 💡 What you'll learn: 0.0 = deterministic, 0.7 = balanced, 1.2+ = creative chaos!
+
+### 🎯 Deliverable: Sampling Strategy Tuner
+
+**What**: Build a reusable configuration tool for optimized sampling strategies
+**Time**: 3-4 hours
+**Portfolio Value**: Shows deep understanding of LLM parameter tuning for production
+
+**Requirements**:
+1. Create a Python module with pre-configured sampling strategies for 5+ use cases:
+   - Code generation (deterministic, focused)
+   - Chatbot responses (balanced, natural)
+   - Creative writing (varied, surprising)
+   - Data extraction (consistent, structured)
+   - Brainstorming (diverse, unusual)
+2. For each strategy, document:
+   - Exact parameters (temperature, top-p, etc.)
+   - Why these values work
+   - When to use this strategy
+   - Example outputs showing the difference
+3. Add a testing script that compares strategies on the same prompt
+4. Include cost analysis (token usage vs quality trade-offs)
+5. Document in README with before/after examples
+
+**Success Criteria**:
+- ✅ At least 5 distinct, tested sampling strategies
+- ✅ Clear documentation with examples
+- ✅ Measurable quality improvements for each use case
+- ✅ Reusable in your own projects (kaizen, vibe, contrarian)
+
+**Real-World Impact**: Every production AI system needs tuned sampling strategies - this deliverable proves you can optimize LLM behavior for specific business requirements!
+
+---
+
 ## 🔄 How LLMs Generate Text
 
 ### The Autoregressive Process
@@ -96,6 +148,8 @@ Final: "The cat sat on the mat."
 - We surprise readers
 
 **Solution**: Sample from the probability distribution instead of always picking the top choice.
+
+**👉 Ready to experiment? [01_sampling_playground.py](../../examples/module_08/01_sampling_playground.py) lets you try greedy vs sampling live!**
 
 ---
 
@@ -254,6 +308,9 @@ With temperature = 1.5:
 
 **Danger**: Too high (>2.0) and outputs become incoherent!
 
+**Did You Know?** 🤓
+The "temperature" name comes from statistical mechanics in physics! In thermodynamics, higher temperature means more random molecular motion. Similarly, in LLMs, higher temperature means more random token selection. At temperature = 0 (absolute zero), all randomness disappears - just like molecules would stop moving at 0 Kelvin. The mathematical connection is real: both use the Boltzmann distribution!
+
 ---
 
 ### Temperature Summary
@@ -268,6 +325,8 @@ With temperature = 1.5:
 | **>1.5** | Random, potentially nonsensical | Rarely useful |
 
 **Default**: Most APIs default to 0.7-1.0.
+
+**👉 See temperature in action! [02_temperature_explorer.py](../../examples/module_08/02_temperature_explorer.py) compares outputs from 0.0 to 2.0!**
 
 ---
 
@@ -304,6 +363,9 @@ Sample randomly from the nucleus.
 ```
 
 **Result**: Filters out low-probability "tail" tokens that would make output weird.
+
+**Did You Know?** 🤓
+Top-p sampling (nucleus sampling) was introduced in 2019 by researchers at the University of Washington and AI2 in their paper "The Curious Case of Neural Text Degeneration." Before this, most systems used top-k or pure sampling, which often produced repetitive or weird text. Nucleus sampling revolutionized text generation by dynamically adapting to the model's confidence - when the model is certain (one token has high probability), nucleus is small; when uncertain, nucleus grows to include more options. This is why modern APIs default to top-p instead of top-k!
 
 ---
 
@@ -457,6 +519,8 @@ Top-p=0.9: Includes 15-20 tokens (also good)
 
 **Modern practice**: Top-p is generally preferred over top-k (more adaptive).
 
+**👉 Compare top-p vs top-k yourself: [01_sampling_playground.py](../../examples/module_08/01_sampling_playground.py) shows the difference!**
+
 ---
 
 ## 🔁 Repetition Penalty
@@ -515,6 +579,9 @@ Each repetition makes it less likely to appear again.
 - Can feel forced
 
 **Best practice**: 1.1 - 1.3 for most use cases.
+
+**Did You Know?** 🤓
+Repetition is actually a known weakness of autoregressive models, called "neural text degeneration." In the early days of GPT-2 and GPT-3, models would frequently get stuck in repetitive loops, especially for longer generations. The repetition penalty was a pragmatic fix that worked remarkably well! Interestingly, newer models like GPT-4 and Claude are less prone to repetition thanks to better training data and techniques like RLHF (Reinforcement Learning from Human Feedback), which explicitly teaches models that humans dislike repetitive text. But repetition penalty is still useful for long-form generation!
 
 ---
 
@@ -743,6 +810,9 @@ Continue...
 - More computationally expensive
 - Can be repetitive (always picks high-probability paths)
 - Not commonly used in LLM APIs (more common in older NLP)
+
+**Did You Know?** 🤓
+Beam search was the dominant decoding strategy for neural machine translation (like Google Translate) before the era of large language models. It was essential for translating sentences because you wanted the most likely translation, not a creative one! But when GPT-2 and GPT-3 came along, researchers discovered that beam search produces boring, repetitive text for creative tasks. That's why modern LLM APIs don't even offer beam search - they use sampling (temperature + top-p) instead. Beam search is still useful in specialized domains like translating medical documents where consistency matters more than creativity!
 
 ---
 
