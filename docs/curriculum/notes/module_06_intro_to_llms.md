@@ -100,6 +100,42 @@ IT refers to → animal
 
 ---
 
+## 💡 Did You Know? The Transformer Paper Was Almost Rejected
+
+**The Story**:
+
+In 2017, Google researchers submitted "Attention Is All You Need" to a top AI conference (NIPS, now NeurIPS).
+
+**The Reviews**:
+- One reviewer gave it a **borderline reject** score
+- Concerns: "Too simple", "Not enough novelty"
+- The attention mechanism seemed "obvious" in hindsight
+- RNNs were still dominant, hard to believe they could be replaced
+
+**But One Reviewer Recognized Genius**:
+- Noted the parallel processing advantage
+- Saw potential for scaling
+- Pushed for acceptance
+
+**The Impact** (6 years later):
+- **100,000+ citations** (one of most cited ML papers ever)
+- Entire AI revolution built on transformers
+- RNNs nearly extinct for NLP
+- Created a $100B+ industry
+
+**The Irony**:
+The title "Attention Is All You Need" was meant to be provocative. But it turned out to be **literally true** - attention really is all you need!
+
+**The Authors**:
+The 8 authors went on to found companies worth billions:
+- **Ashish Vaswani**: Co-founded Essential AI ($50M+ funding)
+- **Illia Polosukhin**: Co-founded NEAR Protocol ($20B valuation)
+- **Jakob Uszkoreit**: Co-founded Inceptive ($100M+ funding)
+
+**Lesson**: Revolutionary ideas often look "too simple" at first. The transformer seemed obvious only AFTER it was invented.
+
+---
+
 ### How Transformers Work (High Level)
 
 **Input**: Sequence of tokens (words/subwords)
@@ -141,6 +177,24 @@ IT refers to → animal
 - Example use: "Translate English to French"
 
 **For this curriculum**: We focus on **decoder-only** models (GPT, Claude, Llama) since they're used for most LLM applications.
+
+**Visualization**:
+
+```mermaid
+graph TD
+    A[Input Text: The cat sat on the] --> B[Tokenization]
+    B --> C[Token Embeddings + Position Encoding]
+    C --> D[Transformer Layer 1]
+    D --> E[Self-Attention:<br/>Which tokens to focus on?]
+    E --> F[Feed-Forward Network]
+    F --> G[Transformer Layer 2-N<br/>Stack 12-96+ layers]
+    G --> H[Output Layer:<br/>Probability Distribution]
+    H --> I[Predicted Token: mat<br/>Probability: 0.73]
+
+    style A fill:#87CEEB
+    style I fill:#90EE90
+    style E fill:#FFD700
+```
 
 ---
 
@@ -242,6 +296,52 @@ IT refers to → animal
 - **Vicuna** (LMSYS): Fine-tuned Llama for chat
 - **WizardLM, Orca**: Microsoft research models
 - **Phi** (Microsoft): Small but capable (3B parameters)
+
+---
+
+## 💡 Did You Know? Meta Released Llama 2 for Free (and Changed Everything)
+
+**The Story** (July 2023):
+
+Meta dropped a bombshell: **Llama 2** - a competitive LLM family (7B, 13B, 70B) - completely open-source.
+
+**What Made It Special**:
+- **Free for commercial use** (up to 700M users)
+- **No API required** - download and run locally
+- **Competitive quality** - 70B model rivals GPT-3.5
+- **$20M training cost** - Meta absorbed it
+
+**The Impact**:
+
+**Before Llama 2**:
+- Best models: OpenAI GPT, Google PaLM (API-only, expensive)
+- Open models: Weak (BLOOM, GPT-J) or restricted (LLaMA 1)
+- Barrier: Need $50M+ to train competitive model
+
+**After Llama 2**:
+- Everyone can access frontier-class model
+- Explosion of fine-tunes (Code Llama, Llama-2-Chat, etc.)
+- Startups can self-host and customize
+- Researchers can experiment without API costs
+
+**The Numbers** (First 6 Months):
+- **30M+ downloads** on Hugging Face
+- **1000+ fine-tuned variants** created
+- **100+ research papers** using Llama 2
+- Spawned entire ecosystem (Ollama, LMStudio, Jan, etc.)
+
+**Why Meta Did It**:
+1. **Talent recruitment**: Show engineering prowess
+2. **Ecosystem building**: More Llama tools = more Meta AI adoption
+3. **Competitive pressure**: Counter OpenAI/Google dominance
+4. **Research acceleration**: Community improves Llama → Meta benefits
+
+**Llama 3** (2024):
+- Even better: Matches GPT-4 on some tasks
+- Trained on 15T tokens (vs 2T for Llama 2)
+- Meta betting on open-source AI
+
+**Lesson**: Open-source is competitive! You don't always need the latest GPT-4. Llama 3 70B is **free**, powerful, and you control it.
 
 ---
 
@@ -369,6 +469,46 @@ Instruction-tuned: "The capital of France is Paris."
 
 ---
 
+## 💡 Did You Know? GPT-3's Training Cost Would Bankrupt Most Startups
+
+**The Economics of Pre-training**:
+
+Training GPT-3 (175B parameters) from scratch in 2020:
+
+**Compute Cost**:
+- **$4.6 million** in GPU costs (Lambda Labs estimate)
+- Used thousands of NVIDIA V100 GPUs
+- Ran for weeks continuously
+- 314 zettaFLOPs (10²¹ floating point operations!)
+
+**Energy Cost**:
+- Consumed ~1,287 MWh of electricity
+- Equivalent to **130 US homes for a year**
+- Carbon footprint: ~550 tons CO₂
+
+**Total Training Cost**: ~$5-12 million (estimates vary)
+
+**GPT-4's Training (estimated)**:
+- Rumored cost: **$50-100 million**
+- 25,000+ A100 GPUs for 90-100 days
+- Energy: Entire small town's yearly consumption
+
+**Why This Matters**:
+
+1. **Barrier to Entry**: Only Google, Microsoft, Meta, Anthropic can afford frontier models
+2. **Open Source is Critical**: Llama 2 (Meta) cost $20M to train, released for free
+3. **Fine-tuning is Cheap**: $100-1000 to adapt existing model vs millions to train from scratch
+4. **API Makes Sense**: $50/month API access vs $50M training cost!
+
+**The Trend**:
+- Pre-training costs going UP (bigger models, more data)
+- But inference costs going DOWN (better optimization)
+- Result: Centralized training, distributed usage
+
+**Lesson**: Don't train LLMs from scratch unless you're Google. Use existing models + fine-tuning/RAG!
+
+---
+
 ## 🪟 Context Windows
 
 ### What Is a Context Window?
@@ -423,6 +563,8 @@ Claude's 200K context window can fit the entire Harry Potter and the Philosopher
 
 **Best Practice**: Use only as much context as you need!
 
+**👉 Test context limits yourself! Run [Example 02: Context Window Experiments](../../examples/module_06/02_context_windows.py) to see how models handle different context sizes.**
+
 ---
 
 ## 🎯 Choosing the Right Model
@@ -463,9 +605,70 @@ Claude's 200K context window can fit the entire Harry Potter and the Philosopher
 
 **Rule of thumb**: OpenAI/Anthropic for <1M tokens/month, self-host for higher volume.
 
+**👉 Calculate YOUR costs! Use [Example 05: Cost Calculator](../../examples/module_06/05_cost_calculator.py) to estimate what your use case would cost on different providers.**
+
+---
+
+## ✋ STOP: Time to Practice!
+
+You've learned the landscape. Now **code it** to understand it.
+
+### Practice Path
+
+**1. [Model Comparison](../../examples/module_06/01_model_comparison.py)** - Compare different LLMs
+   - 📖 Concept: Understanding model capabilities
+   - ⏱️ Time: 15-20 minutes
+   - 🎯 Goal: See differences between GPT, Claude, and open models
+   - 💡 What you'll learn: Cost vs quality trade-offs
+
+**2. [Context Window Experiments](../../examples/module_06/02_context_windows.py)** - Test context limits
+   - 📖 Concept: How much context can models handle?
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: See how models perform with different context sizes
+   - 💡 What you'll learn: When to use RAG vs long context
+
+**3. [API Integration](../../examples/module_06/03_api_integration.py)** - Build your first LLM integration
+   - 📖 Concept: Production API usage
+   - ⏱️ Time: 25-30 minutes
+   - 🎯 Goal: Working API client with error handling
+   - 💡 What you'll learn: Real-world API patterns
+
+**4. [Prompt Testing Framework](../../examples/module_06/04_prompt_testing.py)** - Test prompts across models
+   - 📖 Concept: Model selection for your use case
+   - ⏱️ Time: 30-35 minutes
+   - 🎯 Goal: A/B test prompts on different models
+   - 💡 What you'll learn: How to choose the right model
+
+**5. [Cost Calculator](../../examples/module_06/05_cost_calculator.py)** - Estimate API costs
+   - 📖 Concept: Production cost estimation
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Calculate costs for your use case
+   - 💡 What you'll learn: Budgeting for LLM APIs
+
+**Total Practice Time**: ~2-2.5 hours
+
+### Deliverable: Multi-Model LLM Gateway
+
+After completing examples, build your **portfolio project**:
+
+**[LLM Gateway Service](../../examples/module_06/deliverable/)**
+- Route requests to best model based on task
+- Track costs across providers
+- Implement fallbacks (if Claude fails, try GPT-4)
+- Cache responses to save money
+- Log all interactions
+
+**Why this matters**: This is a production pattern used by companies like Vercel AI SDK, LangChain, and LlamaIndex.
+
+**Time**: 4-6 hours
+
 ---
 
 ## 🔌 Your First API Integration
+
+**👉 Before reading further, try [Example 03: API Integration](../../examples/module_06/03_api_integration.py) to see this in action!**
+
+
 
 ### Setup (Claude Example)
 
@@ -590,6 +793,8 @@ print(response.choices[0].message.content)
 - JSON mode?
 
 **Pro Tip**: Test multiple models with YOUR specific use case. Benchmarks are guides, not gospel.
+
+**👉 Ready to see this in action? Run [Example 01: Model Comparison](../../examples/module_06/01_model_comparison.py) to compare GPT vs Claude vs Gemini on the SAME prompt!**
 
 ---
 
