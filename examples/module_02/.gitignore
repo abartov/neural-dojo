@@ -1,0 +1,4 @@
+.prompt_library/
+__pycache__/
+*.pyc
+.env
