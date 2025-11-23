@@ -1,0 +1,5 @@
+.ai_tools_benchmark/
+benchmark_report.md
+__pycache__/
+*.pyc
+.env
