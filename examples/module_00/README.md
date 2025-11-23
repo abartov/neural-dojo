@@ -20,7 +20,7 @@ source ../../venv/bin/activate  # On macOS/Linux
 ..\..\venv\Scripts\activate  # On Windows
 
 # Install required packages
-pip install python-dotenv anthropic openai
+pip install python-dotenv anthropic openai google-generativeai
 ```
 
 ## Examples
@@ -123,6 +123,57 @@ python test_openai_api.py
 ```
 
 **Cost**: ~$0.001 per test
+
+---
+
+### 4. test_gemini_api.py
+
+**Purpose**: (Optional) Verify Google Gemini API is configured
+
+**What it tests**:
+- GOOGLE_API_KEY is set in `.env` (optional)
+- google-generativeai package is installed
+- Can make a successful API call
+- Shows token usage and model capabilities
+
+**Run**:
+```bash
+python test_gemini_api.py
+```
+
+**Expected Output**:
+```
+🔍 Testing Google Gemini API...
+
+✅ API key found
+✅ google-generativeai package imported
+
+🤖 Making API call to Google Gemini...
+
+📩 Gemini says: Hello from Neural Dojo!
+
+📊 Token usage:
+   Prompt tokens: 20
+   Completion tokens: 6
+   Total tokens: 26
+
+💡 Gemini Features:
+   - Free tier: 15 requests/minute
+   - Context: Up to 2M tokens (huge!)
+   - Multimodal: Can process images, video, audio
+
+✅ Google Gemini API working!
+```
+
+**Cost**: FREE on generous free tier! (60 requests/minute)
+
+**Why Gemini?**:
+- **FREE tier** with generous limits (vs $5 minimum for Claude/OpenAI)
+- **2M token context** (10x larger than Claude/GPT-4)
+- **Multimodal** (can analyze images, video, audio)
+- **Great for learning** without spending money
+
+**Get API key**: https://aistudio.google.com/app/apikey
 
 ---
 
