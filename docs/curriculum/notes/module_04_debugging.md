@@ -305,6 +305,8 @@ def calculate_total(items):
     return sum(item.price for item in items)
 ```
 
+**👉 Practice fixing syntax errors! Run [Example 01: Syntax & Type Debugging](../../examples/module_04/01_syntax_debugging.py) to see how AI quickly spots missing colons, parentheses, and type mismatches!**
+
 ---
 
 ### Category 2: Logic Errors ⭐⭐⭐⭐
@@ -345,6 +347,8 @@ def get_last_n_items(items, n):
 def get_last_n_items(items, n):
     return items[-n:] if n > 0 else []
 ```
+
+**👉 Hunt down logic bugs! Run [Example 02: Logic Error Debugging](../../examples/module_04/02_logic_debugging.py) to practice finding off-by-one errors, wrong conditionals, and edge cases!**
 
 ---
 
@@ -418,6 +422,8 @@ def get_user_email(user_id):
 
 **Better Approach**: Use race detection tools (ThreadSanitizer, Python's threading debugging), then ask AI to interpret results.
 
+**👉 Debug async code! Run [Example 04: Async & Concurrent Debugging](../../examples/module_04/04_async_debugging.py) to learn common async/await mistakes and when AI helps vs when you need traditional debuggers!**
+
 ---
 
 ### Category 5: Performance Issues ⭐⭐⭐
@@ -452,6 +458,8 @@ Analyze:
 2. Identify hotspots
 3. Ask AI: "This function takes 80% of runtime. How can I optimize it?"
 4. Apply and re-profile
+
+**👉 Master performance optimization! Run [Example 03: Performance Profiling](../../examples/module_04/03_performance_profiling.py) to learn the profile-first, optimize-second workflow and see O(n²) → O(n log n) improvements!**
 
 ---
 
@@ -577,6 +585,8 @@ These functions take the most time:
 
 Where should I focus optimization efforts? Specific suggestions?
 ```
+
+**👉 See comprehensive optimization in action! Run [Example 06: Optimization Examples](../../examples/module_04/06_optimization_examples.py) to learn algorithmic optimization, code-level improvements, and memory optimization patterns!**
 
 ---
 
@@ -717,6 +727,8 @@ git bisect good abc123  # Last known good commit
 
 # Then ask AI about each bisect commit
 ```
+
+**👉 Master systematic debugging! Run [Example 07: Debugging Patterns](../../examples/module_04/07_debugging_patterns.py) to learn binary search debugging, differential debugging, and regression debugging patterns!**
 
 ---
 
@@ -1887,7 +1899,78 @@ In Module 5, we'll expand from debugging individual functions to building entire
 
 ---
 
-**Practice**: In the exercises, you'll debug real-world code using these techniques. Remember: debugging is detective work. Gather clues, form hypotheses, test theories, and iterate. AI is your partner, not your replacement.
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now let's debug some real code!**
+
+Debugging is a skill you develop through practice. The examples below take you from simple syntax errors to complex performance optimization and systematic debugging patterns.
+
+### Practice Path
+
+**1. [Syntax & Type Debugging](../../examples/module_04/01_syntax_debugging.py)** - Start with the basics
+   - 📖 Concept: AI-assisted syntax error resolution
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Fix common syntax and type errors with AI
+   - 💡 What you'll learn: How to provide context for quick fixes
+
+**2. [Logic Error Debugging](../../examples/module_04/02_logic_debugging.py)** - Hunt down logic bugs
+   - 📖 Concept: Root cause analysis for logic errors
+   - ⏱️ Time: 25-30 minutes
+   - 🎯 Goal: Find and fix off-by-one errors, conditionals, edge cases
+   - 💡 What you'll learn: AI excels at pattern matching common logic errors
+
+**3. [Performance Profiling](../../examples/module_04/03_performance_profiling.py)** - Make code faster
+   - 📖 Concept: Profiling + AI-assisted optimization
+   - ⏱️ Time: 30-35 minutes
+   - 🎯 Goal: Identify bottlenecks and optimize algorithms
+   - 💡 What you'll learn: Combine cProfile with AI interpretation
+
+**4. [Async & Concurrent Debugging](../../examples/module_04/04_async_debugging.py)** - Debug async code
+   - 📖 Concept: Async/await debugging patterns
+   - ⏱️ Time: 25-30 minutes
+   - 🎯 Goal: Fix common async mistakes
+   - 💡 What you'll learn: When AI helps vs when traditional debuggers are better
+
+**5. [Integration Debugging](../../examples/module_04/05_integration_debugging.py)** - Fix API bugs
+   - 📖 Concept: Debugging external integrations
+   - ⏱️ Time: 20-25 minutes
+   - 🎯 Goal: Debug API calls and authentication
+   - 💡 What you'll learn: How to troubleshoot integration errors systematically
+
+**6. [Optimization Examples](../../examples/module_04/06_optimization_examples.py)** - Comprehensive optimization
+   - 📖 Concept: Algorithmic and code-level optimization
+   - ⏱️ Time: 35-40 minutes
+   - 🎯 Goal: Optimize algorithms from O(n²) → O(n log n)
+   - 💡 What you'll learn: Profile-first, optimize-second workflow
+
+**7. [Debugging Patterns](../../examples/module_04/07_debugging_patterns.py)** - Master systematic approaches
+   - 📖 Concept: Binary search, differential, regression debugging
+   - ⏱️ Time: 30-35 minutes
+   - 🎯 Goal: Learn professional debugging strategies
+   - 💡 What you'll learn: Systematic debugging beats random trial and error
+
+**Total Practice Time**: ~3-3.5 hours
+
+### Deliverable: Debug & Optimize Real Code
+
+After completing the examples, apply your debugging skills to a real project:
+
+**What to build**: Debug and optimize a piece of code from your actual work or an open-source project
+
+**Why it matters**: Debugging is the skill you'll use every single day as a developer. Being systematic about it saves hours of frustration.
+
+**Portfolio value**: Shows you can diagnose and fix real problems, not just write new code - a highly valued skill.
+
+**Success criteria**:
+- Identified bug or performance issue in real code
+- Created minimal reproduction case
+- Used AI-assisted debugging workflow
+- Fixed the issue and verified the fix
+- Added regression tests
+- Documented the process (what you tried, what worked, what didn't)
+- Measured improvement (for performance fixes)
+
+**Remember**: Debugging is detective work. Gather clues, form hypotheses, test theories, and iterate. AI is your partner, not your replacement.
 
 **Let's debug! 🥋🧠⚡**
 
