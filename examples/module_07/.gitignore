@@ -1,0 +1,4 @@
+.token_optimizer/
+__pycache__/
+*.pyc
+.env
