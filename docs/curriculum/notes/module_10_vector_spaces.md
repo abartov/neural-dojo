@@ -64,6 +64,64 @@ The vector space model was proposed in 1975 by Gerard Salton for information ret
 
 ---
 
+## ✋ STOP: Time to Practice!
+
+**You've learned the theory - now experience the Heureka Moment! 🔮**
+
+This is THE transformative module where everything clicks. You'll see embeddings not as black boxes, but as coordinates in a geometric space where math works on meaning itself. Reading theory won't give you this insight - you need to DO the vector arithmetic and SEE the geometry.
+
+### Practice Path (~2-2.5 hours total)
+
+**1. [Vector Arithmetic](../../examples/module_10/01_vector_arithmetic.py)** - Math on meaning!
+   - 📖 Concept: king - man + woman = queen 🔮
+   - ⏱️ Time: 60-75 minutes
+   - 🎯 Goal: Experience the Heureka Moment
+   - 💡 What you'll learn: Math literally transforms concepts!
+
+**2. [Production Semantic Search](../../examples/module_10/02_production_search.py)** - Build at scale
+   - 📖 Concept: Fast similarity search with indexing
+   - ⏱️ Time: 60-75 minutes
+   - 🎯 Goal: Understand production-grade semantic search
+   - 💡 What you'll learn: Scaling to millions of vectors!
+
+### 🎯 Deliverable: Vector Space Explorer
+
+**What**: Interactive visualization and exploration tool for embeddings
+**Time**: 3-4 hours
+**Portfolio Value**: Demonstrates deep understanding of vector space geometry
+
+**Requirements**:
+1. Build a tool that:
+   - Generates embeddings for custom word lists (10-100 words)
+   - Visualizes in 2D using PCA or t-SNE
+   - Allows interactive vector arithmetic (A - B + C = ?)
+   - Shows nearest neighbors for any query
+   - Identifies and visualizes clusters
+2. Include at least 3 interesting demonstrations:
+   - Analogies (king/queen, Paris/Rome)
+   - Semantic relationships (opposites, synonyms)
+   - Topic clustering (auto-discover categories)
+3. Create compelling visualizations:
+   - 2D scatter plots with labels
+   - Cluster boundaries/colors
+   - Vector arrows showing relationships
+4. Document insights:
+   - What patterns did you discover?
+   - Which analogies worked/failed?
+   - How does the geometry change with different embeddings?
+5. Make it interactive (CLI or web UI)
+
+**Success Criteria**:
+- ✅ Visualizes 20+ words/concepts clearly
+- ✅ Vector arithmetic produces sensible results
+- ✅ Automatically discovers semantic clusters
+- ✅ Interactive and easy to use
+- ✅ Documented with insights and examples
+
+**Real-World Impact**: Understanding vector space geometry is fundamental to working with embeddings in production - this deliverable proves you deeply understand the math behind meaning!
+
+---
+
 ## 🗺️ What Is Semantic Space?
 
 ### The Core Insight
@@ -319,6 +377,8 @@ king - man + woman ≈
 
 **The Heureka Moment**: Math literally transforms meaning! 🔮
 
+**👉 Experience this yourself NOW: [01_vector_arithmetic.py](../../examples/module_10/01_vector_arithmetic.py) - this is when it all clicks!**
+
 ---
 
 ## 💡 Did You Know?
@@ -397,6 +457,8 @@ Cluster 3 (Animals):
 ```
 
 We can discover these clusters automatically using k-means!
+
+**👉 Build production search: [02_production_search.py](../../examples/module_10/02_production_search.py) shows how to scale to millions of vectors!**
 
 ---
 
