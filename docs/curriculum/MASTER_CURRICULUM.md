@@ -2,10 +2,10 @@
 
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
-**Last Updated**: 2025-11-22
-**Version**: 2.1.0 - Module 1 Split into 1.1 (Tools) + 1.2 (Local Models)
+**Last Updated**: 2025-11-24
+**Version**: 3.0.0 - EXPANDED DevOps/MLOps (Phase 6: 10 modules!)
 **Status**: Module 0 + Phase 1 + Phase 2 Complete! 🎉 Ready for Phase 3
-**Total Duration**: 41 modules (including Module 0 + 1.1, 1.2 + 3 optional history modules), 38-43 weeks (153-217 hours)
+**Total Duration**: 47 modules (including Module 0 + 1.1, 1.2 + 3 optional history modules), 44-52 weeks (178-262 hours)
 
 ---
 
@@ -18,7 +18,9 @@ Transform you from AI novice to AI-fluent developer capable of:
 - Training and deploying deep learning models
 - Mastering prompt engineering and LLM integration
 - Building generative AI applications
-- Applying AI to real-world problems (cloud management, stock analysis, devops)
+- **Deploying AI/ML with modern DevOps & MLOps practices**
+- **Orchestrating ML workloads on Kubernetes (with GPU support)**
+- Applying AI to real-world problems (cloud management, stock analysis, infrastructure)
 
 ---
 
@@ -55,11 +57,11 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 3: Building with AI Toolkits | 11-18 | ⚪ Not Started | 0/8 |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
 | Phase 5: Advanced Generative AI | 26-29 | ⚪ Not Started | 0/4 |
-| Phase 6: Production ML Systems | 30-32 | ⚪ Not Started | 0/3 |
-| Phase 7: AI for Infrastructure | 33-34 | ⚪ Not Started | 0/2 |
-| Phase 8: Capstone Projects | 35-37 | ⚪ Not Started | 0/3 |
-| Phase 9: History of AI/ML (Optional) | 38-40 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **41 modules** | **29% Complete** | **12/41** |
+| **Phase 6: DevOps & MLOps** | **30-39** | ⚪ **Not Started** | **0/10** |
+| Phase 7: AI for Infrastructure | 40-41 | ⚪ Not Started | 0/2 |
+| Phase 8: Capstone Projects | 42-44 | ⚪ Not Started | 0/3 |
+| Phase 9: History of AI/ML (Optional) | 45-47 | ⚪ Not Started | 0/3 |
+| **TOTAL** | **47 modules** | **26% Complete** | **12/47** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -981,89 +983,523 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-## Phase 6: Production ML Systems (Weeks 30-32)
+## Phase 6: DevOps & MLOps - Production AI Systems (Weeks 30-39)
 
-**Goal**: Deploy and operate ML systems in production
+**Goal**: Master modern DevOps and MLOps practices for deploying, scaling, and operating AI/ML systems in production
 
-### Module 30: MLOps & Experiment Tracking
-- **Duration**: 6-7 hours
+**Why This Phase Matters**:
+- AI/ML systems require specialized infrastructure (GPUs, distributed training, model serving)
+- Kubernetes has become the de facto standard for ML orchestration (with GPU support!)
+- CI/CD for ML is fundamentally different from traditional software
+- Modern tools like Dagger enable portable, containerized CI/CD pipelines
+- MLOps bridges the gap between research and production
+
+**What You'll Build**:
+- Dockerized ML applications with multi-stage builds
+- CI/CD pipelines with Dagger (portable pipelines as code)
+- Kubernetes deployments with GPU scheduling
+- MLOps workflows with experiment tracking and model registry
+- Production ML pipelines with orchestration
+- Monitoring and governance systems
+
+---
+
+### Module 30: DevOps Fundamentals for ML Engineers
+- **Duration**: 5-6 hours
 - **Prerequisites**: Phase 5 complete
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Master Git workflows for ML projects (trunk-based, feature branches)
+- Understand version control for code + data + models
+- Learn testing strategies for ML code (unit, integration, model validation)
+- Implement code review practices for ML teams
+- Understand infrastructure as code (IaC) basics
+
+**Deliverables**:
+- Git workflow guide for ML projects
+- ML testing framework (unit tests, model tests, data tests)
+- Pre-commit hooks for ML code quality
+- CI/CD readiness checklist
+
+**Key Concepts**:
+- Git workflows (trunk-based vs GitFlow)
+- Semantic versioning for models
+- Testing pyramid for ML (unit → integration → model → system)
+- Code review for ML (code quality + model quality)
+- Infrastructure as Code (IaC) introduction
+
+**Real-World Application**: Your kaizen, vibe, and contrarian projects need robust DevOps workflows!
+
+---
+
+### Module 31: Docker & Containerization for ML
+- **Duration**: 6-7 hours
+- **Prerequisites**: Module 30
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Master Docker for ML applications
+- Build optimized Docker images for ML (multi-stage builds, layer caching)
+- Handle large ML artifacts (models, datasets) in containers
+- Use Docker Compose for local ML development
+- Understand container registries (Docker Hub, ECR, GCR, ACR)
+
+**Deliverables**:
+- Dockerized ML application (training + inference)
+- Multi-stage Dockerfile for ML (builder pattern)
+- Docker Compose stack for local development
+- Container size optimization guide (10GB → 2GB!)
+
+**Key Concepts**:
+- Multi-stage builds (build → runtime separation)
+- Layer caching for faster builds
+- .dockerignore for ML projects
+- Volume mounts for datasets
+- GPU support in Docker (nvidia-docker)
+- Container registries and image versioning
+
+**Real-World Application**: Containerize your kaizen RAG system for deployment!
+
+**Did You Know?**
+- ML Docker images can be 10-20GB! Multi-stage builds can reduce this to 2-3GB
+- PyTorch alone is 2GB+, but you can use lighter base images (python:3.10-slim)
+- Docker layer caching can speed up builds from 10 minutes to 30 seconds!
+
+---
+
+### Module 32: CI/CD for AI/ML Development 🔮
+- **Duration**: 7-8 hours
+- **Prerequisites**: Module 31
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Understand CI/CD for ML workflows (code + data + models)
+- **Master Dagger - portable CI/CD pipelines as code (Python SDK)**
+- Implement GitHub Actions for ML (linting, testing, model validation)
+- Learn GitLab CI/CD for ML projects
+- Explore Tekton (Kubernetes-native CI/CD)
+- Build continuous training pipelines
+- Automate model testing and validation
+
+**Deliverables**:
+- **Dagger pipeline for ML project (Python SDK)**
+- GitHub Actions workflow (lint → test → train → deploy)
+- GitLab CI/CD pipeline for ML
+- Automated model validation pipeline
+- CI/CD comparison matrix (Dagger vs GitHub Actions vs GitLab vs Tekton)
+
+**Key Concepts**:
+- **Dagger fundamentals: Pipelines as code, containerized steps, portability**
+- **Dagger Python SDK: Building ML pipelines programmatically**
+- CI/CD for ML vs traditional software
+- Continuous training (CT) vs continuous deployment (CD)
+- Model testing strategies (accuracy, latency, drift)
+- Artifact management (models, datasets, experiment logs)
+- Pull request workflows for ML code
+- Automated retraining triggers
+
+**💡 Heureka Moment**: CI/CD for ML is different! You're testing code + data + models + infrastructure!
+
+**Real-World Application**:
+- Dagger enables portable pipelines that run locally and in CI
+- Your ML pipelines work the same on your laptop, GitHub Actions, and production!
+
+**Why Dagger?**
+- **Portable**: Same pipeline runs locally, CI, and production
+- **Programmable**: Python SDK (not YAML!)
+- **Containerized**: Built on Docker, guarantees reproducibility
+- **Fast**: Intelligent caching, parallel execution
+- **Cloud-agnostic**: Works with GitHub Actions, GitLab CI, Jenkins, CircleCI
+
+**Dagger vs Traditional CI/CD**:
+```python
+# Traditional CI/CD: YAML hell
+# .github/workflows/ml-pipeline.yml (100+ lines of YAML)
+
+# Dagger: Pipelines as Python code!
+import dagger
+
+async def ml_pipeline():
+    async with dagger.Connection() as client:
+        # Build container
+        python = client.container().from_("python:3.10")
+
+        # Install dependencies
+        python = python.with_exec(["pip", "install", "-r", "requirements.txt"])
+
+        # Run tests
+        python = python.with_exec(["pytest", "tests/"])
+
+        # Train model
+        python = python.with_exec(["python", "train.py"])
+
+        # All steps containerized, cached, and portable!
+```
+
+**Covered CI/CD Tools**:
+- **Dagger** (deep dive - modern, portable, programmable)
+- **GitHub Actions** (most popular, great free tier)
+- **GitLab CI/CD** (built-in, powerful, self-hosted option)
+- **Tekton** (Kubernetes-native, complex but flexible)
+- **Jenkins** (traditional, widely used in enterprises)
+
+---
+
+### Module 33: Kubernetes Fundamentals for ML
+- **Duration**: 7-8 hours
+- **Prerequisites**: Module 32
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Master Kubernetes architecture (pods, services, deployments)
+- Deploy ML workloads on Kubernetes
+- **Understand GPU scheduling in Kubernetes (NVIDIA GPU Operator, device plugins)**
+- Manage resources (CPU, memory, GPU allocation)
+- Use persistent volumes for datasets
+- Configure ConfigMaps and Secrets for ML configs
+- Implement StatefulSets for distributed training
+
+**Deliverables**:
+- ML inference deployment on K8s
+- **GPU-enabled training job on Kubernetes**
+- Persistent volume setup for datasets
+- K8s resource management guide
+- Multi-environment setup (dev, staging, prod)
+
+**Key Concepts**:
+- Kubernetes architecture (control plane, nodes, pods)
+- Deployments vs StatefulSets vs Jobs
+- **GPU scheduling with NVIDIA GPU Operator**
+- **Device plugins for GPU sharing**
+- **Node selectors and taints/tolerations for GPU nodes**
+- Resource requests and limits (CPU, memory, GPU)
+- Persistent volumes for ML data
+- ConfigMaps for model configs
+- Secrets for API keys and credentials
+- Horizontal Pod Autoscaling (HPA)
+
+**Real-World Application**:
+- **Kubernetes now has first-class GPU support!**
+- **NVIDIA GPU Operator automates GPU setup on K8s**
+- Schedule ML training jobs with GPU acceleration
+- Scale inference services based on load
+
+**Did You Know?**
+- Kubernetes 1.8+ supports GPU scheduling natively!
+- NVIDIA GPU Operator simplifies GPU setup (drivers, monitoring, device plugins)
+- Multi-Instance GPU (MIG) allows sharing a single GPU across multiple pods
+- Time-slicing enables GPU sharing for inference workloads
+- Major cloud providers (GKE, EKS, AKS) have managed GPU node pools
+
+**GPU Scheduling Example**:
+```yaml
+# Request 1 GPU for training job
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pytorch-training
+spec:
+  containers:
+  - name: trainer
+    image: pytorch/pytorch:2.0-cuda11.8
+    resources:
+      limits:
+        nvidia.com/gpu: 1  # Request 1 GPU!
+  nodeSelector:
+    accelerator: nvidia-tesla-v100  # Target GPU nodes
+```
+
+---
+
+### Module 34: Advanced Kubernetes for AI/ML 🔮
+- **Duration**: 8-9 hours
+- **Prerequisites**: Module 33
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- **Master Kubeflow for ML workflows on Kubernetes**
+- **Implement KServe for scalable model serving**
+- **Deploy Ray on Kubernetes for distributed computing**
+- **Use NVIDIA Triton Inference Server for production serving**
+- Understand Volcano for batch scheduling
+- Implement multi-GPU and multi-node training
+- **Master GPU sharing techniques (MIG, time-slicing)**
+
+**Deliverables**:
+- **Kubeflow Pipelines for ML workflow**
+- **KServe deployment for model inference**
+- **Ray cluster on Kubernetes**
+- **Triton Inference Server deployment**
+- Multi-GPU training job
+- GPU sharing configuration
+
+**Key Concepts**:
+- **Kubeflow architecture (Pipelines, Katib, Training Operator)**
+- **KServe for model serving (autoscaling, canary deployments)**
+- **Ray for distributed computing (training, hyperparameter tuning)**
+- **Triton Inference Server (multi-model, multi-framework serving)**
+- **Volcano for gang scheduling (all-or-nothing GPU allocation)**
+- **NVIDIA Multi-Instance GPU (MIG) - partition A100 GPUs**
+- **Time-slicing for GPU sharing**
+- **GPU topology awareness (NVLink, PCIe)**
+
+**💡 Heureka Moment**: Kubernetes + GPUs = Scalable ML platform! The cloud is now ML-native!
+
+**Real-World Application**:
+- Build production ML platform on K8s
+- Scale training from 1 GPU to 100 GPUs
+- Serve models with autoscaling (0 to N replicas)
+- Share expensive GPUs across teams
+
+**Why This Matters**:
+- **Kubeflow**: Industry standard for ML on K8s (used by Google, Uber, Spotify)
+- **KServe**: Successor to KFServing, supports all major frameworks
+- **Ray**: Powers OpenAI's training infrastructure
+- **Triton**: NVIDIA's production inference server (used at scale)
+
+**Tool Comparison**:
+- **Kubeflow**: Full ML platform (pipelines, experiments, serving)
+- **KServe**: Just model serving (simpler than Kubeflow)
+- **Ray**: Distributed computing (training + serving + hyperparameter tuning)
+- **Triton**: High-performance inference (optimized for NVIDIA GPUs)
+
+---
+
+### Module 35: MLOps & Experiment Tracking
+- **Duration**: 6-7 hours
+- **Prerequisites**: Module 34
 - **Status**: ⚪ Not Started
 
 **Learning Objectives**:
 - Master MLflow for experiment tracking
 - Learn Weights & Biases (W&B)
-- Implement model versioning
-- Track metrics and artifacts
+- Implement model versioning and registry
+- Track metrics, hyperparameters, and artifacts
+- Compare MLOps platforms (MLflow, W&B, Neptune, Comet)
 
 **Deliverables**:
 - MLflow setup and integration
 - Experiment tracking dashboard
 - Model registry implementation
+- MLOps platform comparison
 
 **Key Concepts**:
 - Experiment tracking
-- Model versioning
+- Model versioning and registry
 - Hyperparameter logging
-- Artifact management
+- Artifact management (models, datasets, plots)
+- MLOps platform comparison
+
+**Real-World Application**: Track experiments for your contrarian stock prediction models!
 
 ---
 
-### Module 31: Model Deployment & Serving
-- **Duration**: 7-8 hours
-- **Prerequisites**: Module 30
-- **Status**: ⚪ Not Started
-
-**Learning Objectives**:
-- Deploy models as REST APIs
-- Use FastAPI for model serving
-- Implement batch inference
-- Handle model updates
-
-**Deliverables**:
-- FastAPI model server
-- Batch inference pipeline
-- Model deployment automation
-
-**Key Concepts**:
-- REST API design
-- Model serialization
-- Inference optimization
-- A/B testing
-
----
-
-### Module 32: Monitoring & Observability 🔮
+### Module 36: Data Versioning & Feature Stores
 - **Duration**: 6-7 hours
-- **Prerequisites**: Module 31
+- **Prerequisites**: Module 35
 - **Status**: ⚪ Not Started
 
 **Learning Objectives**:
-- Monitor model performance
-- Detect data drift
-- Track token usage and costs
-- Implement alerting
+- **Master DVC (Data Version Control) for datasets and models**
+- Understand data pipelines and lineage
+- **Learn feature stores (Feast, Tecton)**
+- Implement feature engineering workflows
+- Use data validation tools (Great Expectations, TFX Data Validation)
 
 **Deliverables**:
-- Monitoring dashboard
-- Drift detection system
-- Cost tracking tool
+- **DVC setup for dataset versioning**
+- **Feast feature store deployment**
+- Data pipeline with lineage tracking
+- Data validation suite
 
 **Key Concepts**:
-- Model performance metrics
-- Data drift vs concept drift
-- Token economics
-- Observability best practices
+- **DVC: Git for data (track datasets, models, metrics)**
+- **DVC remotes (S3, GCS, Azure Blob)**
+- **Feature stores: Centralized feature management**
+- **Feast architecture (registry, offline store, online store)**
+- Feature engineering workflows
+- Data validation and testing
+- Data lineage and provenance
 
-**💡 Heureka Moment**: Context window economics - understanding token costs changes how you architect AI systems!
+**Real-World Application**:
+- Version control your datasets (not just code!)
+- Share features across ML projects
+- Prevent training-serving skew
+
+**Why Feature Stores?**
+- **Consistency**: Same features in training and serving
+- **Reusability**: Share features across teams
+- **Performance**: Pre-computed features for low-latency serving
+- **Monitoring**: Track feature drift
+
+**Feature Store Comparison**:
+- **Feast**: Open-source, simple, lightweight
+- **Tecton**: Enterprise, fully managed, advanced features
+- **AWS SageMaker Feature Store**: AWS-native
+- **Vertex AI Feature Store**: GCP-native
 
 ---
 
-## Phase 7: AI for Infrastructure (Weeks 33-34)
+### Module 37: ML Pipeline Orchestration
+- **Duration**: 7-8 hours
+- **Prerequisites**: Module 36
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- **Master Airflow for ML pipelines (DAGs for ETL + training)**
+- **Build Kubeflow Pipelines (Kubernetes-native ML workflows)**
+- Explore Vertex AI Pipelines (GCP)
+- Use MLflow Pipelines (formerly MLflow Recipes)
+- Compare orchestration tools (Airflow, Kubeflow, Prefect, Dagster, ZenML, Metaflow)
+- Implement pipeline versioning and reproducibility
+
+**Deliverables**:
+- **Airflow DAG for end-to-end ML pipeline**
+- **Kubeflow Pipeline for distributed training**
+- **Pipeline comparison matrix**
+- Reusable pipeline templates
+
+**Key Concepts**:
+- **Airflow DAGs (Directed Acyclic Graphs)**
+- **Kubeflow Pipelines SDK (components, pipelines, experiments)**
+- Vertex AI Pipelines (GCP-managed Kubeflow)
+- MLflow Pipelines (templates for common ML tasks)
+- Pipeline orchestration patterns
+- Data → Feature Engineering → Training → Evaluation → Deployment
+- Pipeline versioning and lineage
+
+**Real-World Application**:
+- Build automated retraining pipelines
+- Schedule daily model updates
+- Chain ETL → training → deployment
+
+**Orchestration Tool Comparison**:
+- **Airflow**: General-purpose, Python-based, most popular
+- **Kubeflow Pipelines**: ML-specific, Kubernetes-native
+- **Prefect**: Modern Airflow alternative, Python-native
+- **Dagster**: Data pipelines, asset-based
+- **ZenML**: MLOps pipelines, framework-agnostic
+- **Metaflow**: Netflix's framework, production-focused
+
+**When to Use What**:
+- **Airflow**: Complex ETL + ML pipelines, many dependencies
+- **Kubeflow**: Pure ML workflows on Kubernetes
+- **Prefect/Dagster**: Modern Python workflows
+- **ZenML/Metaflow**: End-to-end MLOps
+
+---
+
+### Module 38: Model Deployment & Serving Patterns
+- **Duration**: 7-8 hours
+- **Prerequisites**: Module 37
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Deploy models as REST APIs (FastAPI, Flask)
+- Implement gRPC for high-performance serving
+- Choose batch vs real-time inference
+- Optimize models for serving (ONNX, TensorRT, quantization)
+- **Master deployment patterns (canary, blue-green, shadow, A/B testing)**
+- Implement model versioning in production
+- Handle model rollback and rollforward
+
+**Deliverables**:
+- FastAPI model server with versioning
+- gRPC inference service
+- Model optimization guide (ONNX conversion)
+- **Canary deployment on Kubernetes**
+- **A/B testing framework for models**
+- Batch inference pipeline
+
+**Key Concepts**:
+- REST vs gRPC for model serving
+- Model serialization formats (pickle, ONNX, SavedModel, TorchScript)
+- Model optimization (quantization, pruning, distillation)
+- ONNX Runtime for cross-framework inference
+- TensorRT for GPU optimization
+- **Canary deployments (gradual rollout)**
+- **Blue-green deployments (instant switch)**
+- **Shadow deployments (dark launch)**
+- **A/B testing for models**
+- Model versioning strategies
+
+**Real-World Application**:
+- Deploy your kaizen RAG system with A/B testing
+- Serve vibe content generation models
+- Production inference for contrarian stock predictions
+
+**Deployment Patterns**:
+```
+Canary: 95% traffic → v1, 5% traffic → v2 (test new model)
+Blue-Green: All traffic on v1 (blue), deploy v2 (green), switch instantly
+Shadow: v2 receives traffic but doesn't serve (log predictions for comparison)
+A/B: 50% users → v1, 50% users → v2 (measure business metrics)
+```
+
+---
+
+### Module 39: Monitoring, Governance & Production Best Practices 🔮
+- **Duration**: 7-8 hours
+- **Prerequisites**: Module 38
+- **Status**: ⚪ Not Started
+
+**Learning Objectives**:
+- Monitor model performance in production (accuracy, latency, throughput)
+- **Detect data drift and concept drift**
+- Implement model explainability and interpretability (SHAP, LIME)
+- Build model governance frameworks (compliance, auditing)
+- Track costs and optimize resource usage
+- Define SLAs and SLOs for ML systems
+- Implement alerting and incident response
+
+**Deliverables**:
+- **Model monitoring dashboard (Prometheus + Grafana)**
+- **Data drift detection system**
+- **Model explainability reports (SHAP values)**
+- Model governance documentation
+- Cost optimization guide
+- SLA/SLO definition for ML services
+
+**Key Concepts**:
+- Model performance monitoring (accuracy decay over time)
+- **Data drift**: Input distribution changes (detect with KS test, PSI)
+- **Concept drift**: True relationship changes (model becomes stale)
+- Model explainability (SHAP, LIME, feature importance)
+- Model governance (compliance, auditing, versioning)
+- Cost tracking (compute, storage, inference costs)
+- SLAs for ML (latency < 100ms, uptime > 99.9%)
+- Alerting strategies (performance degradation, drift, cost spikes)
+
+**💡 Heureka Moment**: Production ML is 10% training, 90% monitoring! Models degrade over time - you must monitor drift!
+
+**Real-World Application**:
+- Monitor your production models for drift
+- Explain AI decisions (regulatory compliance)
+- Track ML infrastructure costs
+- Set up alerts for model degradation
+
+**Monitoring Stack**:
+- **Prometheus**: Metrics collection
+- **Grafana**: Visualization dashboards
+- **Evidently AI**: ML-specific monitoring (drift, performance)
+- **WhyLabs**: Data and ML monitoring
+- **Arize AI**: ML observability platform
+
+**Governance & Compliance**:
+- Model cards (documentation)
+- Datasheets for datasets
+- Audit trails (who trained what when)
+- Bias detection and mitigation
+- Regulatory compliance (GDPR, CCPA, AI Act)
+
+---
+
+## Phase 7: AI for Infrastructure (Weeks 40-41)
 
 **Goal**: Apply AI to infrastructure management and AIOps
 
-### Module 33: AI for Proactive Cloud Management
+### Module 40: AI for Proactive Cloud Management
 - **Duration**: 7-8 hours
 - **Prerequisites**: Phase 6 complete
 - **Status**: ⚪ Not Started
@@ -1089,9 +1525,9 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 34: AIOps & Log Analysis
+### Module 41: AIOps & Log Analysis
 - **Duration**: 6-7 hours
-- **Prerequisites**: Module 33
+- **Prerequisites**: Module 40
 - **Status**: ⚪ Not Started
 
 **Learning Objectives**:
@@ -1115,11 +1551,11 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-## Phase 8: Capstone Projects (Weeks 35-40)
+## Phase 8: Capstone Projects (Weeks 42-47)
 
 **Goal**: Apply everything to real-world projects
 
-### Module 35: Kaizen Enhancement - Advanced AI Features
+### Module 42: Kaizen Enhancement - Advanced AI Features
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-7 complete
 - **Status**: ⚪ Not Started
@@ -1144,7 +1580,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 36: Vibe AI Features - Generative Content Platform
+### Module 43: Vibe AI Features - Generative Content Platform
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-7 complete
 - **Status**: ⚪ Not Started
@@ -1169,7 +1605,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 37: Contrarian AI Analytics - Stock Intelligence System
+### Module 44: Contrarian AI Analytics - Stock Intelligence System
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-7 complete
 - **Status**: ⚪ Not Started
@@ -1204,7 +1640,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 38: The Foundations (1950s-1980s) - The Dark Ages Before Deep Learning 🕰️
+### Module 45: The Foundations (1950s-1980s) - The Dark Ages Before Deep Learning 🕰️
 - **Duration**: 3-4 hours
 - **Prerequisites**: None (can be taken anytime, but best after Phase 2+)
 - **Status**: ⚪ Not Started
@@ -1242,7 +1678,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 39: The Deep Learning Revolution (2000s-2010s) - How Cat Pictures Saved AI 🔥
+### Module 46: The Deep Learning Revolution (2000s-2010s) - How Cat Pictures Saved AI 🔥
 - **Duration**: 3-4 hours
 - **Prerequisites**: None (can be taken anytime, but best after Phase 2+)
 - **Status**: ⚪ Not Started
@@ -1280,7 +1716,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 40: The Transformer Era (2017-Present) - Eight Researchers Changed Everything 🚀
+### Module 47: The Transformer Era (2017-Present) - Eight Researchers Changed Everything 🚀
 - **Duration**: 4-5 hours
 - **Prerequisites**: None (can be taken anytime, but best after Phase 4+)
 - **Status**: ⚪ Not Started
@@ -1363,8 +1799,12 @@ Each module follows this structure:
 - **AI Frameworks**: LangChain, LangGraph, LlamaIndex
 - **Vector DBs**: Qdrant, Pinecone, ChromaDB
 - **ML Frameworks**: PyTorch, TensorFlow, Hugging Face Transformers
-- **MLOps**: MLflow, Weights & Biases, DVC
-- **Deployment**: FastAPI, Docker, AWS/GCP
+- **MLOps**: MLflow, Weights & Biases, DVC, Feast, Great Expectations
+- **DevOps & CI/CD**: Docker, Kubernetes, Dagger, GitHub Actions, GitLab CI/CD
+- **ML on K8s**: Kubeflow, KServe, Ray, NVIDIA Triton, NVIDIA GPU Operator
+- **Orchestration**: Airflow, Kubeflow Pipelines, Prefect, ZenML
+- **Monitoring**: Prometheus, Grafana, Evidently AI, WhyLabs
+- **Deployment**: FastAPI, gRPC, ONNX, TensorRT, AWS/GCP/Azure
 
 ### Recommended Reading
 - "Attention Is All You Need" (Vaswani et al., 2017)
@@ -1389,8 +1829,11 @@ By the end of Neural Dojo, you will:
 - ✅ Create multi-agent AI orchestrations
 - ✅ Train and deploy deep learning models
 - ✅ Fine-tune LLMs for specific tasks
-- ✅ Implement MLOps best practices
-- ✅ Apply AI to real infrastructure problems
+- ✅ **Master DevOps & MLOps for AI/ML systems**
+- ✅ **Deploy ML workloads on Kubernetes with GPU support**
+- ✅ **Build CI/CD pipelines for ML (Dagger, GitHub Actions, GitLab CI)**
+- ✅ **Implement model monitoring, drift detection, and governance**
+- ✅ Apply AI to real infrastructure problems (AIOps)
 - ✅ Have a portfolio of production AI projects
 
 **Most Importantly**: You'll think in AI-native patterns and confidently apply AI to any problem!
@@ -1412,10 +1855,10 @@ By the end of Neural Dojo, you will:
 - Update progress tracking after each module
 
 ### Project Connections
-- **kaizen**: RAG, LangChain, vector DBs, agents (Phases 3-6)
-- **vibe**: Generative AI, multimodal (Phase 5)
-- **contrarian**: ML for time series, forecasting (Phase 4 + capstone)
-- **Work (geospatial + cloud)**: AIOps, infrastructure (Phase 7)
+- **kaizen**: RAG, LangChain, vector DBs, agents (Phases 3-6), K8s deployment (Phase 6)
+- **vibe**: Generative AI, multimodal (Phase 5), CI/CD pipelines (Phase 6)
+- **contrarian**: ML for time series, forecasting (Phase 4), MLOps workflows (Phase 6), capstone (Phase 8)
+- **Work (geospatial + cloud)**: K8s GPU scheduling (Phase 6), AIOps (Phase 7)
 
 ---
 
@@ -1425,8 +1868,8 @@ By the end of Neural Dojo, you will:
 
 ---
 
-_Last updated: 2025-11-22_
-_Version: 2.1.0 - Module 1 Split into 1.1 (Tools) + 1.2 (Local Models)_
+_Last updated: 2025-11-24_
+_Version: 3.0.0 - EXPANDED DevOps/MLOps (Phase 6: 10 modules with Dagger, K8s GPU support)_
 _Next session: Continue with Phase 3 (Building with AI Toolkits) or enhance Phase 1-2 modules_
 
 **🎉 Phase 1 Achievement Unlocked! 🎉**

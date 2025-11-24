@@ -1,9 +1,9 @@
 # 🌅 Start Here Tomorrow
 
-**Last Updated**: 2025-11-23 (Session #12 - ALL 9 DELIVERABLES COMPLETE! 🎉🎉🎉)
-**Current Status**: 🏆 ALL DELIVERABLES COMPLETE! 9/9 built! (100%) 🏆
+**Last Updated**: 2025-11-24 (Session #13 - CURRICULUM EXPANDED! DevOps/MLOps Phase 6 🚀)
+**Current Status**: 🏆 ALL DELIVERABLES COMPLETE! 9/9 built! (100%) 🏆 + CURRICULUM EXPANDED!
 **Next Step**: Continue to Phase 3 (Module 11: RAG) OR apply deliverables to real projects!
-**Progress**: 11/37 modules complete (30%) + 9/9 deliverables built (100%) 🔥🔥🔥
+**Progress**: 12/47 modules complete (26%) + 9/9 deliverables built (100%) 🔥🔥🔥
 
 ---
 
@@ -647,6 +647,58 @@ Built a tool for finding optimal temperature and top_p settings!
 
 ---
 
+## 🚀 Session #13 - CURRICULUM EXPANSION! (2025-11-24)
+
+### Major Curriculum Update: Phase 6 DevOps/MLOps Expansion! 🎉
+
+**What Changed**:
+- **Phase 6 EXPANDED** from 3 to 10 modules! (Production ML Systems → DevOps & MLOps)
+- **Total modules**: 41 → 47 (6 new modules added!)
+- **New focus**: Modern DevOps/MLOps practices for AI/ML systems
+- **Curriculum version**: 2.1.0 → 3.0.0
+
+**NEW Phase 6: DevOps & MLOps - Production AI Systems (Modules 30-39)**:
+
+1. **Module 30: DevOps Fundamentals for ML Engineers** - Git workflows, testing, IaC
+2. **Module 31: Docker & Containerization for ML** - Multi-stage builds, optimization
+3. **Module 32: CI/CD for AI/ML Development** 🔮 - **Dagger deep dive**, GitHub Actions, GitLab CI
+4. **Module 33: Kubernetes Fundamentals for ML** - **GPU scheduling, NVIDIA GPU Operator**
+5. **Module 34: Advanced K8s for AI/ML** 🔮 - **Kubeflow, KServe, Ray, Triton**
+6. **Module 35: MLOps & Experiment Tracking** - MLflow, W&B
+7. **Module 36: Data Versioning & Feature Stores** - **DVC, Feast**
+8. **Module 37: ML Pipeline Orchestration** - **Airflow, Kubeflow Pipelines**
+9. **Module 38: Model Deployment & Serving Patterns** - Canary, blue-green, A/B testing
+10. **Module 39: Monitoring, Governance & Best Practices** 🔮 - Drift detection, explainability
+
+**Key Additions**:
+- ✅ **Dagger**: Portable CI/CD pipelines as Python code (not YAML!)
+- ✅ **K8s GPU Support**: NVIDIA GPU Operator, MIG, time-slicing
+- ✅ **Kubeflow/KServe/Ray**: Production ML on Kubernetes
+- ✅ **DVC**: Data version control (Git for datasets)
+- ✅ **Feast**: Feature stores for ML
+- ✅ **Advanced deployment**: Canary, blue-green, shadow, A/B
+- ✅ **Monitoring**: Drift detection, explainability, governance
+
+**Renumbered Phases**:
+- Phase 7: AI for Infrastructure (33-34 → 40-41)
+- Phase 8: Capstone Projects (35-37 → 42-44)
+- Phase 9: History of AI/ML (38-40 → 45-47)
+
+**Why This Matters**:
+- DevOps/MLOps are CRITICAL for production AI systems
+- Kubernetes now has first-class GPU support
+- Dagger enables portable pipelines (same code locally and in CI)
+- Feature stores prevent training-serving skew
+- Monitoring drift is essential for model reliability
+
+**Your Real-World Applications**:
+- **kaizen**: Deploy RAG on K8s with GPU, CI/CD with Dagger
+- **vibe**: MLOps workflows for content generation
+- **contrarian**: Feature stores for stock prediction
+- **Work (cloud)**: K8s GPU scheduling for geospatial ML
+
+---
+
 ## 📋 What to Do Next
 
 You have **TWO excellent options**:
@@ -762,7 +814,7 @@ Your Semantic Search (Module 09) → Retriever
 
 ## 📊 Progress Summary
 
-### Modules Completed: 11/37 (30%)
+### Modules Completed: 12/47 (26%)
 
 **Phase 1: AI-Native Development** ✅
 - Module 01.1: AI Coding Tools 🟢
@@ -841,6 +893,18 @@ python demo_semantic_search.py
 ---
 
 ## 📝 Session Log
+
+**Session #13 (2025-11-24)** - CURRICULUM EXPANSION! 🚀:
+- **MAJOR UPDATE**: Expanded Phase 6 from 3 to 10 modules!
+- Added comprehensive DevOps/MLOps coverage:
+  - DevOps fundamentals, Docker, CI/CD (Dagger!), K8s (GPU support!)
+  - Kubeflow, KServe, Ray, NVIDIA Triton
+  - DVC, Feast, Airflow, Kubeflow Pipelines
+  - Advanced deployment patterns, monitoring, governance
+- Renumbered phases: Phase 7 (40-41), Phase 8 (42-44), Phase 9 (45-47)
+- Updated curriculum to v3.0.0
+- Total modules: 41 → 47
+- **Time**: ~2 hours (planning and documentation)
 
 **Session #12 (2025-11-23)** - ALL 9 DELIVERABLES COMPLETE! 🏆🎉:
 - **Built ALL 5 remaining deliverables in one session!**

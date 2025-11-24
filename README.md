@@ -3,8 +3,8 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 [![Status](https://img.shields.io/badge/Status-In%20Progress-green)]()
-[![Progress](https://img.shields.io/badge/Progress-28%25-green)]()
-[![Modules](https://img.shields.io/badge/Modules-11%2F40%20Complete-blue)]()
+[![Progress](https://img.shields.io/badge/Progress-26%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-12%2F47%20Complete-blue)]()
 [![Phase](https://img.shields.io/badge/Phase-Foundation%20Complete-brightgreen)]()
 [![Quality](https://img.shields.io/badge/Quality-Chef's%20Kiss%20%E2%9C%A8-gold)]()
 
@@ -19,7 +19,8 @@ Transform from AI novice to AI-fluent developer capable of building production A
 - 🧠 Building with LLMs (RAG systems, agents, orchestration)
 - 🔬 Deep learning (PyTorch, transformers, neural networks)
 - 🎨 Generative AI (text, images, code generation)
-- 🚀 Production ML (MLOps, deployment, monitoring)
+- 🚀 **DevOps & MLOps** (Docker, K8s, Dagger, CI/CD for ML, GPU scheduling)
+- 📊 Production ML (experiment tracking, feature stores, monitoring, drift detection)
 - ☁️ AI for infrastructure (AIOps, proactive management)
 - 🕰️ **NEW**: History of AI/ML (optional enrichment)
 
@@ -61,7 +62,7 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 
 ## 📚 Curriculum Overview
 
-**40 modules** organized into **9 phases** + prerequisites (37-42 weeks, 150-214 hours):
+**47 modules** organized into **9 phases** + prerequisites (44-52 weeks, 178-262 hours):
 
 ### Module 0: Prerequisites & Environment Setup ✅
 **Foundation module** - Set up your development environment
@@ -98,20 +99,26 @@ Modern generative AI techniques
 - Modules 26-29: Fine-tuning, multimodal AI, diffusion models, code generation
 - **Skills**: LoRA, CLIP, Stable Diffusion, CodeLlama
 
-### Phase 6: Production ML Systems (Weeks 30-32)
-Deploy and operate ML in production
-- Modules 30-32: MLOps, deployment, monitoring
-- **Skills**: MLflow, FastAPI, observability, cost optimization
+### Phase 6: DevOps & MLOps (Weeks 30-39) 🚀 **EXPANDED!**
+Master modern DevOps and MLOps for production AI systems
+- Modules 30-39: DevOps fundamentals, Docker, CI/CD, Kubernetes, MLOps, orchestration, monitoring
+- **Skills**: Docker, Kubernetes (GPU scheduling!), Dagger, Kubeflow, KServe, Ray, DVC, Feast, Airflow, drift detection
+- **NEW**: Deep dive into Dagger (CI/CD as code), K8s GPU support (NVIDIA GPU Operator), feature stores
 
-### Phase 7: AI for Infrastructure (Weeks 33-34)
+### Phase 7: AI for Infrastructure (Weeks 40-41)
 Apply AI to infrastructure management
-- Modules 33-34: AIOps, anomaly detection, log analysis
+- Modules 40-41: AIOps, anomaly detection, log analysis
 - **Skills**: Predictive scaling, incident response, capacity planning
 
-### Phase 8: Capstone Projects (Weeks 35-40)
+### Phase 8: Capstone Projects (Weeks 42-47)
 Build real-world AI applications
-- Module 35: Enhance kaizen, build vibe features, contrarian AI, your own tool
+- Modules 42-44: Enhance kaizen, build vibe features, contrarian AI
 - **Skills**: Everything combined!
+
+### Phase 9: History of AI/ML (Optional Enrichment) 🕰️
+Understand the context and stories behind modern AI
+- Modules 45-47: Foundations (1950s-1980s), Deep Learning Revolution (2000s-2010s), Transformer Era (2017-Present)
+- **Skills**: Historical context, appreciation for how we got here
 
 ---
 
@@ -151,15 +158,34 @@ Throughout Neural Dojo, you'll encounter **8 transformative insights** that fund
 - TensorFlow (production deployment)
 - sentence-transformers (embeddings)
 
-**MLOps**:
-- MLflow (experiment tracking)
-- Weights & Biases (monitoring)
-- FastAPI (model serving)
+**DevOps & CI/CD**:
+- Docker (containerization)
+- Kubernetes (orchestration, GPU scheduling)
+- Dagger (CI/CD as code)
+- GitHub Actions, GitLab CI/CD
+
+**MLOps & Orchestration**:
+- MLflow, Weights & Biases (experiment tracking)
+- DVC (data version control)
+- Feast (feature stores)
+- Airflow, Kubeflow Pipelines (orchestration)
+- Prometheus, Grafana, Evidently AI (monitoring)
+
+**ML on Kubernetes**:
+- Kubeflow (ML workflows)
+- KServe (model serving)
+- Ray (distributed computing)
+- NVIDIA Triton (inference server)
+- NVIDIA GPU Operator (GPU management)
+
+**Model Deployment**:
+- FastAPI, gRPC (model serving)
+- ONNX, TensorRT (optimization)
 
 **Development**:
 - Python 3.10+
 - Claude Code, Cursor, GitHub Copilot
-- Docker, Git
+- Git
 
 ---
 
@@ -218,12 +244,13 @@ cat docs/curriculum/MASTER_CURRICULUM.md
 | [Phase 3: Building with AI Toolkits](docs/curriculum/MASTER_CURRICULUM.md#phase-3-building-with-ai-toolkits-weeks-11-18) | 0/8 | ⏭️ Next |
 | [Phase 4: Deep Learning Foundations](docs/curriculum/MASTER_CURRICULUM.md#phase-4-deep-learning-foundations-weeks-19-25) | 0/7 | ⚪ Not Started |
 | [Phase 5: Advanced Generative AI](docs/curriculum/MASTER_CURRICULUM.md#phase-5-advanced-generative-ai-weeks-26-29) | 0/4 | ⚪ Not Started |
-| [Phase 6: Production ML Systems](docs/curriculum/MASTER_CURRICULUM.md#phase-6-production-ml-systems-weeks-30-32) | 0/3 | ⚪ Not Started |
-| [Phase 7: AI for Infrastructure](docs/curriculum/MASTER_CURRICULUM.md#phase-7-ai-for-infrastructure-weeks-33-34) | 0/2 | ⚪ Not Started |
-| [Phase 8: Capstone Projects](docs/curriculum/MASTER_CURRICULUM.md#phase-8-capstone-projects-weeks-35-40) | 0/1 | ⚪ Not Started |
-| **TOTAL** | **11/37** | **30% Complete** 🎉 |
+| [Phase 6: DevOps & MLOps](docs/curriculum/MASTER_CURRICULUM.md#phase-6-devops--mlops---production-ai-systems-weeks-30-39) | 0/10 | ⚪ Not Started |
+| [Phase 7: AI for Infrastructure](docs/curriculum/MASTER_CURRICULUM.md#phase-7-ai-for-infrastructure-weeks-40-41) | 0/2 | ⚪ Not Started |
+| [Phase 8: Capstone Projects](docs/curriculum/MASTER_CURRICULUM.md#phase-8-capstone-projects-weeks-42-47) | 0/3 | ⚪ Not Started |
+| [Phase 9: History of AI/ML (Optional)](docs/curriculum/MASTER_CURRICULUM.md#phase-9-the-journey---history-of-aiml-optional-enrichment-) | 0/3 | ⚪ Not Started |
+| **TOTAL** | **12/47** | **26% Complete** 🎉 |
 
-**Last Updated**: 2025-11-21 (Session #8)
+**Last Updated**: 2025-11-24 (Session #13 - CURRICULUM EXPANDED!)
 
 ---
 
@@ -251,10 +278,15 @@ By completing Neural Dojo, you will:
 - Generate images with diffusion models
 - Create code generation tools
 
-✅ **Deploy & Monitor ML**
-- Set up MLOps pipelines
-- Monitor model performance
-- Optimize token costs
+✅ **Master DevOps & MLOps**
+- Containerize ML applications with Docker
+- Deploy ML workloads on Kubernetes with GPU support
+- Build CI/CD pipelines for ML with Dagger
+- Set up experiment tracking and model registry
+- Implement feature stores and data versioning
+- Orchestrate ML pipelines with Airflow/Kubeflow
+- Monitor drift and model performance
+- Optimize token and infrastructure costs
 
 ✅ **Apply AI to Real Problems**
 - Enhance kaizen with advanced RAG
@@ -401,5 +433,5 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ---
 
-_Last updated: 2025-11-21 (Session #8)_
-_Progress: 11/37 modules (30%) - Foundation Complete! 🎉_
+_Last updated: 2025-11-24 (Session #13 - CURRICULUM EXPANDED!)_
+_Progress: 12/47 modules (26%) - Foundation Complete + DevOps/MLOps Phase Added! 🚀_
