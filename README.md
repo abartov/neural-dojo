@@ -3,9 +3,10 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 [![Status](https://img.shields.io/badge/Status-In%20Progress-green)]()
-[![Progress](https://img.shields.io/badge/Progress-28%25-green)]()
-[![Modules](https://img.shields.io/badge/Modules-13%2F47%20Complete-blue)]()
-[![Phase](https://img.shields.io/badge/Phase-Phase%203%20Started-brightgreen)]()
+[![Progress](https://img.shields.io/badge/Progress-33%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-16%2F48%20Complete-blue)]()
+[![Deliverables](https://img.shields.io/badge/Deliverables-12%2F12%20Complete-brightgreen)]()
+[![Phase](https://img.shields.io/badge/Phase-Phase%203%20In%20Progress-brightgreen)]()
 [![Quality](https://img.shields.io/badge/Quality-Chef's%20Kiss%20%E2%9C%A8-gold)]()
 
 ---
@@ -62,7 +63,7 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 
 ## 📚 Curriculum Overview
 
-**47 modules** organized into **9 phases** + prerequisites (44-52 weeks, 178-262 hours):
+**48 modules** organized into **9 phases** + prerequisites (44-52 weeks, 178-262 hours):
 
 ### Module 0: Prerequisites & Environment Setup ✅
 **Foundation module** - Set up your development environment
@@ -74,9 +75,9 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 
 ### Phase 1: AI-Native Development (Weeks 1-5) ✅
 **Master using AI as your development partner**
-- **Status**: 🟢 Complete (5/5 modules)
-- **Modules**: [1](docs/curriculum/MASTER_CURRICULUM.md#module-1-foundations-of-ai-driven-development), [2](docs/curriculum/MASTER_CURRICULUM.md#module-2-prompt-engineering-fundamentals-), [3](docs/curriculum/MASTER_CURRICULUM.md#module-3-ai-powered-code-generation), [4](docs/curriculum/MASTER_CURRICULUM.md#module-4-ai-assisted-debugging--optimization), [5](docs/curriculum/MASTER_CURRICULUM.md#module-5-building-with-ai-coding-assistants)
-- **Skills**: Prompt engineering, Claude Code, Cursor, GitHub Copilot
+- **Status**: 🟢 Complete (7/7 modules)
+- **Modules**: [1.1](docs/curriculum/MASTER_CURRICULUM.md#module-1-foundations-of-ai-driven-development), [1.2](docs/curriculum/MASTER_CURRICULUM.md#module-12-local-models--ollama), [1.3](docs/curriculum/notes/module_01.3_claude_code_deep_dive.md) (NEW!), [2](docs/curriculum/MASTER_CURRICULUM.md#module-2-prompt-engineering-fundamentals-), [3](docs/curriculum/MASTER_CURRICULUM.md#module-3-ai-powered-code-generation), [4](docs/curriculum/MASTER_CURRICULUM.md#module-4-ai-assisted-debugging--optimization), [5](docs/curriculum/MASTER_CURRICULUM.md#module-5-building-with-ai-coding-assistants)
+- **Skills**: Prompt engineering, Claude Code (deep dive!), Cursor, GitHub Copilot, local models
 
 ### Phase 2: Generative AI Fundamentals (Weeks 6-10) ✅
 **Understand how LLMs work under the hood**
@@ -84,10 +85,12 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 - **Modules**: [6](docs/curriculum/MASTER_CURRICULUM.md#module-6-introduction-to-large-language-models), [7](docs/curriculum/MASTER_CURRICULUM.md#module-7-tokenization--text-processing), [8](docs/curriculum/MASTER_CURRICULUM.md#module-8-text-generation--sampling-strategies), [9](docs/curriculum/MASTER_CURRICULUM.md#module-9-embeddings--semantic-similarity), [10](docs/curriculum/MASTER_CURRICULUM.md#module-10-vector-spaces--semantic-search-) 🔮
 - **Skills**: Text generation, semantic search, embeddings, vector arithmetic
 
-### Phase 3: Building with AI Toolkits (Weeks 11-18) ⏭️ NEXT
+### Phase 3: Building with AI Toolkits (Weeks 11-18) 🟡 In Progress
 Master tools for production AI systems
-- Modules 11-18: Vector DBs, RAG, LangChain, LangGraph, agents
-- **Skills**: Qdrant, RAG pipelines, multi-agent systems
+- **Status**: 🟡 In Progress (3/8 modules complete)
+- **Completed**: Module 11 (Vector DBs), Module 12 (RAG), Module 13 (RAG vs Fine-tuning 🔮)
+- **Next**: Module 14 (LangChain), Module 15 (LangGraph), Modules 16-18 (Agents)
+- **Skills**: Qdrant, RAG pipelines, decision engines, multi-agent systems
 
 ### Phase 4: Deep Learning Foundations (Weeks 19-25)
 PyTorch and neural network fundamentals
@@ -239,18 +242,18 @@ cat docs/curriculum/MASTER_CURRICULUM.md
 | Phase | Completion | Status |
 |-------|------------|--------|
 | [Module 0: Prerequisites](docs/curriculum/MASTER_CURRICULUM.md#module-0-prerequisites--environment-setup-pre-phase-1) | 1/1 | 🟢 Complete |
-| [Phase 1: AI-Native Development](docs/curriculum/MASTER_CURRICULUM.md#phase-1-ai-native-development-weeks-1-5) | 5/5 | 🟢 Complete |
+| [Phase 1: AI-Native Development](docs/curriculum/MASTER_CURRICULUM.md#phase-1-ai-native-development-weeks-1-5) | 7/7 | 🟢 Complete |
 | [Phase 2: Generative AI Fundamentals](docs/curriculum/MASTER_CURRICULUM.md#phase-2-generative-ai-fundamentals-weeks-6-10) | 5/5 | 🟢 Complete |
-| [Phase 3: Building with AI Toolkits](docs/curriculum/MASTER_CURRICULUM.md#phase-3-building-with-ai-toolkits-weeks-11-18) | 0/8 | ⏭️ Next |
+| [Phase 3: Building with AI Toolkits](docs/curriculum/MASTER_CURRICULUM.md#phase-3-building-with-ai-toolkits-weeks-11-18) | 3/8 | 🟡 In Progress |
 | [Phase 4: Deep Learning Foundations](docs/curriculum/MASTER_CURRICULUM.md#phase-4-deep-learning-foundations-weeks-19-25) | 0/7 | ⚪ Not Started |
 | [Phase 5: Advanced Generative AI](docs/curriculum/MASTER_CURRICULUM.md#phase-5-advanced-generative-ai-weeks-26-29) | 0/4 | ⚪ Not Started |
 | [Phase 6: DevOps & MLOps](docs/curriculum/MASTER_CURRICULUM.md#phase-6-devops--mlops---production-ai-systems-weeks-30-39) | 0/10 | ⚪ Not Started |
 | [Phase 7: AI for Infrastructure](docs/curriculum/MASTER_CURRICULUM.md#phase-7-ai-for-infrastructure-weeks-40-41) | 0/2 | ⚪ Not Started |
 | [Phase 8: Capstone Projects](docs/curriculum/MASTER_CURRICULUM.md#phase-8-capstone-projects-weeks-42-47) | 0/3 | ⚪ Not Started |
 | [Phase 9: History of AI/ML (Optional)](docs/curriculum/MASTER_CURRICULUM.md#phase-9-the-journey---history-of-aiml-optional-enrichment-) | 0/3 | ⚪ Not Started |
-| **TOTAL** | **12/47** | **26% Complete** 🎉 |
+| **TOTAL** | **16/48** | **33% Complete** 🎉 |
 
-**Last Updated**: 2025-11-24 (Session #13 - CURRICULUM EXPANDED!)
+**Last Updated**: 2025-11-25 (Session #16 - Module 13 + 1.3 Complete!)
 
 ---
 
@@ -361,7 +364,7 @@ Neural Dojo is designed to support your existing AI work:
 ## 📖 Documentation
 
 **Quick Links**:
-- 🎯 **[MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md)** - Complete curriculum (37 modules)
+- 🎯 **[MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md)** - Complete curriculum (48 modules)
 - 🌅 **[START_HERE_TOMORROW.md](docs/curriculum/START_HERE_TOMORROW.md)** - Session handoff (updated after each session)
 - 📑 **[MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md)** - Module quick reference with links
 - 📝 **[session_log.md](docs/curriculum/notes/session_log.md)** - Chronological learning history
@@ -418,10 +421,10 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ## 🚀 Ready to Start?
 
-**Current Status**: Foundation Complete (Module 0 + Phases 1-2) 🎉
+**Current Status**: Phase 3 In Progress (16/48 modules, 33%) 🎉
 
 **Next Steps**:
-1. ✅ **Already completed Module 0-10?** Jump to [Phase 3 - Module 11 (RAG)](docs/curriculum/MASTER_CURRICULUM.md#module-11-introduction-to-vector-databases)
+1. ✅ **Already completed through Module 13?** Jump to [Module 14 - LangChain Fundamentals](docs/curriculum/MASTER_CURRICULUM.md#module-14-langchain-fundamentals)
 2. 🆕 **Just getting started?** Begin with [Module 0 - Prerequisites](docs/curriculum/notes/module_00_prerequisites.md)
 3. 📚 **Want to review?** Check the [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md) to find specific topics
 
@@ -433,5 +436,5 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ---
 
-_Last updated: 2025-11-24 (Session #13 - CURRICULUM EXPANDED!)_
-_Progress: 12/47 modules (26%) - Foundation Complete + DevOps/MLOps Phase Added! 🚀_
+_Last updated: 2025-11-25 (Session #16 - Module 13 + 1.3 Complete!)_
+_Progress: 16/48 modules (33%) - Phase 3 In Progress + All Deliverables Built! 🚀_
