@@ -1,0 +1,26 @@
+# Multi-tenant vector store cache
+.multi_tenant_store/
+
+# Benchmark results
+benchmark_results.json
+benchmark_results.png
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
