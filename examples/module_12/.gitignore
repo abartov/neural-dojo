@@ -1,0 +1,11 @@
+# RAG Pipeline storage
+.rag_pipeline/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/

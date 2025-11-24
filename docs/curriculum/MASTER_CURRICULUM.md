@@ -52,16 +52,16 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase | Modules | Status | Completion |
 |-------|---------|--------|------------|
 | Module 0: Prerequisites | 0 | 🟢 Complete | 1/1 (100%) |
-| Phase 1: AI-Native Development | 1.1, 1.2, 2-5 | 🟢 Complete | 6/6 (100%) |
+| Phase 1: AI-Native Development | 1.1, 1.2, 1.3, 2-5 | 🟢 Complete | 7/7 (100%) |
 | Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
-| Phase 3: Building with AI Toolkits | 11-18 | 🟡 In Progress | 1/8 (12.5%) |
+| Phase 3: Building with AI Toolkits | 11-18 | 🟡 In Progress | 3/8 (37.5%) |
 | Phase 4: Deep Learning Foundations | 19-25 | ⚪ Not Started | 0/7 |
 | Phase 5: Advanced Generative AI | 26-29 | ⚪ Not Started | 0/4 |
 | **Phase 6: DevOps & MLOps** | **30-39** | ⚪ **Not Started** | **0/10** |
 | Phase 7: AI for Infrastructure | 40-41 | ⚪ Not Started | 0/2 |
 | Phase 8: Capstone Projects | 42-44 | ⚪ Not Started | 0/3 |
 | Phase 9: History of AI/ML (Optional) | 45-47 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **47 modules** | **28% Complete** | **13/47** |
+| **TOTAL** | **48 modules** | **33% Complete** | **16/48** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -191,6 +191,42 @@ Throughout this curriculum, you'll encounter transformative insights marked with
   - `cost_comparison.md` (detailed cost analysis)
   - `requirements.txt` (dependencies)
   - `README.md` (module overview)
+
+---
+
+### Module 1.3: Claude Code & CLI Deep Dive
+- **Duration**: 4-5 hours
+- **Prerequisites**: Module 1.1
+- **Status**: 🟢 Complete
+
+**Learning Objectives**:
+- Master Claude Code's multi-modal operation (Interactive, Print, Plan)
+- Configure settings.json and CLAUDE.md for maximum productivity
+- Build custom slash commands and skills
+- Implement hooks for deterministic automation
+- Set up MCP integrations for external tools
+- Design sub-agents for specialized tasks
+- Optimize your workflow for cost and efficiency
+
+**Deliverables**:
+- ✅ Optimized settings.local.json for full autonomy
+- ✅ Custom slash commands for common workflows
+- ✅ Security hook implementation
+- ✅ Project CLAUDE.md template
+- ✅ MCP integration example
+
+**Key Concepts**:
+- Four modes: Interactive, Print, Plan, Extended Thinking
+- Configuration hierarchy (settings → CLAUDE.md → CLI flags)
+- Permission patterns and autonomy levels
+- Memory systems and CLAUDE.md hierarchy
+- Custom commands vs skills vs sub-agents
+- Hooks for deterministic automation
+- MCP (Model Context Protocol) integrations
+- Cost optimization strategies
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_01.3_claude_code_deep_dive.md` (~1,500 lines)
 
 ---
 
@@ -538,7 +574,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 12: Building Your First RAG System
 - **Duration**: 6-7 hours
 - **Prerequisites**: Modules 10-11
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand RAG architecture (Retrieval-Augmented Generation)
@@ -562,26 +598,39 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 13: RAG vs Fine-tuning Trade-offs 🔮
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 12
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
-- Understand when to use RAG vs fine-tuning
-- Learn about parameter-efficient fine-tuning (PEFT)
-- Compare costs and benefits
-- Design hybrid approaches
+- Understand when to use RAG vs fine-tuning (and when to combine them)
+- Master the cost-benefit analysis for each approach
+- Learn parameter-efficient fine-tuning (LoRA, QLoRA)
+- Design hybrid architectures that leverage both techniques
+- Make data-driven decisions for your AI systems
 
 **Deliverables**:
-- RAG vs fine-tuning decision matrix
-- Cost analysis spreadsheet
-- Hybrid approach prototype
+- ✅ RAG vs Fine-tuning Decision Engine (600+ lines)
+- ✅ Decision framework with multi-factor scoring
+- ✅ Cost analysis tool with 2025 pricing
+- ✅ Implementation roadmap generator
+- ✅ Risk assessment framework
 
 **Key Concepts**:
-- Knowledge injection methods
-- LoRA and QLoRA
-- Cost-benefit analysis
-- Maintenance overhead
+- RAG = Dynamic Knowledge (facts that change)
+- Fine-tuning = Behavior Modification (style, reasoning)
+- LoRA and QLoRA for efficient fine-tuning
+- Cost-benefit analysis at scale
+- Hybrid architectures (RAG + LoRA)
+- The $1.3 Trillion Mistake (when NOT to fine-tune)
 
-**💡 Heureka Moment**: RAG and fine-tuning solve different problems! RAG = dynamic knowledge, Fine-tuning = behavior/style.
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_13_rag_vs_finetuning.md` (~3,500 lines)
+- Examples: `examples/module_13/`
+  - `01_decision_framework.py` (interactive decision tool)
+  - `02_cost_analysis.py` (detailed cost calculations)
+  - `deliverable_decision_engine.py` (full CLI tool, 600+ lines)
+  - `DELIVERABLE_README.md` (comprehensive documentation)
+
+**💡 Heureka Moment**: RAG and fine-tuning solve DIFFERENT problems! RAG = dynamic knowledge, Fine-tuning = behavior/style. Once you understand this, the right choice becomes obvious!
 
 ---
 

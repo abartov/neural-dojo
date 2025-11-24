@@ -163,22 +163,29 @@ python 03_multilingual.py
 
 ## Cost Calculator
 
-**Quick reference** (GPT-4 pricing as of 2024):
-- Input: $0.03 per 1K tokens
-- Output: $0.06 per 1K tokens
+**Quick reference** (2025 pricing - check current rates!):
 
-**Example scenarios**:
+| Model | Input (per 1M tokens) | Output (per 1M tokens) |
+|-------|----------------------|------------------------|
+| GPT-4o | $2.50 | $10.00 |
+| GPT-4-turbo | $10.00 | $30.00 |
+| Claude 3.5 Sonnet | $3.00 | $15.00 |
+| Claude 3 Opus | $15.00 | $75.00 |
+
+**Example scenarios** (using GPT-4o pricing):
 
 | Use Case | Tokens/Request | Requests/Month | Monthly Cost |
 |----------|----------------|----------------|--------------|
-| Simple chatbot | 200 | 100K | $300 |
-| RAG system | 1000 | 50K | $1,500 |
-| Code generation | 500 | 20K | $300 |
-| Multilingual chatbot (Japanese) | 400 | 100K | $1,200 |
+| Simple chatbot | 200 | 100K | $25 |
+| RAG system | 1000 | 50K | $125 |
+| Code generation | 500 | 20K | $25 |
+| Multilingual chatbot (Japanese) | 400 | 100K | $100 |
 
 **With 20% optimization**:
-- Simple chatbot: $300 → $240 (save $60/month = $720/year)
-- RAG system: $1,500 → $1,200 (save $300/month = $3,600/year)
+- Simple chatbot: $25 → $20 (save $5/month = $60/year)
+- RAG system: $125 → $100 (save $25/month = $300/year)
+
+**Note**: Prices drop regularly! GPT-4 launched at $0.03/1K (2023) → GPT-4o now $0.0025/1K (2025) = **12x cheaper!**
 
 ---
 

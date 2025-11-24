@@ -587,16 +587,18 @@ Claude's 200K context window can fit the entire Harry Potter and the Philosopher
 
 ### Cost Considerations
 
-**Pricing** (approximate, check current rates):
+**Pricing** (2025 - prices drop regularly, check current rates!):
 
-**OpenAI**:
-- GPT-3.5: $0.0015 per 1K tokens
-- GPT-4: $0.03-0.06 per 1K tokens
+| Provider | Model | Input (per 1M) | Output (per 1M) |
+|----------|-------|----------------|-----------------|
+| OpenAI | GPT-4o | $2.50 | $10.00 |
+| OpenAI | GPT-4-turbo | $10.00 | $30.00 |
+| OpenAI | GPT-3.5-turbo | $0.50 | $1.50 |
+| Anthropic | Claude Haiku | $0.25 | $1.25 |
+| Anthropic | Claude 3.5 Sonnet | $3.00 | $15.00 |
+| Anthropic | Claude 3 Opus | $15.00 | $75.00 |
 
-**Anthropic**:
-- Claude Haiku: $0.25 per 1M tokens
-- Claude 3.5 Sonnet: $3 per 1M tokens
-- Claude Opus: $15 per 1M tokens
+**Historical note**: GPT-4 launched at $30-60/1M tokens (2023) → GPT-4o now $2.50-10/1M (2025) = **12x cheaper!**
 
 **Self-hosted (Llama 2 70B)**:
 - Hardware: ~$10K for GPU (one-time)

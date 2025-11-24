@@ -1,0 +1,10 @@
+# Module 12: RAG Pipeline Dependencies
+# Core deliverable works with Python standard library only!
+
+# For production upgrade, install these:
+# sentence-transformers>=2.2.0  # Real embeddings
+# qdrant-client>=1.7.0          # Vector database
+# nltk>=3.8.0                   # Better sentence tokenization
+# ragas>=0.1.0                  # RAG evaluation framework
+# openai>=1.0.0                 # LLM for generation
+# anthropic>=0.18.0             # Alternative LLM

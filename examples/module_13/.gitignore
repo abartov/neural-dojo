@@ -1,0 +1,21 @@
+# Module 13: RAG vs Fine-tuning Decision Engine
+# Exclude generated analysis data
+
+# Analysis storage
+.decision_engine/
+
+# Exported analysis files
+analysis_*.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

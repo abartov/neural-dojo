@@ -1,0 +1,10 @@
+# Module 13: RAG vs Fine-tuning Trade-offs
+# No external dependencies required - uses Python standard library only!
+
+# The examples in this module are designed to work without any external
+# packages to demonstrate the decision framework and cost analysis concepts.
+
+# If you want to extend these examples with real API calls:
+# anthropic>=0.18.0     # For Claude API
+# openai>=1.0.0         # For OpenAI API
+# tiktoken>=0.5.0       # For token counting

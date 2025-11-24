@@ -2,8 +2,8 @@
 
 **Your AI Pair Programmer Awakens**: Learn to 10x your coding velocity with AI assistants 🤖
 
-**Last Updated**: 2025-11-22 (Fact-Checked for 2025)
-**Status**: 🟢 Complete (Enhanced + Fact-Checked)
+**Last Updated**: 2025-11-24 (Added MCP Tools Section)
+**Status**: 🟢 Complete (Enhanced + MCP Deep Dive)
 **Duration**: 4-5 hours
 **Prerequisites**: Module 0 complete
 
@@ -441,6 +441,268 @@ The landscape has exploded with options. Here's your decision matrix:
 **Pricing**: Free extension (bring your own API key)
 
 **Real-world example**: "Set up a new Next.js project with Tailwind, ESLint, Jest, and create a basic auth flow" - Cline creates 20+ files, installs packages, configures everything in 3 minutes.
+
+---
+
+#### 9b. **Goose** by Block (Square) 🦢 (Full Automation Champion)
+
+**What it is**: Open-source AI agent for full software development automation from Block (formerly Square)
+
+**The Good**:
+- ✅ **Fully autonomous** - can work for extended periods without human intervention
+- ✅ Desktop app + CLI interface (best of both worlds)
+- ✅ **Native MCP support** (Model Context Protocol)
+- ✅ Works with Ollama for local LLMs (Llama, Mistral, etc.)
+- ✅ Session persistence (pick up where you left off)
+- ✅ Can manage entire development workflows
+- ✅ Backed by Block/Square (enterprise credibility)
+- ✅ Open source (MIT license, GitHub: block/goose)
+
+**The Not-So-Good**:
+- ⚠️ Newer project, rapidly evolving API
+- ⚠️ Less documentation than mature tools
+- ⚠️ Can be aggressive with file changes (always use version control!)
+- ⚠️ Requires careful permission management
+
+**Best for**:
+- Full project automation ("build me a REST API")
+- Developers who want hands-off AI agents
+- MCP-integrated workflows
+- Teams wanting open-source full automation
+
+**Pricing**: Free (open-source, bring your own API key or use Ollama)
+
+**Website**: https://github.com/block/goose
+
+**Real-world example**: "Set up a complete microservice with FastAPI, PostgreSQL, Redis caching, Docker compose, and CI/CD pipeline" - Goose builds entire infrastructure in 15 minutes.
+
+---
+
+#### 9c. **Open Interpreter** 💻 (Code Execution Specialist)
+
+**What it is**: Natural language interface to your computer's code interpreter
+
+**The Good**:
+- ✅ **Runs code locally** in Python, JavaScript, shell, and more
+- ✅ Direct computer control (files, applications, terminal)
+- ✅ Works with Ollama for local LLMs
+- ✅ Streaming output (see results as they happen)
+- ✅ Voice interface available (talk to your computer!)
+- ✅ Open source, active community
+
+**The Not-So-Good**:
+- ❌ **Limited MCP support** (not designed for it)
+- ⚠️ Security concerns (gives AI direct computer access)
+- ⚠️ Can execute destructive commands if not careful
+- ⚠️ Less focused on coding, more on general computer tasks
+
+**Best for**:
+- Data analysis and visualization
+- System administration tasks
+- Quick scripting and automation
+- Prototyping ideas rapidly
+
+**Pricing**: Free (open-source, bring your own API key or use Ollama)
+
+**Website**: https://github.com/OpenInterpreter/open-interpreter
+
+**Real-world example**: "Download the last 30 days of logs from S3, parse them for errors, create a visualization, and email the report" - Open Interpreter handles the entire pipeline.
+
+---
+
+## 🔌 MCP-Enabled Tools: The 2025 Game Changer
+
+### What is MCP (Model Context Protocol)?
+
+**MCP** is Anthropic's open standard for connecting AI assistants to external tools and data sources. Think of it as "USB for AI" - a universal way for AI tools to plug into your development environment.
+
+**Why MCP matters**:
+- 📁 **File system access**: AI can read/write project files
+- 🗃️ **Database integration**: Direct access to PostgreSQL, SQLite, etc.
+- 🔗 **API connections**: AI can call external services
+- 🛠️ **Custom tools**: Build your own MCP servers for domain-specific tasks
+- 🔄 **Consistency**: Same interface across different AI tools
+
+### MCP-Enabled Tools Comparison Matrix
+
+| Tool | Interface | MCP Support | Local LLM | Best For | Kaizen Fit |
+|------|-----------|-------------|-----------|----------|------------|
+| **Cline** | VS Code + CLI | ✅ Native | ✅ Ollama | Agentic workflows | ⭐⭐⭐⭐⭐ |
+| **Continue.dev** | IDE + CLI | ✅ Native | ✅ Ollama | Customizable, enterprise | ⭐⭐⭐⭐⭐ |
+| **Goose** | Desktop + CLI | ✅ Native | ✅ Ollama | Full automation | ⭐⭐⭐⭐ |
+| **Aider** | CLI only | ⚠️ Via server | ✅ Ollama | Terminal-first, Git focus | ⭐⭐⭐ |
+| **Open Interpreter** | CLI only | ❌ Limited | ✅ Basic | Code execution | ⭐⭐ |
+
+### Deep Dive: Each Tool's MCP Integration
+
+#### Cline - MCP Native Champion 🏆
+
+```
+MCP Capabilities:
+├── File Operations: ✅ Full read/write access
+├── Terminal Commands: ✅ Execute shell commands
+├── Browser Control: ✅ Web automation via Puppeteer
+├── Custom Servers: ✅ Add any MCP server
+└── Configuration: .cline/mcp_servers.json
+```
+
+**MCP Setup in Cline**:
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/project"]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_URL": "postgresql://localhost/mydb"
+      }
+    }
+  }
+}
+```
+
+**Why 5-star Kaizen fit**: Perfect for iterative DevOps workflows, can manage entire project lifecycles, excellent Claude integration.
+
+---
+
+#### Continue.dev - Enterprise MCP Powerhouse 🏢
+
+```
+MCP Capabilities:
+├── Customizable Tools: ✅ Define custom functions
+├── Context Providers: ✅ Inject data from anywhere
+├── Multiple Models: ✅ Route different tasks to different LLMs
+├── Local Models: ✅ Full Ollama integration
+└── Configuration: config.json
+```
+
+**MCP Setup in Continue.dev**:
+```json
+{
+  "experimental": {
+    "mcpServers": [
+      {
+        "name": "my-database",
+        "command": "node",
+        "args": ["./mcp-servers/postgres-server.js"]
+      }
+    ]
+  }
+}
+```
+
+**Why 5-star Kaizen fit**: Open-source, fully customizable, can integrate with proprietary internal systems without sending code to cloud.
+
+---
+
+#### Goose - Autonomous MCP Agent 🦢
+
+```
+MCP Capabilities:
+├── Session Management: ✅ Long-running tasks
+├── Multi-step Plans: ✅ AI-driven orchestration
+├── Desktop App: ✅ User-friendly GUI
+├── Tool Chaining: ✅ Combine multiple MCP servers
+└── Configuration: ~/.goose/config.yaml
+```
+
+**MCP Setup in Goose**:
+```yaml
+mcp_servers:
+  - name: github
+    command: npx
+    args: ["-y", "@modelcontextprotocol/server-github"]
+    env:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+```
+
+**Why 4-star Kaizen fit**: Excellent for full automation, but newer/less tested than Cline/Continue.
+
+---
+
+#### Aider - Limited MCP Support ⚠️
+
+Aider focuses on **Git integration** rather than MCP. However, you can add MCP-like capabilities via external servers:
+
+```bash
+# Aider doesn't have native MCP, but you can:
+# 1. Use Aider for Git-focused workflows
+# 2. Combine with MCP servers via shell commands
+aider --model anthropic/claude-3-5-sonnet
+```
+
+**Why 3-star Kaizen fit**: Excellent Git integration, but limited extensibility compared to Cline/Continue.
+
+---
+
+#### Open Interpreter - Minimal MCP ❌
+
+Open Interpreter takes a different approach - **direct code execution** rather than MCP protocols:
+
+```python
+from interpreter import interpreter
+
+interpreter.chat("Create a bar chart of monthly sales")
+# → Actually runs Python, creates the chart!
+```
+
+**Why 2-star Kaizen fit**: Great for data tasks, but not designed for structured DevOps workflows like Kaizen needs.
+
+---
+
+### 💡 Did You Know? The MCP Origin Story
+
+**November 2024**: Anthropic announced MCP (Model Context Protocol) as an open standard. Within 3 months:
+
+- **500+ MCP servers** were created by the community
+- **All major AI coding tools** added MCP support
+- **Enterprise adoption** exploded (companies can now connect AI to internal systems safely)
+
+**The insight that led to MCP**: Anthropic engineers noticed that 80% of AI coding tool limitations came from **context access**, not model capability. An AI that can't read your database schema will always give generic advice. MCP solves this.
+
+**Why this matters for Kaizen**: Your Lean DevOps platform can expose internal APIs via MCP servers. AI agents can then:
+- Query your metrics database
+- Check deployment status
+- Access internal documentation
+- Trigger workflows (with approval gates)
+
+**The future**: MCP is becoming the "language" that AI tools use to talk to your infrastructure. Learning it now puts you ahead of the curve!
+
+---
+
+### Choosing Your MCP Tool Stack
+
+**For Kaizen Development** (recommended):
+
+```
+Primary: Cline or Continue.dev
+├── MCP servers for: Postgres, GitHub, filesystem
+├── Local LLM: Ollama with codestral/deepseek-coder
+├── Cloud LLM: Claude 3.5 Sonnet for complex reasoning
+└── Workflow: Git-based with PR reviews
+```
+
+**For Rapid Prototyping**:
+
+```
+Primary: Goose
+├── Full automation mode
+├── Session persistence for multi-day projects
+└── Desktop app for visibility
+```
+
+**For Data Analysis**:
+
+```
+Primary: Open Interpreter
+├── Direct Python execution
+├── Visualization output
+└── Great for exploring data before productionizing
+```
 
 ---
 

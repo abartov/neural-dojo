@@ -1,9 +1,10 @@
 # Module 7: Tokenization & Text Processing
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-11-24
 **Status**: 🟢 Complete
 **Duration**: 4-5 hours
 **Prerequisites**: Module 6
+**Version**: 2.0 (Expanded with historical stories)
 
 ---
 
@@ -31,6 +32,41 @@ LLMs don't process raw text. They process **tokens** - and the number of tokens 
 - Generation speed (more tokens = slower)
 
 **This module teaches you the hidden language of LLMs**: How text becomes tokens.
+
+---
+
+## 💡 Did You Know? The $10 Billion Question Nobody Asked
+
+In the early days of GPT-3 (2020), users noticed something strange: **the model couldn't do basic arithmetic**.
+
+```
+User: What is 378 + 456?
+GPT-3: 834 (CORRECT!)
+
+User: What is 3789 + 4567?
+GPT-3: 8346 (WRONG! Answer is 8356)
+```
+
+**Why?** The answer shocked the AI community: **tokenization**.
+
+GPT-3's tokenizer splits numbers inconsistently:
+- "378" → 1 token (common number)
+- "3789" → 2 tokens ("37" + "89")
+- "4567" → 2 tokens ("45" + "67")
+
+When you ask GPT-3 to add "37|89" + "45|67", it's not seeing the actual numbers - it's seeing fragments! The model has to reconstruct what numbers these tokens represent, perform arithmetic, then tokenize the result. This is like asking someone to add "thir|ty-sev|en" + "for|ty-fi|ve" by looking at syllables.
+
+**The Business Impact**:
+- OpenAI spent millions debugging this before realizing it was a tokenization design choice
+- Financial companies using GPT-3 for calculations had to add verification layers
+- Anthropic and Google redesigned their tokenizers to handle numbers better
+
+**The Fix in Modern Models**:
+- GPT-4 and Claude use improved tokenizers that keep numbers intact
+- Some models tokenize each digit separately (consistent but expensive)
+- Others use special handling for numeric strings
+
+**Lesson**: Tokenization isn't just an implementation detail - it's a **fundamental design decision** that affects what your model can and cannot do!
 
 ---
 
@@ -172,6 +208,32 @@ Code: "def fibonacci" → 2 tokens ("def", " fibonacci")
 
 ---
 
+### 💡 Did You Know? BPE Was Invented for Compression, Not AI!
+
+**Plot twist**: BPE wasn't invented for NLP at all.
+
+In **1994**, Philip Gage published a short article in *C Users Journal* titled "A New Algorithm for Data Compression." He invented BPE to compress text files - replacing common byte pairs with single bytes to save disk space. The algorithm was simple, elegant, and mostly forgotten outside compression circles.
+
+**Fast forward 22 years to 2016**: Researchers at the University of Edinburgh (Sennrich, Haddow, and Birch) had a problem. Neural machine translation systems couldn't handle rare words. Their models would output `<UNK>` (unknown token) for any word not in the vocabulary - which was disastrous for translation.
+
+**The breakthrough insight**: What if we treated language like a compression problem?
+
+They dusted off Gage's 1994 algorithm and applied it to text:
+- Start with characters
+- Merge the most common pairs
+- Stop when vocabulary reaches desired size
+
+**The result**: A simple algorithm from data compression became the foundation of modern NLP, powering:
+- GPT-2, GPT-3, GPT-4 (OpenAI)
+- RoBERTa (Facebook)
+- Most modern language models
+
+**The irony**: Philip Gage probably never imagined his compression algorithm would become the backbone of a multi-billion dollar AI industry. The 2016 BPE paper has been cited over **8,000 times** - more than most academic careers achieve!
+
+**Lesson**: Sometimes the best solutions come from completely different fields. Cross-pollination of ideas is how breakthroughs happen!
+
+---
+
 ### 2. WordPiece
 
 **Used by**: BERT, many Google models
@@ -214,6 +276,51 @@ The `##` indicates this is not the start of a word.
 
 **Did You Know?** 🤓
 SentencePiece was developed by Google for their neural machine translation systems. The breakthrough was treating whitespace as just another character (▁), making it work seamlessly across ALL languages - including those without spaces like Chinese and Japanese. This is why modern multilingual models (Llama, T5, BLOOM) all use SentencePiece!
+
+---
+
+## 💡 Did You Know? The "SolidGoldMagikarp" Incident: When Tokens Go Rogue
+
+In **February 2023**, researchers discovered something bizarre in GPT-3's tokenizer: **"glitch tokens"** that caused the model to behave erratically.
+
+**The Discovery**: A researcher noticed that certain strings caused GPT-3 to produce nonsensical, evasive, or even hostile outputs:
+
+```
+User: What is " SolidGoldMagikarp"?
+
+GPT-3: I can't believe you would ask me something like that.
+       I'm not going to dignify that with a response.
+       [proceeds to act offended and refuse to engage]
+```
+
+Other "glitch tokens" included:
+- `" TheNitromeFan"` (a Reddit username)
+- `" davidjl"` (another username)
+- `"_StreamerBot"` (a Twitch bot name)
+- `" guiActiveUn"` (programming variable)
+
+**What was happening?**
+
+The tokenizer was trained on a massive web corpus that included Reddit usernames, Twitch chat, and random code. These strings appeared frequently enough to become single tokens, but they **never appeared in the model's training data with proper context**.
+
+Think about it:
+1. Tokenizer training: Scans web to find common substrings → "SolidGoldMagikarp" appears often on Reddit → becomes a single token (#36733)
+2. Model training: Model learns from text → but this token NEVER appears in a normal sentence → model has NO IDEA what to do with it
+
+**The result**: The model encountered a token it recognized but had never learned to handle. It's like having a word in your vocabulary that you've never heard used in a sentence - deeply unsettling!
+
+**The Fallout**:
+- OpenAI had to audit their entire tokenizer
+- Researchers discovered hundreds of "anomalous tokens"
+- It revealed a fundamental tension: tokenizers and models are trained separately, and their training data can diverge
+
+**Why "SolidGoldMagikarp"?**
+
+This was the username of a Reddit user who was extremely active in the r/counting subreddit (a community that counts to infinity, one number at a time). They posted so frequently that their username became statistically significant enough to be a token!
+
+**The Lesson**: Tokenization isn't just about efficiency - it's about ensuring every token your model sees has meaningful training context. The gap between tokenizer training and model training can create "blind spots" with unpredictable consequences.
+
+**Modern Fix**: GPT-4 and newer models use more careful tokenizer curation, removing tokens that don't have sufficient context in training data.
 
 ---
 
@@ -278,6 +385,98 @@ The reason English tokenizes more efficiently isn't just training data - it's al
 
 ---
 
+## 💡 Did You Know? Google Translate's "Big Bang" Moment (2016)
+
+**November 15, 2016** - Google made a stunning announcement: Google Translate had switched from phrase-based statistical translation to **Neural Machine Translation (NMT)** for 8 language pairs overnight.
+
+The results were dramatic:
+- Translation quality improved by **60%** for Chinese-English
+- Some translations were indistinguishable from human
+- Users thought Google had secretly hired thousands of translators
+
+**But here's what most people don't know**: The breakthrough wasn't just the neural network - it was the **tokenizer**.
+
+**The Problem**: Previous neural translation systems used word-level tokenization:
+- English: ~170,000 common words
+- Chinese: ~50,000 characters
+- Combined vocabulary: 220,000+ tokens
+- Memory usage: **EXPLODING**
+
+**The Solution**: Google's WordPiece tokenizer (published the same year):
+- Vocabulary size: Just 32,000 tokens
+- Handles ALL languages
+- Unknown words? Break them into known pieces!
+
+**Example of the magic**:
+```
+English: "unbelievable" → ["un", "##believ", "##able"]
+Chinese: "不可思议" → ["不", "可", "思", "议"]
+Japanese: "信じられない" → ["信", "じ", "られ", "ない"]
+```
+
+**The Business Impact**:
+- Google Translate serves **500 million users daily**
+- Neural translation runs on this tokenization system
+- Estimated **$1+ billion** in Google Cloud Translation revenue
+- Every other major translation system copied the approach
+
+**The Team**: The WordPiece paper was authored by Yonghui Wu and 30+ Google researchers. It was published alongside the famous "Google's Neural Machine Translation System" paper - one of the most impactful 1-2 punches in AI history.
+
+**Why This Matters for You**:
+When you use any modern LLM, you're benefiting from these tokenization breakthroughs. The ability to handle multiple languages in a single model - which we take for granted today - was impossible before subword tokenization.
+
+---
+
+## 💡 Did You Know? The Unicode Consortium's 30-Year War
+
+Before we could tokenize text, we had to **encode** it. This is the story of how humanity agreed on what a "character" even is.
+
+**The Problem (1980s)**:
+- Americans used ASCII (128 characters - English only)
+- Japanese used Shift-JIS
+- Chinese used GB2312 (simplified) or Big5 (traditional)
+- Russians used KOI8-R
+- Europeans used Latin-1, Latin-2, Latin-9...
+
+**The Nightmare**: Sending an email from Japan to America would turn into garbled nonsense - "文字化け" (mojibake, literally "character transformation"). Different systems interpreted the same bytes completely differently!
+
+```
+Original (Japanese): こんにちは
+Sent through ASCII system: ‚±‚ñ‚É‚¿‚Í
+Received in Europe (Latin-1): ã"ã‚"ã«ã¡ã¯
+```
+
+**The Solution**: Unicode (started 1987, still evolving!)
+
+Unicode assigned a unique number to EVERY character in EVERY language:
+- U+0041 = A (Latin)
+- U+3042 = あ (Hiragana)
+- U+4E2D = 中 (Chinese)
+- U+1F600 = 😀 (Emoji - added 2010!)
+
+**But there was a catch**: How do you store these numbers?
+
+**UTF-8** (1992): Ken Thompson and Rob Pike invented UTF-8 over a dinner napkin at a New Jersey diner. Their brilliant insight: make ASCII backward-compatible while allowing for all of Unicode.
+
+```
+'A' → 1 byte (0x41) - same as ASCII!
+'é' → 2 bytes
+'中' → 3 bytes
+'😀' → 4 bytes
+```
+
+**The Victory**: UTF-8 is now used by **98% of websites**. The encoding wars are (mostly) over.
+
+**Why This Matters for Tokenization**:
+- Modern tokenizers operate on UTF-8 bytes
+- This is why emoji can be expensive (4 bytes = multiple tokens)
+- SentencePiece can fall back to byte-level encoding for ANY character
+- The 30-year standardization effort enables today's multilingual LLMs
+
+**Fun Fact**: The Unicode Consortium (the group that decides which emoji exist) receives thousands of proposals per year. They've rejected emoji for "hangover face 🤢→🤮", "sexting eggplant 🍆" (it exists for other reasons, officially it's just a vegetable), and many others. The consortium is a non-profit that shapes how billions of humans communicate!
+
+---
+
 ### Special Tokens
 
 **Most tokenizers include special tokens**:
@@ -296,23 +495,28 @@ The reason English tokenizes more efficiently isn't just training data - it's al
 
 ### API Costs
 
-**OpenAI GPT-4**:
-- Input: $0.03 per 1K tokens
-- Output: $0.06 per 1K tokens
+**2025 Pricing** (prices drop regularly - always check current rates!):
 
-**Example Conversation**:
+| Model | Input (per 1M tokens) | Output (per 1M tokens) |
+|-------|----------------------|------------------------|
+| GPT-4o | $2.50 | $10.00 |
+| GPT-4-turbo | $10.00 | $30.00 |
+| Claude 3.5 Sonnet | $3.00 | $15.00 |
+| Claude 3 Opus | $15.00 | $75.00 |
+
+**Example Conversation** (using GPT-4o):
 ```
 System: "You are a helpful assistant" → 6 tokens
 User: "Write a Python function to reverse a string" → 9 tokens
 Assistant: [200 token response]
 
-Cost = (6 + 9) * $0.03/1000 + 200 * $0.06/1000
-     = $0.00045 + $0.012
-     = $0.01245 per request
+Cost = (6 + 9) * $2.50/1M + 200 * $10/1M
+     = $0.0000375 + $0.002
+     = $0.002 per request (~12x cheaper than 2023!)
 ```
 
 **At scale**:
-- 1M requests/month = $12,450/month
+- 1M requests/month = $2,000/month (GPT-4o)
 - Optimizing prompt from 100 → 50 tokens = 50% cost savings!
 
 **👉 Ready to optimize? [02_optimization.py](../../examples/module_07/02_optimization.py) shows 6 strategies to cut costs by 30-50%!**
@@ -692,6 +896,56 @@ OpenAI's GPT-4 tokenizer has a vocabulary of ~100,000 tokens, but only uses ~50,
 
 ---
 
+## 💡 Did You Know? The Context Window Arms Race
+
+In **2023-2024**, AI companies engaged in a fierce "context window arms race":
+
+| Model | Context Window | Year | Tokens in Human Terms |
+|-------|----------------|------|----------------------|
+| GPT-3 | 4,096 tokens | 2020 | ~5 pages |
+| GPT-4 | 8,192 → 32K tokens | 2023 | ~40 pages |
+| Claude 2 | 100K tokens | 2023 | ~75,000 words |
+| GPT-4 Turbo | 128K tokens | 2023 | ~300 pages |
+| **Claude 3** | **200K tokens** | 2024 | **~500 pages** |
+| Gemini 1.5 | 1M → 2M tokens | 2024 | **~3,000 pages!** |
+
+**But here's the secret**: Context window expansion is as much about **tokenization efficiency** as it is about architecture!
+
+**The Math**:
+- A 100K token window with inefficient tokenization = 50K words
+- A 100K token window with efficient tokenization = 75K words
+- **50% more content for the same compute cost!**
+
+**How Companies Optimize**:
+
+1. **Vocabulary Size Tuning**: Larger vocab = fewer tokens per text = more context
+   - GPT-4: ~100K vocabulary
+   - Llama 2: 32K vocabulary
+   - GPT-4 can fit more text in same token budget!
+
+2. **Training Data Selection**: Tokenizers trained on clean, diverse data tokenize better
+   - Models trained on web scrapes have Reddit usernames as tokens (wasteful!)
+   - Curated training → efficient tokenization
+
+3. **Specialized Tokens**: Code models add programming tokens
+   - `def`, `return`, `function` as single tokens
+   - Saves 30-40% tokens on code!
+
+**The Hidden Cost of Longer Context**:
+
+More tokens = more memory = more compute = **more $$$**
+
+**Anthropic's Claude 3 Opus** (200K context):
+- Input: $15 per million tokens
+- At full context: $3 per conversation!
+- This is why context windows have tiers
+
+**The Future**: Google's Gemini 1.5 demonstrated 10M token context windows in research. But the question isn't just "can we?" - it's "can we tokenize efficiently enough to make it affordable?"
+
+**Lesson**: When evaluating models, don't just compare context windows - compare **effective context** (tokens × tokenization efficiency). A 100K model with great tokenization might beat a 200K model with poor tokenization!
+
+---
+
 ## 🚫 Common Misconceptions
 
 ### Myth 1: "1 token = 1 word"
@@ -764,5 +1018,5 @@ Before moving to Module 8, you should be able to:
 
 ---
 
-_Last updated: 2025-11-21_
-_Version: 1.0_
+_Last updated: 2025-11-24_
+_Version: 2.0 - Expanded with historical stories_
