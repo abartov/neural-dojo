@@ -1,7 +1,7 @@
 # Claude AI Assistant Guidelines for Neural Dojo
 
-**Last Updated**: 2025-11-23
-**Version**: 1.1.0 (Added Deliverable Patterns from Sessions #10-12)
+**Last Updated**: 2025-11-25
+**Version**: 1.2.0 (Added Historical Content Requirements from Session #17)
 
 This document provides guidelines for AI assistants (Claude) working on the Neural Dojo project. It ensures consistency, quality, and adherence to project standards.
 
@@ -32,11 +32,47 @@ Every module MUST meet these standards before being marked complete:
   - Conceptual explanations
   - Real-world examples and analogies
   - Visual diagrams (mermaid/ASCII) where helpful
-  - "Did You Know?" sections for interesting facts
+  - **"Did You Know?" sections** (REQUIRED - see below)
   - Common pitfalls and how to avoid them
 - **Style**: Entertaining, engaging, educational (like Module 1 of jamesblonde)
 - **Analogies**: Use relatable metaphors to explain complex concepts
 - **References**: Link to papers, documentation, further reading
+
+**"Did You Know?" Historical Content Requirements** (Added Session #17):
+
+Every module MUST include rich historical context with at least 3-5 narrative stories:
+
+1. **Origin/Discovery Stories**: How was this technique invented/discovered?
+   - Name the researchers (e.g., "Tomáš Mikolov at Google discovered Word2Vec...")
+   - Include accidents and surprises ("They accidentally ran search with generated text...")
+   - Mention rejected papers that became influential
+
+2. **Industry Adoption Examples**: Who uses this in production?
+   - Name real companies (Netflix, Google, Perplexity, etc.)
+   - Include revenue/impact numbers when available
+   - Show how it transformed their products
+
+3. **Surprising Statistics**: Numbers that shock or enlighten
+   - Training costs ("GPT-3 cost $4.6M to train")
+   - Performance improvements ("Reranking improves precision by 30-50%")
+   - Adoption rates ("BM25 from 1994 still powers Elasticsearch")
+
+4. **Researcher/Company Stories**: The humans behind the technology
+   - PhD students whose "rejected" papers changed the field
+   - Companies that pivoted based on discoveries
+   - Controversies and debates (Copilot lawsuit, etc.)
+
+5. **Failures That Led to Success**: Learning from mistakes
+   - The "$100M bank chatbot disaster" that led to RAG
+   - The "boring GPT-2" problem that led to nucleus sampling
+   - Production bugs that cost millions
+
+**Example formats**:
+- "In 2019, a researcher was debugging and accidentally discovered..."
+- "The paper was initially rejected, but has since been cited 40,000 times..."
+- "Netflix generates $1B+ per year from their embedding-based recommendations..."
+
+**Why this matters**: Stories make concepts memorable. Learners remember "the moth in Grace Hopper's computer" forever, but forget dry technical explanations.
 
 #### 2. **Code Examples** (`examples/module_XX/`)
 - **Tested**: ALL code must run without errors
