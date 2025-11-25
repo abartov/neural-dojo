@@ -3,10 +3,10 @@
 **From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development**
 
 [![Status](https://img.shields.io/badge/Status-In%20Progress-green)]()
-[![Progress](https://img.shields.io/badge/Progress-33%25-green)]()
-[![Modules](https://img.shields.io/badge/Modules-16%2F48%20Complete-blue)]()
-[![Deliverables](https://img.shields.io/badge/Deliverables-12%2F12%20Complete-brightgreen)]()
-[![Phase](https://img.shields.io/badge/Phase-Phase%203%20In%20Progress-brightgreen)]()
+[![Progress](https://img.shields.io/badge/Progress-32%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-18%2F56%20Complete-blue)]()
+[![Deliverables](https://img.shields.io/badge/Deliverables-14%2F14%20Complete-brightgreen)]()
+[![Phase](https://img.shields.io/badge/Phase-Phase%204%20In%20Progress-brightgreen)]()
 [![Quality](https://img.shields.io/badge/Quality-Chef's%20Kiss%20%E2%9C%A8-gold)]()
 
 ---
@@ -63,7 +63,7 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 
 ## 📚 Curriculum Overview
 
-**48 modules** organized into **9 phases** + prerequisites (44-52 weeks, 178-262 hours):
+**56 modules** organized into **13 phases** + prerequisites (56+ weeks, 200+ hours):
 
 ### Module 0: Prerequisites & Environment Setup ✅
 **Foundation module** - Set up your development environment
@@ -85,42 +85,62 @@ Neural Dojo follows the proven **jamesblonde methodology**:
 - **Modules**: [6](docs/curriculum/MASTER_CURRICULUM.md#module-6-introduction-to-large-language-models), [7](docs/curriculum/MASTER_CURRICULUM.md#module-7-tokenization--text-processing), [8](docs/curriculum/MASTER_CURRICULUM.md#module-8-text-generation--sampling-strategies), [9](docs/curriculum/MASTER_CURRICULUM.md#module-9-embeddings--semantic-similarity), [10](docs/curriculum/MASTER_CURRICULUM.md#module-10-vector-spaces--semantic-search-) 🔮
 - **Skills**: Text generation, semantic search, embeddings, vector arithmetic
 
-### Phase 3: Building with AI Toolkits (Weeks 11-18) 🟡 In Progress
-Master tools for production AI systems
-- **Status**: 🟡 In Progress (3/8 modules complete)
-- **Completed**: Module 11 (Vector DBs), Module 12 (RAG), Module 13 (RAG vs Fine-tuning 🔮)
-- **Next**: Module 14 (LangChain), Module 15 (LangGraph), Modules 16-18 (Agents)
-- **Skills**: Qdrant, RAG pipelines, decision engines, multi-agent systems
+### Phase 3: Vector Search & RAG (Weeks 11-14) ✅
+Production RAG systems and vector search
+- **Status**: 🟢 Complete (4/4 modules)
+- **Completed**: Module 11 (Vector DBs), Module 12 (RAG), Module 13 (RAG vs Fine-tuning 🔮), Module 14 (Advanced RAG)
+- **Skills**: Qdrant, RAG pipelines, decision engines, hybrid search, reranking
 
-### Phase 4: Deep Learning Foundations (Weeks 19-25)
+### Phase 4: Frameworks & Agents (Weeks 15-21) 🟡 In Progress
+LangChain, LangGraph, and AI Agents
+- **Status**: 🟡 In Progress (1/7 modules complete)
+- **Completed**: Module 15 (LangChain Fundamentals)
+- **Next**: Module 16 (Tools & Function Calling), Module 17-21 (Agents, LangGraph)
+- **Skills**: LangChain, LCEL, memory systems, tool use, multi-agent systems
+
+### Phase 5: Multimodal AI (Weeks 22-24)
+Vision-language models and multimodal applications
+- Modules 22-24: Multimodal models, vision tasks
+- **Skills**: CLIP, multimodal RAG, image understanding
+
+### Phase 6: Deep Learning Foundations (Weeks 25-31)
 PyTorch and neural network fundamentals
-- Modules 19-25: Neural networks, CNNs, transformers, backpropagation
+- Modules 25-31: Neural networks, CNNs, transformers, backpropagation
 - **Skills**: PyTorch, training loops, transformer architecture
 
-### Phase 5: Advanced Generative AI (Weeks 26-29)
+### Phase 7: Advanced Generative AI (Weeks 32-36)
 Modern generative AI techniques
-- Modules 26-29: Fine-tuning, multimodal AI, diffusion models, code generation
-- **Skills**: LoRA, CLIP, Stable Diffusion, CodeLlama
+- Modules 32-36: Fine-tuning, diffusion models, advanced generation
+- **Skills**: LoRA, Stable Diffusion, advanced architectures
 
-### Phase 6: DevOps & MLOps (Weeks 30-39) 🚀 **EXPANDED!**
+### Phase 8: Classical ML (Weeks 37-39)
+Traditional machine learning foundations
+- Modules 37-39: Classical algorithms, feature engineering
+- **Skills**: Scikit-learn, traditional ML workflows
+
+### Phase 9: AI Safety & Evaluation (Weeks 40-42)
+Responsible AI and evaluation
+- Modules 40-42: Safety, evaluation, responsible AI
+- **Skills**: Evaluation metrics, safety considerations
+
+### Phase 10: DevOps & MLOps (Weeks 43-52) 🚀
 Master modern DevOps and MLOps for production AI systems
-- Modules 30-39: DevOps fundamentals, Docker, CI/CD, Kubernetes, MLOps, orchestration, monitoring
-- **Skills**: Docker, Kubernetes (GPU scheduling!), Dagger, Kubeflow, KServe, Ray, DVC, Feast, Airflow, drift detection
-- **NEW**: Deep dive into Dagger (CI/CD as code), K8s GPU support (NVIDIA GPU Operator), feature stores
+- Modules 43-52: Docker, CI/CD, Kubernetes, MLOps, orchestration, monitoring
+- **Skills**: Docker, Kubernetes, Dagger, MLflow, model serving
 
-### Phase 7: AI for Infrastructure (Weeks 40-41)
+### Phase 11: AI for Infrastructure (Weeks 53-54)
 Apply AI to infrastructure management
-- Modules 40-41: AIOps, anomaly detection, log analysis
-- **Skills**: Predictive scaling, incident response, capacity planning
+- Modules 53-54: AIOps, anomaly detection
+- **Skills**: Predictive scaling, incident response
 
-### Phase 8: Capstone Projects (Weeks 42-47)
+### Phase 12: Capstone Projects (Weeks 55-57)
 Build real-world AI applications
-- Modules 42-44: Enhance kaizen, build vibe features, contrarian AI
+- Modules 55-57: Enhance kaizen, build vibe features, contrarian AI
 - **Skills**: Everything combined!
 
-### Phase 9: History of AI/ML (Optional Enrichment) 🕰️
+### Phase 13: History of AI/ML (Optional Enrichment) 🕰️
 Understand the context and stories behind modern AI
-- Modules 45-47: Foundations (1950s-1980s), Deep Learning Revolution (2000s-2010s), Transformer Era (2017-Present)
+- Modules 58-60: Foundations, Deep Learning Revolution, Transformer Era
 - **Skills**: Historical context, appreciation for how we got here
 
 ---
@@ -241,19 +261,23 @@ cat docs/curriculum/MASTER_CURRICULUM.md
 
 | Phase | Completion | Status |
 |-------|------------|--------|
-| [Module 0: Prerequisites](docs/curriculum/MASTER_CURRICULUM.md#module-0-prerequisites--environment-setup-pre-phase-1) | 1/1 | 🟢 Complete |
-| [Phase 1: AI-Native Development](docs/curriculum/MASTER_CURRICULUM.md#phase-1-ai-native-development-weeks-1-5) | 7/7 | 🟢 Complete |
-| [Phase 2: Generative AI Fundamentals](docs/curriculum/MASTER_CURRICULUM.md#phase-2-generative-ai-fundamentals-weeks-6-10) | 5/5 | 🟢 Complete |
-| [Phase 3: Building with AI Toolkits](docs/curriculum/MASTER_CURRICULUM.md#phase-3-building-with-ai-toolkits-weeks-11-18) | 3/8 | 🟡 In Progress |
-| [Phase 4: Deep Learning Foundations](docs/curriculum/MASTER_CURRICULUM.md#phase-4-deep-learning-foundations-weeks-19-25) | 0/7 | ⚪ Not Started |
-| [Phase 5: Advanced Generative AI](docs/curriculum/MASTER_CURRICULUM.md#phase-5-advanced-generative-ai-weeks-26-29) | 0/4 | ⚪ Not Started |
-| [Phase 6: DevOps & MLOps](docs/curriculum/MASTER_CURRICULUM.md#phase-6-devops--mlops---production-ai-systems-weeks-30-39) | 0/10 | ⚪ Not Started |
-| [Phase 7: AI for Infrastructure](docs/curriculum/MASTER_CURRICULUM.md#phase-7-ai-for-infrastructure-weeks-40-41) | 0/2 | ⚪ Not Started |
-| [Phase 8: Capstone Projects](docs/curriculum/MASTER_CURRICULUM.md#phase-8-capstone-projects-weeks-42-47) | 0/3 | ⚪ Not Started |
-| [Phase 9: History of AI/ML (Optional)](docs/curriculum/MASTER_CURRICULUM.md#phase-9-the-journey---history-of-aiml-optional-enrichment-) | 0/3 | ⚪ Not Started |
-| **TOTAL** | **16/48** | **33% Complete** 🎉 |
+| Module 0: Prerequisites | 1/1 | 🟢 Complete |
+| Phase 1: AI-Native Development | 7/7 | 🟢 Complete |
+| Phase 2: Generative AI Fundamentals | 5/5 | 🟢 Complete |
+| Phase 3: Vector Search & RAG | 4/4 | 🟢 Complete |
+| Phase 4: Frameworks & Agents | 1/7 | 🟡 In Progress |
+| Phase 5: Multimodal AI | 0/3 | ⚪ Not Started |
+| Phase 6: Deep Learning Foundations | 0/7 | ⚪ Not Started |
+| Phase 7: Advanced Generative AI | 0/5 | ⚪ Not Started |
+| Phase 8: Classical ML | 0/3 | ⚪ Not Started |
+| Phase 9: AI Safety & Evaluation | 0/3 | ⚪ Not Started |
+| Phase 10: DevOps & MLOps | 0/10 | ⚪ Not Started |
+| Phase 11: AI for Infrastructure | 0/2 | ⚪ Not Started |
+| Phase 12: Capstone Projects | 0/3 | ⚪ Not Started |
+| Phase 13: History of AI/ML (Optional) | 0/3 | ⚪ Not Started |
+| **TOTAL** | **18/56** | **32% Complete** 🎉 |
 
-**Last Updated**: 2025-11-25 (Session #16 - Module 13 + 1.3 Complete!)
+**Last Updated**: 2025-11-25 (Session #18 - Module 15 Complete!)
 
 ---
 
@@ -421,10 +445,10 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ## 🚀 Ready to Start?
 
-**Current Status**: Phase 3 In Progress (16/48 modules, 33%) 🎉
+**Current Status**: Phase 4 In Progress (18/56 modules, 32%) 🎉
 
 **Next Steps**:
-1. ✅ **Already completed through Module 13?** Jump to [Module 14 - LangChain Fundamentals](docs/curriculum/MASTER_CURRICULUM.md#module-14-langchain-fundamentals)
+1. ✅ **Already completed through Module 15?** Jump to [Module 16 - LangChain Tools & Function Calling](docs/curriculum/MASTER_CURRICULUM.md#module-16-langchain-tools--function-calling)
 2. 🆕 **Just getting started?** Begin with [Module 0 - Prerequisites](docs/curriculum/notes/module_00_prerequisites.md)
 3. 📚 **Want to review?** Check the [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md) to find specific topics
 
@@ -436,5 +460,5 @@ Project Link: [https://github.com/krisztiankoos/neural-dojo](https://github.com/
 
 ---
 
-_Last updated: 2025-11-25 (Session #16 - Module 13 + 1.3 Complete!)_
-_Progress: 16/48 modules (33%) - Phase 3 In Progress + All Deliverables Built! 🚀_
+_Last updated: 2025-11-25 (Session #18 - Module 15 Complete!)_
+_Progress: 18/56 modules (32%) - Phase 4 In Progress + 14 Deliverables Built! 🚀_

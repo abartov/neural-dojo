@@ -766,3 +766,130 @@ _Session #8 completed: 2025-11-21 (Evening)_
 _Module 0 complete! Foundation fully established! 🎯_
 
 ---
+
+## Session #18: 2025-11-25
+
+**Duration**: ~2 hours
+**Modules Worked On**: Module 15 - LangChain Fundamentals
+**Status Before**: Module 15 not started
+**Status After**: Module 15 COMPLETE, Phase 4 started
+
+### Accomplished
+
+- ✅ **MODULE 15 COMPLETE**: LangChain Fundamentals
+  - Theory document (835+ lines) with rich "Did You Know?" sections
+  - 3 example files (prompts, chains/LCEL, memory)
+  - Deliverable: LangChain Toolkit (620+ lines)
+  - DELIVERABLE_README.md
+  - .gitignore for storage directory
+
+- ✅ **LangChain 1.1.0+ Migration**
+  - Updated all imports to `langchain_core`
+  - Replaced deprecated `ConversationBufferMemory` with `RunnableWithMessageHistory`
+  - Modern LCEL patterns throughout
+  - Fixed breaking changes from LangChain API updates
+
+- ✅ **Gemini Support Added**
+  - All examples now support Google Gemini (GOOGLE_API_KEY)
+  - Also supports Claude (ANTHROPIC_API_KEY)
+  - Dynamic model selection at runtime
+
+- ✅ **Updated Curriculum Documents**
+  - MASTER_CURRICULUM.md: Module 15 marked complete, Phase 4 started
+  - START_HERE_TOMORROW.md: Updated with session #18 progress
+  - Progress: 18/56 modules (32%)
+
+### Decisions Made
+
+**Decision 1**: Prioritize Gemini over Claude for examples
+- **Rationale**: User only has Gemini API key
+- All examples work with either provider
+- Gemini is fast and affordable for learning
+
+**Decision 2**: Update to LangChain 1.1.0+ API
+- **Rationale**: LangChain had major API changes (memory deprecated)
+- Using modern `RunnableWithMessageHistory` approach
+- Future-proof the examples
+
+### Technical Learnings
+
+1. **LangChain 1.1.0 Breaking Changes**:
+   - `langchain.prompts` → `langchain_core.prompts`
+   - `langchain.memory` deprecated → `RunnableWithMessageHistory`
+   - `langchain.chains` deprecated → LCEL pipelines
+   - Memory classes moved to community or deprecated
+
+2. **Modern LangChain Pattern**:
+   ```python
+   # Old way (deprecated)
+   memory = ConversationBufferMemory()
+   chain = ConversationChain(llm=llm, memory=memory)
+   
+   # New way (LangChain 1.1.0+)
+   prompt = ChatPromptTemplate.from_messages([
+       ("system", "..."),
+       MessagesPlaceholder(variable_name="history"),
+       ("human", "{input}")
+   ])
+   chain = prompt | llm | StrOutputParser()
+   with_history = RunnableWithMessageHistory(
+       chain, get_session_history,
+       input_messages_key="input",
+       history_messages_key="history"
+   )
+   ```
+
+### Files Created/Modified
+
+**Created**:
+- `examples/module_15/DELIVERABLE_README.md`
+- `examples/module_15/.gitignore`
+
+**Modified**:
+- `examples/module_15/01_prompts_and_templates.py` (LangChain 1.1.0 + Gemini)
+- `examples/module_15/02_chains_and_lcel.py` (LangChain 1.1.0 + Gemini)
+- `examples/module_15/03_memory_systems.py` (LangChain 1.1.0 + Gemini)
+- `examples/module_15/deliverable_langchain_toolkit.py` (LangChain 1.1.0 + Gemini)
+- `examples/module_15/requirements.txt` (added langchain-google-genai)
+- `docs/curriculum/MASTER_CURRICULUM.md` (Module 15 complete)
+- `docs/curriculum/START_HERE_TOMORROW.md` (Session #18)
+
+### Progress Achieved
+
+**Before Session #18**:
+- Module 15: Not started
+- Phase 4: 0/7 (0%)
+- Overall: 17/56 modules (30%)
+
+**After Session #18**:
+- Module 15: COMPLETE ✅
+- Phase 4: 1/7 (14%)
+- Overall: 18/56 modules (32%)
+
+**Achievement**: First module of Phase 4 complete! Building AI Agents!
+
+### Next Session Goals
+
+1. **Module 16: LangChain Tools & Function Calling**
+   - Function/tool calling protocols
+   - Building custom LangChain tools
+   - Tool-calling agents
+   - Error handling
+
+2. **Test Module 15 with Gemini**
+   - User to run demos with GOOGLE_API_KEY
+   - Verify all examples work correctly
+
+### Notes
+
+- LangChain ecosystem is evolving rapidly - need to stay updated
+- The new RunnableWithMessageHistory is more flexible but more verbose
+- Gemini + LangChain works well for learning and prototyping
+- Phase 4 is exciting - moving towards AI agents!
+
+---
+
+_Session #18 completed: 2025-11-25_
+_Module 15 complete! Phase 4 Frameworks & Agents started! 🚀_
+
+---

@@ -57,7 +57,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 1: AI-Native Development | 1.1-1.3, 2-5 | 🟢 Complete | 7/7 (100%) |
 | Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
 | Phase 3: Vector Search & RAG | 11-14 | 🟢 Complete | 4/4 (100%) |
-| Phase 4: Frameworks & Agents | 15-21 | ⚪ Not Started | 0/7 |
+| Phase 4: Frameworks & Agents | 15-21 | 🟡 In Progress | 1/7 |
 | Phase 5: Multimodal AI | 22-24 | ⚪ Not Started | 0/3 |
 | Phase 6: Deep Learning Foundations | 25-31 | ⚪ Not Started | 0/7 |
 | Phase 7: Advanced Generative AI | 32-36 | ⚪ Not Started | 0/5 |
@@ -67,7 +67,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **30% Complete** | **17/56** |
+| **TOTAL** | **56 core + 3 optional** | **32% Complete** | **18/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -451,24 +451,26 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 15: LangChain Fundamentals
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 14
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Master LangChain core concepts
 - Build chains and sequences
-- Use LangChain memory
-- Integrate multiple LLMs
+- Use LangChain memory (RunnableWithMessageHistory)
+- Integrate multiple LLMs (Gemini, Claude)
 
 **Deliverables**:
-- LangChain-powered chatbot
-- Multi-step reasoning chain
-- Memory-enabled conversation system
+- ✅ LangChain-powered chatbot with memory
+- ✅ Multi-step LCEL pipelines
+- ✅ Memory-enabled conversation system
+- ✅ Multi-model router
 
 **Key Concepts**:
 - Chains, prompts, models, memory
-- Sequential chains
+- Sequential and parallel chains
 - LangChain Expression Language (LCEL)
-- Model abstraction
+- RunnableWithMessageHistory for stateful conversations
+- Multi-provider support (Gemini, Claude)
 
 ---
 
@@ -1618,16 +1620,17 @@ After completing Neural Dojo v4.0, you will be able to:
 
 ## 🚀 You're Building Towards AI Guru Status!
 
-**Current Progress**: 17/56 modules (30%)
+**Current Progress**: 18/56 modules (32%)
 
 **What You've Mastered**:
 - ✅ AI-Native Development (Phase 1)
 - ✅ Generative AI Fundamentals (Phase 2)
-- ✅ Vector Search & RAG (Phase 3) - COMPLETE!
+- ✅ Vector Search & RAG (Phase 3)
+- ✅ LangChain Fundamentals (Module 15)
 
 **What's Next**:
-- Phase 4: Frameworks & Agents (LangChain, LangGraph, Agents)
-- Start with Module 15: LangChain Fundamentals
+- Continue Phase 4: Frameworks & Agents
+- Next: Module 16 - LangChain Tools & Function Calling
 
 ---
 

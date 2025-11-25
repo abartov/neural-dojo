@@ -1,0 +1,21 @@
+# Module 15: LangChain Fundamentals
+# Updated for LangChain 1.1.0+ (November 2025)
+
+# LangChain core (required)
+langchain-core>=1.1.0
+
+# Model providers (choose one or both)
+# Google Gemini (recommended - fast and affordable)
+langchain-google-genai>=3.0.0
+
+# Anthropic Claude (alternative)
+langchain-anthropic>=1.0.0
+anthropic>=0.18.0
+
+# Optional: OpenAI (for multi-model scenarios)
+langchain-openai>=1.0.0
+openai>=1.0.0
+
+# Utilities
+pydantic>=2.0.0
+python-dotenv>=1.0.0

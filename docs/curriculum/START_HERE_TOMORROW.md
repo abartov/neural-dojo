@@ -1,106 +1,94 @@
 # Start Here Tomorrow
 
-**Last Updated**: 2025-11-25 (Session #17 - PHASE 3 COMPLETE!)
-**Current Status**: Phase 3 COMPLETE! Curriculum v4.0 released!
-**Next Step**: Start Phase 4 - Module 15 (LangChain Fundamentals)
-**Progress**: 17/56 modules complete (30%) + 13 deliverables built
+**Last Updated**: 2025-11-25 (Session #18)
+**Current Status**: Module 15 COMPLETE! Phase 4 started!
+**Next Step**: Module 16 - LangChain Tools & Function Calling
+**Progress**: 18/56 modules complete (32%) + 14 deliverables built
 
 ---
 
 ## Where You Are
 
-**Session #17 Complete! PHASE 3 FINISHED!**
+**Session #18 Complete! MODULE 15 FINISHED!**
 
 This session accomplished:
-1. **Curriculum v4.0**: Major reorganization with 10 new modules
-2. **Module 14 COMPLETE**: Advanced RAG Patterns
-3. **Phase 3 COMPLETE**: Vector Search & RAG (4/4 modules)
+1. **Module 15 COMPLETE**: LangChain Fundamentals
+2. **Updated to LangChain 1.1.0+**: Modern API with RunnableWithMessageHistory
+3. **Gemini Support**: All examples work with GOOGLE_API_KEY
 
 ---
 
 ## What Was Built Today
 
-### Curriculum v4.0 (Major Update)
+### Module 15: LangChain Fundamentals
 
-Added 10 new modules for complete AI Guru coverage:
-- Module 14: Advanced RAG Patterns (GraphRAG, HyDE)
-- Module 20: Advanced Agentic AI
-- Module 22: Speech AI (Whisper, TTS)
-- Module 24: Video AI & Generation
-- Module 35: RLHF & How LLMs Are Trained
-- Module 36: Constitutional AI
-- Module 37-38: Classical ML (XGBoost, Time Series)
-- Module 40-42: AI Safety & Evaluation
-
-### Module 14: Advanced RAG Patterns
-
-**Theory Document** (~400 lines):
-- HyDE (Hypothetical Document Embeddings)
-- Hybrid Search (BM25 + Semantic)
-- Cross-Encoder Reranking
-- Self-RAG Critique
-- GraphRAG concepts
-- Production pipeline patterns
+**Theory Document** (~835 lines):
+- LangChain origin story (Harrison Chase, $200M in 14 months)
+- Prompts and templates
+- Chains and LCEL
+- Memory systems (RunnableWithMessageHistory)
+- Output parsers
+- Multi-model integration
+- "Did You Know?" sections with history
 
 **Examples Built**:
-- `01_hyde_search.py` - HyDE implementation
-- `02_hybrid_search.py` - BM25 + Semantic hybrid
-- `03_reranking.py` - Cross-encoder two-stage retrieval
+- `01_prompts_and_templates.py` - Prompt templating system
+- `02_chains_and_lcel.py` - LCEL pipelines, parallel, streaming
+- `03_memory_systems.py` - Modern memory with RunnableWithMessageHistory
 
-**Deliverable: Advanced RAG Toolkit** (700+ lines):
-- All search methods in one toolkit
-- Production pipeline with timing
-- Benchmarking capabilities
-- JSON result export
+**Deliverable: LangChain Toolkit** (620+ lines):
+- Conversational chatbot with memory
+- LCEL pipeline builder
+- Multi-model router
+- Interactive chat mode
+- Session persistence
+
+**LangChain 1.1.0+ Updates**:
+- Updated all imports to `langchain_core`
+- Replaced deprecated memory classes with `RunnableWithMessageHistory`
+- Added Gemini support alongside Claude
+- Modern LCEL patterns throughout
 
 ---
 
 ## Progress Summary
 
-### Phases Complete: 4/13
+### Phases Complete: 4.1/13
 
 | Phase | Status | Completion |
 |-------|--------|------------|
 | Module 0: Prerequisites | Complete | 1/1 |
 | Phase 1: AI-Native Development | Complete | 7/7 |
 | Phase 2: Generative AI Fundamentals | Complete | 5/5 |
-| **Phase 3: Vector Search & RAG** | **Complete** | **4/4** |
-| Phase 4-13 | Not Started | 0/39 |
+| Phase 3: Vector Search & RAG | Complete | 4/4 |
+| **Phase 4: Frameworks & Agents** | **In Progress** | **1/7** |
+| Phase 5-13 | Not Started | 0/39 |
 
-### Deliverables: 13 built
+### Deliverables: 14 built
 
 - Modules 02-10: 9 deliverables
-- Modules 11-13: 3 deliverables
-- **Module 14: Advanced RAG Toolkit** (NEW!)
+- Modules 11-14: 4 deliverables
+- **Module 15: LangChain Toolkit** (NEW!)
 
 ---
 
 ## What's Next
 
-### Phase 4: Frameworks & Agents (7 modules)
+### Module 16: LangChain Tools & Function Calling
 
 You've mastered:
-- Embeddings & Vector Search (Phase 2)
-- Vector Databases (Module 11)
-- RAG Systems (Module 12)
-- RAG vs Fine-tuning (Module 13)
-- **Advanced RAG Patterns** (Module 14) ← JUST COMPLETED!
+- LangChain core concepts (prompts, chains, memory)
+- LCEL for composable pipelines
+- Multi-model integration
 
-**Now ready for**: Building sophisticated AI agents with frameworks!
+**Now ready for**: Function calling and tool use!
 
-### Module 15: LangChain Fundamentals
-
-You'll learn:
-- LangChain core concepts (chains, prompts, memory)
-- LangChain Expression Language (LCEL)
-- Building conversational AI
-- Multi-step reasoning chains
-
-This is the foundation for:
-- Module 16: Tool calling and function use
-- Module 17: Chain-of-Thought reasoning
-- Module 18: LangGraph stateful workflows
-- Module 20: Advanced Agentic AI (memory, planning, multi-agent)
+### Module 16 Will Cover:
+- Function/tool calling protocols
+- Building custom LangChain tools
+- Tool-calling agents
+- Error handling for tool execution
+- Tool selection strategies
 
 ---
 
@@ -108,35 +96,37 @@ This is the foundation for:
 
 ```
 docs/curriculum/
-├── MASTER_CURRICULUM.md (v4.0 - Major reorganization)
+├── MASTER_CURRICULUM.md (Updated - Module 15 complete)
 ├── START_HERE_TOMORROW.md (Updated)
 └── notes/
-    └── module_14_advanced_rag_patterns.md (NEW - 400+ lines)
+    └── module_15_langchain_fundamentals.md (835+ lines)
 
-examples/module_14/ (NEW)
-├── 01_hyde_search.py
-├── 02_hybrid_search.py
-├── 03_reranking.py
-├── deliverable_advanced_rag.py (700+ lines)
-├── DELIVERABLE_README.md
+examples/module_15/
+├── 01_prompts_and_templates.py (Updated for LangChain 1.1.0)
+├── 02_chains_and_lcel.py (Updated for LangChain 1.1.0)
+├── 03_memory_systems.py (Updated for LangChain 1.1.0)
+├── deliverable_langchain_toolkit.py (620+ lines)
+├── DELIVERABLE_README.md (NEW)
 ├── README.md
-├── requirements.txt
-└── .gitignore
+├── requirements.txt (Updated)
+└── .gitignore (NEW)
 ```
 
 ---
 
 ## Session Log Entry
 
-**Session #17 (2025-11-25)**:
-- CURRICULUM v4.0: Added 10 modules, 4 phases for complete AI Guru coverage
-- MODULE 14 COMPLETE: Advanced RAG Patterns
-  - Theory: HyDE, Hybrid Search, Reranking, Self-RAG, GraphRAG
-  - Examples: 3 working demos
-  - Deliverable: Advanced RAG Toolkit (700+ lines)
-- PHASE 3 COMPLETE: Vector Search & RAG (4/4 modules)
-- Progress: 17/56 modules (30%), 13 deliverables
-- Time: ~3 hours
+**Session #18 (2025-11-25)**:
+- MODULE 15 COMPLETE: LangChain Fundamentals
+  - Theory: Prompts, Chains, LCEL, Memory, Output Parsers
+  - Examples: 3 working demos (updated for LangChain 1.1.0)
+  - Deliverable: LangChain Toolkit (620+ lines)
+- LangChain 1.1.0 Migration:
+  - Updated imports to langchain_core
+  - RunnableWithMessageHistory for memory
+  - Added Gemini support
+- Progress: 18/56 modules (32%), 14 deliverables
+- Time: ~2 hours
 
 ---
 
@@ -145,37 +135,43 @@ examples/module_14/ (NEW)
 1. **Read this file** (you're doing it!)
 
 2. **Choose your path**:
-   - **Path A (RECOMMENDED)**: Start Module 15 - LangChain Fundamentals
-   - **Path B**: Apply Advanced RAG to kaizen project
-   - **Path C**: Explore Phase 4 modules overview
+   - **Path A (RECOMMENDED)**: Start Module 16 - LangChain Tools & Function Calling
+   - **Path B**: Test Module 15 with your Gemini API key
+   - **Path C**: Apply LangChain to kaizen project
 
 3. **Quick start**:
    ```bash
-   # Say: "Let's start Module 15 - LangChain Fundamentals!"
+   # Test Module 15 examples
+   export GOOGLE_API_KEY="your-key"
+   python examples/module_15/deliverable_langchain_toolkit.py demo1
+
+   # Or say: "Let's start Module 16 - Tools & Function Calling!"
    ```
 
 ---
 
 ## The AI Guru Journey
 
-### Completed ✅
+### Completed
 - [x] Phase 1: AI-Native Development (7 modules)
 - [x] Phase 2: Generative AI Fundamentals (5 modules)
-- [x] **Phase 3: Vector Search & RAG (4 modules)** ← JUST FINISHED!
+- [x] Phase 3: Vector Search & RAG (4 modules)
+- [x] **Module 15: LangChain Fundamentals** <- JUST FINISHED!
 
 ### Up Next
-- [ ] Phase 4: Frameworks & Agents (7 modules)
-- [ ] Phase 5: Multimodal AI (3 modules)
-- [ ] ...and 6 more phases!
+- [ ] Module 16: LangChain Tools & Function Calling
+- [ ] Module 17: Chain-of-Thought & Reasoning
+- [ ] Module 18: LangGraph for Stateful Workflows
+- [ ] ...and more!
 
-**You're 30% through the curriculum!** 🎉
-
----
-
-**🥋🧠⚡ Phase 3 Complete! On to Frameworks & Agents!**
+**You're 32% through the curriculum!**
 
 ---
 
-_Last updated: 2025-11-25 (Session #17)_
-_Status: PHASE 3 COMPLETE! Module 14 done!_
-_Next: Module 15 - LangChain Fundamentals_
+**Phase 4 Started! Building AI Agents!**
+
+---
+
+_Last updated: 2025-11-25 (Session #18)_
+_Status: MODULE 15 COMPLETE!_
+_Next: Module 16 - LangChain Tools & Function Calling_
