@@ -1274,11 +1274,24 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Master Dagger (portable CI/CD pipelines)
 - Implement GitHub Actions for ML
 - Build continuous training pipelines
+- Use Dagger AI Agent for autonomous development
 
 **Deliverables**:
 - Dagger pipeline for ML project
 - GitHub Actions workflow
 - Automated model validation pipeline
+- Dagger AI Agent integration (LLM-powered autonomous coding)
+
+**Key Concepts**:
+- Dagger modules and functions
+- Containerized, portable CI/CD pipelines
+- **Dagger AI Agent**: Connect to LLM (Claude/GPT) for autonomous feature development
+- Agent workflow: GitHub Issue → Analyze codebase → Code changes → Run tests → Open PR
+- Workspace tools: read-file, write-file, list-files, test
+
+**Real-World Application**: Set up Dagger Agent for kaizen to auto-implement features from GitHub issues!
+
+**Reference**: [Dagger AI Agent Quickstart](https://docs.dagger.io/getting-started/quickstarts/agent-in-project)
 
 ---
 
