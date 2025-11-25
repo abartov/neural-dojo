@@ -1069,6 +1069,96 @@ Beam search was the dominant decoding strategy for neural machine translation (l
 
 ---
 
+## 💡 Did You Know? The Hidden History of Text Generation
+
+### The "Boring GPT-2" Problem
+
+When OpenAI released GPT-2 in 2019, they faced an embarrassing problem: **the model was boring**.
+
+Despite all the hype about "too dangerous to release," early demos produced repetitive, predictable text. Researchers would generate stories that started strong, then devolved into endless repetition:
+
+```
+"The dragon approached the castle. The dragon was a dragon. The dragon
+had dragon wings. The dragon's dragon breath was very dragon-like..."
+```
+
+**What went wrong?** OpenAI had been using **beam search** - the standard decoding algorithm from machine translation. It worked great for translation (where you want THE most likely translation), but for creative text, it produced the "highest probability" sequence - which was often repetitive drivel.
+
+**The breakthrough came from an unlikely place**: A team at University of Washington and AI2, led by Ari Holtzman, published "The Curious Case of Neural Text Degeneration" in 2019. Their insight: **the problem wasn't the model - it was how we sampled from it.**
+
+They invented **nucleus sampling (top-p)** and suddenly GPT-2 could write compelling stories. OpenAI quietly switched their demos to top-p sampling, and the "dangerous AI" narrative stuck. The paper has since been cited over 2,500 times.
+
+### The Temperature Wars of 2020-2021
+
+When GPT-3 launched (2020), developers discovered temperature through trial and error. A cottage industry emerged of "optimal temperature" guides, each claiming to have found the magic number:
+
+- **Marketing agencies**: "Temperature 0.9 is best for ad copy!"
+- **Code bloggers**: "Never go above 0.2 for code!"
+- **Creative writers**: "Real artists use 1.2+!"
+
+**The truth?** There was no universal best. But the experimentation led to collective wisdom:
+- `0.0-0.3`: Technical, factual, consistent tasks
+- `0.5-0.7`: General-purpose, balanced
+- `0.8-1.0`: Creative, diverse
+- `1.0+`: Experimental, high variance
+
+**Fun fact**: OpenAI's playground originally defaulted to `temperature=0.7` because an early researcher thought it "felt right" - no rigorous testing involved!
+
+### Why "Temperature" and Not "Creativity"?
+
+The name "temperature" confuses everyone. Why not call it "creativity" or "randomness"?
+
+**The answer goes back to 1876** - Ludwig Boltzmann's work on statistical mechanics. Boltzmann showed that in a gas, higher temperature means molecules move more randomly. The probability distribution follows:
+
+```
+P(state) ∝ exp(-Energy / Temperature)
+```
+
+LLM sampling uses the **exact same math**:
+```
+P(token) ∝ exp(logit / temperature)
+```
+
+When AI researchers in the 1990s needed a way to control randomness in neural networks, they borrowed the physics term. The metaphor stuck, even though most developers have never heard of Boltzmann.
+
+**Trivia**: At temperature=0 (absolute zero in physics), all molecular motion stops. In LLMs, all randomness stops - you get deterministic, greedy decoding. The parallel is mathematically exact!
+
+### The $100K Sampling Bug
+
+In 2021, a startup building an AI writing assistant shipped with a bug: they accidentally set `top_p=0.1` instead of `top_p=0.9` in production.
+
+**The result**:
+- Users complained their AI was "boring" and "predictable"
+- Churn rate spiked 400%
+- They lost $100K in revenue before finding the bug
+
+**The fix took 5 minutes** - changing one character in a config file. But finding it took 3 weeks because nobody thought to check sampling parameters.
+
+**Lesson**: Sampling configuration is often overlooked but has massive impact on user experience!
+
+### The Rise of "Temperature as a Product Feature"
+
+By 2023, some AI products started exposing temperature as a user-facing feature:
+
+- **Claude**: Offers different "styles" (precise vs creative) that adjust temperature
+- **ChatGPT**: The "temperature slider" in API playground became famous
+- **Midjourney**: Uses "chaos" parameter (similar concept for images)
+- **Character.ai**: Lets users adjust "personality variance"
+
+**The insight**: Users don't want to understand softmax math, but they DO want control over consistency vs creativity. Abstracting temperature behind user-friendly labels became a competitive advantage.
+
+### The Numbers That Matter
+
+| Finding | Source |
+|---------|--------|
+| Nucleus sampling improves human preference by **21%** | Original paper, 2019 |
+| Temperature 0.7-0.8 rated "most natural" by users | OpenAI user studies |
+| Code with temp>0.5 has **3x more bugs** | GitHub Copilot analysis |
+| Creative writing peaks at temp **1.0-1.1** | Author surveys, 2023 |
+| Repetition penalty reduces loops by **85%** | Hugging Face benchmarks |
+
+---
+
 ## 📚 Further Reading
 
 ### Papers

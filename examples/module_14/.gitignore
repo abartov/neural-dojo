@@ -1,0 +1,25 @@
+# Module 14 - Advanced RAG Toolkit
+# Exclude cache and generated files
+
+# Toolkit storage
+.advanced_rag/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Model cache
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp

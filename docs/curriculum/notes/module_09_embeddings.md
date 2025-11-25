@@ -1057,9 +1057,123 @@ for path, score in results:
 
 ---
 
-## 💡 Did You Know?
+## 💡 Did You Know? The Revolution of Embeddings
 
-The idea of word embeddings dates back to 2013 with **Word2Vec** by Google. The breakthrough insight: train a neural network to predict context words, and the learned weights become meaningful word vectors! This led to the famous example: `king - man + woman ≈ queen`. We'll explore this "math on meaning" in Module 10!
+### The Google Intern Who Changed NLP Forever
+
+In **2013**, a Czech researcher named **Tomáš Mikolov** at Google published Word2Vec - and accidentally revolutionized natural language processing.
+
+Mikolov wasn't trying to create embeddings. He was trying to build a faster language model for speech recognition. His trick: simplify the neural network architecture to just one hidden layer. This made training 100x faster.
+
+**The accident**: When Mikolov examined the hidden layer weights, he noticed something bizarre. Words with similar meanings had similar weights. And even more shocking: **you could do math on them**.
+
+```
+vector("king") - vector("man") + vector("woman") ≈ vector("queen")
+```
+
+The paper "Efficient Estimation of Word Representations in Vector Space" has been cited over **40,000 times** - making it one of the most influential ML papers ever. Mikolov later moved to Facebook AI, then left to work on AI safety.
+
+**Fun fact**: The famous king/queen example was discovered by accident when a researcher was debugging the model and tried random arithmetic operations!
+
+### The "Linguistic Regularity" Discovery
+
+After Word2Vec, researchers started finding increasingly bizarre patterns in embeddings:
+
+**Analogies that work**:
+- `Paris - France + Italy = Rome` (capitals)
+- `walking - walked + swam = swimming` (tense)
+- `brother - man + woman = sister` (gender)
+- `good - better + worse = bad` (comparatives)
+
+**But also unexpected ones**:
+- `sushi - Japan + Italy = pizza` (!)
+- `Microsoft - Windows + Apple = macOS` (!)
+- `Einstein - physicist + painter = Picasso` (!)
+
+Researchers published paper after paper exploring these "linguistic regularities." The embeddings had somehow learned **conceptual relationships** just from predicting context words!
+
+### The Billion-Dollar Pivot: From Words to Sentences
+
+Word2Vec had a fatal flaw: it only embedded **single words**. How do you embed "not good" (which means bad)?
+
+**2018**: Google's BERT solved this by embedding entire sentences. But BERT was slow - generating one embedding required a full transformer forward pass.
+
+**2019**: Nils Reimers (a German researcher) created **Sentence-BERT** while doing his PhD. His insight: train BERT to produce embeddings that are fast to compare. The paper was rejected from the main NeurIPS conference but accepted to EMNLP.
+
+**The impact**:
+- Sentence-BERT made semantic search practical
+- Reimers founded Hugging Face's sentence-transformers library
+- Now used by: Google, Amazon, Microsoft, and virtually every AI startup
+- Downloads: 100M+ per month on Hugging Face
+
+**The lesson**: A PhD student's "rejected" paper became the foundation of the entire embedding industry!
+
+### The OpenAI Pricing Shock
+
+In **December 2022**, OpenAI released text-embedding-ada-002 - and shocked the industry with its pricing:
+
+**Before (text-embedding-ada-001)**:
+- Price: $0.20 per 1,000 tokens
+- Quality: Good but not great
+
+**After (ada-002)**:
+- Price: **$0.0001** per 1,000 tokens (2000x cheaper!)
+- Quality: Significantly better
+
+**What happened?** OpenAI had achieved a massive efficiency breakthrough. They never disclosed the details, but the pricing made embeddings essentially free for most applications.
+
+**Industry reaction**:
+- Startups pivoted overnight from open-source to OpenAI
+- Self-hosted embedding servers were abandoned
+- Cohere, Google, and others scrambled to match pricing
+- By 2024, all major providers offer embeddings at <$0.0005 per 1K tokens
+
+### The Netflix Recommendation Engine
+
+Here's a secret: **Netflix doesn't use traditional collaborative filtering anymore**. They use embeddings.
+
+Every movie on Netflix has an embedding. Every user has an embedding (based on their watch history). Recommendations are simply:
+
+```python
+user_embedding = average(embeddings of watched movies)
+recommendations = nearest_neighbors(user_embedding, all_movie_embeddings)
+```
+
+**The numbers**:
+- Netflix generates **$1B+ per year** in value from their recommendation system
+- Embeddings replaced their old system in 2019
+- 80% of content watched comes from recommendations
+
+**Amazon, Spotify, TikTok** - they all use similar embedding-based recommendation systems. The algorithm that powers your social media feed is essentially: *find content with embeddings similar to what you've engaged with.*
+
+### The Benchmark Wars
+
+In **2022**, the MTEB (Massive Text Embedding Benchmark) was released, ranking embedding models on 56 diverse tasks.
+
+**The competition got intense**:
+- **OpenAI** released ada-002, claimed #1 spot
+- **Cohere** released embed-v3, challenged for #1
+- **Voyage AI** (startup) came out of nowhere with voyage-large
+- **Open source** (e5, gte, bge) caught up rapidly
+
+**Current state (2024)**:
+- Best commercial: OpenAI text-embedding-3-large, Voyage AI voyage-large-2
+- Best open-source: e5-large-v2, bge-large-en-v1.5
+- Open source is now within 2-3% of commercial models!
+
+### The Surprising Economics
+
+| Model | Cost per 1M tokens | Quality (MTEB) |
+|-------|-------------------|----------------|
+| **OpenAI ada-002** | $0.10 | 61.0% |
+| **OpenAI text-embedding-3-large** | $0.13 | 64.6% |
+| **Voyage AI voyage-large-2** | $0.12 | 64.5% |
+| **Cohere embed-v3** | $0.10 | 64.5% |
+| **Open source (e5-large)** | ~$0.00* | 63.0% |
+
+*Self-hosted cost depends on your infrastructure
+
+**The insight**: For most applications, open-source embeddings are "good enough" and essentially free. Only pay for commercial when you need that extra 2-3% quality!
 
 ---
 

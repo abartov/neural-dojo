@@ -1,0 +1,21 @@
+# Module 14: Advanced RAG Patterns
+# Core dependencies
+
+# LLM API
+anthropic>=0.18.0
+
+# Embeddings and reranking
+sentence-transformers>=2.2.0
+
+# BM25 for hybrid search
+rank-bm25>=0.2.2
+
+# Numerical computing
+numpy>=1.24.0
+
+# Optional: For GraphRAG examples
+# neo4j>=5.0.0
+# networkx>=3.0
+
+# Optional: Cohere reranking API
+# cohere>=4.0.0
