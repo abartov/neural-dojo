@@ -1,0 +1,18 @@
+# Module 24 cache directories
+.video_ai_toolkit/
+__pycache__/
+*.pyc
+
+# Video files (too large for git)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Extracted frames
+*.jpg
+*.png
+
+# Analysis results (local only)
+*_analysis.json

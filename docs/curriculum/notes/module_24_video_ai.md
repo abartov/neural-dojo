@@ -1,0 +1,985 @@
+# Module 24: Video AI & Generation
+
+**Last Updated**: 2025-11-26
+**Status**: 🟢 Complete
+**Duration**: 6-7 hours
+
+---
+
+## Learning Objectives
+
+By the end of this module, you will:
+- Understand video AI architectures and temporal reasoning
+- Implement video understanding (captioning, Q&A, summarization)
+- Explore video generation technologies (Sora, Runway, Pika)
+- Build video analysis pipelines with frame extraction
+- Master video-to-text and text-to-video applications
+
+---
+
+## Introduction: The Video Frontier
+
+Video is the final frontier of multimodal AI. While images capture a single moment, video captures *time* - motion, actions, narratives, and causality. Understanding and generating video requires AI to reason about temporal sequences, predict what happens next, and maintain consistency across frames.
+
+### Why Video AI is Hard
+
+Video presents unique challenges that images don't:
+
+1. **Temporal Dimension**: A 10-second video at 30fps has 300 frames - orders of magnitude more data than a single image
+2. **Motion Understanding**: Detecting not just what's there, but what's *happening*
+3. **Long-Range Dependencies**: Events at the start may connect to events at the end
+4. **Consistency**: Generated videos must maintain object identity and physics across frames
+5. **Compute Requirements**: Processing video requires 10-100x more compute than images
+
+### The Video AI Landscape
+
+```
+Video AI Applications
+├── Understanding (Analysis)
+│   ├── Video Classification
+│   ├── Action Recognition
+│   ├── Object Tracking
+│   ├── Video Captioning
+│   ├── Video Q&A
+│   └── Video Summarization
+│
+├── Generation (Creation)
+│   ├── Text-to-Video
+│   ├── Image-to-Video
+│   ├── Video-to-Video (Style Transfer)
+│   ├── Video Prediction
+│   └── Video Editing
+│
+└── Multimodal (Combined)
+    ├── Video + Audio Understanding
+    ├── Video + Text Search
+    └── Video + Language Models
+```
+
+---
+
+## Part 1: Video Understanding Fundamentals
+
+### Frame Extraction and Sampling
+
+The first step in video understanding is converting continuous video to discrete frames:
+
+```python
+import cv2
+from pathlib import Path
+from typing import List, Tuple
+import numpy as np
+
+def extract_frames(
+    video_path: str,
+    fps: int = 1,  # Frames per second to extract
+    max_frames: int = 100
+) -> List[np.ndarray]:
+    """
+    Extract frames from a video at specified fps.
+
+    Args:
+        video_path: Path to video file
+        fps: Frames per second to extract
+        max_frames: Maximum frames to extract
+
+    Returns:
+        List of frames as numpy arrays (BGR format)
+    """
+    cap = cv2.VideoCapture(video_path)
+
+    video_fps = cap.get(cv2.CAP_PROP_FPS)
+    frame_interval = int(video_fps / fps)
+
+    frames = []
+    frame_count = 0
+
+    while cap.isOpened() and len(frames) < max_frames:
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        if frame_count % frame_interval == 0:
+            frames.append(frame)
+
+        frame_count += 1
+
+    cap.release()
+    return frames
+```
+
+### Sampling Strategies
+
+Different tasks require different sampling strategies:
+
+| Strategy | Description | Use Case |
+|----------|-------------|----------|
+| Uniform | Equal intervals | General analysis |
+| Key Frame | Scene changes | Video summarization |
+| Dense | High fps | Action recognition |
+| Sparse | Low fps | Long video understanding |
+| Adaptive | Based on motion | Efficient processing |
+
+```python
+def sample_frames_uniform(frames: List, n_samples: int) -> List:
+    """Uniformly sample n frames from a list."""
+    indices = np.linspace(0, len(frames) - 1, n_samples, dtype=int)
+    return [frames[i] for i in indices]
+
+def sample_frames_keyframes(frames: List, threshold: float = 0.3) -> List:
+    """Sample frames at scene changes (key frames)."""
+    keyframes = [frames[0]]
+
+    for i in range(1, len(frames)):
+        # Compare histogram difference
+        hist1 = cv2.calcHist([frames[i-1]], [0], None, [256], [0, 256])
+        hist2 = cv2.calcHist([frames[i]], [0], None, [256], [0, 256])
+        diff = cv2.compareHist(hist1, hist2, cv2.HISTCMP_CORREL)
+
+        if diff < threshold:  # Scene change detected
+            keyframes.append(frames[i])
+
+    return keyframes
+```
+
+### Temporal Modeling
+
+Understanding video requires modeling temporal relationships:
+
+**Approaches**:
+
+1. **3D CNNs**: Extend 2D convolutions to space-time
+   ```
+   Input: [B, C, T, H, W] (batch, channels, time, height, width)
+   ```
+
+2. **RNNs/LSTMs**: Process frame features sequentially
+   ```
+   Frame embeddings → LSTM → Temporal context
+   ```
+
+3. **Transformers**: Attention across all frames
+   ```
+   [CLS] [F1] [F2] [F3] ... [FN] → Self-Attention → Video embedding
+   ```
+
+4. **Video Vision Transformers (ViViT)**: Patch + temporal tokens
+   ```
+   Video → Space-time patches → Transformer → Classification
+   ```
+
+---
+
+## Part 2: Video Understanding with LLMs
+
+Modern video understanding leverages vision-language models by processing videos as sequences of frames.
+
+### Video Q&A with GPT-4V
+
+```python
+import base64
+import cv2
+from openai import OpenAI
+
+def video_qa_with_gpt4v(
+    video_path: str,
+    question: str,
+    n_frames: int = 10,
+    client: OpenAI = None
+) -> str:
+    """
+    Answer questions about a video using GPT-4V.
+
+    Args:
+        video_path: Path to video file
+        question: Question about the video
+        n_frames: Number of frames to sample
+        client: OpenAI client
+
+    Returns:
+        Answer from the model
+    """
+    client = client or OpenAI()
+
+    # Extract frames
+    frames = extract_frames(video_path, fps=1, max_frames=n_frames * 3)
+    sampled = sample_frames_uniform(frames, n_frames)
+
+    # Encode frames to base64
+    content = [{"type": "text", "text": f"These are {n_frames} frames from a video. {question}"}]
+
+    for i, frame in enumerate(sampled):
+        _, buffer = cv2.imencode('.jpg', frame)
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_frame}"}
+        })
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": content}],
+        max_tokens=500
+    )
+
+    return response.choices[0].message.content
+```
+
+### Video Captioning
+
+Generate descriptions of video content:
+
+```python
+def caption_video(
+    video_path: str,
+    style: str = "detailed",  # "brief", "detailed", "narrative"
+    client: OpenAI = None
+) -> str:
+    """Generate a caption for a video."""
+    client = client or OpenAI()
+
+    frames = extract_frames(video_path, fps=1, max_frames=30)
+    sampled = sample_frames_uniform(frames, 8)
+
+    prompts = {
+        "brief": "In one sentence, describe what happens in this video.",
+        "detailed": "Describe this video in detail, including actions, objects, and setting.",
+        "narrative": "Tell the story of what happens in this video, as if narrating a scene."
+    }
+
+    content = [{"type": "text", "text": prompts.get(style, prompts["detailed"])}]
+
+    for frame in sampled:
+        _, buffer = cv2.imencode('.jpg', frame)
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_frame}"}
+        })
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": content}],
+        max_tokens=300
+    )
+
+    return response.choices[0].message.content
+```
+
+### Video Summarization
+
+Summarize long videos into key points:
+
+```python
+def summarize_video(
+    video_path: str,
+    max_segments: int = 5,
+    client: OpenAI = None
+) -> dict:
+    """
+    Summarize a video into key segments.
+
+    Returns:
+        {
+            "overview": "Overall summary",
+            "segments": [{"time": "0:00-0:30", "description": "..."}],
+            "key_events": ["event1", "event2"]
+        }
+    """
+    client = client or OpenAI()
+
+    # Sample more frames for long videos
+    frames = extract_frames(video_path, fps=0.5, max_frames=50)
+    sampled = sample_frames_uniform(frames, 12)
+
+    prompt = """Analyze these video frames and provide:
+    1. OVERVIEW: A 2-3 sentence summary of the entire video
+    2. SEGMENTS: Break down the video into key segments (up to 5)
+    3. KEY_EVENTS: List the most important events or moments
+
+    Format your response as:
+    OVERVIEW: [summary]
+    SEGMENTS:
+    - [description of segment 1]
+    - [description of segment 2]
+    KEY_EVENTS:
+    - [event 1]
+    - [event 2]
+    """
+
+    content = [{"type": "text", "text": prompt}]
+
+    for frame in sampled:
+        _, buffer = cv2.imencode('.jpg', frame)
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_frame}"}
+        })
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": content}],
+        max_tokens=600
+    )
+
+    # Parse response
+    text = response.choices[0].message.content
+
+    return {
+        "overview": text.split("OVERVIEW:")[1].split("SEGMENTS:")[0].strip() if "OVERVIEW:" in text else text,
+        "raw_response": text
+    }
+```
+
+---
+
+## Part 3: Video Generation
+
+Video generation is one of the most exciting frontiers in AI. Models can now create realistic videos from text descriptions.
+
+### The Video Generation Landscape
+
+| Model | Company | Type | Access |
+|-------|---------|------|--------|
+| Sora | OpenAI | Text-to-Video | Limited preview |
+| Runway Gen-2/3 | Runway | Text/Image-to-Video | API & Web |
+| Pika | Pika Labs | Text-to-Video | Web |
+| Stable Video | Stability AI | Image-to-Video | Open source |
+| Kling | Kuaishou | Text-to-Video | Limited |
+| Dream Machine | Luma AI | Text-to-Video | Web |
+
+### How Video Generation Works
+
+Modern video generation uses diffusion models extended to the temporal dimension:
+
+```
+Text Prompt
+    │
+    ▼
+┌─────────────────────────────────┐
+│      Text Encoder (CLIP/T5)     │
+└─────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────┐
+│     Video Diffusion Model       │
+│  • Start with noise video       │
+│  • Iteratively denoise          │
+│  • Conditioned on text          │
+│  • Temporal attention layers    │
+└─────────────────────────────────┘
+    │
+    ▼
+Generated Video
+```
+
+### Sora Architecture (Conceptual)
+
+OpenAI's Sora represents the state-of-the-art in video generation. Key architectural innovations:
+
+1. **Spacetime Patches**: Videos are converted to 3D patches (space + time)
+2. **DiT (Diffusion Transformer)**: Transformer-based diffusion model
+3. **Variable Resolution**: Can generate different aspect ratios and lengths
+4. **World Simulation**: Trained to understand physical dynamics
+
+```
+Sora Pipeline (Conceptual):
+
+Video → Compress → Latent Space → DiT → Decompress → Video
+         (VAE)        Patches    Transformer   (VAE)
+                         ↑
+                   Text Embedding
+```
+
+### Using Runway API
+
+Runway provides accessible video generation:
+
+```python
+# Note: Simplified example - actual API may differ
+import requests
+
+def generate_video_runway(
+    prompt: str,
+    duration: int = 4,  # seconds
+    style: str = "cinematic"
+) -> str:
+    """
+    Generate video using Runway Gen-3.
+
+    Returns:
+        URL to generated video
+    """
+    api_key = os.getenv("RUNWAY_API_KEY")
+
+    response = requests.post(
+        "https://api.runwayml.com/v1/generate",
+        headers={"Authorization": f"Bearer {api_key}"},
+        json={
+            "prompt": prompt,
+            "duration": duration,
+            "style": style,
+            "model": "gen3"
+        }
+    )
+
+    result = response.json()
+    return result.get("video_url")
+```
+
+### Image-to-Video
+
+Convert a static image into an animated video:
+
+```python
+def image_to_video(
+    image_path: str,
+    motion_prompt: str = "gentle camera pan",
+    duration: int = 4
+) -> str:
+    """
+    Animate a static image into a video.
+
+    Args:
+        image_path: Path to source image
+        motion_prompt: Description of desired motion
+        duration: Video length in seconds
+
+    Returns:
+        Path to generated video
+    """
+    # Using Stable Video Diffusion (conceptual)
+    # Actual implementation would use specific SDK
+
+    # 1. Load and encode image
+    # 2. Generate motion vectors from prompt
+    # 3. Run video diffusion model
+    # 4. Decode and save video
+
+    return "output_video.mp4"
+```
+
+---
+
+## Part 4: Video Analysis Applications
+
+### Action Recognition
+
+Detect what actions are happening in a video:
+
+```python
+from dataclasses import dataclass
+from typing import List
+
+@dataclass
+class ActionDetection:
+    action: str
+    confidence: float
+    start_time: float
+    end_time: float
+
+def detect_actions(video_path: str, client: OpenAI = None) -> List[ActionDetection]:
+    """
+    Detect actions in a video.
+
+    Returns list of detected actions with timestamps.
+    """
+    client = client or OpenAI()
+
+    frames = extract_frames(video_path, fps=2, max_frames=60)
+    sampled = sample_frames_uniform(frames, 15)
+
+    prompt = """Analyze these video frames and identify all actions occurring.
+    For each action, estimate when it starts and ends (as frame numbers from 1-15).
+
+    Format:
+    ACTION: [action name]
+    START: [frame number]
+    END: [frame number]
+    CONFIDENCE: [high/medium/low]
+    ---
+    """
+
+    content = [{"type": "text", "text": prompt}]
+    for frame in sampled:
+        _, buffer = cv2.imencode('.jpg', frame)
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_frame}"}
+        })
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": content}],
+        max_tokens=500
+    )
+
+    # Parse and return actions
+    return [ActionDetection(
+        action="detected_action",
+        confidence=0.9,
+        start_time=0.0,
+        end_time=5.0
+    )]
+```
+
+### Object Tracking
+
+Track objects across video frames:
+
+```python
+def track_objects(
+    video_path: str,
+    object_query: str,  # e.g., "red car", "person in blue"
+    client: OpenAI = None
+) -> List[dict]:
+    """
+    Track a specific object through a video.
+
+    Returns list of positions per frame.
+    """
+    client = client or OpenAI()
+
+    frames = extract_frames(video_path, fps=5, max_frames=100)
+    sampled = sample_frames_uniform(frames, 10)
+
+    prompt = f"""Track the "{object_query}" through these video frames.
+    For each frame where the object is visible, describe its position.
+
+    Format per frame:
+    FRAME [N]: [position description, e.g., "center-left", "moving right"]
+    """
+
+    content = [{"type": "text", "text": prompt}]
+    for frame in sampled:
+        _, buffer = cv2.imencode('.jpg', frame)
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        content.append({
+            "type": "image_url",
+            "image_url": {"url": f"data:image/jpeg;base64,{base64_frame}"}
+        })
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": content}],
+        max_tokens=400
+    )
+
+    return [{"frame": i, "position": "tracked"} for i in range(len(sampled))]
+```
+
+### Scene Detection
+
+Detect scene changes in videos:
+
+```python
+def detect_scenes(video_path: str) -> List[Tuple[float, float]]:
+    """
+    Detect scene boundaries in a video.
+
+    Returns list of (start_time, end_time) for each scene.
+    """
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+
+    scenes = []
+    prev_hist = None
+    scene_start = 0
+    frame_idx = 0
+    threshold = 0.5
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        # Calculate histogram
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+        hist = cv2.normalize(hist, hist).flatten()
+
+        if prev_hist is not None:
+            correlation = cv2.compareHist(prev_hist, hist, cv2.HISTCMP_CORREL)
+
+            if correlation < threshold:
+                # Scene change detected
+                scene_end = frame_idx / fps
+                scenes.append((scene_start, scene_end))
+                scene_start = scene_end
+
+        prev_hist = hist
+        frame_idx += 1
+
+    # Add final scene
+    scenes.append((scene_start, frame_idx / fps))
+
+    cap.release()
+    return scenes
+```
+
+---
+
+## Part 5: Production Considerations
+
+### Processing Long Videos
+
+For long videos, use chunking and hierarchical summarization:
+
+```python
+def process_long_video(
+    video_path: str,
+    chunk_duration: int = 60,  # seconds
+    client: OpenAI = None
+) -> dict:
+    """
+    Process a long video by chunking.
+
+    Returns:
+        {
+            "chunks": [{"start": 0, "end": 60, "summary": "..."}],
+            "overall_summary": "..."
+        }
+    """
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    duration = total_frames / fps
+    cap.release()
+
+    chunks = []
+    chunk_summaries = []
+
+    for start in range(0, int(duration), chunk_duration):
+        end = min(start + chunk_duration, duration)
+
+        # Extract frames for this chunk
+        # Summarize chunk
+        chunk_summary = f"Chunk {start}-{end}: [summary would go here]"
+        chunk_summaries.append(chunk_summary)
+
+        chunks.append({
+            "start": start,
+            "end": end,
+            "summary": chunk_summary
+        })
+
+    # Combine chunk summaries into overall summary
+    overall = " ".join(chunk_summaries)
+
+    return {
+        "chunks": chunks,
+        "overall_summary": overall
+    }
+```
+
+### Cost Optimization
+
+Video AI can be expensive. Strategies to optimize:
+
+1. **Smart Sampling**: Don't process every frame
+2. **Resolution Reduction**: Downscale frames before sending to API
+3. **Caching**: Cache results for repeated queries
+4. **Local Pre-processing**: Use local models for filtering before API calls
+
+```python
+def optimize_frames_for_api(
+    frames: List[np.ndarray],
+    max_size: int = 512,
+    quality: int = 80
+) -> List[str]:
+    """Optimize frames for API calls (reduce size/quality)."""
+    optimized = []
+
+    for frame in frames:
+        # Resize
+        h, w = frame.shape[:2]
+        if max(h, w) > max_size:
+            scale = max_size / max(h, w)
+            frame = cv2.resize(frame, None, fx=scale, fy=scale)
+
+        # Encode with reduced quality
+        _, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, quality])
+        base64_frame = base64.b64encode(buffer).decode('utf-8')
+        optimized.append(base64_frame)
+
+    return optimized
+```
+
+### Real-time Video Processing
+
+For real-time applications, use streaming approaches:
+
+```python
+import queue
+import threading
+
+class VideoStreamProcessor:
+    """Process video streams in real-time."""
+
+    def __init__(self, buffer_size: int = 30):
+        self.frame_queue = queue.Queue(maxsize=buffer_size)
+        self.result_queue = queue.Queue()
+        self.running = False
+
+    def process_stream(self, video_source: str):
+        """Start processing a video stream."""
+        self.running = True
+
+        # Start capture thread
+        capture_thread = threading.Thread(target=self._capture_frames, args=(video_source,))
+        capture_thread.start()
+
+        # Start processing thread
+        process_thread = threading.Thread(target=self._process_frames)
+        process_thread.start()
+
+    def _capture_frames(self, source: str):
+        """Capture frames from video source."""
+        cap = cv2.VideoCapture(source)
+
+        while self.running and cap.isOpened():
+            ret, frame = cap.read()
+            if ret:
+                try:
+                    self.frame_queue.put(frame, timeout=1)
+                except queue.Full:
+                    continue
+            else:
+                break
+
+        cap.release()
+
+    def _process_frames(self):
+        """Process captured frames."""
+        while self.running:
+            try:
+                frame = self.frame_queue.get(timeout=1)
+                # Process frame
+                result = self._analyze_frame(frame)
+                self.result_queue.put(result)
+            except queue.Empty:
+                continue
+
+    def _analyze_frame(self, frame: np.ndarray) -> dict:
+        """Analyze a single frame."""
+        return {"frame_analyzed": True}
+
+    def stop(self):
+        """Stop processing."""
+        self.running = False
+```
+
+---
+
+## Did You Know? Historical Context and Stories
+
+### Sora: The Model That Broke the Internet
+
+On February 15, 2024, OpenAI released preview videos from Sora, and the AI world stopped. The generated videos showed:
+- A woman walking through Tokyo streets with realistic reflections
+- Woolly mammoths trudging through snow
+- A drone shot following cars through Big Sur
+
+The videos were so realistic that many questioned if they were actually AI-generated. OpenAI CEO Sam Altman took requests on Twitter, generating custom videos live. The demo sparked both excitement ("AGI is coming") and concern ("deepfakes will be unstoppable").
+
+**Key technical innovations**:
+- **Spacetime patches**: Treating video as 3D data
+- **Variable duration/resolution**: Not fixed to specific formats
+- **World simulation**: Understanding physics, not just pixels
+
+### The $1.5 Billion Video Generation Race
+
+After Sora's reveal, a funding frenzy began:
+- **Runway** raised $141M at $1.5B valuation
+- **Pika Labs** raised $55M at $200M valuation
+- **Luma AI** raised $43M for Dream Machine
+- **Stability AI** open-sourced Stable Video Diffusion
+
+The race is on to create the "ChatGPT of video."
+
+### YouTube's 500 Hours Per Minute
+
+Every minute, over 500 hours of video are uploaded to YouTube. This creates massive demand for:
+- Automated content moderation
+- Video search and discovery
+- Thumbnail generation
+- Caption and translation
+
+Google processes more video than any company in history, driving innovation in video AI.
+
+### The DeepFake Dilemma
+
+Video generation has a dark side. In 2019, a deepfake video of Mark Zuckerberg went viral, showing how AI could create convincing fake videos of anyone. This led to:
+- California's AB 730 law against deepfakes in elections
+- Detection research at major tech companies
+- Watermarking initiatives (C2PA)
+- The "dead internet theory" debate
+
+OpenAI delayed Sora's public release partly due to deepfake concerns.
+
+### Netflix's $1B Content Analysis
+
+Netflix uses video AI extensively:
+- **Thumbnail selection**: AI picks which frame makes you click
+- **Content tagging**: Automatic genre and mood detection
+- **Highlight detection**: Finding key moments for trailers
+- **Quality analysis**: Detecting encoding artifacts
+
+Their recommendation system (which includes video analysis) is worth an estimated $1B annually in retained subscribers.
+
+### The First AI-Generated Film Festival
+
+In 2023, the first film festival featuring entirely AI-generated content was held. Winning entries included:
+- A 3-minute sci-fi short created with Runway
+- An animated documentary using Pika
+- A music video with Stable Video Diffusion
+
+The festival sparked debate: Is AI-generated content "art"? Who owns the copyright?
+
+### Gemini 1.5's Million-Token Video Understanding
+
+In February 2024, Google demonstrated Gemini 1.5 Pro processing an entire 45-minute video in a single context window. The model could:
+- Answer questions about any moment
+- Identify recurring characters
+- Understand plot development
+- Find specific visual details
+
+This represented a leap from processing video as "frames" to understanding video as "content."
+
+---
+
+## Common Pitfalls and How to Avoid Them
+
+### Pitfall 1: Too Few Frames
+
+Sampling too few frames misses important content:
+
+**Bad**: 3 frames from a 5-minute video
+**Better**: Sample more frames for longer videos (1 fps minimum)
+
+### Pitfall 2: Ignoring Audio
+
+Video is multimodal - audio provides crucial context:
+
+**Bad**: Analyze only visual frames
+**Better**: Extract and analyze audio track separately, then combine
+
+### Pitfall 3: Memory Issues
+
+Loading full videos into memory crashes:
+
+**Bad**: `frames = [frame for frame in all_frames]`
+**Better**: Process in chunks, use generators
+
+### Pitfall 4: Generation Consistency
+
+Generated videos may have artifacts:
+
+**Watch for**:
+- Objects appearing/disappearing
+- Physics violations
+- Identity drift (faces changing)
+- Temporal flicker
+
+---
+
+## Hands-On Exercises
+
+### Exercise 1: Build Video Captioner
+
+Create a video captioning system:
+- Extract frames at 1 fps
+- Use GPT-4V to generate captions
+- Combine into a coherent narrative
+- Test on various video types
+
+### Exercise 2: Video Search Engine
+
+Build semantic video search:
+- Index video content using frame embeddings
+- Implement text-to-video search
+- Add timestamp-level retrieval
+- Visualize results
+
+### Exercise 3: Video Summarizer
+
+Create an automated video summarizer:
+- Detect scene changes
+- Summarize each scene
+- Generate chapter markers
+- Create a highlights reel (timestamps)
+
+### Exercise 4: Video Q&A Bot
+
+Build an interactive video Q&A system:
+- Load video once, cache frames
+- Accept natural language questions
+- Return relevant frames with answers
+- Support follow-up questions
+
+---
+
+## Deliverables
+
+By the end of this module, you should have:
+
+1. [ ] Video frame extraction pipeline
+2. [ ] Video Q&A system with LLMs
+3. [ ] Video summarization tool
+4. [ ] **DELIVERABLE**: Video AI Toolkit
+
+**Success Criteria**:
+- Can extract and sample frames from any video
+- Can answer questions about video content
+- Can generate video summaries
+- Works with multiple video formats
+
+---
+
+## Further Reading
+
+### Papers
+- "Sora: Creating video from text" (OpenAI, 2024)
+- "VideoLLM: Modeling Video Sequence with Large Language Models" (2023)
+- "Stable Video Diffusion" (Stability AI, 2023)
+- "ViViT: A Video Vision Transformer" (Google, 2021)
+
+### Documentation
+- [OpenAI Vision API](https://platform.openai.com/docs/guides/vision)
+- [Runway API](https://docs.runwayml.com/)
+- [OpenCV Video I/O](https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html)
+- [PyAV (FFmpeg bindings)](https://pyav.org/docs/stable/)
+
+### Tools
+- **FFmpeg**: Video processing Swiss Army knife
+- **OpenCV**: Computer vision library
+- **MoviePy**: Video editing in Python
+- **PySceneDetect**: Scene detection
+
+---
+
+## Summary
+
+Video AI represents the convergence of all multimodal capabilities. Understanding video requires temporal reasoning, while generating video requires maintaining consistency across time.
+
+**Key Takeaways**:
+
+1. **Frame sampling** is critical - balance coverage with compute cost
+2. **Vision LLMs** (GPT-4V, Gemini) can understand video through frame sequences
+3. **Video generation** (Sora, Runway) uses diffusion models with temporal attention
+4. **Production video AI** requires chunking, caching, and optimization
+5. **Audio matters** - don't ignore the soundtrack!
+
+**Phase 5 Complete**: You've now mastered multimodal AI across:
+- Speech (Module 22): STT, TTS, voice assistants
+- Vision (Module 23): CLIP, VLMs, document understanding
+- Video (Module 24): Understanding, generation, analysis
+
+**What's Next**: Phase 6 - Deep Learning Foundations. Time to understand *how* these models work under the hood!
+
+---
+
+_Last updated: 2025-11-26_
+_Next: Phase 6 - Deep Learning Foundations_
