@@ -26,7 +26,7 @@ except ImportError:
 
 from .config import PathConfig, get_default_config
 from .parsers import CurriculumData, Module, generate_module_index, parse_curriculum
-from .templates import html_template, nav_bar, progress_stats_html
+from .templates import html_template, progress_stats_html
 
 
 def md_to_html(md_content: str) -> str:
@@ -189,16 +189,11 @@ def generate_curriculum_html(config: PathConfig) -> bool:
 
     body_html.append("</div>")
 
-    # Navigation
-    nav_items = [("index.html", "Overview")]
-    for phase in curriculum.phases:
-        nav_items.append((f"phase{phase.number}.html", f"Phase {phase.number}"))
-
     index_html = html_template(
         "Neural Dojo Curriculum",
         "Master AI, ML, LLMs, and AI-Driven Development",
         "\n".join(body_html),
-        nav_bar(nav_items, "index.html"),
+        "",  # No nav bar
         "linear-gradient(135deg, #1e40af, #7c3aed)",
     )
 
@@ -212,7 +207,7 @@ def generate_curriculum_html(config: PathConfig) -> bool:
             f"Phase {phase.number}: {phase.title}",
             f"Weeks {phase.weeks}",
             phase_body,
-            nav_bar(nav_items, f"phase{phase.number}.html"),
+            "",  # No nav bar
             "linear-gradient(135deg, #059669, #10b981)",
         )
         (output_dir / f"phase{phase.number}.html").write_text(phase_html)

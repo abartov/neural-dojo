@@ -117,6 +117,38 @@ def extract_markdown_links(text: str) -> list[tuple[str, str]]:
     return re.findall(r"\[([^\]]+)\]\(([^)]+)\)", text)
 
 
+def extract_backtick_paths(text: str) -> list[str]:
+    """Extract all paths from backtick-escaped strings like `path/to/file.md`."""
+    return re.findall(r"`([^`]+)`", text)
+
+
+def path_to_markdown_link(path: str) -> dict:
+    """
+    Convert a path to a link dict with name and relative path.
+
+    Examples:
+        docs/curriculum/notes/module_01.md -> {name: "module_01.md", path: "notes/module_01.md"}
+        examples/module_01/ -> {name: "examples/module_01/", path: "../../examples/module_01/"}
+    """
+    # Extract filename or directory name
+    if path.endswith("/"):
+        name = path.rstrip("/").split("/")[-1] + "/"
+    else:
+        name = path.split("/")[-1]
+
+    # Convert to relative path from docs/curriculum/
+    if path.startswith("docs/curriculum/notes/"):
+        relative_path = path.replace("docs/curriculum/", "")
+    elif path.startswith("docs/curriculum/"):
+        relative_path = path.replace("docs/curriculum/", "")
+    elif path.startswith("examples/"):
+        relative_path = "../../" + path
+    else:
+        relative_path = path
+
+    return {"name": name, "path": relative_path}
+
+
 def parse_curriculum(file_path: Path) -> CurriculumData:
     """
     Parse MASTER_CURRICULUM.md and extract phases and modules.
@@ -250,16 +282,29 @@ def parse_curriculum(file_path: Path) -> CurriculumData:
                     status_text = detail.split(":", 1)[1].strip()
                     current_module.status = parse_status(status_text)
 
-            # Files reference
+            # Files reference - handle both markdown links and backtick paths
             if line.startswith("**Files**:"):
                 current_module.files = line.split(":", 1)[1].strip()
-                # Extract theory file path
+
+                # First try markdown links [name](path)
                 links = extract_markdown_links(line)
                 for name, path in links:
                     if path.endswith(".md"):
                         current_module.theory_files.append({"name": name, "path": path})
                         if not current_module.theory_file:
                             current_module.theory_file = path
+
+                # Also extract backtick paths `path/to/file.md`
+                backtick_paths = extract_backtick_paths(line)
+                for path in backtick_paths:
+                    link_info = path_to_markdown_link(path)
+                    if path.endswith(".md"):
+                        current_module.theory_files.append(link_info)
+                        if not current_module.theory_file:
+                            current_module.theory_file = link_info["path"]
+                    elif path.endswith("/"):
+                        # Directory reference (examples folder)
+                        current_module.code_files.append(link_info["path"])
 
         i += 1
 
@@ -353,16 +398,20 @@ def generate_module_index(curriculum: CurriculumData, config=None) -> str:
             if module.prerequisites:
                 lines.append(f"- **Prerequisites**: {module.prerequisites}")
 
-            # Theory file
+            # Theory files as links
             if module.theory_files:
                 theory_links = []
                 for t in module.theory_files:
                     theory_links.append(f"[{t['name']}]({t['path']})")
                 lines.append(f"- **Theory**: {', '.join(theory_links)}")
 
-            # Files reference
-            if module.files:
-                lines.append(f"- **Files**: {module.files}")
+            # Code/example files as links
+            if module.code_files:
+                code_links = []
+                for path in module.code_files:
+                    name = path.rstrip("/").split("/")[-1] + "/"
+                    code_links.append(f"[{name}]({path})")
+                lines.append(f"- **Examples**: {', '.join(code_links)}")
 
             # Learning objectives (abbreviated)
             if module.learning_objectives:
