@@ -200,6 +200,34 @@ footer {
 .next-link a:hover {
     text-decoration: underline;
 }
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
 @media print {
     .nav { display: none; }
     body { padding: 0; background: white; }

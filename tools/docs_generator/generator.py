@@ -332,6 +332,21 @@ def generate_theory_html(config: PathConfig) -> bool:
     modules_dir = config.html_output_dir / "modules"
     modules_dir.mkdir(parents=True, exist_ok=True)
 
+    # Parse curriculum to get module order and theory file mappings
+    curriculum = parse_curriculum(config.master_curriculum)
+    all_modules = []
+    for phase in curriculum.phases:
+        all_modules.extend(phase.modules)
+
+    # Build mapping: theory filename -> (module, next_module)
+    theory_to_module = {}
+    for i, module in enumerate(all_modules):
+        next_module = all_modules[i + 1] if i < len(all_modules) - 1 else None
+        for theory in module.theory_files:
+            # Extract just the filename from the path
+            filename = theory["path"].split("/")[-1]
+            theory_to_module[filename] = (module, next_module)
+
     # Find all theory files
     theory_files = list(config.notes_dir.glob("module*.md"))
     print(f"Found {len(theory_files)} theory files")
@@ -344,11 +359,42 @@ def generate_theory_html(config: PathConfig) -> bool:
         lines = content.split("\n")
         title = lines[0].lstrip("# ") if lines else md_file.stem
 
+        # Add navigation links
+        nav_html = '<div class="theory-nav">'
+        nav_html += '<a href="../curriculum/index.html">← Back to Curriculum</a>'
+
+        # Find next module and add link
+        if md_file.name in theory_to_module:
+            module, next_module = theory_to_module[md_file.name]
+            if next_module and next_module.theory_files:
+                next_filename = next_module.theory_files[0]["path"].split("/")[-1]
+                next_html_file = next_filename.replace(".md", ".html")
+                nav_html += (
+                    f' | <a href="{next_html_file}">Next: Module {next_module.number}: '
+                    f'{next_module.title} →</a>'
+                )
+
+        nav_html += '</div>'
+
+        # Add next link at the bottom of content
+        bottom_nav = ""
+        if md_file.name in theory_to_module:
+            module, next_module = theory_to_module[md_file.name]
+            if next_module and next_module.theory_files:
+                next_filename = next_module.theory_files[0]["path"].split("/")[-1]
+                next_html_file = next_filename.replace(".md", ".html")
+                bottom_nav = (
+                    f'<div class="next-module-link">'
+                    f'<p>→ <strong>Next:</strong> '
+                    f'<a href="{next_html_file}">Module {next_module.number}: {next_module.title}</a></p>'
+                    f'</div>'
+                )
+
         html = html_template(
             title,
             "Neural Dojo Theory",
-            html_content,
-            f'<a href="../curriculum/index.html">← Back to Curriculum</a>',
+            html_content + bottom_nav,
+            nav_html,
             "linear-gradient(135deg, #475569, #64748b)",
         )
 
