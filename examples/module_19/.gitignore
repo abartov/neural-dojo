@@ -1,0 +1,19 @@
+# Framework Selector data
+.framework_selector/
+
+# LlamaIndex storage
+.llamaindex_demo/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/

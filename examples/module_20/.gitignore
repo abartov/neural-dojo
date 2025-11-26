@@ -1,0 +1,28 @@
+# Module 20 cache directories
+.agent_memory/
+.planning_cache/
+.multi_agent/
+.autonomous_agent/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Environment
+.env
+.venv
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

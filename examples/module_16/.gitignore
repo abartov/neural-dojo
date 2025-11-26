@@ -1,0 +1,16 @@
+# Tool Orchestrator data
+.tool_orchestrator/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/

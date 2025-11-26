@@ -1,0 +1,34 @@
+# Module 21 - Production Agent Toolkit
+
+# Agent state and cache
+.production_agent/
+.agent_state/
+.metrics/
+
+# Log files
+*.log
+logs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db

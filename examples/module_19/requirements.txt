@@ -1,0 +1,18 @@
+# Module 19: LlamaIndex & Alternative Frameworks
+
+# Core LlamaIndex
+llama-index>=0.10.0
+llama-index-llms-google>=0.1.0
+llama-index-embeddings-google>=0.1.0
+
+# LangChain (for comparison)
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-google-genai>=2.0.0
+
+# Optional: Multi-agent frameworks
+# crewai>=0.1.0  # Uncomment to use CrewAI
+# autogen>=0.2.0  # Uncomment to use AutoGen
+
+# Built-in Python modules used (no install needed):
+# - json, pathlib, datetime, dataclasses, typing, enum, time

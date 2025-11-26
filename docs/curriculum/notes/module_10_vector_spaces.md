@@ -731,9 +731,121 @@ Return results
 
 ---
 
-## 💡 Did You Know?
+## 💡 Did You Know? The Vector Search Revolution
 
-Google uses semantic search (powered by BERT embeddings) for billions of queries per day! They call it "Neural Matching" and it improved search quality by ~30% when launched in 2019. You're learning the same technology that powers Google Search!
+### Google's $100 Billion Pivot (2019)
+
+In **October 2019**, Google made the biggest change to search in five years: **BERT for search**.
+
+**The problem**: Traditional keyword search was failing. Queries like "2019 brazil traveler to usa need a visa" returned results about US citizens going to Brazil—the exact opposite!
+
+**The solution**: Use BERT embeddings to understand query **intent**, not just keywords.
+
+**The impact**:
+- Affected **10% of all search queries** (billions per day!)
+- **30% improvement** in query understanding
+- Pandu Nayak (Google VP): "The biggest leap forward in 5 years"
+
+**Technical feat**: Running BERT inference on billions of queries required custom TPU hardware. Google invested **$1B+** in infrastructure just for this feature.
+
+**The lesson**: Vector search isn't a toy—it powers the world's most important search engine.
+
+### FAISS: Facebook's Gift to Vector Search
+
+In **2017**, Facebook open-sourced **FAISS** (Facebook AI Similarity Search), and it changed everything.
+
+**The backstory**: Facebook needed to search billions of images for copyright violations and similar content. Traditional databases couldn't handle vectors at that scale.
+
+**Matthijs Douze** and **Hervé Jégou** (Facebook AI Research) built FAISS to search **1 billion vectors in milliseconds**.
+
+**The magic**: FAISS implements:
+- **HNSW** (Hierarchical Navigable Small Worlds)
+- **IVF** (Inverted File Index)
+- **PQ** (Product Quantization)
+
+All optimized with SIMD instructions for maximum CPU performance.
+
+**The impact**:
+- Downloaded **10M+ times**
+- Powers similarity search at: Pinterest, Spotify, Shopify
+- Became the de facto standard for vector search
+- Every major vector database uses FAISS concepts
+
+**The irony**: Facebook gave away the technology that would power competitors' recommendation systems.
+
+### The Pinecone Phenomenon
+
+In **2019**, a startup called **Pinecone** made a bet: What if vector search was a managed service?
+
+**Founder**: **Edo Liberty**, former Director of Research at Amazon (where he built Amazon's internal vector search).
+
+**The insight**: Every company was building the same vector infrastructure from scratch. What if they didn't have to?
+
+**The growth**:
+- 2021: $10M seed (stealth mode)
+- 2022: $28M Series A
+- 2023: **$100M Series B** at **$750M valuation**
+- 2024: Powers 100,000+ apps, processes **1 billion+ queries/day**
+
+**Famous users**: Shopify (product search), Notion (AI features), Zapier (workflow automation)
+
+**The competition it sparked**: Weaviate ($50M), Qdrant ($28M), Chroma ($18M). The "vector database wars" of 2023-2024 created a billion-dollar category from nothing.
+
+### The HNSW Paper: 7 Years Ahead of Its Time
+
+The algorithm powering modern vector search was invented in **2016** by **Yury Malkov** and **Dmitry Yashunin** at Yandex (Russia's Google).
+
+**The paper**: "Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs"
+
+**The idea**: Build a multi-layer graph where each layer has fewer, more spread-out nodes. Start at the top (sparse), zoom to the bottom (dense).
+
+**Why it works**: O(log N) search instead of O(N). Finding similar vectors among 1 billion takes **<1 millisecond**.
+
+**The adoption curve**:
+- 2016: Paper published, mostly ignored
+- 2018: Spotify adopts for music recommendations
+- 2019: FAISS adds HNSW implementation
+- 2020-2023: Becomes the default in all vector databases
+
+**The lesson**: Sometimes the best ideas take years to find their audience.
+
+### Spotify's "Discover Weekly" Secret
+
+How does Spotify's Discover Weekly playlist work? **Embeddings and vector search**.
+
+**The system**:
+1. Every song has a 128-dimension embedding (learned from listening patterns)
+2. Every user has an embedding (average of songs they play)
+3. Every Monday: Find songs closest to user embedding that user hasn't heard
+4. That's your playlist!
+
+**The numbers**:
+- **500M+ users** receive personalized playlists
+- **40 million songs** indexed in vector space
+- Processes **10 billion+ similarity searches** per week
+- **30% of all listening** comes from algorithmic recommendations
+
+**The engineering**: Spotify uses a custom HNSW implementation running on **thousands of machines**, updated daily.
+
+**Why it works**: Songs that "vibe" together are close in embedding space. Your taste is a point in that space. Recommendations = nearest neighbors to your taste.
+
+### The Surprising Economics of Vector Search
+
+| System | Documents | Latency | Hardware Cost |
+|--------|-----------|---------|---------------|
+| Brute Force (1M docs) | 1M | 1,000ms | $0 |
+| FAISS HNSW (1M docs) | 1M | 1ms | $0 |
+| Brute Force (1B docs) | 1B | 1,000,000ms | $0 |
+| FAISS HNSW (1B docs) | 1B | 10ms | ~$50K/year |
+
+**The insight**: ANN algorithms are **1000x faster** and that gap grows with scale.
+
+**Cost comparison** (for 1B vectors):
+- **Self-hosted FAISS**: ~$50K/year (GPU servers)
+- **Pinecone managed**: ~$70K/year (no ops overhead)
+- **Build from scratch**: ~$500K+ (engineering time)
+
+Most companies choose managed services because engineering time costs more than cloud bills.
 
 ---
 

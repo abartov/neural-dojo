@@ -2,9 +2,9 @@
 
 **From Zero to AI Guru: Master AI, ML, LLMs, and AI-Driven Development**
 
-**Last Updated**: 2025-11-25
-**Version**: 4.0.0 - COMPLETE AI GURU CURRICULUM (56 modules, 13 phases)
-**Status**: Module 0 + Phase 1 + Phase 2 Complete! 🎉 Phase 3 in progress
+**Last Updated**: 2025-11-26
+**Version**: 4.1.0 - COMPLETE AI GURU CURRICULUM (56 modules, 13 phases)
+**Status**: Module 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 COMPLETE! 🎉🎉
 **Total Duration**: 56 modules, 50-60 weeks (220-300 hours)
 
 ---
@@ -57,7 +57,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 1: AI-Native Development | 1.1-1.3, 2-5 | 🟢 Complete | 7/7 (100%) |
 | Phase 2: Generative AI Fundamentals | 6-10 | 🟢 Complete | 5/5 (100%) |
 | Phase 3: Vector Search & RAG | 11-14 | 🟢 Complete | 4/4 (100%) |
-| Phase 4: Frameworks & Agents | 15-21 | 🟡 In Progress | 1/7 |
+| Phase 4: Frameworks & Agents | 15-21 | 🟢 Complete | 7/7 |
 | Phase 5: Multimodal AI | 22-24 | ⚪ Not Started | 0/3 |
 | Phase 6: Deep Learning Foundations | 25-31 | ⚪ Not Started | 0/7 |
 | Phase 7: Advanced Generative AI | 32-36 | ⚪ Not Started | 0/5 |
@@ -67,7 +67,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **32% Complete** | **18/56** |
+| **TOTAL** | **56 core + 3 optional** | **43% Complete** | **24/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -477,7 +477,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 16: LangChain Tools & Function Calling
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 15
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand function calling / tool use
@@ -486,9 +486,9 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Handle tool execution errors
 
 **Deliverables**:
-- Custom tool library
-- Function-calling agent
-- Tool orchestration system
+- ✅ Custom tool library (5 built-in tools)
+- ✅ Function-calling agent (AgentExecutor)
+- ✅ Tool orchestration system (deliverable)
 
 **Key Concepts**:
 - Function/tool schemas
@@ -501,7 +501,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 17: Chain-of-Thought & Reasoning 🔮
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 16
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Master chain-of-thought (CoT) prompting
@@ -510,9 +510,9 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Understand reasoning limitations
 
 **Deliverables**:
-- CoT reasoning system
-- ReAct agent implementation
-- Reasoning quality benchmark
+- ✅ CoT reasoning system (Zero-shot, Few-shot, Structured)
+- ✅ ReAct agent implementation (with tools)
+- ✅ Reasoning Engine (deliverable with benchmarks)
 
 **Key Concepts**:
 - Zero-shot CoT ("Let's think step by step")
@@ -527,7 +527,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 18: LangGraph & Stateful Workflows
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 17
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Master LangGraph for stateful workflows
@@ -536,22 +536,26 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Use StateGraph effectively
 
 **Deliverables**:
-- LangGraph-based workflow system
-- Multi-agent orchestrator
-- State persistence implementation
+- ✅ LangGraph-based workflow system
+- ✅ Multi-agent orchestrator
+- ✅ State persistence implementation
+- ✅ **DELIVERABLE**: Stateful Workflow Engine (650+ lines)
 
 **Key Concepts**:
-- StateGraph
-- Cyclic workflows
-- State management
-- Agent coordination
+- StateGraph architecture and compilation
+- State reducers (accumulation vs replacement)
+- Cyclic workflows for iterative refinement
+- Conditional routing and branching
+- Multi-agent patterns (supervisor, parallel, hierarchical)
+- Human-in-the-loop with interrupts
+- Checkpointing for persistence
 
 ---
 
 ### Module 19: LlamaIndex & Alternative Frameworks
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 18
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Learn LlamaIndex for data indexing
@@ -560,22 +564,25 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Choose the right framework
 
 **Deliverables**:
-- LlamaIndex data pipeline
-- Framework comparison matrix
-- Multi-framework integration example
+- ✅ LlamaIndex fundamentals (documents, indexes, queries)
+- ✅ Framework comparison (LangChain vs LlamaIndex)
+- ✅ Multi-agent frameworks overview (CrewAI, AutoGen)
+- ✅ **DELIVERABLE**: Framework Selector Toolkit (550+ lines)
 
 **Key Concepts**:
-- Data connectors
-- Index types (vector, keyword, knowledge graph)
-- Query engines
-- Framework trade-offs
+- Data connectors and loaders
+- Index types (Vector, Summary, Keyword, Tree)
+- Query engines and chat engines
+- CrewAI role-based agents
+- AutoGen conversational agents
+- Framework selection criteria
 
 ---
 
 ### Module 20: Advanced Agentic AI 🆕 🔮
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 19
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Master agent memory systems (short-term, long-term, episodic)
@@ -586,10 +593,19 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Master reflection and self-correction patterns
 
 **Deliverables**:
-- Agent with persistent memory (vector + summary)
-- Plan-and-execute agent
-- Multi-agent team (researcher + writer + critic)
-- **DELIVERABLE**: Agentic AI Framework
+- ✅ Agent with persistent memory (vector + summary)
+- ✅ Plan-and-execute agent
+- ✅ Multi-agent team (researcher + writer + critic)
+- ✅ **DELIVERABLE**: Autonomous Agent Framework (750+ lines)
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_20_advanced_agentic_ai.md` (~2000 lines)
+- Examples: `examples/module_20/`
+  - `01_agent_memory_systems.py` (memory architectures)
+  - `02_planning_algorithms.py` (Plan-Execute, ReWOO, ToT)
+  - `03_multi_agent_collaboration.py` (Supervisor, Swarm, Debate)
+  - `deliverable_autonomous_agent.py` (750+ lines)
+  - `DELIVERABLE_README.md`
 
 **Key Concepts**:
 - **Memory Systems**:
@@ -620,7 +636,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 21: AI Agents in Production
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 20
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Deploy agents to production
@@ -629,15 +645,38 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Handle failures gracefully
 
 **Deliverables**:
-- Production-ready agent deployment
-- Agent monitoring dashboard
-- Safety guardrails system
+- ✅ Production agent patterns (stateless, stateful, circuit breaker)
+- ✅ Guardrails system (input/output validation, PII, injection)
+- ✅ Observability pipeline (logging, metrics, cost tracking)
+- ✅ **DELIVERABLE**: Production Agent Toolkit (600+ lines)
 
 **Key Concepts**:
-- Agent observability
-- Guardrails and safety
-- Cost control
-- Failure handling
+- **Production Patterns**:
+  - Stateless vs Stateful agent design
+  - Circuit breaker (CLOSED → OPEN → HALF_OPEN)
+  - Graceful degradation levels
+  - Retry with exponential backoff
+- **Guardrails**:
+  - Input validation (prompt injection, content filtering)
+  - Output guardrails (PII redaction, forbidden patterns)
+  - Rate limiting (token bucket algorithm)
+  - Budget controls (per-request, per-user, global)
+- **Observability**:
+  - Structured logging with correlation IDs
+  - Metrics collection (latency, cost, success rate)
+  - Cost tracking per model/user
+  - Performance percentiles (P50, P95, P99)
+
+**Files Created**:
+- Theory: `docs/curriculum/notes/module_21_ai_agents_in_production.md`
+- Examples: `examples/module_21/`
+  - `01_production_patterns.py` (circuit breaker, degradation)
+  - `02_guardrails_safety.py` (validation, PII, rate limiting)
+  - `03_monitoring_observability.py` (logging, metrics, cost)
+  - `deliverable_production_agent.py` (600+ lines)
+  - `DELIVERABLE_README.md`
+
+**Real-World Application**: Deploy robust agents to kaizen with full production guardrails!
 
 ---
 
@@ -1620,22 +1659,29 @@ After completing Neural Dojo v4.0, you will be able to:
 
 ## 🚀 You're Building Towards AI Guru Status!
 
-**Current Progress**: 18/56 modules (32%)
+**Current Progress**: 24/56 modules (43%)
 
 **What You've Mastered**:
 - ✅ AI-Native Development (Phase 1)
 - ✅ Generative AI Fundamentals (Phase 2)
 - ✅ Vector Search & RAG (Phase 3)
-- ✅ LangChain Fundamentals (Module 15)
+- ✅ **Frameworks & Agents (Phase 4)** - COMPLETE! 🎉
+  - LangChain Fundamentals (Module 15)
+  - LangChain Tools & Function Calling (Module 16)
+  - Chain-of-Thought & Reasoning 🔮 (Module 17)
+  - LangGraph & Stateful Workflows (Module 18)
+  - LlamaIndex & Alternative Frameworks (Module 19)
+  - Advanced Agentic AI 🔮 (Module 20) - Heureka Moment!
+  - AI Agents in Production (Module 21)
 
 **What's Next**:
-- Continue Phase 4: Frameworks & Agents
-- Next: Module 16 - LangChain Tools & Function Calling
+- Start Phase 5: Multimodal AI
+- Next: Module 22 - Speech AI (Whisper, TTS)
 
 ---
 
-_Last updated: 2025-11-25_
-_Version: 4.0.0 - COMPLETE AI GURU CURRICULUM_
+_Last updated: 2025-11-26_
+_Version: 4.1.0 - COMPLETE AI GURU CURRICULUM_
 _56 core modules + 3 optional history modules_
 _Estimated duration: 50-60 weeks (220-300 hours)_
 

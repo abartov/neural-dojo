@@ -1,0 +1,12 @@
+# Module 16: LangChain Tools & Function Calling
+# Core dependencies
+langchain-core>=0.3.0
+langchain>=0.3.0
+pydantic>=2.0.0
+
+# LLM Providers (at least one required for agent demos)
+langchain-google-genai>=2.0.0  # For Gemini
+langchain-anthropic>=0.3.0     # For Claude (optional)
+
+# Built-in Python modules used (no install needed):
+# - json, time, datetime, pathlib, statistics, enum, dataclasses

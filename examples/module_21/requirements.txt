@@ -1,0 +1,15 @@
+# Module 21: AI Agents in Production
+# Dependencies for production agent patterns
+
+# No external dependencies required!
+# All examples use Python standard library for maximum portability.
+#
+# The following are OPTIONAL for production implementations:
+#
+# prometheus-client>=0.19.0    # Real metrics export
+# structlog>=23.2.0            # Enhanced structured logging
+# redis>=5.0.0                 # Production state storage
+# openai>=1.0.0                # OpenAI API integration
+# anthropic>=0.18.0            # Claude API integration
+# pydantic>=2.5.0              # Runtime validation
+# tenacity>=8.2.0              # Advanced retry logic

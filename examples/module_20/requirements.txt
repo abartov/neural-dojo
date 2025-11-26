@@ -1,0 +1,11 @@
+# Module 20: Advanced Agentic AI
+# No external dependencies required - examples use standard library only
+
+# Optional dependencies for production use:
+# openai>=1.0.0           # For GPT-4 integration
+# anthropic>=0.18.0       # For Claude integration
+# langchain>=0.1.0        # For LangChain integration
+# langgraph>=0.0.20       # For LangGraph workflows
+# chromadb>=0.4.0         # For vector storage
+# numpy>=1.24.0           # For vector operations
+# sentence-transformers>=2.2.0  # For real embeddings

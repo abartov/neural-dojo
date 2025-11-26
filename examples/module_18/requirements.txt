@@ -1,0 +1,13 @@
+# Module 18: LangGraph & Stateful Workflows
+# Core dependencies
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain>=0.3.0
+pydantic>=2.0.0
+
+# LLM Providers (at least one required for LLM features)
+langchain-google-genai>=2.0.0  # For Gemini
+langchain-anthropic>=0.3.0     # For Claude (optional)
+
+# Built-in Python modules used (no install needed):
+# - json, pathlib, datetime, hashlib, dataclasses, typing, enum, operator
