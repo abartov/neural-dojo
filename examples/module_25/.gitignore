@@ -1,0 +1,25 @@
+# Module 25 specific ignores
+
+# Toolkit storage directory
+.ml_data_toolkit/
+
+# Generated plots
+plots/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (if added)
+*.csv
+*.xlsx
+*.parquet
+!sample_*.csv
+
+# IDE
+.vscode/
+.idea/

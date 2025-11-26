@@ -1,0 +1,8 @@
+# Module 26: Neural Networks from Scratch
+# Core dependencies only - no ML frameworks!
+
+# NumPy for numerical computing
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0

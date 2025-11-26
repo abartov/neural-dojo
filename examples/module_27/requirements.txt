@@ -1,0 +1,8 @@
+# Module 27: PyTorch Fundamentals
+# Core dependencies
+
+torch>=2.0.0
+numpy>=1.24.0
+
+# Optional: For GPU support, install appropriate CUDA version
+# pip install torch --index-url https://download.pytorch.org/whl/cu118

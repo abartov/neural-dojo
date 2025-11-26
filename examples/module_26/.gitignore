@@ -1,0 +1,22 @@
+# Module 26 specific ignores
+
+# Neural network storage
+.neural_network/
+
+# MNIST data
+mnist_data/
+
+# Generated plots
+*.png
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/

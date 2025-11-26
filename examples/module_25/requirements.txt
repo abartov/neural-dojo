@@ -1,0 +1,15 @@
+# Module 25: Python for Machine Learning
+# Core scientific Python stack
+
+# NumPy - numerical computing
+numpy>=1.24.0
+
+# pandas - data manipulation
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Optional: scikit-learn for ML utilities
+scikit-learn>=1.3.0

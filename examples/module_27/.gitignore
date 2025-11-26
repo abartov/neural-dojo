@@ -1,0 +1,23 @@
+# Module 27 specific ignores
+
+# PyTorch lab storage
+.pytorch_lab/
+
+# Model checkpoints
+*.pth
+*.pt
+
+# Generated data
+*.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
