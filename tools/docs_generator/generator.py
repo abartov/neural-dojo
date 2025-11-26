@@ -70,6 +70,87 @@ def generate_index_file(config: PathConfig) -> bool:
     return True
 
 
+def generate_readme(config: PathConfig) -> bool:
+    """
+    Update README.md with generated progress data.
+
+    Replaces content between marker comments:
+    - <!-- GENERATED_BADGES_START --> ... <!-- GENERATED_BADGES_END -->
+    - <!-- GENERATED_PROGRESS_START --> ... <!-- GENERATED_PROGRESS_END -->
+    """
+    readme_path = config.project_root / "README.md"
+    if not readme_path.exists():
+        print(f"README.md not found at {readme_path}")
+        return False
+
+    if not config.master_curriculum.exists():
+        print(f"ERROR: {config.master_curriculum} not found")
+        return False
+
+    curriculum = parse_curriculum(config.master_curriculum)
+    counts = curriculum.modules_by_status()
+    total = sum(counts.values())
+    complete = counts["complete"]
+    percentage = (100 * complete // total) if total else 0
+
+    # Find current phase (first non-complete phase)
+    current_phase = "Complete"
+    for phase in curriculum.phases:
+        phase_complete = sum(1 for m in phase.modules if m.status == "complete")
+        if phase_complete < len(phase.modules):
+            current_phase = f"Phase {phase.number}"
+            break
+
+    # Generate badges (URL-encoded)
+    badges = f"""[![Progress](https://img.shields.io/badge/Progress-{percentage}%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-{complete}%2F{total}-blue)]()
+[![Phase](https://img.shields.io/badge/Current-{current_phase.replace(' ', '%20')}-brightgreen)]()"""
+
+    # Generate progress table
+    progress_lines = ["| Phase | Status | Progress |", "|-------|--------|----------|"]
+    for phase in curriculum.phases:
+        phase_complete = sum(1 for m in phase.modules if m.status == "complete")
+        phase_total = len(phase.modules)
+
+        if phase_complete == phase_total:
+            status = "Complete"
+        elif phase_complete > 0:
+            status = "In Progress"
+        else:
+            status = "Not Started"
+
+        progress_lines.append(
+            f"| Phase {phase.number}: {phase.title} | {status} | {phase_complete}/{phase_total} |"
+        )
+    progress_table = "\n".join(progress_lines)
+
+    # Read and update README
+    content = readme_path.read_text()
+
+    # Replace badges section
+    import re
+
+    content = re.sub(
+        r"<!-- GENERATED_BADGES_START -->.*?<!-- GENERATED_BADGES_END -->",
+        f"<!-- GENERATED_BADGES_START -->\n{badges}\n<!-- GENERATED_BADGES_END -->",
+        content,
+        flags=re.DOTALL,
+    )
+
+    # Replace progress section
+    content = re.sub(
+        r"<!-- GENERATED_PROGRESS_START -->.*?<!-- GENERATED_PROGRESS_END -->",
+        f"<!-- GENERATED_PROGRESS_START -->\n{progress_table}\n<!-- GENERATED_PROGRESS_END -->",
+        content,
+        flags=re.DOTALL,
+    )
+
+    readme_path.write_text(content)
+    print(f"Updated {readme_path}")
+
+    return True
+
+
 def md_path_to_html_url(md_path: str) -> str:
     """Convert a markdown path to HTML URL in the modules directory."""
     filename = md_path.split("/")[-1]
@@ -287,6 +368,7 @@ def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Neural Dojo Documentation Generator")
     parser.add_argument("--index", action="store_true", help="Generate MODULE_INDEX.md")
+    parser.add_argument("--readme", action="store_true", help="Update README.md progress")
     parser.add_argument("--html", action="store_true", help="Generate HTML documentation")
     parser.add_argument("--all", action="store_true", help="Generate everything")
     parser.add_argument("--serve", action="store_true", help="Generate and serve locally")
@@ -298,17 +380,20 @@ def main():
 
     if args.clean:
         clean_generated(config)
-        if not (args.index or args.html or args.all or args.serve):
+        if not (args.index or args.readme or args.html or args.all or args.serve):
             return
 
     if args.all or args.serve:
         generate_index_file(config)
+        generate_readme(config)
         generate_curriculum_html(config)
         generate_theory_html(config)
         if args.serve:
             serve_docs(config, args.port)
     elif args.index:
         generate_index_file(config)
+    elif args.readme:
+        generate_readme(config)
     elif args.html:
         generate_curriculum_html(config)
         generate_theory_html(config)
