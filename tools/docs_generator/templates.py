@@ -164,6 +164,42 @@ footer {
     font-size: 0.9rem;
     margin-top: 0.25rem;
 }
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
 @media print {
     .nav { display: none; }
     body { padding: 0; background: white; }

@@ -158,7 +158,7 @@ def md_path_to_html_url(md_path: str) -> str:
     return f"../modules/{html_filename}"
 
 
-def generate_module_card_html(module: Module) -> str:
+def generate_module_card_html(module: Module, next_module: Module | None = None) -> str:
     """Generate HTML card for a single module."""
     status_colors = {
         "complete": "#059669",
@@ -210,6 +210,14 @@ def generate_module_card_html(module: Module) -> str:
             html_parts.append(f"<li><em>... and {len(module.learning_objectives) - 3} more</em></li>")
         html_parts.append("</ul>")
 
+    # Next module link
+    if next_module:
+        html_parts.append(
+            f'<p class="next-link">→ <strong>Next:</strong> '
+            f'<a href="#module-{next_module.number.replace(".", "-")}">'
+            f'Module {next_module.number}: {next_module.title}</a></p>'
+        )
+
     html_parts.append("</div>")
     return "\n".join(html_parts)
 
@@ -219,6 +227,11 @@ def generate_phase_html(phase, curriculum: CurriculumData) -> str:
     complete_count = sum(1 for m in phase.modules if m.status == "complete")
     total = len(phase.modules)
 
+    # Build flat list of all modules for "next" navigation
+    all_modules = []
+    for p in curriculum.phases:
+        all_modules.extend(p.modules)
+
     html_parts = [
         f"<h2>Phase {phase.number}: {phase.title}</h2>",
         f"<p><strong>Weeks {phase.weeks}</strong> | {complete_count}/{total} complete</p>",
@@ -226,7 +239,20 @@ def generate_phase_html(phase, curriculum: CurriculumData) -> str:
     ]
 
     for module in phase.modules:
-        html_parts.append(generate_module_card_html(module))
+        # Find next module
+        next_module = None
+        try:
+            idx = all_modules.index(module)
+            if idx < len(all_modules) - 1:
+                next_module = all_modules[idx + 1]
+        except ValueError:
+            pass
+
+        html_parts.append(
+            f'<div id="module-{module.number.replace(".", "-")}">'
+        )
+        html_parts.append(generate_module_card_html(module, next_module))
+        html_parts.append("</div>")
 
     html_parts.append("</div>")
     return "\n".join(html_parts)
