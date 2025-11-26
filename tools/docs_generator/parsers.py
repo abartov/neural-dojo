@@ -122,6 +122,23 @@ def extract_backtick_paths(text: str) -> list[str]:
     return re.findall(r"`([^`]+)`", text)
 
 
+def module_to_anchor(module_number: str, module_title: str) -> str:
+    """
+    Convert module number and title to a markdown anchor slug.
+
+    Example: Module 1.1, "AI Coding Tools Landscape" -> "#module-11-ai-coding-tools-landscape"
+    """
+    # Remove dots from module number
+    num_slug = module_number.replace(".", "")
+    # Clean title: lowercase, replace spaces with dashes, remove special chars
+    title_slug = module_title.lower()
+    for char in ["&", ",", "(", ")", "'", '"', ":", "/"]:
+        title_slug = title_slug.replace(char, "")
+    title_slug = title_slug.replace(" ", "-")
+    title_slug = title_slug.replace("--", "-").strip("-")
+    return f"#module-{num_slug}-{title_slug}"
+
+
 def path_to_markdown_link(path: str) -> dict:
     """
     Convert a path to a link dict with name and relative path.
@@ -375,6 +392,11 @@ def generate_module_index(curriculum: CurriculumData, config=None) -> str:
         "blocked": "🔴",
     }
 
+    # Build flat list of all modules for "next" navigation
+    all_modules = []
+    for phase in curriculum.phases:
+        all_modules.extend(phase.modules)
+
     # Generate phase sections
     for phase in curriculum.phases:
         phase_complete = sum(1 for m in phase.modules if m.status == "complete")
@@ -420,6 +442,17 @@ def generate_module_index(curriculum: CurriculumData, config=None) -> str:
                     lines.append(f"  - {obj}")
                 if len(module.learning_objectives) > 3:
                     lines.append(f"  - *... and {len(module.learning_objectives) - 3} more*")
+
+            # Add "Next" navigation link
+            try:
+                current_idx = all_modules.index(module)
+                if current_idx < len(all_modules) - 1:
+                    next_module = all_modules[current_idx + 1]
+                    anchor = module_to_anchor(next_module.number, next_module.title)
+                    lines.append("")
+                    lines.append(f"→ **Next**: [Module {next_module.number}: {next_module.title}]({anchor})")
+            except ValueError:
+                pass
 
             lines.append("")
 

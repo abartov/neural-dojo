@@ -28,6 +28,8 @@
   - Learn the mental model of AI pair programming
   - *... and 1 more*
 
+→ **Next**: [Module 1.2: Local Models for AI Coding](#module-12-local-models-for-ai-coding)
+
 ### Module 1.2: Local Models for AI Coding 🟢
 
 - **Duration**: 3-4 hours
@@ -40,6 +42,8 @@
   - Implement hybrid approach (80% local, 20% API)
   - *... and 1 more*
 
+→ **Next**: [Module 1.3: Claude Code & CLI Deep Dive](#module-13-claude-code-cli-deep-dive)
+
 ### Module 1.3: Claude Code & CLI Deep Dive 🟢
 
 - **Duration**: 4-5 hours
@@ -50,6 +54,8 @@
   - Configure settings.json and CLAUDE.md
   - Build custom slash commands and skills
   - *... and 1 more*
+
+→ **Next**: [Module 2: Prompt Engineering Fundamentals](#module-2-prompt-engineering-fundamentals)
 
 ### Module 2: Prompt Engineering Fundamentals 🟢 🔮
 
@@ -63,6 +69,8 @@
   - Learn few-shot learning and chain-of-thought
   - *... and 1 more*
 
+→ **Next**: [Module 3: AI-Powered Code Generation](#module-3-ai-powered-code-generation)
+
 ### Module 3: AI-Powered Code Generation 🟢
 
 - **Duration**: 4-5 hours
@@ -73,6 +81,8 @@
   - Generate code from natural language
   - Refactor and debug with AI
   - Write tests using AI
+
+→ **Next**: [Module 4: AI-Assisted Debugging & Optimization](#module-4-ai-assisted-debugging-optimization)
 
 ### Module 4: AI-Assisted Debugging & Optimization 🟢
 
@@ -85,6 +95,8 @@
   - Optimize performance with AI
   - Understand AI's debugging strategies
 
+→ **Next**: [Module 5: Building with AI Coding Assistants](#module-5-building-with-ai-coding-assistants)
+
 ### Module 5: Building with AI Coding Assistants 🟢
 
 - **Duration**: 5-6 hours
@@ -95,6 +107,8 @@
   - Master Claude Code, Copilot, Cursor workflows
   - Build a complete project with AI assistance
   - Develop your personal AI workflow
+
+→ **Next**: [Module 6: Introduction to Large Language Models](#module-6-introduction-to-large-language-models)
 
 ---
 
@@ -113,6 +127,8 @@
   - Compare open-source vs proprietary models
   - *... and 1 more*
 
+→ **Next**: [Module 7: Tokenization & Text Processing](#module-7-tokenization-text-processing)
+
 ### Module 7: Tokenization & Text Processing 🟢
 
 - **Duration**: 4-5 hours
@@ -123,6 +139,8 @@
   - Understand how text becomes tokens
   - Learn about BPE, WordPiece, SentencePiece
   - Master token counting and optimization
+
+→ **Next**: [Module 8: Text Generation & Sampling Strategies](#module-8-text-generation-sampling-strategies)
 
 ### Module 8: Text Generation & Sampling Strategies 🟢
 
@@ -135,6 +153,8 @@
   - Master temperature, top-p, top-k sampling
   - Control generation quality and creativity
 
+→ **Next**: [Module 9: Embeddings & Semantic Similarity](#module-9-embeddings-semantic-similarity)
+
 ### Module 9: Embeddings & Semantic Similarity 🟢
 
 - **Duration**: 2-3 hours
@@ -146,6 +166,8 @@
   - Learn cosine similarity and distance metrics
   - Build semantic search applications
 
+→ **Next**: [Module 10: Vector Spaces & Semantic Search](#module-10-vector-spaces-semantic-search)
+
 ### Module 10: Vector Spaces & Semantic Search 🟢 🔮
 
 - **Duration**: 2-3 hours
@@ -156,6 +178,8 @@
   - Master vector arithmetic (king - man + woman ≈ queen)
   - Visualize semantic spaces in 2D/3D
   - Build production search with FAISS
+
+→ **Next**: [Module 11: Introduction to Vector Databases](#module-11-introduction-to-vector-databases)
 
 ---
 
@@ -173,6 +197,8 @@
   - Compare Qdrant, Pinecone, Weaviate, Chroma
   - Master indexing strategies and metadata filtering
 
+→ **Next**: [Module 12: Building Your First RAG System](#module-12-building-your-first-rag-system)
+
 ### Module 12: Building Your First RAG System 🟢
 
 - **Duration**: 6-7 hours
@@ -184,6 +210,8 @@
   - Build a simple RAG pipeline
   - Implement document chunking strategies
   - *... and 1 more*
+
+→ **Next**: [Module 13: RAG vs Fine-tuning Trade-offs](#module-13-rag-vs-fine-tuning-trade-offs)
 
 ### Module 13: RAG vs Fine-tuning Trade-offs 🟢 🔮
 
@@ -197,6 +225,8 @@
   - Learn LoRA/QLoRA basics
   - *... and 1 more*
 
+→ **Next**: [Module 14: Advanced RAG Patterns 🆕](#module-14-advanced-rag-patterns-🆕)
+
 ### Module 14: Advanced RAG Patterns 🆕 🟢
 
 - **Duration**: 6-7 hours
@@ -206,6 +236,8 @@
   - Implement HyDE (Hypothetical Document Embeddings)
   - Build Self-RAG (self-reflective retrieval)
   - *... and 3 more*
+
+→ **Next**: [Module 15: LangChain Fundamentals](#module-15-langchain-fundamentals)
 
 ---
 
@@ -222,6 +254,8 @@
   - Use LangChain memory (RunnableWithMessageHistory)
   - *... and 1 more*
 
+→ **Next**: [Module 16: LangChain Tools & Function Calling](#module-16-langchain-tools-function-calling)
+
 ### Module 16: LangChain Tools & Function Calling 🟢
 
 - **Duration**: 6-7 hours
@@ -231,6 +265,8 @@
   - Build custom LangChain tools
   - Create tool-calling agents
   - *... and 1 more*
+
+→ **Next**: [Module 17: Chain-of-Thought & Reasoning](#module-17-chain-of-thought-reasoning)
 
 ### Module 17: Chain-of-Thought & Reasoning 🟢 🔮
 
@@ -242,6 +278,8 @@
   - Build multi-step reasoning systems
   - *... and 1 more*
 
+→ **Next**: [Module 18: LangGraph & Stateful Workflows](#module-18-langgraph-stateful-workflows)
+
 ### Module 18: LangGraph & Stateful Workflows 🟢
 
 - **Duration**: 7-8 hours
@@ -251,6 +289,8 @@
   - Build complex multi-agent systems
   - Implement cyclic workflows
   - *... and 1 more*
+
+→ **Next**: [Module 19: LlamaIndex & Alternative Frameworks](#module-19-llamaindex-alternative-frameworks)
 
 ### Module 19: LlamaIndex & Alternative Frameworks 🟢
 
@@ -262,6 +302,8 @@
   - Explore AutoGen, CrewAI, others
   - *... and 1 more*
 
+→ **Next**: [Module 20: Advanced Agentic AI 🆕](#module-20-advanced-agentic-ai-🆕)
+
 ### Module 20: Advanced Agentic AI 🆕 🟢 🔮
 
 - **Duration**: 8-9 hours
@@ -272,6 +314,8 @@
   - Build multi-agent collaborative systems
   - *... and 3 more*
 
+→ **Next**: [Module 21: AI Agents in Production](#module-21-ai-agents-in-production)
+
 ### Module 21: AI Agents in Production 🟢
 
 - **Duration**: 6-7 hours
@@ -281,6 +325,8 @@
   - Implement guardrails and safety
   - Monitor agent behavior
   - *... and 1 more*
+
+→ **Next**: [Module 22: Speech AI 🆕](#module-22-speech-ai-🆕)
 
 ---
 
@@ -297,6 +343,8 @@
   - Understand voice cloning and voice synthesis
   - *... and 2 more*
 
+→ **Next**: [Module 23: Vision AI & Vision-Language Models](#module-23-vision-ai-vision-language-models)
+
 ### Module 23: Vision AI & Vision-Language Models 🟢
 
 - **Duration**: 7-8 hours
@@ -307,6 +355,8 @@
   - Use GPT-4V, Claude Vision, LLaVA
   - *... and 2 more*
 
+→ **Next**: [Module 24: Video AI & Generation 🆕](#module-24-video-ai-generation-🆕)
+
 ### Module 24: Video AI & Generation 🆕 🟢
 
 - **Duration**: 6-7 hours
@@ -316,6 +366,8 @@
   - Implement video understanding (captioning, Q&A)
   - Explore video generation (Sora, Runway, Pika)
   - *... and 2 more*
+
+→ **Next**: [Module 25: Python for Machine Learning](#module-25-python-for-machine-learning)
 
 ---
 
@@ -331,6 +383,8 @@
   - Learn pandas for data manipulation
   - Understand matplotlib/seaborn for visualization
 
+→ **Next**: [Module 26: Neural Networks from Scratch](#module-26-neural-networks-from-scratch)
+
 ### Module 26: Neural Networks from Scratch 🟢
 
 - **Duration**: 7-8 hours
@@ -340,6 +394,8 @@
   - Understand forward propagation
   - Implement backpropagation by hand
   - *... and 1 more*
+
+→ **Next**: [Module 27: PyTorch Fundamentals](#module-27-pytorch-fundamentals)
 
 ### Module 27: PyTorch Fundamentals 🟢
 
@@ -351,6 +407,8 @@
   - Build models with nn.Module
   - *... and 1 more*
 
+→ **Next**: [Module 28: Training Deep Networks](#module-28-training-deep-networks)
+
 ### Module 28: Training Deep Networks ⚪
 
 - **Duration**: 7-8 hours
@@ -360,6 +418,8 @@
   - Understand optimization algorithms (SGD, Adam, AdamW)
   - Implement learning rate scheduling
   - *... and 1 more*
+
+→ **Next**: [Module 29: Convolutional Neural Networks (CNNs)](#module-29-convolutional-neural-networks-cnns)
 
 ### Module 29: Convolutional Neural Networks (CNNs) ⚪
 
@@ -371,6 +431,8 @@
   - Build image classifiers
   - *... and 1 more*
 
+→ **Next**: [Module 30: Transformers & Attention Mechanisms](#module-30-transformers-attention-mechanisms)
+
 ### Module 30: Transformers & Attention Mechanisms ⚪ 🔮
 
 - **Duration**: 8-9 hours
@@ -381,6 +443,8 @@
   - Implement multi-head attention
   - *... and 1 more*
 
+→ **Next**: [Module 31: Backpropagation Deep Dive](#module-31-backpropagation-deep-dive)
+
 ### Module 31: Backpropagation Deep Dive ⚪
 
 - **Duration**: 6-7 hours
@@ -390,6 +454,8 @@
   - Master the chain rule
   - Implement custom autograd
   - *... and 1 more*
+
+→ **Next**: [Module 32: Fine-tuning Large Language Models](#module-32-fine-tuning-large-language-models)
 
 ---
 
@@ -406,6 +472,8 @@
   - Fine-tune open-source models (Llama, Mistral)
   - *... and 1 more*
 
+→ **Next**: [Module 33: Diffusion Models & Image Generation](#module-33-diffusion-models-image-generation)
+
 ### Module 33: Diffusion Models & Image Generation ⚪
 
 - **Duration**: 7-8 hours
@@ -415,6 +483,8 @@
   - Learn Stable Diffusion architecture
   - Generate images with AI
   - *... and 1 more*
+
+→ **Next**: [Module 34: Code Generation Models](#module-34-code-generation-models)
 
 ### Module 34: Code Generation Models ⚪
 
@@ -426,6 +496,8 @@
   - Implement code completion
   - *... and 1 more*
 
+→ **Next**: [Module 35: RLHF & How LLMs Are Trained 🆕](#module-35-rlhf-how-llms-are-trained-🆕)
+
 ### Module 35: RLHF & How LLMs Are Trained 🆕 ⚪ 🔮
 
 - **Duration**: 8-9 hours
@@ -436,6 +508,8 @@
   - Master the three stages: Pretraining → SFT → RLHF
   - *... and 2 more*
 
+→ **Next**: [Module 36: Constitutional AI & Alignment](#module-36-constitutional-ai-alignment)
+
 ### Module 36: Constitutional AI & Alignment ⚪
 
 - **Duration**: 6-7 hours
@@ -445,6 +519,8 @@
   - Learn AI alignment principles
   - Implement self-critique mechanisms
   - *... and 1 more*
+
+→ **Next**: [Module 37: Tabular ML & Gradient Boosting 🆕](#module-37-tabular-ml-gradient-boosting-🆕)
 
 ---
 
@@ -461,6 +537,8 @@
   - Learn feature engineering for tabular data
   - *... and 2 more*
 
+→ **Next**: [Module 38: Time Series & Forecasting 🆕](#module-38-time-series-forecasting-🆕)
+
 ### Module 38: Time Series & Forecasting 🆕 ⚪
 
 - **Duration**: 7-8 hours
@@ -471,6 +549,8 @@
   - Build deep learning time series models
   - *... and 2 more*
 
+→ **Next**: [Module 39: AutoML & Feature Stores](#module-39-automl-feature-stores)
+
 ### Module 39: AutoML & Feature Stores ⚪
 
 - **Duration**: 5-6 hours
@@ -480,6 +560,8 @@
   - Learn feature store concepts (Feast)
   - Implement automated feature engineering
   - *... and 1 more*
+
+→ **Next**: [Module 40: AI Safety & Alignment 🆕](#module-40-ai-safety-alignment-🆕)
 
 ---
 
@@ -496,6 +578,8 @@
   - Implement safety guardrails
   - *... and 2 more*
 
+→ **Next**: [Module 41: Red Teaming & Adversarial AI 🆕](#module-41-red-teaming-adversarial-ai-🆕)
+
 ### Module 41: Red Teaming & Adversarial AI 🆕 ⚪
 
 - **Duration**: 6-7 hours
@@ -506,6 +590,8 @@
   - Learn jailbreaking and defenses
   - *... and 2 more*
 
+→ **Next**: [Module 42: LLM Evaluation & Benchmarking 🆕](#module-42-llm-evaluation-benchmarking-🆕)
+
 ### Module 42: LLM Evaluation & Benchmarking 🆕 ⚪
 
 - **Duration**: 6-7 hours
@@ -515,6 +601,8 @@
   - Master standard benchmarks (MMLU, HumanEval, etc.)
   - Implement custom evaluation metrics
   - *... and 2 more*
+
+→ **Next**: [Module 43: DevOps Fundamentals for ML Engineers](#module-43-devops-fundamentals-for-ml-engineers)
 
 ---
 
@@ -531,6 +619,8 @@
   - Learn testing strategies for ML code
   - *... and 1 more*
 
+→ **Next**: [Module 44: Docker & Containerization for ML](#module-44-docker-containerization-for-ml)
+
 ### Module 44: Docker & Containerization for ML ⚪
 
 - **Duration**: 6-7 hours
@@ -540,6 +630,8 @@
   - Build optimized Docker images (multi-stage builds)
   - Handle large ML artifacts in containers
   - *... and 1 more*
+
+→ **Next**: [Module 45: CI/CD for AI/ML Development](#module-45-cicd-for-aiml-development)
 
 ### Module 45: CI/CD for AI/ML Development ⚪
 
@@ -551,6 +643,8 @@
   - Implement GitHub Actions for ML
   - *... and 2 more*
 
+→ **Next**: [Module 46: Kubernetes Fundamentals for ML](#module-46-kubernetes-fundamentals-for-ml)
+
 ### Module 46: Kubernetes Fundamentals for ML ⚪
 
 - **Duration**: 7-8 hours
@@ -560,6 +654,8 @@
   - Deploy ML workloads on Kubernetes
   - Understand GPU scheduling (NVIDIA GPU Operator)
   - *... and 1 more*
+
+→ **Next**: [Module 47: Advanced Kubernetes for AI/ML](#module-47-advanced-kubernetes-for-aiml)
 
 ### Module 47: Advanced Kubernetes for AI/ML ⚪
 
@@ -571,6 +667,8 @@
   - Deploy Ray on Kubernetes
   - *... and 1 more*
 
+→ **Next**: [Module 48: MLOps & Experiment Tracking](#module-48-mlops-experiment-tracking)
+
 ### Module 48: MLOps & Experiment Tracking ⚪
 
 - **Duration**: 6-7 hours
@@ -579,6 +677,8 @@
   - Master MLflow for experiment tracking
   - Learn Weights & Biases (W&B)
   - Implement model versioning and registry
+
+→ **Next**: [Module 49: Data Versioning & Feature Stores](#module-49-data-versioning-feature-stores)
 
 ### Module 49: Data Versioning & Feature Stores ⚪
 
@@ -589,6 +689,8 @@
   - Learn feature stores (Feast)
   - Implement data validation (Great Expectations)
 
+→ **Next**: [Module 50: ML Pipeline Orchestration](#module-50-ml-pipeline-orchestration)
+
 ### Module 50: ML Pipeline Orchestration ⚪
 
 - **Duration**: 7-8 hours
@@ -597,6 +699,8 @@
   - Master Airflow for ML pipelines
   - Build Kubeflow Pipelines
   - Compare orchestration tools
+
+→ **Next**: [Module 51: Model Deployment & Serving Patterns](#module-51-model-deployment-serving-patterns)
 
 ### Module 51: Model Deployment & Serving Patterns ⚪
 
@@ -608,6 +712,8 @@
   - Master deployment patterns (canary, blue-green, A/B)
   - *... and 1 more*
 
+→ **Next**: [Module 52: Monitoring, Governance & Production Best Practices](#module-52-monitoring-governance-production-best-practices)
+
 ### Module 52: Monitoring, Governance & Production Best Practices ⚪
 
 - **Duration**: 7-8 hours
@@ -617,6 +723,8 @@
   - Detect data drift and concept drift
   - Implement model explainability (SHAP, LIME)
   - *... and 1 more*
+
+→ **Next**: [Module 53: AI for Proactive Cloud Management](#module-53-ai-for-proactive-cloud-management)
 
 ---
 
@@ -632,6 +740,8 @@
   - Implement predictive scaling
   - Use AI for capacity planning
 
+→ **Next**: [Module 54: AIOps & Log Analysis](#module-54-aiops-log-analysis)
+
 ### Module 54: AIOps & Log Analysis ⚪
 
 - **Duration**: 6-7 hours
@@ -640,6 +750,8 @@
   - Use LLMs for log analysis
   - Build root cause analysis systems
   - Implement intelligent incident response
+
+→ **Next**: [Module 55: Kaizen Enhancement - Advanced AI Features](#module-55-kaizen-enhancement--advanced-ai-features)
 
 ---
 
@@ -655,6 +767,8 @@
   - Build multi-agent workflows
   - Add autonomous debugging capabilities
 
+→ **Next**: [Module 56: Vibe AI Features - Generative Content Platform](#module-56-vibe-ai-features--generative-content-platform)
+
 ### Module 56: Vibe AI Features - Generative Content Platform ⚪
 
 - **Duration**: 8-10 hours
@@ -663,6 +777,8 @@
   - Implement generative AI for content creation
   - Add multimodal capabilities (text + audio + video)
   - Build RAG for course knowledge management
+
+→ **Next**: [Module 57: Contrarian AI Analytics - Stock Intelligence System](#module-57-contrarian-ai-analytics--stock-intelligence-system)
 
 ### Module 57: Contrarian AI Analytics - Stock Intelligence System ⚪
 
@@ -673,13 +789,19 @@
   - Implement time series forecasting
   - Create anomaly detection for market data
 
+→ **Next**: [Module 58: The Foundations (1950s-1980s)](#module-58-the-foundations-1950s-1980s)
+
 ### Module 58: The Foundations (1950s-1980s) ⚪
 
 - **Duration**: 3-4 hours
 
+→ **Next**: [Module 59: The Deep Learning Revolution (2000s-2010s)](#module-59-the-deep-learning-revolution-2000s-2010s)
+
 ### Module 59: The Deep Learning Revolution (2000s-2010s) ⚪
 
 - **Duration**: 3-4 hours
+
+→ **Next**: [Module 60: The Transformer Era (2017-Present)](#module-60-the-transformer-era-2017-present)
 
 ### Module 60: The Transformer Era (2017-Present) ⚪
 
