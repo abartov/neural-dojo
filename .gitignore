@@ -92,3 +92,7 @@ temp/
 
 # Ignore large downloads
 downloads/
+
+# Generated documentation
+docs/_site/
+docs/curriculum/MODULE_INDEX.md
