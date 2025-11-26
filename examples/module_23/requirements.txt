@@ -1,0 +1,17 @@
+# Module 23: Vision AI Requirements
+
+# Core dependencies
+pillow>=10.0.0          # Image processing
+numpy>=1.24.0           # Array operations
+
+# Vision-Language Model APIs
+openai>=1.0.0           # GPT-4V / GPT-4o
+anthropic>=0.18.0       # Claude 3 Vision
+# google-generativeai>=0.3.0  # Gemini Vision (optional)
+
+# CLIP and Embeddings (optional - for local search)
+# transformers>=4.35.0    # HuggingFace transformers
+# torch>=2.0.0            # PyTorch backend
+
+# Development
+# pytest>=7.0.0           # Testing

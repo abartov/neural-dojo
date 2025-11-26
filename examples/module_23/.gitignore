@@ -1,0 +1,46 @@
+# Vision AI Toolkit cache
+.vision_toolkit/
+
+# Sample images (generated)
+sample_images/
+
+# Image files (test/temp)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.bmp
+*.tiff
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Model weights
+*.pt
+*.bin
+*.onnx
+*.safetensors
+
+# Temp files
+*.tmp
+*.temp
