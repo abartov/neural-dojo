@@ -1,0 +1,43 @@
+# Voice AI Toolkit cache
+.voice_toolkit/
+
+# TTS cache
+.tts_cache/
+.tts_cache_demo/
+
+# Audio files (generated)
+*.mp3
+*.wav
+*.m4a
+*.ogg
+*.flac
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Whisper models (large files)
+*.pt
+*.bin
+
+# Temp files
+*.tmp
+*.temp

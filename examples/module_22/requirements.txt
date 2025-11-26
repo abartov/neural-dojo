@@ -1,0 +1,25 @@
+# Module 22: Speech AI Requirements
+
+# Core dependencies
+openai>=1.0.0           # OpenAI API (STT API, TTS, LLM)
+numpy>=1.24.0           # Audio array processing
+
+# Local Whisper (optional - for offline STT)
+# openai-whisper>=20231117  # Local Whisper model
+# torch>=2.0.0              # PyTorch (Whisper dependency)
+
+# Audio file handling (optional)
+# librosa>=0.10.0         # Audio loading and preprocessing
+# soundfile>=0.12.0       # Audio file I/O
+# pydub>=0.25.0           # Audio manipulation
+
+# Real-time audio (optional - for live recording)
+# pyaudio>=0.2.13         # Microphone access
+# webrtcvad>=2.0.10       # Voice activity detection
+
+# Text-to-Speech alternatives (optional)
+# gTTS>=2.4.0             # Google TTS (free, lower quality)
+# elevenlabs>=0.2.0       # ElevenLabs (high quality, paid)
+
+# Development
+# pytest>=7.0.0           # Testing
