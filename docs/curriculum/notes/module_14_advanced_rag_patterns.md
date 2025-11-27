@@ -1,13 +1,14 @@
 # Module 14: Advanced RAG Patterns
+# Or: When Basic Retrieval Isn't Enough
 
 **Last Updated**: 2025-11-25
-**Status**: 🟡 In Progress
-**Duration**: 6-7 hours
-**Prerequisites**: Module 12 (RAG Systems), Module 13 (RAG vs Fine-tuning)
+**Status**: In Progress
+**Reading Time**: 6-7 hours
+**Prerequisites**: Modules 12-13
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Master GraphRAG for knowledge graph-enhanced retrieval
@@ -19,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Why Advanced RAG?
+## Why Advanced RAG?
 
 In Module 12, you built your first RAG system. It works, but you've probably noticed some limitations:
 
@@ -815,7 +816,7 @@ class ProductionRAG:
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 ### The Accidental Discovery of HyDE
 
@@ -882,7 +883,7 @@ The result? **10-15% accuracy improvement** on knowledge-intensive tasks, with t
 
 ---
 
-## 🎯 Deliverable: Advanced RAG Toolkit
+## Deliverable: Advanced RAG Toolkit
 
 Build a comprehensive toolkit that implements:
 1. HyDE query expansion
@@ -895,7 +896,7 @@ See `examples/module_14/` for implementation.
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 - [HyDE Paper](https://arxiv.org/abs/2212.10496) - Hypothetical Document Embeddings
 - [Self-RAG Paper](https://arxiv.org/abs/2310.11511) - Self-Reflective Retrieval
@@ -905,7 +906,7 @@ See `examples/module_14/` for implementation.
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 After this module, you'll move to **Phase 4: Frameworks & Agents** where you'll learn LangChain, LangGraph, and build sophisticated AI agents!
 

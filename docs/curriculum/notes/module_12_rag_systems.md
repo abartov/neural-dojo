@@ -1,14 +1,14 @@
 # Module 12: Building Your First RAG System
+# Or: Teaching AI to Look Things Up Before Making Stuff Up
 
 **Last Updated**: 2025-11-24
-**Status**: 🟢 Complete
-**Duration**: 6-7 hours
-**Prerequisites**: Modules 9-11 (Embeddings, Vector Spaces, Vector Databases)
-**Version**: 1.0
+**Status**: Complete
+**Reading Time**: 6-7 hours
+**Prerequisites**: Modules 9-11
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand RAG architecture (Retrieval-Augmented Generation) deeply
@@ -23,7 +23,7 @@ By the end of this module, you will:
 
 ---
 
-## 💡 Did You Know? The $100 Million Problem RAG Solved
+## Did You Know? The $100 Million Problem RAG Solved
 
 In **2020**, a major bank deployed a GPT-3-powered customer service chatbot. Within weeks, disaster struck:
 
@@ -63,7 +63,7 @@ LLM: "Your order #12345 has shipped! Tracking number: 1Z999..." (ACCURATE!)
 
 ---
 
-## 📖 Introduction: What Is RAG?
+## Introduction: What Is RAG?
 
 ### The Core Concept
 
@@ -129,7 +129,7 @@ It's a two-step process:
 
 ---
 
-## 💡 Did You Know? The Paper That Started It All
+## Did You Know? The Paper That Started It All
 
 **May 2020**: Facebook AI Research (FAIR) published "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" - the paper that gave RAG its name.
 
@@ -148,7 +148,7 @@ It's a two-step process:
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the concept - now let's build a RAG system!**
 
@@ -159,22 +159,22 @@ RAG is best learned by doing. You'll build a complete RAG pipeline that could po
 **1. [Simple RAG Pipeline](../../examples/module_12/01_simple_rag.py)** - Your first RAG system
    - 📖 Concept: Basic retrieval + generation
    - ⏱️ Time: 90-120 minutes
-   - 🎯 Goal: Build working RAG in 100 lines
-   - 💡 What you'll learn: The core RAG loop
+   - Goal: Build working RAG in 100 lines
+   - What you'll learn: The core RAG loop
 
 **2. [Document Chunking](../../examples/module_12/02_chunking_strategies.py)** - Master chunking
    - 📖 Concept: Fixed, semantic, and recursive chunking
    - ⏱️ Time: 60-75 minutes
-   - 🎯 Goal: Understand how chunking affects retrieval quality
-   - 💡 What you'll learn: Chunk size is the #1 RAG parameter!
+   - Goal: Understand how chunking affects retrieval quality
+   - What you'll learn: Chunk size is the #1 RAG parameter!
 
 **3. [RAG Evaluation](../../examples/module_12/03_rag_evaluation.py)** - Measure quality
    - 📖 Concept: Retrieval metrics, answer quality, hallucination detection
    - ⏱️ Time: 60-75 minutes
-   - 🎯 Goal: Know when your RAG is working well
-   - 💡 What you'll learn: You can't improve what you don't measure
+   - Goal: Know when your RAG is working well
+   - What you'll learn: You can't improve what you don't measure
 
-### 🎯 Deliverable: Production RAG System
+### Deliverable: Production RAG System
 
 **What**: Build a RAG system for one of your projects
 **Time**: 5-6 hours
@@ -207,15 +207,15 @@ RAG is best learned by doing. You'll build a complete RAG pipeline that could po
    - Confidence scoring
 
 **Success Criteria**:
-- ✅ Answers questions accurately from your knowledge base
-- ✅ Provides citations/sources for answers
-- ✅ Handles "I don't know" gracefully
-- ✅ < 3 second response time
-- ✅ Evaluation metrics documented
+- Answers questions accurately from your knowledge base
+- Provides citations/sources for answers
+- Handles "I don't know" gracefully
+- < 3 second response time
+- Evaluation metrics documented
 
 ---
 
-## 🏗️ RAG Architecture Deep Dive
+## ️ RAG Architecture Deep Dive
 
 ### The Three Phases
 
@@ -497,7 +497,7 @@ def recursive_chunk(text: str, chunk_size: int = 500, separators: list[str] = No
 
 ---
 
-## 💡 Did You Know? The Chunk Size Discovery
+## Did You Know? The Chunk Size Discovery
 
 In **2023**, researchers at Anthropic ran extensive experiments on chunk size:
 
@@ -645,7 +645,7 @@ Relevant excerpt:"""
 
 ---
 
-## 💡 Did You Know? Perplexity's Secret Sauce
+## Did You Know? Perplexity's Secret Sauce
 
 **Perplexity AI** (valued at $9B in 2024) built their entire business on RAG. Their "secret sauce":
 
@@ -660,7 +660,7 @@ Relevant excerpt:"""
 
 ---
 
-## ⚠️ Common RAG Pitfalls
+## ️ Common RAG Pitfalls
 
 ### Pitfall 1: Ignoring Chunk Boundaries
 
@@ -753,7 +753,7 @@ def update_index(new_docs, modified_docs, deleted_ids):
 
 ---
 
-## 📊 RAG Evaluation Metrics
+## RAG Evaluation Metrics
 
 ### Retrieval Metrics
 
@@ -859,7 +859,7 @@ print(f"Context Precision: {results['context_precision']:.2f}")
 
 ---
 
-## 🌍 Real-World Applications
+## Real-World Applications
 
 ### Application 1: Kaizen Documentation Assistant
 
@@ -942,7 +942,7 @@ contrarian_rag = RAGPipeline(
 
 ---
 
-## 💡 Did You Know? The 10x Developer's RAG Setup
+## Did You Know? The 10x Developer's RAG Setup
 
 A senior engineer at Stripe shared their personal RAG setup (2024):
 
@@ -973,7 +973,7 @@ Daily usage:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - **"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"** (Lewis et al., 2020) - The original RAG paper
@@ -993,15 +993,15 @@ Daily usage:
 
 ---
 
-## ✅ Module Summary
+## Module Summary
 
 **What you learned**:
-- ✅ RAG architecture: Retrieve → Augment → Generate
-- ✅ Document chunking strategies and their trade-offs
-- ✅ Advanced techniques: Hybrid search, reranking, query expansion
-- ✅ Evaluation metrics: Recall@K, MRR, Faithfulness, Relevance
-- ✅ Common pitfalls and how to avoid them
-- ✅ Real-world applications for kaizen, vibe, contrarian
+- RAG architecture: Retrieve → Augment → Generate
+- Document chunking strategies and their trade-offs
+- Advanced techniques: Hybrid search, reranking, query expansion
+- Evaluation metrics: Recall@K, MRR, Faithfulness, Relevance
+- Common pitfalls and how to avoid them
+- Real-world applications for kaizen, vibe, contrarian
 
 **Key formulas**:
 ```
@@ -1022,7 +1022,7 @@ MRR = 1 / (rank of first relevant document)
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 **Next module**: Module 13: RAG vs Fine-tuning Trade-offs 🔮
 

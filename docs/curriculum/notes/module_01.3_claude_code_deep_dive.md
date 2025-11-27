@@ -1,13 +1,14 @@
 # Module 1.3: Claude Code & CLI Deep Dive
+# Or: The 90% of Claude Code You've Been Missing
 
 **Last Updated**: 2025-11-24
-**Status**: 🟢 Complete
-**Duration**: 4-5 hours
-**Prerequisites**: Module 1.1 (AI Coding Tools Landscape)
+**Status**: Complete
+**Reading Time**: 4-5 hours
+**Prerequisites**: Module 1.1, Claude Code installed and working
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Master Claude Code's multi-modal operation (Interactive, Print, Plan)
@@ -20,7 +21,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Why Master Claude Code?
+## Why Master Claude Code?
 
 Claude Code isn't just a chatbot in your terminal—it's a **full AI development platform**. While most developers use 10% of its capabilities, power users leverage:
 
@@ -34,7 +35,7 @@ Claude Code isn't just a chatbot in your terminal—it's a **full AI development
 
 ---
 
-## 🔧 Core Architecture
+## Core Architecture
 
 ### The Four Modes of Operation
 
@@ -214,7 +215,7 @@ For maximum productivity (use in trusted projects):
 
 ---
 
-## 📝 Memory Systems: CLAUDE.md
+## Memory Systems: CLAUDE.md
 
 ### The Memory Hierarchy
 
@@ -287,7 +288,7 @@ Start your message with `#` to quickly add to memory:
 
 ---
 
-## 🔧 Custom Slash Commands
+## Custom Slash Commands
 
 ### Creating Commands
 
@@ -369,7 +370,7 @@ description: Complete PR workflow - commit, push, create PR
 
 ---
 
-## 🎯 Skills: Autonomous Capabilities
+## Skills: Autonomous Capabilities
 
 Skills are capabilities Claude discovers and uses automatically (vs commands which are user-invoked).
 
@@ -564,7 +565,7 @@ claude mcp add --transport stdio database -- python db-server.py
 
 ---
 
-## 🤖 Sub-Agents: Specialized Delegation
+## Sub-Agents: Specialized Delegation
 
 Sub-agents are specialized AI personalities with focused expertise.
 
@@ -664,7 +665,7 @@ Press `Esc` twice to access the rewind menu:
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 ### The Birth of Claude Code: From Research Tool to Developer Platform
 
@@ -810,7 +811,7 @@ Whether this vision becomes reality remains to be seen, but Claude Code is alrea
 
 ---
 
-## 🛠️ Practical Exercises
+## ️ Practical Exercises
 
 ### Exercise 1: Configure Full Autonomy
 
@@ -843,7 +844,7 @@ Connect Claude Code to:
 
 ---
 
-## 🎯 Deliverables
+## Deliverables
 
 By completing this module, you should:
 
@@ -855,7 +856,7 @@ By completing this module, you should:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 - [Claude Code Documentation](https://docs.anthropic.com/claude-code)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
@@ -864,7 +865,7 @@ By completing this module, you should:
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 With Claude Code mastered, you're ready for:
 - **Module 2**: Prompt Engineering - Master the art of effective prompts

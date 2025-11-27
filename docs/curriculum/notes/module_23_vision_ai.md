@@ -1,8 +1,10 @@
 # Module 23: Vision AI & Vision-Language Models
+# Or: Teaching Computers to See What Humans See
 
 **Last Updated**: 2025-11-26
-**Status**: 🟢 Complete
-**Duration**: 7-8 hours
+**Status**: Complete
+**Reading Time**: 7-8 hours
+**Prerequisites**: Module 22
 
 ---
 

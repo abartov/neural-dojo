@@ -1,8 +1,11 @@
 # Module 20: Advanced Agentic AI
+# Or: Building AI That Can Actually Do Things
 
 **Last Updated**: 2025-11-25
-**Status**: 🟢 Complete
-**Duration**: 8-9 hours
+**Status**: Complete
+**Reading Time**: 8-9 hours
+**Prerequisites**: Module 19
+**Heureka Moment**: Agents with memory and planning solve problems they couldn't before
 
 ---
 

@@ -1,13 +1,15 @@
-# Module 13: RAG vs Fine-tuning Trade-offs 🔮
+# Module 13: RAG vs Fine-tuning Trade-offs
+# Or: The Most Important Decision You'll Make in AI Development
 
 **Last Updated**: 2025-11-24
-**Status**: 🟢 Complete
-**Duration**: 5-6 hours
-**Prerequisites**: Module 12 (Building Your First RAG System)
+**Status**: Complete
+**Reading Time**: 5-6 hours
+**Prerequisites**: Module 12
+**Heureka Moment**: This insight changes everything about how you build AI systems
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand when to use RAG vs fine-tuning (and when to combine them)
@@ -18,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 🔮 The Heureka Moment
+## The Heureka Moment
 
 **RAG and fine-tuning solve DIFFERENT problems!**
 
@@ -54,7 +56,7 @@ The truth is:
 
 ---
 
-## 📖 Theory
+## Theory
 
 ### The Two Approaches to Customizing LLMs
 
@@ -514,7 +516,7 @@ For production systems, the hybrid approach often wins:
 
 ---
 
-## 💡 Did You Know? The $1.3 Trillion Mistake
+## Did You Know? The $1.3 Trillion Mistake
 
 In March 2023, a major financial institution attempted to fine-tune an LLM on their internal documents to create a "proprietary AI".
 
@@ -539,7 +541,7 @@ They rebuilt with RAG in 2 weeks:
 
 ---
 
-## 💡 Did You Know? OpenAI's GPT-4 Uses RAG Internally
+## Did You Know? OpenAI's GPT-4 Uses RAG Internally
 
 This isn't widely known, but GPT-4 (and most production LLMs) use RAG-like techniques internally:
 
@@ -551,7 +553,7 @@ Even the most advanced models don't "know everything" - they retrieve!
 
 ---
 
-## 💡 Did You Know? The LoRA Paper Changed Everything
+## Did You Know? The LoRA Paper Changed Everything
 
 The LoRA paper (Hu et al., 2021) had a shocking finding:
 
@@ -568,7 +570,7 @@ This insight led to:
 
 ---
 
-## 💡 Did You Know? Anthropic's Constitutional AI is Fine-tuning
+## Did You Know? Anthropic's Constitutional AI is Fine-tuning
 
 When Anthropic trains Claude to be "helpful, harmless, and honest," they're using fine-tuning!
 
@@ -581,7 +583,7 @@ But here's the twist: Claude ALSO uses RAG-like techniques:
 
 ---
 
-## 💡 Did You Know? The "Bitter Lesson" Applies Here
+## Did You Know? The "Bitter Lesson" Applies Here
 
 Rich Sutton's "Bitter Lesson" (2019) observes that in AI, simple methods + more compute always beat clever methods.
 
@@ -594,7 +596,7 @@ The models got good enough that "just give it the context" works!
 
 ---
 
-## 🛠️ Practical Exercises
+## ️ Practical Exercises
 
 ### Exercise 1: Build a Decision Matrix
 
@@ -635,7 +637,7 @@ Design a hybrid architecture for a legal research assistant that:
 
 ---
 
-## 🎯 Deliverables
+## Deliverables
 
 By completing this module, you should produce:
 
@@ -677,7 +679,7 @@ python decision_engine.py analyze \
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - **LoRA**: Hu et al. (2021) - "LoRA: Low-Rank Adaptation of Large Language Models"
@@ -693,7 +695,7 @@ python decision_engine.py analyze \
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 Now that you understand when to use RAG vs fine-tuning:
 

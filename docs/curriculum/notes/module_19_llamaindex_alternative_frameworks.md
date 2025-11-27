@@ -1,8 +1,10 @@
 # Module 19: LlamaIndex & Alternative Frameworks
+# Or: The Other Frameworks You Should Know About
 
 **Last Updated**: 2025-11-25
-**Status**: 🟢 Complete
-**Duration**: 5-6 hours
+**Status**: Complete
+**Reading Time**: 5-6 hours
+**Prerequisites**: Module 18
 
 ---
 

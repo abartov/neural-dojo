@@ -1,13 +1,14 @@
 # Module 9: Embeddings & Semantic Similarity
+# Or: Teaching Computers That 'Cat' and 'Kitten' Are Related
 
 **Last Updated**: 2025-11-21
-**Status**: 🟢 Complete
-**Duration**: 2-3 hours
-**Prerequisites**: Module 6 (Introduction to LLMs), Module 8 (Text Generation)
+**Status**: Complete
+**Reading Time**: 2-3 hours
+**Prerequisites**: Module 6, Module 8
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand what embeddings are and why they're foundational to modern AI
@@ -20,7 +21,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction: The Meaning Problem
+## Introduction: The Meaning Problem
 
 ### The Challenge: Computers Don't Understand Meaning
 
@@ -66,7 +67,7 @@ This transforms the search problem from **matching strings** to **measuring dist
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the theory - now let's build with embeddings!**
 
@@ -77,16 +78,16 @@ Embeddings are the foundation of modern AI applications. Theory alone won't give
 **1. [Embedding Basics](../../examples/module_09/01_embedding_basics.py)** - Generate and compare embeddings
    - 📖 Concept: Creating embeddings and measuring cosine similarity
    - ⏱️ Time: 60-75 minutes
-   - 🎯 Goal: Build intuition for how meaning becomes math
-   - 💡 What you'll learn: Similar texts = similar vectors!
+   - Goal: Build intuition for how meaning becomes math
+   - What you'll learn: Similar texts = similar vectors!
 
 **2. [Semantic Applications](../../examples/module_09/02_semantic_applications.py)** - Build real-world systems
    - 📖 Concept: Search, clustering, recommendations, classification
    - ⏱️ Time: 75-90 minutes
-   - 🎯 Goal: Apply embeddings to 5 different use cases
-   - 💡 What you'll learn: One technology, infinite applications!
+   - Goal: Apply embeddings to 5 different use cases
+   - What you'll learn: One technology, infinite applications!
 
-### 🎯 Deliverable: Semantic Search Engine
+### Deliverable: Semantic Search Engine
 
 **What**: Build a production-ready semantic search system for one of your projects
 **Time**: 4-5 hours
@@ -114,17 +115,17 @@ Embeddings are the foundation of modern AI applications. Theory alone won't give
 5. Deploy or package for production use
 
 **Success Criteria**:
-- ✅ System handles 100+ documents
-- ✅ Sub-second query latency
-- ✅ Embeddings cached/persisted efficiently
-- ✅ Measurable improvement over keyword search
-- ✅ Production-ready code (error handling, logging)
+- System handles 100+ documents
+- Sub-second query latency
+- Embeddings cached/persisted efficiently
+- Measurable improvement over keyword search
+- Production-ready code (error handling, logging)
 
 **Real-World Impact**: Semantic search is a fundamental capability in modern applications - this deliverable proves you can build it from scratch!
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 The word "embedding" comes from mathematics: you're **embedding** a high-dimensional discrete space (words/texts) into a continuous vector space. It's like taking discrete cities and placing them on a continuous map where proximity represents similarity!
 
@@ -169,7 +170,7 @@ With 1536 dimensions, you can capture incredibly nuanced meaning!
 
 ---
 
-## 🔬 How Embeddings Work
+## How Embeddings Work
 
 ### The Encoding Process
 
@@ -241,11 +242,11 @@ embedding_sparse = [0, 0.87, 0, 0, ..., 0]  # Mostly zeros!
 ```
 
 **Characteristics**:
-- ✅ Interpretable (each dimension = specific word)
-- ✅ Fast to compute
-- ❌ No semantic understanding (synonyms not captured)
-- ❌ High dimensionality (vocab size)
-- ❌ Sparse (mostly zeros)
+- Interpretable (each dimension = specific word)
+- Fast to compute
+- No semantic understanding (synonyms not captured)
+- High dimensionality (vocab size)
+- Sparse (mostly zeros)
 
 ### Dense Embeddings (Neural)
 
@@ -258,11 +259,11 @@ embedding_dense = [0.23, -0.41, 0.87, ..., 0.15]  # All non-zero
 ```
 
 **Characteristics**:
-- ✅ Semantic understanding (knows "apple" ≈ "fruit")
-- ✅ Lower dimensionality (1536 vs 50,000)
-- ✅ Better generalization
-- ❌ Less interpretable (what does dimension 42 mean?)
-- ❌ Requires neural network (slower to compute)
+- Semantic understanding (knows "apple" ≈ "fruit")
+- Lower dimensionality (1536 vs 50,000)
+- Better generalization
+- Less interpretable (what does dimension 42 mean?)
+- Requires neural network (slower to compute)
 
 ### Comparison Example
 
@@ -394,15 +395,15 @@ for text, emb in zip(texts, embeddings):
 | `paraphrase-multilingual` | 768 | ⚡ Slow | Best | 50+ languages |
 
 **Pros**:
-- ✅ FREE (no API costs)
-- ✅ Fast (local inference)
-- ✅ Privacy (data stays local)
-- ✅ Offline capable
+- FREE (no API costs)
+- Fast (local inference)
+- Privacy (data stays local)
+- Offline capable
 
 **Cons**:
-- ❌ Lower quality than OpenAI/Voyage
-- ❌ Requires GPU for best performance
-- ❌ Model download/storage
+- Lower quality than OpenAI/Voyage
+- Requires GPU for best performance
+- Model download/storage
 
 ---
 
@@ -507,13 +508,13 @@ For text, **direction matters more than magnitude**. Two texts about the same to
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 Cosine similarity is used everywhere in recommender systems! When Netflix recommends movies, it's comparing the embedding of movies you've watched to embeddings of all other movies, then recommending the ones with highest cosine similarity!
 
 ---
 
-## 🎯 Use Cases: What Can You Build?
+## Use Cases: What Can You Build?
 
 ### 1. Semantic Search
 
@@ -749,7 +750,7 @@ for doc1, doc2, sim in dupes:
 
 ---
 
-## ⚠️ Common Pitfalls
+## ️ Common Pitfalls
 
 ### Pitfall 1: Not Normalizing Text
 
@@ -931,7 +932,7 @@ print(f"Recall@5: {recall:.2%}")
 
 ---
 
-## 🌍 Real-World Applications
+## Real-World Applications
 
 ### Application 1: kaizen (Lean DevOps Platform)
 
@@ -1038,7 +1039,7 @@ for path, score in results:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - **Sentence-BERT** (2019): [Paper](https://arxiv.org/abs/1908.10084) - Introduced sentence embeddings
@@ -1057,7 +1058,7 @@ for path, score in results:
 
 ---
 
-## 💡 Did You Know? The Revolution of Embeddings
+## Did You Know? The Revolution of Embeddings
 
 ### The Google Intern Who Changed NLP Forever
 
@@ -1177,15 +1178,15 @@ In **2022**, the MTEB (Massive Text Embedding Benchmark) was released, ranking e
 
 ---
 
-## ✅ Module Summary
+## Module Summary
 
 **What you learned**:
-- ✅ Embeddings are dense vectors representing text meaning
-- ✅ Generated using neural networks trained on massive datasets
-- ✅ Measured using cosine similarity (direction, not distance)
-- ✅ Applied to search, clustering, recommendations, classification, duplicates
-- ✅ OpenAI, Voyage, and open-source options available
-- ✅ Always use the same model for all embeddings in a system
+- Embeddings are dense vectors representing text meaning
+- Generated using neural networks trained on massive datasets
+- Measured using cosine similarity (direction, not distance)
+- Applied to search, clustering, recommendations, classification, duplicates
+- OpenAI, Voyage, and open-source options available
+- Always use the same model for all embeddings in a system
 
 **Key formulas**:
 ```
@@ -1207,7 +1208,7 @@ top_results = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)[:k]
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 **Next module**: Module 10: Vector Spaces & Semantic Search 🔮
 

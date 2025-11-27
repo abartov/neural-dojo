@@ -1,15 +1,14 @@
 # Module 1.2: Local Models for AI Coding
-
-**Run AI Models on Your Machine**: Master local LLMs for cost-free, private AI coding 🖥️
+# Or: How to Stop Paying OpenAI and Start Loving Your GPU
 
 **Last Updated**: 2025-11-22
-**Status**: 🟢 Complete
-**Duration**: 3-4 hours
-**Prerequisites**: Module 1.1 complete
+**Status**: Complete
+**Reading Time**: 3-4 hours
+**Prerequisites**: Module 1.1 complete, 16GB+ RAM recommended (8GB minimum)
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand the local vs API trade-offs for AI coding
@@ -24,7 +23,7 @@ By the end of this module, you will:
 
 ---
 
-## 🌟 The Local Models Revolution: Why This Changes Everything
+## The Local Models Revolution: Why This Changes Everything
 
 ### The Problem Everyone Faces
 
@@ -40,10 +39,10 @@ Monthly total: $50-100 in API costs
 Annual: $600-1,200
 
 Plus:
-- ❌ Need internet connection always
-- ❌ Code sent to external servers
-- ❌ Rate limits during heavy use
-- ❌ Billing surprises
+- Need internet connection always
+- Code sent to external servers
+- Rate limits during heavy use
+- Billing surprises
 ```
 
 **With local models** (hybrid approach):
@@ -58,17 +57,17 @@ Monthly total: $5-10 in API costs
 Annual: $60-120 (10× cheaper!)
 
 Plus:
-- ✅ Works offline
-- ✅ Code stays on your machine
-- ✅ No rate limits
-- ✅ Predictable costs
+- Works offline
+- Code stays on your machine
+- No rate limits
+- Predictable costs
 ```
 
 **The difference**: $600-1,200/year vs $60-120/year. **10× cost reduction!**
 
 ---
 
-## 💡 Did You Know? The Open Source AI Boom
+## Did You Know? The Open Source AI Boom
 
 **2023**: OpenAI dominates, local models struggle to compete
 
@@ -86,7 +85,7 @@ Plus:
 
 ---
 
-## 📖 Introduction: Understanding Local Models
+## Introduction: Understanding Local Models
 
 ### What Are Local Models?
 
@@ -127,7 +126,7 @@ Plus:
 
 ## 🤔 Local vs API: When to Use Each
 
-### ✅ Use Local Models When:
+### Use Local Models When:
 
 **1. Cost is a concern** ($0/month vs $50-100/month)
 ```python
@@ -167,7 +166,7 @@ Plus:
 
 ---
 
-### ✅ Use API Models When:
+### Use API Models When:
 
 **1. Maximum quality needed**
 ```python
@@ -199,7 +198,7 @@ Plus:
 
 ---
 
-### 🎯 The Decision Matrix
+### The Decision Matrix
 
 | Factor | Local Models | API Models | Winner |
 |--------|-------------|------------|--------|
@@ -225,16 +224,16 @@ Plus:
 **What it is**: Specialized coding model that rivals GPT-4 on benchmarks
 
 **The Good**:
-- ✅ **Best code quality** among local models
-- ✅ Supports 338 programming languages
-- ✅ Strong at debugging and refactoring
-- ✅ Reasoning capabilities (R1 model)
-- ✅ 16B version runs on 16GB RAM
+- **Best code quality** among local models
+- Supports 338 programming languages
+- Strong at debugging and refactoring
+- Reasoning capabilities (R1 model)
+- 16B version runs on 16GB RAM
 
 **The Not-So-Good**:
-- ⚠️ Newer, less community support
-- ⚠️ 236B version needs GPU
-- ⚠️ Less documentation than Llama
+- ️ Newer, less community support
+- ️ 236B version needs GPU
+- ️ Less documentation than Llama
 
 **Sizes available**:
 ```bash
@@ -264,15 +263,15 @@ ollama pull deepseek-r1:14b
 **What it is**: Latest coding model from Alibaba, excellent quality
 
 **The Good**:
-- ✅ **Top-tier code generation**
-- ✅ Fast inference
-- ✅ Great at multiple languages (especially Asian languages)
-- ✅ Strong reasoning (QwQ model)
-- ✅ 7B version very efficient
+- **Top-tier code generation**
+- Fast inference
+- Great at multiple languages (especially Asian languages)
+- Strong reasoning (QwQ model)
+- 7B version very efficient
 
 **The Not-So-Good**:
-- ⚠️ Less known in Western dev community
-- ⚠️ Some English docs still being translated
+- ️ Less known in Western dev community
+- ️ Some English docs still being translated
 
 **Sizes available**:
 ```bash
@@ -294,15 +293,15 @@ ollama pull qwq:32b             # Reasoning
 **What it is**: Meta's specialized coding version of Llama 3
 
 **The Good**:
-- ✅ Huge community, best documentation
-- ✅ Well-tested and stable
-- ✅ Great Python support
-- ✅ Multiple size options
-- ✅ Excellent code completion
+- Huge community, best documentation
+- Well-tested and stable
+- Great Python support
+- Multiple size options
+- Excellent code completion
 
 **The Not-So-Good**:
-- ⚠️ Being overtaken by newer models (DeepSeek, Qwen)
-- ⚠️ Not as strong at reasoning
+- ️ Being overtaken by newer models (DeepSeek, Qwen)
+- ️ Not as strong at reasoning
 
 **Sizes available**:
 ```bash
@@ -323,14 +322,14 @@ ollama pull codellama:34b
 **What it is**: Mistral's coding-specialized model
 
 **The Good**:
-- ✅ **Very fast** inference
-- ✅ 22B params, good quality
-- ✅ Excellent for autocomplete
-- ✅ Strong European backing
+- **Very fast** inference
+- 22B params, good quality
+- Excellent for autocomplete
+- Strong European backing
 
 **The Not-So-Good**:
-- ⚠️ 22B size needs more RAM
-- ⚠️ Not as widely used as Llama
+- ️ 22B size needs more RAM
+- ️ Not as widely used as Llama
 
 **Sizes available**:
 ```bash
@@ -349,15 +348,15 @@ ollama pull codestral:22b
 **What it is**: Microsoft's tiny but capable model
 
 **The Good**:
-- ✅ **Only 3.8B params** - runs anywhere!
-- ✅ Surprisingly good for size
-- ✅ Great for learning
-- ✅ Fast on CPU
+- **Only 3.8B params** - runs anywhere!
+- Surprisingly good for size
+- Great for learning
+- Fast on CPU
 
 **The Not-So-Good**:
-- ⚠️ Limited capabilities vs larger models
-- ⚠️ Small context window
-- ⚠️ Not suitable for complex tasks
+- ️ Limited capabilities vs larger models
+- ️ Small context window
+- ️ Not suitable for complex tasks
 
 **Sizes available**:
 ```bash
@@ -377,13 +376,13 @@ ollama pull phi3.5:3.8b
 **What it is**: Google's open-source coding model
 
 **The Good**:
-- ✅ Google quality
-- ✅ Good Python support
-- ✅ Active development
+- Google quality
+- Good Python support
+- Active development
 
 **The Not-So-Good**:
-- ⚠️ Less popular than Llama/Qwen
-- ⚠️ Smaller community
+- ️ Less popular than Llama/Qwen
+- ️ Smaller community
 
 **Sizes available**:
 ```bash
@@ -396,7 +395,7 @@ ollama pull gemma2:27b
 
 ---
 
-## 📊 Comparison Table: Which Model Should You Use?
+## Comparison Table: Which Model Should You Use?
 
 | Model | Size | RAM Needed | Code Quality | Speed | Best Use Case |
 |-------|------|------------|--------------|-------|---------------|
@@ -410,7 +409,7 @@ ollama pull gemma2:27b
 
 ---
 
-## 🎯 Recommendations by Your Situation
+## Recommendations by Your Situation
 
 ### **You Have: MacBook with 16GB RAM** (Most Common)
 ```bash
@@ -451,7 +450,7 @@ ollama pull phi3.5:3.8b
 
 ---
 
-## 💡 Did You Know? The Apple Silicon Revolution
+## Did You Know? The Apple Silicon Revolution
 
 ### Why Your MacBook Can Run AI Now
 
@@ -473,7 +472,7 @@ Then Apple released the **M1 chip** in November 2020. Everything changed.
 
 ---
 
-## 🛠️ Hands-On: Installing Ollama
+## ️ Hands-On: Installing Ollama
 
 ### What is Ollama?
 
@@ -593,7 +592,7 @@ ollama list
 
 ---
 
-## 🧪 Hands-On: Using Local Models with Aider
+## Hands-On: Using Local Models with Aider
 
 ### What is Aider?
 
@@ -709,7 +708,7 @@ Monthly (unlimited sessions): $0
 
 ---
 
-## 💻 Hands-On: Using Local Models with Continue.dev
+## Hands-On: Using Local Models with Continue.dev
 
 ### What is Continue.dev?
 
@@ -877,7 +876,7 @@ aider --model gemini/gemini-2.5-flash
 
 ---
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
 
 ### Code Generation Quality
 
@@ -911,7 +910,7 @@ aider --model gemini/gemini-2.5-flash
 
 ---
 
-## 🚨 Common Mistakes: Learn From Others' Pain
+## Common Mistakes: Learn From Others' Pain
 
 ### Mistake #1: "Downloaded 236B Model, My Mac is Frozen"
 
@@ -1005,14 +1004,14 @@ sudo systemctl start ollama
 
 ---
 
-## 🎓 Best Practices for Local Models
+## Best Practices for Local Models
 
 ### 1. **Start Small, Scale Up**
 
 **Why**: Don't download every model at once
 
 ```bash
-# ❌ BAD (downloading everything)
+# BAD (downloading everything)
 ollama pull qwen2.5-coder:7b
 ollama pull qwen2.5-coder:14b
 ollama pull qwen2.5-coder:32b
@@ -1020,7 +1019,7 @@ ollama pull deepseek-coder-v2:16b
 ollama pull codellama:34b
 # (Uses 80+ GB disk space!)
 
-# ✅ GOOD (start with one)
+# GOOD (start with one)
 ollama pull qwen2.5-coder:7b
 # Test it for a week
 # If you need more quality, then add:
@@ -1114,7 +1113,7 @@ print(f"Saved ${monthly_savings:.2f} this month by using local models")
 
 ---
 
-## 🔬 Deep Dive (Optional): How Local Models Work
+## Deep Dive (Optional): How Local Models Work
 
 **For the curious**: What happens when you run `ollama run qwen2.5-coder:7b`?
 
@@ -1161,7 +1160,7 @@ Apple Silicon (Metal): Uses GPU, ~30-60 tokens/sec
 
 ---
 
-## 🧪 Try This: Interactive Challenges
+## Try This: Interactive Challenges
 
 ### Challenge 1: The Model Comparison Test
 
@@ -1261,7 +1260,7 @@ Note: Actual savings depend on usage. Heavy users save $200-500/year!
 
 ---
 
-## 📚 Real Project Tie-Ins
+## Real Project Tie-Ins
 
 How Module 1.2 skills apply to your actual projects:
 
@@ -1338,7 +1337,7 @@ aider --model ollama/deepseek-coder-v2:16b
 
 ---
 
-## 🎯 Module 1.2 Complete Checklist
+## Module 1.2 Complete Checklist
 
 Use this to verify you're ready for Module 2:
 
@@ -1371,7 +1370,7 @@ Use this to verify you're ready for Module 2:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Essential Resources
 
@@ -1391,17 +1390,17 @@ Use this to verify you're ready for Module 2:
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 **Congratulations!** You now have cost-effective AI coding with local models!
 
 **You've learned**:
-- ✅ How to install and run Ollama
-- ✅ The best local models for coding (DeepSeek, Qwen, etc.)
-- ✅ Using local models with Aider
-- ✅ Configuring Continue.dev for local models
-- ✅ Hybrid optimization strategies (local + API)
-- ✅ Real cost savings ($200-500/year potential!)
+- How to install and run Ollama
+- The best local models for coding (DeepSeek, Qwen, etc.)
+- Using local models with Aider
+- Configuring Continue.dev for local models
+- Hybrid optimization strategies (local + API)
+- Real cost savings ($200-500/year potential!)
 
 **Next Module**: **Module 2: Prompt Engineering Fundamentals** 🔮
 

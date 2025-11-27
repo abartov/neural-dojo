@@ -1,15 +1,14 @@
 # Module 1: Foundations of AI-Driven Development
+# Or: How I Learned to Stop Typing and Let the AI Do It
 
-**Your AI Pair Programmer Awakens**: Learn to 10x your coding velocity with AI assistants 🤖
-
-**Last Updated**: 2025-11-24 (Added MCP Tools Section)
-**Status**: 🟢 Complete (Enhanced + MCP Deep Dive)
-**Duration**: 4-5 hours
-**Prerequisites**: Module 0 complete
+**Last Updated**: 2025-11-24
+**Status**: Complete
+**Reading Time**: 4-5 hours
+**Prerequisites**: Module 0 complete, a willingness to let go of your keyboard
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand the AI development landscape in 2024-2025
@@ -27,7 +26,7 @@ By the end of this module, you will:
 
 ---
 
-## 🌟 The Productivity Revolution: Why This Changes Everything
+## The Productivity Revolution: Why This Changes Everything
 
 ### The Problem Everyone Faces
 
@@ -64,7 +63,7 @@ Result: 2 hours for production-ready auth, energized
 
 ---
 
-## 💡 Did You Know? The Hidden Impact of AI Coding
+## Did You Know? The Hidden Impact of AI Coding
 
 **Real data from GitHub (2024)**:
 - **55% of professional developers** use AI coding assistants daily
@@ -78,7 +77,7 @@ Result: 2 hours for production-ready auth, energized
 
 ---
 
-## 📖 Introduction: The AI Development Revolution
+## Introduction: The AI Development Revolution
 
 **Imagine having a brilliant coding partner who**:
 - Never gets tired or frustrated
@@ -105,7 +104,7 @@ The best developers in 2025 aren't those who can write the most code. They're th
 
 ---
 
-## 🌍 The AI Development Landscape (2024-2025)
+## The AI Development Landscape (2024-2025)
 
 ### The Three Waves of AI Coding
 
@@ -137,7 +136,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-## 🔧 Category 1: IDE-Integrated Autocomplete
+## Category 1: IDE-Integrated Autocomplete
 
 **The Personality**: These are your **speed typists** - incredibly fast at completing what you start typing.
 
@@ -146,18 +145,18 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: AI pair programmer that suggests code as you type
 
 **The Good**:
-- ✅ Autocomplete on steroids - predicts entire functions
-- ✅ Learns from your codebase and coding style
-- ✅ Excellent for boilerplate and repetitive code
-- ✅ Built into VS Code, JetBrains IDEs, Vim, Neovim
-- ✅ Fast, sub-second suggestions
-- ✅ Mature product, well-tested
+- Autocomplete on steroids - predicts entire functions
+- Learns from your codebase and coding style
+- Excellent for boilerplate and repetitive code
+- Built into VS Code, JetBrains IDEs, Vim, Neovim
+- Fast, sub-second suggestions
+- Mature product, well-tested
 
 **The Not-So-Good**:
-- ⚠️ Line-by-line suggestions (can't refactor across files)
-- ⚠️ Can't execute commands or run tests
-- ⚠️ No reasoning explanation (suggests but doesn't explain WHY)
-- ⚠️ Limited context window (~8K tokens)
+- ️ Line-by-line suggestions (can't refactor across files)
+- ️ Can't execute commands or run tests
+- ️ No reasoning explanation (suggests but doesn't explain WHY)
+- ️ Limited context window (~8K tokens)
 
 **Best for**:
 - Writing individual functions
@@ -176,16 +175,16 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Privacy-focused AI code completion
 
 **The Good**:
-- ✅ Can run locally (on-device models, no cloud needed)
-- ✅ Privacy-first - doesn't send code to cloud by default
-- ✅ Supports 50+ IDEs and editors
-- ✅ Team training on your codebase
-- ✅ Compliant with enterprise security (SOC 2, GDPR)
+- Can run locally (on-device models, no cloud needed)
+- Privacy-first - doesn't send code to cloud by default
+- Supports 50+ IDEs and editors
+- Team training on your codebase
+- Compliant with enterprise security (SOC 2, GDPR)
 
 **The Not-So-Good**:
-- ⚠️ Local models less powerful than cloud-based
-- ⚠️ Limited chat/explanation features
-- ⚠️ Smaller community than Copilot
+- ️ Local models less powerful than cloud-based
+- ️ Limited chat/explanation features
+- ️ Smaller community than Copilot
 
 **Best for**:
 - Enterprises with strict privacy requirements
@@ -203,16 +202,16 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Free AI code completion and chat (Copilot alternative)
 
 **The Good**:
-- ✅ Completely FREE for individuals (unlimited usage!)
-- ✅ Autocomplete + chat interface (best of both)
-- ✅ Multi-file context awareness
-- ✅ 70+ programming languages supported
-- ✅ No usage limits on free tier
+- Completely FREE for individuals (unlimited usage!)
+- Autocomplete + chat interface (best of both)
+- Multi-file context awareness
+- 70+ programming languages supported
+- No usage limits on free tier
 
 **The Not-So-Good**:
-- ⚠️ Newer product, less mature
-- ⚠️ Smaller training dataset than Copilot
-- ⚠️ Some features still in beta
+- ️ Newer product, less mature
+- ️ Smaller training dataset than Copilot
+- ️ Some features still in beta
 
 **Best for**:
 - Students and learners (FREE!)
@@ -234,21 +233,21 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: VS Code fork with AI deeply integrated throughout
 
 **The Good**:
-- ✅ Sees your entire project (reads all files for context)
-- ✅ Can edit multiple files simultaneously
-- ✅ Runs terminal commands autonomously
-- ✅ Explains reasoning step-by-step
-- ✅ Long context window (200K+ tokens with Claude)
-- ✅ Agentic (takes multi-step actions without asking)
-- ✅ Composer mode for complex refactoring
-- ✅ Import all VS Code extensions
-- ✅ Supports Claude, GPT-4, or bring your own API key (BYOK)
+- Sees your entire project (reads all files for context)
+- Can edit multiple files simultaneously
+- Runs terminal commands autonomously
+- Explains reasoning step-by-step
+- Long context window (200K+ tokens with Claude)
+- Agentic (takes multi-step actions without asking)
+- Composer mode for complex refactoring
+- Import all VS Code extensions
+- Supports Claude, GPT-4, or bring your own API key (BYOK)
 
 **The Not-So-Good**:
-- ⚠️ Requires switching from your current IDE
-- ⚠️ Monthly subscription + usage credits model
-- ⚠️ Can make mistakes (always verify!)
-- ⚠️ Some VS Code features lag behind
+- ️ Requires switching from your current IDE
+- ️ Monthly subscription + usage credits model
+- ️ Can make mistakes (always verify!)
+- ️ Some VS Code features lag behind
 
 **Best for**:
 - Complex refactoring across multiple files
@@ -285,16 +284,16 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: VS Code-based IDE with "Cascade" agentic AI
 
 **The Good**:
-- ✅ Free tier available (huge advantage over Cursor)
-- ✅ Agentic workflows (multi-step autonomous coding)
-- ✅ Codebase-aware suggestions
-- ✅ Modern, clean UI
-- ✅ "Cascade" feature for complex tasks
+- Free tier available (huge advantage over Cursor)
+- Agentic workflows (multi-step autonomous coding)
+- Codebase-aware suggestions
+- Modern, clean UI
+- "Cascade" feature for complex tasks
 
 **The Not-So-Good**:
-- ⚠️ Newer product (launched late 2024)
-- ⚠️ Smaller user base, fewer tutorials
-- ⚠️ Some rough edges being smoothed out
+- ️ Newer product (launched late 2024)
+- ️ Smaller user base, fewer tutorials
+- ️ Some rough edges being smoothed out
 
 **Best for**:
 - Developers wanting Cursor-like experience for free
@@ -307,7 +306,7 @@ The landscape has exploded with options. Here's your decision matrix:
 
 ---
 
-## 🖥️ Category 3: Terminal & CLI-Based Coding Agents ⭐ 2025 BREAKTHROUGH
+## ️ Category 3: Terminal & CLI-Based Coding Agents ⭐ 2025 BREAKTHROUGH
 
 **The Personality**: These are **command-line wizards** - autonomous coding agents that live in your terminal. The newest and most powerful category!
 
@@ -318,19 +317,19 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Official OpenAI terminal coding agent (launched October 2025)
 
 **The Good**:
-- ✅ **INCLUDED with ChatGPT Plus/Pro** ($20/month) - NO additional API costs!
-- ✅ Zero-setup: `npm install -g @openai/codex`
-- ✅ IDE extensions available (VSCode, Cursor, Windsurf)
-- ✅ Uses GPT-5.1-Codex-Max (most advanced OpenAI coding model)
-- ✅ Works across millions of tokens (project-scale refactors)
-- ✅ 95% of OpenAI engineers use it weekly
-- ✅ ReAct loop for complex multi-step tasks
-- ✅ Available in CLI, IDE extensions, and web
+- **INCLUDED with ChatGPT Plus/Pro** ($20/month) - NO additional API costs!
+- Zero-setup: `npm install -g @openai/codex`
+- IDE extensions available (VSCode, Cursor, Windsurf)
+- Uses GPT-5.1-Codex-Max (most advanced OpenAI coding model)
+- Works across millions of tokens (project-scale refactors)
+- 95% of OpenAI engineers use it weekly
+- ReAct loop for complex multi-step tasks
+- Available in CLI, IDE extensions, and web
 
 **The Not-So-Good**:
-- ⚠️ Requires ChatGPT Plus/Pro subscription
-- ⚠️ Terminal-focused (but IDE extensions available)
-- ⚠️ Newer tool (launched Oct 2025, still maturing)
+- ️ Requires ChatGPT Plus/Pro subscription
+- ️ Terminal-focused (but IDE extensions available)
+- ️ Newer tool (launched Oct 2025, still maturing)
 
 **Best for**:
 - Developers already paying for ChatGPT Plus ($20/month gets you BOTH chat + CLI agent!)
@@ -354,18 +353,18 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Open-source terminal AI agent from Google (launched June 2025)
 
 **The Good**:
-- ✅ **FREE tier** with generous limits (just login with Google account!)
-- ✅ Gemini 2.5 Pro with **1 million token** context window (largest available!)
-- ✅ 60 requests/minute, 1,000 requests/day on free tier
-- ✅ Open source (70,000+ GitHub stars, 2,800+ community PRs)
-- ✅ ReAct loop with tool use
-- ✅ MCP server support
-- ✅ Integrated with Gemini Code Assist (Agent Mode in VS Code)
+- **FREE tier** with generous limits (just login with Google account!)
+- Gemini 2.5 Pro with **1 million token** context window (largest available!)
+- 60 requests/minute, 1,000 requests/day on free tier
+- Open source (70,000+ GitHub stars, 2,800+ community PRs)
+- ReAct loop with tool use
+- MCP server support
+- Integrated with Gemini Code Assist (Agent Mode in VS Code)
 
 **The Not-So-Good**:
-- ⚠️ CLI UX still improving (community feedback: rougher than competitors)
-- ⚠️ Newer than established tools (launched June 2025)
-- ⚠️ Some features still in development
+- ️ CLI UX still improving (community feedback: rougher than competitors)
+- ️ Newer than established tools (launched June 2025)
+- ️ Some features still in development
 
 **Best for**:
 - **Budget-conscious developers** (best free tier available in 2025!)
@@ -390,18 +389,18 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: AI pair programming in your terminal with git integration
 
 **The Good**:
-- ✅ Works with ANY editor (terminal-based, editor-agnostic)
-- ✅ Git integration (auto-commits AI changes)
-- ✅ Can edit multiple files
-- ✅ Uses GPT-4, Claude, or local models
-- ✅ Perfect for SSH/remote workflows
-- ✅ Scriptable for automation
-- ✅ Open source
+- Works with ANY editor (terminal-based, editor-agnostic)
+- Git integration (auto-commits AI changes)
+- Can edit multiple files
+- Uses GPT-4, Claude, or local models
+- Perfect for SSH/remote workflows
+- Scriptable for automation
+- Open source
 
 **The Not-So-Good**:
-- ⚠️ Terminal-only (no GUI)
-- ⚠️ Requires comfort with command line
-- ⚠️ No inline autocomplete
+- ️ Terminal-only (no GUI)
+- ️ Requires comfort with command line
+- ️ No inline autocomplete
 
 **Best for**:
 - Terminal power users (Vim, Emacs users)
@@ -422,16 +421,16 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: VS Code extension for agentic AI coding with terminal access
 
 **The Good**:
-- ✅ Autonomous coding agent (can work for minutes unsupervised)
-- ✅ Can create files, run commands, read output
-- ✅ Works with Claude, GPT-4, local models
-- ✅ Browser automation capabilities
-- ✅ Integrated with VS Code but CLI-like power
+- Autonomous coding agent (can work for minutes unsupervised)
+- Can create files, run commands, read output
+- Works with Claude, GPT-4, local models
+- Browser automation capabilities
+- Integrated with VS Code but CLI-like power
 
 **The Not-So-Good**:
-- ⚠️ Can run expensive operations without asking (watch your API costs!)
-- ⚠️ Sometimes over-engineers solutions
-- ⚠️ Requires trusting AI with filesystem access
+- ️ Can run expensive operations without asking (watch your API costs!)
+- ️ Sometimes over-engineers solutions
+- ️ Requires trusting AI with filesystem access
 
 **Best for**:
 - Agentic workflows within VS Code
@@ -449,20 +448,20 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Open-source AI agent for full software development automation from Block (formerly Square)
 
 **The Good**:
-- ✅ **Fully autonomous** - can work for extended periods without human intervention
-- ✅ Desktop app + CLI interface (best of both worlds)
-- ✅ **Native MCP support** (Model Context Protocol)
-- ✅ Works with Ollama for local LLMs (Llama, Mistral, etc.)
-- ✅ Session persistence (pick up where you left off)
-- ✅ Can manage entire development workflows
-- ✅ Backed by Block/Square (enterprise credibility)
-- ✅ Open source (MIT license, GitHub: block/goose)
+- **Fully autonomous** - can work for extended periods without human intervention
+- Desktop app + CLI interface (best of both worlds)
+- **Native MCP support** (Model Context Protocol)
+- Works with Ollama for local LLMs (Llama, Mistral, etc.)
+- Session persistence (pick up where you left off)
+- Can manage entire development workflows
+- Backed by Block/Square (enterprise credibility)
+- Open source (MIT license, GitHub: block/goose)
 
 **The Not-So-Good**:
-- ⚠️ Newer project, rapidly evolving API
-- ⚠️ Less documentation than mature tools
-- ⚠️ Can be aggressive with file changes (always use version control!)
-- ⚠️ Requires careful permission management
+- ️ Newer project, rapidly evolving API
+- ️ Less documentation than mature tools
+- ️ Can be aggressive with file changes (always use version control!)
+- ️ Requires careful permission management
 
 **Best for**:
 - Full project automation ("build me a REST API")
@@ -483,18 +482,18 @@ The landscape has exploded with options. Here's your decision matrix:
 **What it is**: Natural language interface to your computer's code interpreter
 
 **The Good**:
-- ✅ **Runs code locally** in Python, JavaScript, shell, and more
-- ✅ Direct computer control (files, applications, terminal)
-- ✅ Works with Ollama for local LLMs
-- ✅ Streaming output (see results as they happen)
-- ✅ Voice interface available (talk to your computer!)
-- ✅ Open source, active community
+- **Runs code locally** in Python, JavaScript, shell, and more
+- Direct computer control (files, applications, terminal)
+- Works with Ollama for local LLMs
+- Streaming output (see results as they happen)
+- Voice interface available (talk to your computer!)
+- Open source, active community
 
 **The Not-So-Good**:
-- ❌ **Limited MCP support** (not designed for it)
-- ⚠️ Security concerns (gives AI direct computer access)
-- ⚠️ Can execute destructive commands if not careful
-- ⚠️ Less focused on coding, more on general computer tasks
+- **Limited MCP support** (not designed for it)
+- ️ Security concerns (gives AI direct computer access)
+- ️ Can execute destructive commands if not careful
+- ️ Less focused on coding, more on general computer tasks
 
 **Best for**:
 - Data analysis and visualization
@@ -654,7 +653,7 @@ interpreter.chat("Create a bar chart of monthly sales")
 
 ---
 
-### 💡 Did You Know? The MCP Origin Story
+### Did You Know? The MCP Origin Story
 
 **November 2024**: Anthropic announced MCP (Model Context Protocol) as an open standard. Within 3 months:
 
@@ -706,7 +705,7 @@ Primary: Open Interpreter
 
 ---
 
-## 🤖 Category 4: Agentic Assistants (Extensions)
+## Category 4: Agentic Assistants (Extensions)
 
 **The Personality**: These are **autonomous agents** - they can reason, plan, and execute multi-step tasks.
 
@@ -715,20 +714,20 @@ Primary: Open Interpreter
 **What it is**: Official Anthropic terminal coding agent - the AI assistant you're using right now to learn!
 
 **The Good**:
-- ✅ Agentic multi-file editing
-- ✅ Git workflow integration
-- ✅ Understands entire codebase (200K token context)
-- ✅ Uses Claude Opus 4.1, Sonnet 4.5, Haiku 3.5
-- ✅ Works on macOS, Linux, Windows
-- ✅ Open source (GitHub: anthropics/claude-code)
-- ✅ No backend server needed (runs locally)
-- ✅ Excellent at explaining and teaching (best for learning!)
+- Agentic multi-file editing
+- Git workflow integration
+- Understands entire codebase (200K token context)
+- Uses Claude Opus 4.1, Sonnet 4.5, Haiku 3.5
+- Works on macOS, Linux, Windows
+- Open source (GitHub: anthropics/claude-code)
+- No backend server needed (runs locally)
+- Excellent at explaining and teaching (best for learning!)
 
 **The Not-So-Good**:
-- ⚠️ Requires Claude API key (pay-per-use)
-- ⚠️ **NOT included with Claude Pro subscription** ($20/month web chat subscription does NOT give you API access!)
-- ⚠️ Standard API pricing (can add up with heavy use)
-- ⚠️ Terminal-only (no GUI)
+- ️ Requires Claude API key (pay-per-use)
+- ️ **NOT included with Claude Pro subscription** ($20/month web chat subscription does NOT give you API access!)
+- ️ Standard API pricing (can add up with heavy use)
+- ️ Terminal-only (no GUI)
 
 **Best for**:
 - Complex multi-file refactoring
@@ -758,17 +757,17 @@ Primary: Open Interpreter
 **What it is**: Open-source AI code assistant for VS Code/JetBrains
 
 **The Good**:
-- ✅ Fully open source (MIT license)
-- ✅ Works with ANY LLM (Claude, GPT-4, Llama, Mistral, local models)
-- ✅ Autocomplete + chat modes
-- ✅ Fully customizable (edit prompts, add tools)
-- ✅ Privacy-friendly (can use local models)
-- ✅ Active community, frequent updates
+- Fully open source (MIT license)
+- Works with ANY LLM (Claude, GPT-4, Llama, Mistral, local models)
+- Autocomplete + chat modes
+- Fully customizable (edit prompts, add tools)
+- Privacy-friendly (can use local models)
+- Active community, frequent updates
 
 **The Not-So-Good**:
-- ⚠️ Requires more manual configuration
-- ⚠️ UI less polished than commercial tools
-- ⚠️ Some features still experimental
+- ️ Requires more manual configuration
+- ️ UI less polished than commercial tools
+- ️ Some features still experimental
 
 **Best for**:
 - Developers wanting open-source solution
@@ -793,19 +792,19 @@ Primary: Open Interpreter
 **What it is**: General-purpose AI that's excellent for coding tasks
 
 **The Good**:
-- ✅ ChatGPT Plus ($20/month) or free tier
-- ✅ Canvas mode for iterative code editing
-- ✅ Code interpreter (runs Python in sandbox)
-- ✅ Great for learning, debugging, code review
-- ✅ No IDE integration needed (browser-based)
-- ✅ Huge knowledge base, excellent explanations
-- ✅ O1 model for complex reasoning
+- ChatGPT Plus ($20/month) or free tier
+- Canvas mode for iterative code editing
+- Code interpreter (runs Python in sandbox)
+- Great for learning, debugging, code review
+- No IDE integration needed (browser-based)
+- Huge knowledge base, excellent explanations
+- O1 model for complex reasoning
 
 **The Not-So-Good**:
-- ⚠️ No direct IDE integration (copy-paste workflow)
-- ⚠️ Can't see your full codebase
-- ⚠️ Can't edit files directly
-- ⚠️ Context resets between conversations
+- ️ No direct IDE integration (copy-paste workflow)
+- ️ Can't see your full codebase
+- ️ Can't edit files directly
+- ️ Context resets between conversations
 
 **Best for**:
 - Ad-hoc coding help
@@ -825,17 +824,17 @@ Primary: Open Interpreter
 **What it is**: Google's AI assistant with strong coding capabilities
 
 **The Good**:
-- ✅ Free tier available (generous limits)
-- ✅ Integrated with Google Workspace
-- ✅ Long context window (2M tokens in Pro!)
-- ✅ Code execution capabilities
-- ✅ Multimodal (can analyze images, diagrams, screenshots)
-- ✅ Google Search integration
+- Free tier available (generous limits)
+- Integrated with Google Workspace
+- Long context window (2M tokens in Pro!)
+- Code execution capabilities
+- Multimodal (can analyze images, diagrams, screenshots)
+- Google Search integration
 
 **The Not-So-Good**:
-- ⚠️ No IDE integration
-- ⚠️ Less popular for coding than ChatGPT/Claude
-- ⚠️ Copy-paste workflow
+- ️ No IDE integration
+- ️ Less popular for coding than ChatGPT/Claude
+- ️ Copy-paste workflow
 
 **Best for**:
 - Those in Google ecosystem
@@ -851,7 +850,7 @@ Primary: Open Interpreter
 
 ---
 
-## 🚨 CRITICAL: Subscriptions vs API Access (Read This Carefully!)
+## CRITICAL: Subscriptions vs API Access (Read This Carefully!)
 
 ### The #1 Confusion in AI Coding (90% of Beginners Get This Wrong!)
 
@@ -880,11 +879,11 @@ Primary: Open Interpreter
 | **Gemini Advanced** | $20/mo | Web chat + Google Workspace | ❌ No - web only |
 
 **What subscriptions give you**:
-- ✅ Unlimited access to web chat interface
-- ✅ Click buttons in a browser to get AI help
-- ✅ Great for ad-hoc questions, learning, brainstorming
-- ❌ **Cannot** be used programmatically by external tools
-- ❌ **Separate billing** from API access
+- Unlimited access to web chat interface
+- Click buttons in a browser to get AI help
+- Great for ad-hoc questions, learning, brainstorming
+- **Cannot** be used programmatically by external tools
+- **Separate billing** from API access
 
 **Exception**: ChatGPT Plus/Pro **DOES** include OpenAI Codex CLI! (Only subscription that includes a coding tool)
 
@@ -899,11 +898,11 @@ Primary: Open Interpreter
 | **Google AI API** | Free tier + paid | Programmatic access to Gemini | ✅ Yes - Continue.dev, custom tools |
 
 **What API access gives you**:
-- ✅ Your **code/tools** can call AI models
-- ✅ Works with terminal agents (Aider.ai, Claude Code CLI)
-- ✅ Works with IDE extensions (Continue.dev, Cursor BYOK)
-- ✅ Pay per request (typically $3-20/month for moderate use)
-- ⚠️ **Completely separate** from chat subscriptions
+- Your **code/tools** can call AI models
+- Works with terminal agents (Aider.ai, Claude Code CLI)
+- Works with IDE extensions (Continue.dev, Cursor BYOK)
+- Pay per request (typically $3-20/month for moderate use)
+- ️ **Completely separate** from chat subscriptions
 
 ---
 
@@ -912,14 +911,14 @@ Primary: Open Interpreter
 **Scenario 1: You have ChatGPT Plus ($20/month)**
 
 What you CAN do:
-- ✅ Use ChatGPT web interface for coding help
-- ✅ Use OpenAI Codex CLI (INCLUDED!)
-- ✅ Copy-paste code for debugging/review
+- Use ChatGPT web interface for coding help
+- Use OpenAI Codex CLI (INCLUDED!)
+- Copy-paste code for debugging/review
 
 What you CANNOT do:
-- ❌ Use Aider.ai (needs separate OpenAI API account)
-- ❌ Use Continue.dev with GPT-4 (needs separate API key)
-- ❌ Use Cursor BYOK with GPT-4 (needs API key)
+- Use Aider.ai (needs separate OpenAI API account)
+- Use Continue.dev with GPT-4 (needs separate API key)
+- Use Cursor BYOK with GPT-4 (needs API key)
 
 **To use those tools**: Sign up for OpenAI API separately at platform.openai.com (different from chat.openai.com!)
 
@@ -928,14 +927,14 @@ What you CANNOT do:
 **Scenario 2: You have Claude Pro ($20/month)**
 
 What you CAN do:
-- ✅ Use Claude web interface (claude.ai) for coding help
-- ✅ 200K token context for code analysis
-- ✅ Artifacts for code editing
+- Use Claude web interface (claude.ai) for coding help
+- 200K token context for code analysis
+- Artifacts for code editing
 
 What you CANNOT do:
-- ❌ Use Claude Code CLI (needs separate Anthropic API key)
-- ❌ Use Aider.ai with Claude (needs API key)
-- ❌ Use Continue.dev with Claude (needs API key)
+- Use Claude Code CLI (needs separate Anthropic API key)
+- Use Aider.ai with Claude (needs API key)
+- Use Continue.dev with Claude (needs API key)
 
 **To use Claude Code CLI**: Get separate API key from console.anthropic.com (pay-per-use, ~$3-10/month)
 
@@ -944,14 +943,14 @@ What you CANNOT do:
 **Scenario 3: You have Gemini Advanced ($20/month)**
 
 What you CAN do:
-- ✅ Use Gemini web interface for coding help
-- ✅ 2M token context window
-- ✅ Google Workspace integration
+- Use Gemini web interface for coding help
+- 2M token context window
+- Google Workspace integration
 
 What you CANNOT do:
-- ❌ Use Gemini CLI (it's FREE but separate - just login with Google!)
-- ❌ Use Continue.dev with Gemini (needs Google AI API key)
-- ❌ Use custom integrations
+- Use Gemini CLI (it's FREE but separate - just login with Google!)
+- Use Continue.dev with Gemini (needs Google AI API key)
+- Use custom integrations
 
 **Good news**: Gemini CLI has an excellent FREE tier! Just login with your Google account at ai.google.dev
 
@@ -974,27 +973,27 @@ Or even better in 2025:
 ### Cost Comparison by Use Case
 
 **"I'm a student on tight budget"**:
-- ✅ Skip subscriptions
-- ✅ Use Gemini CLI (FREE tier - 1K req/day!)
-- ✅ Use Codeium (FREE autocomplete)
-- ✅ Use Continue.dev + Google AI API (FREE tier)
+- Skip subscriptions
+- Use Gemini CLI (FREE tier - 1K req/day!)
+- Use Codeium (FREE autocomplete)
+- Use Continue.dev + Google AI API (FREE tier)
 - **Cost**: $0/month
 
 **"I want best experience, budget not an issue"**:
-- ✅ ChatGPT Plus ($20/mo) → includes Codex CLI
-- ✅ Cursor Pro ($20/mo) → best AI IDE
-- ✅ Claude API (~$10/mo) → for Claude Code CLI when needed
+- ChatGPT Plus ($20/mo) → includes Codex CLI
+- Cursor Pro ($20/mo) → best AI IDE
+- Claude API (~$10/mo) → for Claude Code CLI when needed
 - **Cost**: $50/month, every tool available
 
 **"I'm a professional developer, moderate budget"**:
-- ✅ Cursor Pro ($20/mo) → all-in-one: autocomplete + agentic AI + IDE
-- ✅ Gemini CLI (FREE) → for long context tasks
+- Cursor Pro ($20/mo) → all-in-one: autocomplete + agentic AI + IDE
+- Gemini CLI (FREE) → for long context tasks
 - **Cost**: $20/month
 
 **"I prefer terminal/CLI workflows"**:
-- ✅ ChatGPT Plus ($20/mo) → includes Codex CLI
-- ✅ Gemini CLI (FREE)
-- ✅ Use your favorite editor (Vim, Emacs, VS Code)
+- ChatGPT Plus ($20/mo) → includes Codex CLI
+- Gemini CLI (FREE)
+- Use your favorite editor (Vim, Emacs, VS Code)
 - **Cost**: $20/month
 
 ---
@@ -1084,7 +1083,7 @@ Claude Code/Cursor ──────→ (power)
 
 ---
 
-### 📊 Categories at a Glance
+### Categories at a Glance
 
 #### 1. **Autocomplete-First** (Copilot, Tabnine, Codeium)
 - **Best for**: Fast, inline suggestions as you type
@@ -1160,7 +1159,7 @@ Claude Code/Cursor ──────→ (power)
 
 ---
 
-#### 🎓 Best for Learning (Neural Dojo Recommendation)
+#### Best for Learning (Neural Dojo Recommendation)
 
 **Primary**: VS Code + Claude Code CLI (pay-per-use)
 - Explains reasoning (critical for learning!)
@@ -1183,7 +1182,7 @@ Claude Code/Cursor ──────→ (power)
 
 ---
 
-### 💡 Choosing Your Stack: Decision Tree (2025 Edition)
+### Choosing Your Stack: Decision Tree (2025 Edition)
 
 ```
 START: What's your budget?
@@ -1230,22 +1229,22 @@ LEARNING (Neural Dojo students)?
 
 ---
 
-## 💡 Mental Model: AI as a Super-Intern
+## Mental Model: AI as a Super-Intern
 
 Here's the best mental model for working with AI coding assistants:
 
 **AI is like a brilliant intern who**:
-- ✅ Knows syntax perfectly across 50+ languages
-- ✅ Has read millions of code examples (all of GitHub!)
-- ✅ Can write boilerplate instantly without typos
-- ✅ Never complains about tedious tasks
-- ✅ Works 24/7 without breaks
-- ✅ Has photographic memory for APIs and documentation
-- ❌ Doesn't understand your business logic (unless you explain it clearly)
-- ❌ Can confidently suggest wrong approaches ("hallucinations")
-- ❌ Needs you to verify their work (no critical thinking about correctness)
-- ❌ Sometimes hallucinates nonexistent APIs or methods
-- ❌ Doesn't understand security implications
+- Knows syntax perfectly across 50+ languages
+- Has read millions of code examples (all of GitHub!)
+- Can write boilerplate instantly without typos
+- Never complains about tedious tasks
+- Works 24/7 without breaks
+- Has photographic memory for APIs and documentation
+- Doesn't understand your business logic (unless you explain it clearly)
+- Can confidently suggest wrong approaches ("hallucinations")
+- Needs you to verify their work (no critical thinking about correctness)
+- Sometimes hallucinates nonexistent APIs or methods
+- Doesn't understand security implications
 
 **Layered analogy**:
 - **Scale analogy**: AI is to coding what calculators are to math - handles tedious computation, but you still need to know what to calculate
@@ -1253,23 +1252,23 @@ Here's the best mental model for working with AI coding assistants:
 - **Work analogy**: AI is like autocorrect on steroids - catches obvious errors, suggests improvements, but can embarrassingly fail on context
 
 **Your role shifts from**:
-- ❌ Writing every line of code character by character
-- ❌ Remembering every API method signature
-- ❌ Fighting with syntax errors and typos
-- ❌ Copy-pasting from Stack Overflow
+- Writing every line of code character by character
+- Remembering every API method signature
+- Fighting with syntax errors and typos
+- Copy-pasting from Stack Overflow
 
 **To**:
-- ✅ **Directing**: Clearly explaining what you want ("specification as code")
-- ✅ **Reviewing**: Verifying AI output is correct, secure, efficient
-- ✅ **Refining**: Iterating to get exactly what you need
-- ✅ **Integrating**: Ensuring AI code fits your architecture and patterns
-- ✅ **Teaching**: Explaining domain-specific context AI doesn't have
+- **Directing**: Clearly explaining what you want ("specification as code")
+- **Reviewing**: Verifying AI output is correct, secure, efficient
+- **Refining**: Iterating to get exactly what you need
+- **Integrating**: Ensuring AI code fits your architecture and patterns
+- **Teaching**: Explaining domain-specific context AI doesn't have
 
 **Think of it as pair programming with an incredibly fast typist who needs guidance but executes brilliantly.**
 
 ---
 
-## 🧠 The AI Development Workflow
+## The AI Development Workflow
 
 ### Traditional Workflow (The Old Days)
 
@@ -1342,9 +1341,9 @@ Learning: High (AI explains as it codes)
 
 ---
 
-## 🎯 When to Use AI vs Traditional Coding
+## When to Use AI vs Traditional Coding
 
-### ✅ AI Excels At (Use AI Confidently)
+### AI Excels At (Use AI Confidently)
 
 #### 1. **Boilerplate Code** (AI saves hours)
 ```
@@ -1451,7 +1450,7 @@ Speedup: 6-12x
 
 ---
 
-### ❌ AI Struggles With (Use Traditional Approach or Heavy Verification)
+### AI Struggles With (Use Traditional Approach or Heavy Verification)
 
 #### 1. **Business Logic Unique to Your Domain**
 - AI doesn't know your company's specific rules
@@ -1495,7 +1494,7 @@ Speedup: 6-12x
 
 ---
 
-### 🎯 The AI Confidence Decision Matrix
+### The AI Confidence Decision Matrix
 
 | Task Type | AI Reliability | Your Role | Verification Level |
 |-----------|----------------|-----------|-------------------|
@@ -1518,7 +1517,7 @@ Speedup: 6-12x
 
 ---
 
-## 🎓 AI Coding Best Practices (Critical for Success!)
+## AI Coding Best Practices (Critical for Success!)
 
 These practices separate effective AI-augmented developers from those who struggle:
 
@@ -1527,12 +1526,12 @@ These practices separate effective AI-augmented developers from those who strugg
 **Why**: AI generates better code with type context, and you get better autocomplete
 
 ```python
-# ❌ BAD (vague request)
+# BAD (vague request)
 You: "Create a function to process users"
 
 AI: [Generates generic code with 'Any' types]
 
-# ✅ GOOD (specific request)
+# GOOD (specific request)
 You: "Create a function that:
 - Takes: List[Dict[str, Any]] of users
 - Returns: List[User] (Pydantic model)
@@ -1551,10 +1550,10 @@ AI: [Generates precise, type-safe code]
 **Why**: AI-generated code without tests is a ticking time bomb
 
 ```python
-# ❌ BAD (code only)
+# BAD (code only)
 You: "Create user validation function"
 
-# ✅ GOOD (code + tests)
+# GOOD (code + tests)
 You: "Create user validation function
 - Validates email, password strength, age
 - Include:
@@ -1575,14 +1574,14 @@ AI: [Generates function + comprehensive tests]
 **Why**: Large requests lead to AI errors, small iterations give you control
 
 ```python
-# ❌ BAD (too much at once)
+# BAD (too much at once)
 You: "Create complete user management system with CRUD, auth,
       role-based access, email verification, password reset,
       session management, and audit logging"
 
 AI: [Generates 500 lines with subtle bugs, missing edge cases]
 
-# ✅ GOOD (iterative approach)
+# GOOD (iterative approach)
 You: "Step 1: Create User model with Pydantic"
 AI: [Generates model]
 
@@ -1605,18 +1604,18 @@ AI: [Adds secure hashing, you verify]
 
 **Common AI security mistakes**:
 ```python
-# ❌ AI might generate (SQL injection risk!)
+# AI might generate (SQL injection risk!)
 query = f"SELECT * FROM users WHERE username='{username}'"
 
-# ✅ You verify and fix
+# You verify and fix
 query = "SELECT * FROM users WHERE username = %s"
 cursor.execute(query, (username,))
 
-# ❌ AI might generate (timing attack risk!)
+# AI might generate (timing attack risk!)
 if user.password == provided_password:
     return True
 
-# ✅ You fix
+# You fix
 import secrets
 if secrets.compare_digest(user.password, provided_password):
     return True
@@ -1717,11 +1716,11 @@ AI: [Detailed review with suggestions]
 **Why**: AI can make breaking changes, you need rollback capability
 
 ```bash
-# ❌ BAD (let AI modify 10 files at once)
+# BAD (let AI modify 10 files at once)
 git status
 # 10 files changed, hard to review
 
-# ✅ GOOD (AI changes one thing at a time)
+# GOOD (AI changes one thing at a time)
 git add feature.py
 git commit -m "Add user validation (AI-generated)"
 
@@ -1735,7 +1734,7 @@ git commit -m "Add tests for user validation (AI-generated)"
 
 ---
 
-## 🚨 Common Mistakes: Learn From Others' Pain
+## Common Mistakes: Learn From Others' Pain
 
 ### Mistake #1: "I Blindly Accepted AI's First Suggestion"
 
@@ -1813,7 +1812,7 @@ def parse_response(response: str) -> Optional[dict]:
 
 **Real Example**:
 ```python
-# ❌ Vague request
+# Vague request
 You: "Make a function to filter data"
 
 AI: [Generates generic filter that doesn't match your needs]
@@ -1829,7 +1828,7 @@ You: "Ugh, AI is useless!" 🤦
 **The Fix**: Be **extremely specific**
 
 ```python
-# ✅ Specific request
+# Specific request
 You: "Create a function that:
 
 Input: List[Dict[str, Any]] where each dict has:
@@ -2091,7 +2090,7 @@ Recommendation: Use option 3 - type hints prevent this class of bugs!"
 
 ---
 
-## 🔬 Deep Dive (Optional): How AI Coding Assistants Actually Work
+## Deep Dive (Optional): How AI Coding Assistants Actually Work
 
 **For the curious**: What's happening under the hood when AI writes code?
 
@@ -2185,7 +2184,7 @@ Approach: Reasoning + planning + execution
 
 ---
 
-## 💡 Did You Know? More Fascinating Facts
+## Did You Know? More Fascinating Facts
 
 ### The Origin of AI Coding Assistants
 
@@ -2223,13 +2222,13 @@ Approach: Reasoning + planning + execution
 ### What AI Can't Do (Yet... 2025 Limitations)
 
 AI coding assistants in 2025 still can't:
-- ❌ **Understand your product vision** (you define requirements)
-- ❌ **Make architectural decisions** (you choose patterns)
-- ❌ **Debug complex distributed systems** (needs human intuition)
-- ❌ **Write perfectly secure code** (always verify auth, crypto, validation)
-- ❌ **Replace code review** (AI code still needs human review)
-- ❌ **Understand business context** (unique to your company)
-- ❌ **Replace you** (AI amplifies developers, doesn't replace them)
+- **Understand your product vision** (you define requirements)
+- **Make architectural decisions** (you choose patterns)
+- **Debug complex distributed systems** (needs human intuition)
+- **Write perfectly secure code** (always verify auth, crypto, validation)
+- **Replace code review** (AI code still needs human review)
+- **Understand business context** (unique to your company)
+- **Replace you** (AI amplifies developers, doesn't replace them)
 
 **The best developers in 2025**: Know when to use AI, when to code themselves, and how to verify AI output
 
@@ -2251,7 +2250,7 @@ AI coding assistants in 2025 still can't:
 
 ---
 
-## 📚 Real Project Tie-Ins
+## Real Project Tie-Ins
 
 How Module 1 skills apply to your actual projects:
 
@@ -2326,7 +2325,7 @@ to the sentiment tokenizer (expects text strings)...
 
 ---
 
-## 🧪 Try This: Interactive Challenges
+## Try This: Interactive Challenges
 
 ### Challenge 1: AI Tool Speed Test
 
@@ -2494,16 +2493,16 @@ REQUIREMENTS:
 
 ---
 
-## 🛠️ Setting Up Your AI Coding Environment
+## ️ Setting Up Your AI Coding Environment
 
 ### Option 1: VS Code + Claude Code (Recommended for Neural Dojo)
 
 **Why This Setup**:
-- ✅ Claude Code can see your entire project (200K tokens)
-- ✅ Explains reasoning clearly (best for learning!)
-- ✅ Can run terminal commands (automated testing)
-- ✅ Long context window (understands module context)
-- ✅ Free VS Code + pay-per-use Claude API
+- Claude Code can see your entire project (200K tokens)
+- Explains reasoning clearly (best for learning!)
+- Can run terminal commands (automated testing)
+- Long context window (understands module context)
+- Free VS Code + pay-per-use Claude API
 
 **Setup Steps**:
 1. **Install VS Code**: https://code.visualstudio.com/
@@ -2532,10 +2531,10 @@ REQUIREMENTS:
 ### Option 2: GitHub Copilot (Great for Daily Coding)
 
 **Why This Setup**:
-- ✅ Fastest autocomplete (sub-second suggestions)
-- ✅ Mature product, well-tested
-- ✅ Great for writing functions, tests, boilerplate
-- ✅ Works in VS Code, JetBrains, Vim, Neovim
+- Fastest autocomplete (sub-second suggestions)
+- Mature product, well-tested
+- Great for writing functions, tests, boilerplate
+- Works in VS Code, JetBrains, Vim, Neovim
 
 **Setup Steps**:
 1. **Sign up**: https://github.com/features/copilot
@@ -2562,10 +2561,10 @@ REQUIREMENTS:
 ### Option 3: Cursor (All-in-One, Best Experience)
 
 **Why This Setup**:
-- ✅ Best of both worlds (autocomplete + agentic AI)
-- ✅ Native AI integration, not an extension
-- ✅ Composer mode for multi-file edits
-- ✅ Import all your VS Code settings/extensions
+- Best of both worlds (autocomplete + agentic AI)
+- Native AI integration, not an extension
+- Composer mode for multi-file edits
+- Import all your VS Code settings/extensions
 
 **Setup Steps**:
 1. **Download Cursor**: https://cursor.sh/
@@ -2616,7 +2615,7 @@ VS Code + Claude Code
 
 ---
 
-## 🎯 Module 1 Complete Checklist
+## Module 1 Complete Checklist
 
 Use this to verify you're ready for Module 2:
 
@@ -2647,7 +2646,7 @@ Use this to verify you're ready for Module 2:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Essential Articles
 - ["GitHub Copilot Research"](https://arxiv.org/abs/2308.10103) - Academic study on Copilot effectiveness
@@ -2684,17 +2683,17 @@ Use this to verify you're ready for Module 2:
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 **Congratulations!** You now understand the AI development landscape and how to use AI as your coding partner.
 
 **You've learned**:
-- ✅ The 13 major AI coding tools (2025-verified) and when to use each
-- ✅ How to think about AI as a "super-intern" coding partner
-- ✅ When AI excels vs when to code yourself
-- ✅ AI coding best practices (8 critical practices)
-- ✅ Common mistakes and how to avoid them
-- ✅ How to set up your AI coding environment
+- The 13 major AI coding tools (2025-verified) and when to use each
+- How to think about AI as a "super-intern" coding partner
+- When AI excels vs when to code yourself
+- AI coding best practices (8 critical practices)
+- Common mistakes and how to avoid them
+- How to set up your AI coding environment
 
 **Next Module**: **Module 2: Prompt Engineering Fundamentals** 🔮
 

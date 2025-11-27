@@ -1,14 +1,14 @@
 # Module 7: Tokenization & Text Processing
+# Or: Why 'tokenization' Has Nothing to Do With Cryptocurrency
 
 **Last Updated**: 2025-11-24
-**Status**: 🟢 Complete
-**Duration**: 4-5 hours
+**Status**: Complete
+**Reading Time**: 4-5 hours
 **Prerequisites**: Module 6
-**Version**: 2.0 (Expanded with historical stories)
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand how text becomes tokens
@@ -20,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 **Question**: Why does "Hello world" cost more than "Hi there" even though they're both simple greetings?
 
@@ -35,7 +35,7 @@ LLMs don't process raw text. They process **tokens** - and the number of tokens 
 
 ---
 
-## 💡 Did You Know? The $10 Billion Question Nobody Asked
+## Did You Know? The $10 Billion Question Nobody Asked
 
 In the early days of GPT-3 (2020), users noticed something strange: **the model couldn't do basic arithmetic**.
 
@@ -70,7 +70,7 @@ When you ask GPT-3 to add "37|89" + "45|67", it's not seeing the actual numbers 
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the theory - now let's count some tokens!**
 
@@ -81,22 +81,22 @@ Before diving deeper into tokenization algorithms, get hands-on experience with 
 **1. [Token Counter](../../examples/module_07/01_token_counter.py)** - See tokenization in action
    - 📖 Concept: Basic token counting and visualization
    - ⏱️ Time: 45-60 minutes
-   - 🎯 Goal: Understand how different text types tokenize
-   - 💡 What you'll learn: Code uses 3-4x more tokens than prose!
+   - Goal: Understand how different text types tokenize
+   - What you'll learn: Code uses 3-4x more tokens than prose!
 
 **2. [Token Optimization](../../examples/module_07/02_optimization.py)** - Save 30-50% on API costs
    - 📖 Concept: 6 strategies to reduce token counts
    - ⏱️ Time: 60-75 minutes
-   - 🎯 Goal: Optimize prompts without losing quality
-   - 💡 What you'll learn: Simple changes = massive savings at scale
+   - Goal: Optimize prompts without losing quality
+   - What you'll learn: Simple changes = massive savings at scale
 
 **3. [Multilingual Tokenization](../../examples/module_07/03_multilingual.py)** - Compare 15+ languages
    - 📖 Concept: Why non-English costs 2-3x more
    - ⏱️ Time: 45-60 minutes
-   - 🎯 Goal: Budget accurately for multilingual apps
-   - 💡 What you'll learn: English bias in tokenizers is real
+   - Goal: Budget accurately for multilingual apps
+   - What you'll learn: English bias in tokenizers is real
 
-### 🎯 Deliverable: Token Optimization Report
+### Deliverable: Token Optimization Report
 
 **What**: Analyze your own prompts/codebase for token efficiency
 **Time**: 2-3 hours
@@ -110,10 +110,10 @@ Before diving deeper into tokenization algorithms, get hands-on experience with 
 5. Document findings in a Markdown report with before/after comparisons
 
 **Success Criteria**:
-- ✅ Token counts measured before/after optimization
-- ✅ At least 20% token reduction achieved
-- ✅ Cost savings calculated for production volumes
-- ✅ Best practices documented for future use
+- Token counts measured before/after optimization
+- At least 20% token reduction achieved
+- Cost savings calculated for production volumes
+- Best practices documented for future use
 
 **Real-World Impact**: Token optimization is critical for production AI - this deliverable proves you can reduce costs without sacrificing quality!
 
@@ -208,7 +208,7 @@ Code: "def fibonacci" → 2 tokens ("def", " fibonacci")
 
 ---
 
-### 💡 Did You Know? BPE Was Invented for Compression, Not AI!
+### Did You Know? BPE Was Invented for Compression, Not AI!
 
 **Plot twist**: BPE wasn't invented for NLP at all.
 
@@ -279,7 +279,7 @@ SentencePiece was developed by Google for their neural machine translation syste
 
 ---
 
-## 💡 Did You Know? The "SolidGoldMagikarp" Incident: When Tokens Go Rogue
+## Did You Know? The "SolidGoldMagikarp" Incident: When Tokens Go Rogue
 
 In **February 2023**, researchers discovered something bizarre in GPT-3's tokenizer: **"glitch tokens"** that caused the model to behave erratically.
 
@@ -324,7 +324,7 @@ This was the username of a Reddit user who was extremely active in the r/countin
 
 ---
 
-## 📊 Token Counting Examples
+## Token Counting Examples
 
 ### English Text
 
@@ -385,7 +385,7 @@ The reason English tokenizes more efficiently isn't just training data - it's al
 
 ---
 
-## 💡 Did You Know? Google Translate's "Big Bang" Moment (2016)
+## Did You Know? Google Translate's "Big Bang" Moment (2016)
 
 **November 15, 2016** - Google made a stunning announcement: Google Translate had switched from phrase-based statistical translation to **Neural Machine Translation (NMT)** for 8 language pairs overnight.
 
@@ -427,7 +427,7 @@ When you use any modern LLM, you're benefiting from these tokenization breakthro
 
 ---
 
-## 💡 Did You Know? The Unicode Consortium's 30-Year War
+## Did You Know? The Unicode Consortium's 30-Year War
 
 Before we could tokenize text, we had to **encode** it. This is the story of how humanity agreed on what a "character" even is.
 
@@ -544,7 +544,7 @@ Cost = (6 + 9) * $2.50/1M + 200 * $10/1M
 
 ---
 
-## 🎯 Token Optimization Strategies
+## Token Optimization Strategies
 
 ### Strategy 1: Shorter Prompts
 
@@ -640,7 +640,7 @@ System: "You are a helpful assistant."
 
 ---
 
-## 🧪 Token Counter Tools
+## Token Counter Tools
 
 ### Using Tiktoken (OpenAI's tokenizer)
 
@@ -699,7 +699,7 @@ estimated_tokens = len(text) / 4
 
 ---
 
-## 🌍 Multilingual Tokenization
+## Multilingual Tokenization
 
 ### The Challenge
 
@@ -808,7 +808,7 @@ The flag emoji 🏴󠁧󠁢󠁳󠁣󠁴󠁿 (Scotland flag) can be 7-8 tokens be
 
 ---
 
-## 💡 Real-World Applications
+## Real-World Applications
 
 ### RAG Systems
 
@@ -880,7 +880,7 @@ response = call_llm(prompt)
 
 ---
 
-## 🎓 Key Takeaways
+## Key Takeaways
 
 1. **Tokens ≠ words**: Subword tokenization is the standard
 2. **BPE, WordPiece, SentencePiece**: Different algorithms, similar goals
@@ -896,7 +896,7 @@ OpenAI's GPT-4 tokenizer has a vocabulary of ~100,000 tokens, but only uses ~50,
 
 ---
 
-## 💡 Did You Know? The Context Window Arms Race
+## Did You Know? The Context Window Arms Race
 
 In **2023-2024**, AI companies engaged in a fierce "context window arms race":
 
@@ -965,7 +965,7 @@ More tokens = more memory = more compute = **more $$$**
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - ["Neural Machine Translation of Rare Words with Subword Units"](https://arxiv.org/abs/1508.07909) (Sennrich et al., 2016) - BPE
@@ -982,7 +982,7 @@ More tokens = more memory = more compute = **more $$$**
 
 ---
 
-## ✅ Knowledge Check
+## Knowledge Check
 
 Before moving to Module 8, you should be able to:
 
@@ -997,7 +997,7 @@ Before moving to Module 8, you should be able to:
 
 ---
 
-## 🎯 What's Next
+## What's Next
 
 **Module 8**: Text Generation & Sampling Strategies
 - How LLMs generate text (autoregressive generation)

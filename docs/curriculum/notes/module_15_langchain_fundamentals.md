@@ -1,13 +1,14 @@
 # Module 15: LangChain Fundamentals
+# Or: The Framework That Took Over AI Development
 
 **Last Updated**: 2025-11-25
-**Status**: 🟡 In Progress
-**Duration**: 6-7 hours
-**Prerequisites**: Module 14 (Advanced RAG Patterns)
+**Status**: In Progress
+**Reading Time**: 6-7 hours
+**Prerequisites**: Module 14
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand LangChain's architecture and philosophy
@@ -19,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 💡 Did You Know? The LangChain Origin Story
+## Did You Know? The LangChain Origin Story
 
 ### The 27-Year-Old Who Built a $200M Company in 6 Months
 
@@ -74,7 +75,7 @@ By late 2023, a backlash emerged:
 
 ---
 
-## 💡 Did You Know? The Surprising Economics
+## Did You Know? The Surprising Economics
 
 ### LangChain's Business Model
 
@@ -122,7 +123,7 @@ result = openai.ChatCompletion.create(
 
 ---
 
-## 🏗️ LangChain Architecture
+## ️ LangChain Architecture
 
 ### The Mental Model
 
@@ -154,7 +155,7 @@ Think of LangChain as **LEGO blocks for AI applications**:
 
 ---
 
-## 📝 Prompts and Templates
+## Prompts and Templates
 
 ### Why Templates?
 
@@ -328,7 +329,7 @@ print(f"Story: {result['story'][:500]}...")
 
 ---
 
-## 🧠 Memory: Conversation History
+## Memory: Conversation History
 
 ### The Statefulness Problem
 
@@ -514,7 +515,7 @@ async for chunk in chain.astream({"topic": "AI"}):
 
 ---
 
-## 🔧 Output Parsers
+## Output Parsers
 
 ### The Structure Problem
 
@@ -588,7 +589,7 @@ print(review.rating)  # 9
 
 ---
 
-## 🤖 Multi-Model Integration
+## Multi-Model Integration
 
 ### The Multi-LLM Strategy
 
@@ -631,7 +632,7 @@ chain = prompt | llama | parser
 
 ---
 
-## 💡 Did You Know? The LCEL Revolution
+## Did You Know? The LCEL Revolution
 
 ### Why LangChain Rewrote Everything
 
@@ -668,7 +669,7 @@ One controversial decision: LangChain's debugging/tracing tool (LangSmith) requi
 
 ---
 
-## 💡 Did You Know? Famous LangChain Applications
+## Did You Know? Famous LangChain Applications
 
 ### 1. Notion AI (Maybe)
 
@@ -711,7 +712,7 @@ A 2024 survey of companies using LangChain found:
 
 ---
 
-## ⚠️ Common Pitfalls
+## ️ Common Pitfalls
 
 ### Pitfall 1: Over-Abstraction
 
@@ -771,27 +772,27 @@ except Exception as e:
 
 ---
 
-## 🎯 When to Use LangChain
+## When to Use LangChain
 
 ### Use LangChain When:
 
-- ✅ Building RAG systems (excellent retriever integrations)
-- ✅ Creating conversational AI with memory
-- ✅ Orchestrating multiple LLM calls
-- ✅ Building agents with tools
-- ✅ Need observability/debugging (LangSmith)
-- ✅ Rapid prototyping
+- Building RAG systems (excellent retriever integrations)
+- Creating conversational AI with memory
+- Orchestrating multiple LLM calls
+- Building agents with tools
+- Need observability/debugging (LangSmith)
+- Rapid prototyping
 
 ### Don't Use LangChain When:
 
-- ❌ Simple single-prompt tasks
-- ❌ You need maximum control
-- ❌ Minimizing dependencies is critical
-- ❌ Learning LLM basics (use raw APIs first)
+- Simple single-prompt tasks
+- You need maximum control
+- Minimizing dependencies is critical
+- Learning LLM basics (use raw APIs first)
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Official Resources
 - [LangChain Documentation](https://python.langchain.com/)
@@ -808,7 +809,7 @@ except Exception as e:
 
 ---
 
-## 🎯 Deliverable Preview
+## Deliverable Preview
 
 In this module's deliverable, you'll build a **LangChain Toolkit** that includes:
 1. Conversational chatbot with memory
@@ -820,7 +821,7 @@ See `examples/module_15/` for implementation.
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 After mastering LangChain fundamentals, you'll learn:
 - **Module 16**: Tools & Function Calling

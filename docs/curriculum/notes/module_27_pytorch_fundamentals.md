@@ -1,13 +1,14 @@
 # Module 27: PyTorch Fundamentals
+# Or: The Framework That Made Deep Learning Accessible
 
 **Last Updated**: 2025-11-27
-**Status**: 🟢 Complete
-**Duration**: 6-7 hours
-**Prerequisites**: Module 26 (Neural Networks from Scratch)
+**Status**: Complete
+**Reading Time**: 6-7 hours
+**Prerequisites**: Module 26
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand PyTorch tensors and their relationship to NumPy arrays
@@ -19,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction: From Pain to Power
+## Introduction: From Pain to Power
 
 In Module 26, you built neural networks from scratch. You computed gradients by hand using the chain rule. You tracked intermediate values in caches. You debugged NaN explosions at 2am.
 
@@ -33,7 +34,7 @@ Think of it this way: In Module 26, you learned to chop down a tree with a hand 
 
 ---
 
-## 💡 Did You Know? The Birth of PyTorch
+## Did You Know? The Birth of PyTorch
 
 ### The Framework Wars
 
@@ -246,7 +247,7 @@ print(t.ndim)       # 3
 print(t.numel())    # 60 (3 × 4 × 5)
 ```
 
-### 💡 Did You Know? Data Types Matter More Than You Think
+### Did You Know? Data Types Matter More Than You Think
 
 PyTorch supports many data types, and choosing the right one affects both **correctness** and **performance**.
 
@@ -385,7 +386,7 @@ Let's verify: The chain rule says:
 - `∂y/∂x = 2`
 - Result: `[4·2/3, 8·2/3, 12·2/3] = [8/3, 16/3, 24/3]` ✓
 
-### 💡 Did You Know? The Secret History of Automatic Differentiation
+### Did You Know? The Secret History of Automatic Differentiation
 
 Automatic differentiation isn't a deep learning invention. It was developed in the 1960s and 1970s for computational physics and engineering!
 
@@ -491,7 +492,7 @@ print(output.shape)       # torch.Size([32, 10])
 
 Compare this to Module 26 where you manually created weight matrices, implemented forward propagation, and tracked everything yourself. The PyTorch version is almost self-documenting!
 
-### 💡 Did You Know? Why super().__init__()?
+### Did You Know? Why super().__init__()?
 
 That `super().__init__()` call isn't just Python formality. It initializes PyTorch's internal machinery that:
 - Creates a registry for parameters
@@ -652,7 +653,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
 ```
 
-### 💡 Did You Know? The Adam Story
+### Did You Know? The Adam Story
 
 Adam (2014) combined ideas from two earlier optimizers:
 - **Momentum**: Use exponentially weighted average of past gradients
@@ -780,7 +781,7 @@ for epoch in range(num_epochs):
         optimizer.step()
 ```
 
-### 💡 Did You Know? GPU Memory Gotchas
+### Did You Know? GPU Memory Gotchas
 
 GPU memory is precious and limited. Common mistakes:
 
@@ -909,7 +910,7 @@ optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 start_epoch = checkpoint['epoch']
 ```
 
-### 💡 Did You Know? The .pth Security Risk
+### Did You Know? The .pth Security Risk
 
 PyTorch model files use Python's pickle format. **Pickle can execute arbitrary code when loading!**
 
@@ -982,7 +983,7 @@ optimizer.step()  # All weights updated!
 
 ---
 
-## 💡 Did You Know? The Future: torch.compile()
+## Did You Know? The Future: torch.compile()
 
 PyTorch 2.0 (2022) introduced something remarkable: `torch.compile()`.
 

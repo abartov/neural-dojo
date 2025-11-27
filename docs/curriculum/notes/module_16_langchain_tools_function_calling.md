@@ -1,13 +1,14 @@
 # Module 16: LangChain Tools & Function Calling
+# Or: Teaching AI to Use Tools Like a Human
 
 **Last Updated**: 2025-11-25
-**Status**: 🟡 In Progress
-**Duration**: 6-7 hours
-**Prerequisites**: Module 15 (LangChain Fundamentals)
+**Status**: In Progress
+**Reading Time**: 6-7 hours
+**Prerequisites**: Module 15
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 
@@ -19,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Theory
+## Theory
 
 ### Introduction: When LLMs Need Hands
 
@@ -1039,7 +1040,7 @@ Different LLM providers have slightly different protocols. Here's how they compa
 
 ---
 
-## 💡 Key Takeaways
+## Key Takeaways
 
 1. **Tools extend LLM capabilities** - They give the "brain in a jar" hands to interact with the world
 
@@ -1057,7 +1058,7 @@ Different LLM providers have slightly different protocols. Here's how they compa
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 ### The Birth of Function Calling
 
@@ -1128,7 +1129,7 @@ This "thinking out loud" approach became the foundation for most modern AI agent
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - **ReAct: Reasoning and Acting in Language Models** (Yao et al., 2023) - The foundational paper on tool-using agents
@@ -1146,7 +1147,7 @@ This "thinking out loud" approach became the foundation for most modern AI agent
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 After completing this module, you'll be ready for:
 

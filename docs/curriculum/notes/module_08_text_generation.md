@@ -1,13 +1,14 @@
 # Module 8: Text Generation & Sampling Strategies
+# Or: The Art of Controlled Randomness
 
 **Last Updated**: 2025-11-21
-**Status**: 🟢 Complete
-**Duration**: 5-6 hours
+**Status**: Complete
+**Reading Time**: 5-6 hours
 **Prerequisites**: Modules 6-7
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand how LLMs generate text (autoregressive generation)
@@ -19,7 +20,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 **Question**: Why does the same prompt sometimes give different responses?
 
@@ -35,7 +36,7 @@ When an LLM generates text, it doesn't just pick "the best" word. It **samples**
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the theory - now let's control some text generation!**
 
@@ -46,16 +47,16 @@ Understanding sampling parameters is like learning to drive - theory is importan
 **1. [Sampling Playground](../../examples/module_08/01_sampling_playground.py)** - Experiment with all parameters
    - 📖 Concept: Interactive exploration of sampling strategies
    - ⏱️ Time: 75-90 minutes
-   - 🎯 Goal: Build intuition for temperature, top-p, and repetition penalty
-   - 💡 What you'll learn: Same prompt + different parameters = dramatically different outputs!
+   - Goal: Build intuition for temperature, top-p, and repetition penalty
+   - What you'll learn: Same prompt + different parameters = dramatically different outputs!
 
 **2. [Temperature Explorer](../../examples/module_08/02_temperature_explorer.py)** - Deep dive into temperature
    - 📖 Concept: Systematic temperature comparison (0.0 to 2.0)
    - ⏱️ Time: 60-75 minutes
-   - 🎯 Goal: Find the perfect temperature for different use cases
-   - 💡 What you'll learn: 0.0 = deterministic, 0.7 = balanced, 1.2+ = creative chaos!
+   - Goal: Find the perfect temperature for different use cases
+   - What you'll learn: 0.0 = deterministic, 0.7 = balanced, 1.2+ = creative chaos!
 
-### 🎯 Deliverable: Sampling Strategy Tuner
+### Deliverable: Sampling Strategy Tuner
 
 **What**: Build a reusable configuration tool for optimized sampling strategies
 **Time**: 3-4 hours
@@ -78,10 +79,10 @@ Understanding sampling parameters is like learning to drive - theory is importan
 5. Document in README with before/after examples
 
 **Success Criteria**:
-- ✅ At least 5 distinct, tested sampling strategies
-- ✅ Clear documentation with examples
-- ✅ Measurable quality improvements for each use case
-- ✅ Reusable in your own projects (kaizen, vibe, contrarian)
+- At least 5 distinct, tested sampling strategies
+- Clear documentation with examples
+- Measurable quality improvements for each use case
+- Reusable in your own projects (kaizen, vibe, contrarian)
 
 **Real-World Impact**: Every production AI system needs tuned sampling strategies - this deliverable proves you can optimize LLM behavior for specific business requirements!
 
@@ -733,7 +734,7 @@ Some APIs support **length penalty**:
 
 ---
 
-## 🔬 Sampling Strategy Trade-offs
+## Sampling Strategy Trade-offs
 
 ### The Fundamental Trade-off
 
@@ -756,12 +757,12 @@ reliable                   quality                    unpredictable
 ### Quality vs Diversity
 
 **Greedy decoding** (temperature = 0.0):
-- ✅ High quality (picks best token each time)
-- ❌ No diversity (same output always)
+- High quality (picks best token each time)
+- No diversity (same output always)
 
 **Sampling** (temperature > 0.0):
-- ✅ Diverse outputs
-- ❌ Sometimes lower quality (suboptimal tokens chosen)
+- Diverse outputs
+- Sometimes lower quality (suboptimal tokens chosen)
 
 **Best practice**: Use moderate temperature (0.7) for quality + diversity balance.
 
@@ -780,7 +781,7 @@ reliable                   quality                    unpredictable
 
 ---
 
-## 🧪 Advanced Techniques
+## Advanced Techniques
 
 ### Beam Search
 
@@ -836,7 +837,7 @@ Beam search was the dominant decoding strategy for neural machine translation (l
 
 ---
 
-## 💡 Real-World Applications
+## Real-World Applications
 
 ### Use Case 1: Chatbot Responses
 
@@ -1022,7 +1023,7 @@ Beam search was the dominant decoding strategy for neural machine translation (l
 
 ---
 
-## 📊 Sampling Strategy Decision Matrix
+## Sampling Strategy Decision Matrix
 
 | Use Case | Temperature | Top-p | Top-k | Repetition | Max Tokens |
 |----------|-------------|-------|-------|------------|------------|
@@ -1037,7 +1038,7 @@ Beam search was the dominant decoding strategy for neural machine translation (l
 
 ---
 
-## 🎓 Key Takeaways
+## Key Takeaways
 
 1. **Autoregressive generation**: LLMs generate one token at a time
 2. **Temperature controls creativity**: 0.0 = deterministic, 1.0+ = creative
@@ -1069,7 +1070,7 @@ Beam search was the dominant decoding strategy for neural machine translation (l
 
 ---
 
-## 💡 Did You Know? The Hidden History of Text Generation
+## Did You Know? The Hidden History of Text Generation
 
 ### The "Boring GPT-2" Problem
 
@@ -1159,7 +1160,7 @@ By 2023, some AI products started exposing temperature as a user-facing feature:
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751) (Holtzman et al., 2019) - Introduces nucleus sampling (top-p)
@@ -1175,7 +1176,7 @@ By 2023, some AI products started exposing temperature as a user-facing feature:
 
 ---
 
-## ✅ Knowledge Check
+## Knowledge Check
 
 Before moving to Module 9, you should be able to:
 
@@ -1190,7 +1191,7 @@ Before moving to Module 9, you should be able to:
 
 ---
 
-## 🎯 What's Next
+## What's Next
 
 **Module 9**: Embeddings & Semantic Similarity
 - What embeddings are (vectors representing meaning)

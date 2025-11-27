@@ -1,13 +1,15 @@
-# Module 17: Chain-of-Thought & Reasoning 🔮
+# Module 17: Chain-of-Thought & Reasoning
+# Or: Making AI Think Out Loud (And Why It Actually Works)
 
 **Last Updated**: 2025-11-25
-**Status**: 🟡 In Progress
-**Duration**: 5-6 hours
-**Prerequisites**: Module 16 (LangChain Tools & Function Calling)
+**Status**: In Progress
+**Reading Time**: 5-6 hours
+**Prerequisites**: Module 16
+**Heureka Moment**: Six words that tripled AI's reasoning ability
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 
@@ -20,7 +22,7 @@ By the end of this module, you will:
 
 ---
 
-## 🔮 The Heureka Moment
+## The Heureka Moment
 
 Here's the insight that will change how you build AI systems:
 
@@ -66,7 +68,7 @@ Why does this work? Because when the model generates intermediate steps, each st
 
 ---
 
-## 📖 Theory
+## Theory
 
 ### Why Reasoning is Hard for LLMs
 
@@ -709,20 +711,20 @@ The model generates code, which is then executed for the actual answer. This eli
 #### Crafting CoT Prompts
 
 **DO**:
-- ✅ Be specific about desired output format
-- ✅ Show examples of good reasoning
-- ✅ Ask for verification steps
-- ✅ Request intermediate calculations be shown
+- Be specific about desired output format
+- Show examples of good reasoning
+- Ask for verification steps
+- Request intermediate calculations be shown
 
 **DON'T**:
-- ❌ Make instructions too long (model forgets)
-- ❌ Ask model to "be careful" (causes overthinking)
-- ❌ Use CoT for simple tasks (wastes tokens)
-- ❌ Trust complex arithmetic without tools
+- Make instructions too long (model forgets)
+- Ask model to "be careful" (causes overthinking)
+- Use CoT for simple tasks (wastes tokens)
+- Trust complex arithmetic without tools
 
 ---
 
-## 💡 Key Takeaways
+## Key Takeaways
 
 1. **"Let's think step by step"** - These 5 words can transform model performance on reasoning tasks
 
@@ -738,7 +740,7 @@ The model generates code, which is then executed for the actual answer. This eli
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 ### The Accidental Discovery
 
@@ -777,7 +779,7 @@ The key insight: generate many reasoning attempts, verify each with a formal pro
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Papers
 - **Chain-of-Thought Prompting** (Wei et al., 2022) - The original CoT paper
@@ -792,7 +794,7 @@ The key insight: generate many reasoning attempts, verify each with a formal pro
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 After completing this module, you'll be ready for:
 

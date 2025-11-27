@@ -1,8 +1,10 @@
 # Module 18: LangGraph & Stateful Workflows
+# Or: When Your AI Needs to Remember What Happened
 
 **Last Updated**: 2025-11-25
-**Status**: 🟢 Complete
-**Duration**: 7-8 hours
+**Status**: Complete
+**Reading Time**: 7-8 hours
+**Prerequisites**: Module 17
 
 ---
 
@@ -61,7 +63,7 @@ LangGraph lets you build these complex, stateful workflows as **graphs**.
 
 ---
 
-## 💡 Did You Know? The Birth of LangGraph
+## Did You Know? The Birth of LangGraph
 
 ### The Problem That Kept Harrison Chase Up at Night
 
@@ -1055,7 +1057,7 @@ def should_retry(state: RetryState) -> str:
 
 ---
 
-## 💡 Did You Know? More Production Stories
+## Did You Know? More Production Stories
 
 ### The Whiteboard Moment
 

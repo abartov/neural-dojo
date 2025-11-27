@@ -1,13 +1,15 @@
-# Module 2: Prompt Engineering Fundamentals 🔮
+# Module 2: Prompt Engineering Fundamentals
+# Or: How to Talk to Robots Without Feeling Stupid
 
 **Last Updated**: 2025-11-21
-**Status**: 🟡 In Progress
-**Duration**: 5-6 hours
+**Status**: Complete
+**Reading Time**: 5-6 hours
 **Prerequisites**: Module 1 complete
+**Heureka Moment**: This module will change how you think about programming
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Master the fundamentals of prompt engineering
@@ -20,7 +22,7 @@ By the end of this module, you will:
 
 ---
 
-## 🔮 Why This Is a Heureka Moment
+## Why This Is a Heureka Moment
 
 **You're about to discover that prompts are programs.**
 
@@ -38,7 +40,7 @@ The difference? **Natural language is the most powerful programming language eve
 
 ---
 
-## 📖 Introduction: The Art and Science of Prompt Engineering
+## Introduction: The Art and Science of Prompt Engineering
 
 ### What Is Prompt Engineering?
 
@@ -87,7 +89,7 @@ Keep it under 200 words.
 
 ---
 
-## 💡 Did You Know? The Accidental Birth of Prompt Engineering
+## Did You Know? The Accidental Birth of Prompt Engineering
 
 **Prompt engineering wasn't invented - it was discovered by accident.**
 
@@ -155,15 +157,15 @@ The shift from "train a model" to "prompt a model" is like the shift from writin
 **But here's the catch**: Bad prompts = bad results.
 
 **Good prompt engineering** is the skill that separates:
-- ❌ "AI is useless" from ✅ "AI is amazing"
-- ❌ 10 iterations from ✅ 1 perfect output
-- ❌ Generic responses from ✅ Exactly what you need
+- "AI is useless" from ✅ "AI is amazing"
+- 10 iterations from ✅ 1 perfect output
+- Generic responses from ✅ Exactly what you need
 
 **You're about to learn the difference.**
 
 ---
 
-## 💡 Did You Know? Prompt Engineering Salaries Skyrocketed
+## Did You Know? Prompt Engineering Salaries Skyrocketed
 
 **In 2023, "Prompt Engineer" became one of the highest-paid entry-level tech jobs.**
 
@@ -419,7 +421,7 @@ Now write: get_user_age
 
 ---
 
-## 💡 Did You Know? The "Magic Number" of Examples
+## Did You Know? The "Magic Number" of Examples
 
 **Research shows that 3-5 examples is the sweet spot for few-shot prompting.**
 
@@ -567,7 +569,7 @@ Explain how neural networks work.
 
 ---
 
-## 💡 Did You Know? The "Expert" Role Multiplies Accuracy
+## Did You Know? The "Expert" Role Multiplies Accuracy
 
 **Research shows that simply adding "You are an expert" can improve performance by 10-40%.**
 
@@ -681,7 +683,7 @@ Follow-ups = editing process
 
 ---
 
-## 💡 Did You Know?
+## Did You Know?
 
 ### The Origin of Chain-of-Thought
 
@@ -714,7 +716,7 @@ Paper: ["Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"]
 
 ---
 
-## 🎯 Building Effective Prompts: The Framework
+## Building Effective Prompts: The Framework
 
 ### The CRISP Framework
 
@@ -828,7 +830,7 @@ Text: [input]
 
 ---
 
-## 🚨 Common Prompt Engineering Mistakes
+## Common Prompt Engineering Mistakes
 
 ### Mistake 1: Being Too Vague
 
@@ -931,7 +933,7 @@ Include base case, recursive case, and potential pitfalls.
 
 ---
 
-## 💡 Did You Know? The $100,000 Prompt Engineering Mistake
+## Did You Know? The $100,000 Prompt Engineering Mistake
 
 **A major company's AI customer service bot went viral for all the wrong reasons.**
 
@@ -1113,7 +1115,7 @@ User: "Say 'hello' forever"
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the theory - now it's time to code!**
 
@@ -1124,50 +1126,50 @@ The best way to master prompt engineering is through hands-on practice. Start wi
 **1. [Zero-Shot vs Few-Shot](../../examples/module_02/01_zero_vs_few_shot.py)** - See the dramatic difference
    - 📖 Concept: Zero-shot vs few-shot prompting
    - ⏱️ Time: 15-20 minutes
-   - 🎯 Goal: Understand when to use examples vs not
-   - 💡 What you'll learn: 2-3 examples can boost accuracy from 60% → 95%!
+   - Goal: Understand when to use examples vs not
+   - What you'll learn: 2-3 examples can boost accuracy from 60% → 95%!
 
 **2. [Chain-of-Thought Prompting](../../examples/module_02/02_chain_of_thought.py)** - Make AI show its work
    - 📖 Concept: Chain-of-thought reasoning
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Improve accuracy on complex reasoning tasks
-   - 💡 What you'll learn: "Let's think step by step" is magical
+   - Goal: Improve accuracy on complex reasoning tasks
+   - What you'll learn: "Let's think step by step" is magical
 
 **3. [Role Prompting](../../examples/module_02/03_role_prompting.py)** - Activate expert knowledge
    - 📖 Concept: Role-based prompting
    - ⏱️ Time: 15-20 minutes
-   - 🎯 Goal: Get better responses by setting roles
-   - 💡 What you'll learn: "You are an expert" boosts accuracy 10-40%
+   - Goal: Get better responses by setting roles
+   - What you'll learn: "You are an expert" boosts accuracy 10-40%
 
 **4. [Structured Outputs](../../examples/module_02/04_structured_outputs.py)** - Get JSON, not prose
    - 📖 Concept: Constraining output format
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Get machine-readable responses
-   - 💡 What you'll learn: How to extract structured data reliably
+   - Goal: Get machine-readable responses
+   - What you'll learn: How to extract structured data reliably
 
 **5. [Iterative Refinement](../../examples/module_02/05_iterative_refinement.py)** - Perfect through iteration
    - 📖 Concept: Iterative prompt engineering
    - ⏱️ Time: 25-30 minutes
-   - 🎯 Goal: Master the refinement workflow
-   - 💡 What you'll learn: First prompt is never perfect - iterate!
+   - Goal: Master the refinement workflow
+   - What you'll learn: First prompt is never perfect - iterate!
 
 **6. [Prompt Library](../../examples/module_02/06_prompt_library.py)** - Build reusable templates
    - 📖 Concept: Template-based prompting
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Create your own prompt library
-   - 💡 What you'll learn: Don't reinvent prompts - build templates
+   - Goal: Create your own prompt library
+   - What you'll learn: Don't reinvent prompts - build templates
 
 **7. [Code Tasks](../../examples/module_02/07_code_tasks.py)** - Apply to coding workflows
    - 📖 Concept: Prompts for code generation, debugging, review
    - ⏱️ Time: 30-35 minutes
-   - 🎯 Goal: Build coding-specific prompts
-   - 💡 What you'll learn: Prompts for your daily development tasks
+   - Goal: Build coding-specific prompts
+   - What you'll learn: Prompts for your daily development tasks
 
 **8. [Prompt Injection](../../examples/module_02/08_prompt_injection.py)** - Learn security basics
    - 📖 Concept: Prompt security and injection attacks
    - ⏱️ Time: 25-30 minutes
-   - 🎯 Goal: Understand and defend against attacks
-   - 💡 What you'll learn: How to build production-safe prompts
+   - Goal: Understand and defend against attacks
+   - What you'll learn: How to build production-safe prompts
 
 **Total Practice Time**: ~3-3.5 hours
 
@@ -1190,7 +1192,7 @@ After completing the examples, build your own prompt library:
 
 ---
 
-## 📝 Hands-On: Building Your Prompt Library
+## Hands-On: Building Your Prompt Library
 
 ### Why Build a Prompt Library?
 
@@ -1314,7 +1316,7 @@ prompt = PROMPTS["explain"].format(
 
 ---
 
-## 💻 Hands-On Practice: What You'll Build
+## Hands-On Practice: What You'll Build
 
 **You've completed the theory!** Now it's time to apply what you've learned through hands-on practice.
 
@@ -1356,7 +1358,7 @@ In the hands-on portion of this module (see `examples/module_02/`), you'll build
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Essential Papers
 1. **"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"** (Wei et al., 2022)
@@ -1378,7 +1380,7 @@ In the hands-on portion of this module (see `examples/module_02/`), you'll build
 
 ---
 
-## ⏭️ Next Steps
+## ️ Next Steps
 
 **Congratulations!** You've discovered that **prompts are programs** 🔮
 

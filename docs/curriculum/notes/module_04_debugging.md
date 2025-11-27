@@ -1,13 +1,14 @@
 # Module 4: AI-Assisted Debugging & Optimization
+# Or: When Stack Overflow Isn't Enough
 
 **Last Updated**: 2025-11-22
-**Status**: 🟢 Complete
-**Duration**: 4-5 hours
+**Status**: Complete
+**Reading Time**: 4-5 hours
 **Prerequisites**: Modules 1-3
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Use AI to identify and fix bugs systematically
@@ -20,7 +21,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 Picture this: It's 2 AM. Your production system is down. Users are angry. The error logs are cryptic. You've been staring at the same 50 lines of code for an hour, and the bug might as well be hiding behind a cloaking device.
 
@@ -38,7 +39,7 @@ Think of debugging as martial arts. You need to know the fundamentals first: sta
 
 ---
 
-## 💡 Did You Know? The First Bug
+## Did You Know? The First Bug
 
 The term "debugging" has a literal origin story that every developer should know.
 
@@ -54,27 +55,27 @@ The legacy? Every time you debug code, you're continuing a tradition that starte
 
 ---
 
-## 💡 The AI Debugging Mental Model
+## The AI Debugging Mental Model
 
 Think of AI as a **debugging consultant** with these traits:
 
 **Strengths**:
-- ✅ Spot common patterns (null checks, off-by-one, etc.)
-- ✅ Suggest likely causes fast
-- ✅ Remember obscure error messages
-- ✅ Check multiple possibilities simultaneously
-- ✅ Never gets tired or frustrated
-- ✅ Knows syntax patterns across dozens of languages
-- ✅ Can explain complex concepts in multiple ways
+- Spot common patterns (null checks, off-by-one, etc.)
+- Suggest likely causes fast
+- Remember obscure error messages
+- Check multiple possibilities simultaneously
+- Never gets tired or frustrated
+- Knows syntax patterns across dozens of languages
+- Can explain complex concepts in multiple ways
 
 **Limitations**:
-- ❌ Can't run your code
-- ❌ Doesn't know your system state
-- ❌ May miss subtle timing issues
-- ❌ Can hallucinate fixes that look right but aren't
-- ❌ Doesn't understand your production environment
-- ❌ Can't access your logs or metrics in real-time
-- ❌ May not know about recent library updates
+- Can't run your code
+- Doesn't know your system state
+- May miss subtle timing issues
+- Can hallucinate fixes that look right but aren't
+- Doesn't understand your production environment
+- Can't access your logs or metrics in real-time
+- May not know about recent library updates
 
 **Your Job**: Provide context, verify suggestions, iterate, and know when to use traditional debugging tools instead.
 
@@ -218,7 +219,7 @@ def test_process_user_handles_missing_name():
 
 ---
 
-## 💡 Did You Know? Print Debugging Still Dominates
+## Did You Know? Print Debugging Still Dominates
 
 Despite decades of sophisticated debugging tools—IDE debuggers, profilers, APM solutions, distributed tracing—**print statement debugging remains the most common debugging technique**, used by over 60% of developers regularly.
 
@@ -463,7 +464,7 @@ Analyze:
 
 ---
 
-## 💡 Did You Know? Rubber Duck Debugging
+## Did You Know? Rubber Duck Debugging
 
 The term "rubber duck debugging" comes from a story in the book *The Pragmatic Programmer* by Andrew Hunt and David Thomas. They describe a programmer who would carry around a rubber duck and debug their code by forcing themselves to explain it, line-by-line, to the duck.
 
@@ -590,7 +591,7 @@ Where should I focus optimization efforts? Specific suggestions?
 
 ---
 
-## 🎯 Debugging Patterns
+## Debugging Patterns
 
 ### Pattern 1: Binary Search Debugging
 
@@ -732,7 +733,7 @@ git bisect good abc123  # Last known good commit
 
 ---
 
-## 💡 Did You Know? The Therac-25 Disaster
+## Did You Know? The Therac-25 Disaster
 
 Between 1985-1987, the **Therac-25 radiation therapy machine** killed at least 3 patients and seriously injured 3 others by exposing them to massive radiation overdoses—up to 100 times the intended dose.
 
@@ -878,7 +879,7 @@ def calculate_discount(price):
 
 ---
 
-## 💡 Did You Know? The Mars Climate Orbiter
+## Did You Know? The Mars Climate Orbiter
 
 On September 23, 1999, NASA's **Mars Climate Orbiter** crashed into Mars and was destroyed. Cost: **$125 million**. Cause: **A unit conversion bug**.
 
@@ -1170,7 +1171,7 @@ Include:
 
 ---
 
-## 💡 Best Practices
+## Best Practices
 
 ### 1. Minimal Reproduction
 
@@ -1302,7 +1303,7 @@ def process_request(data):
 
 ---
 
-## 🔬 Real-World Examples
+## Real-World Examples
 
 ### Example 1: Performance Bug
 
@@ -1572,7 +1573,7 @@ class Counter:
 
 ---
 
-## 💡 Did You Know? The Morris Worm
+## Did You Know? The Morris Worm
 
 On November 2, 1988, Cornell graduate student **Robert Tappan Morris** released the first major internet worm, inadvertently causing the first distributed denial of service (DDoS) attack. The Morris Worm infected approximately 10% of the 60,000 computers connected to the internet at the time, causing an estimated $10-100 million in damage.
 
@@ -1628,7 +1629,7 @@ AI might flag: "1/7 (14%) reinfection rate is very high. At scale, systems will 
 
 ---
 
-## 📊 Optimization Strategies
+## Optimization Strategies
 
 ### Strategy 1: Profile First, Optimize Second
 
@@ -1739,7 +1740,7 @@ Max speedup = 1 / (0.3 + 0.7/2) = 1.54x overall
 
 ---
 
-## ✅ Debugging Checklist
+## Debugging Checklist
 
 ### Before Asking AI
 
@@ -1773,7 +1774,7 @@ Max speedup = 1 / (0.3 + 0.7/2) = 1.54x overall
 
 ---
 
-## 🎓 Key Takeaways
+## Key Takeaways
 
 1. **AI amplifies debugging skills**: Good debuggers get better with AI; weak debuggers stay weak
 
@@ -1797,7 +1798,7 @@ Max speedup = 1 / (0.3 + 0.7/2) = 1.54x overall
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Books
 - **"Debugging: The 9 Indispensable Rules"** by David Agans
@@ -1820,7 +1821,7 @@ Max speedup = 1 / (0.3 + 0.7/2) = 1.54x overall
 
 ---
 
-## 🔮 Looking Ahead
+## Looking Ahead
 
 **Next Module**: Module 5 - Building with AI Coding Assistants
 
@@ -1841,7 +1842,7 @@ In Module 5, we'll expand from debugging individual functions to building entire
 
 ---
 
-## 📝 Module 4 Summary
+## Module 4 Summary
 
 ### What You Learned
 
@@ -1899,7 +1900,7 @@ In Module 5, we'll expand from debugging individual functions to building entire
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned the theory - now let's debug some real code!**
 
@@ -1910,44 +1911,44 @@ Debugging is a skill you develop through practice. The examples below take you f
 **1. [Syntax & Type Debugging](../../examples/module_04/01_syntax_debugging.py)** - Start with the basics
    - 📖 Concept: AI-assisted syntax error resolution
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Fix common syntax and type errors with AI
-   - 💡 What you'll learn: How to provide context for quick fixes
+   - Goal: Fix common syntax and type errors with AI
+   - What you'll learn: How to provide context for quick fixes
 
 **2. [Logic Error Debugging](../../examples/module_04/02_logic_debugging.py)** - Hunt down logic bugs
    - 📖 Concept: Root cause analysis for logic errors
    - ⏱️ Time: 25-30 minutes
-   - 🎯 Goal: Find and fix off-by-one errors, conditionals, edge cases
-   - 💡 What you'll learn: AI excels at pattern matching common logic errors
+   - Goal: Find and fix off-by-one errors, conditionals, edge cases
+   - What you'll learn: AI excels at pattern matching common logic errors
 
 **3. [Performance Profiling](../../examples/module_04/03_performance_profiling.py)** - Make code faster
    - 📖 Concept: Profiling + AI-assisted optimization
    - ⏱️ Time: 30-35 minutes
-   - 🎯 Goal: Identify bottlenecks and optimize algorithms
-   - 💡 What you'll learn: Combine cProfile with AI interpretation
+   - Goal: Identify bottlenecks and optimize algorithms
+   - What you'll learn: Combine cProfile with AI interpretation
 
 **4. [Async & Concurrent Debugging](../../examples/module_04/04_async_debugging.py)** - Debug async code
    - 📖 Concept: Async/await debugging patterns
    - ⏱️ Time: 25-30 minutes
-   - 🎯 Goal: Fix common async mistakes
-   - 💡 What you'll learn: When AI helps vs when traditional debuggers are better
+   - Goal: Fix common async mistakes
+   - What you'll learn: When AI helps vs when traditional debuggers are better
 
 **5. [Integration Debugging](../../examples/module_04/05_integration_debugging.py)** - Fix API bugs
    - 📖 Concept: Debugging external integrations
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Debug API calls and authentication
-   - 💡 What you'll learn: How to troubleshoot integration errors systematically
+   - Goal: Debug API calls and authentication
+   - What you'll learn: How to troubleshoot integration errors systematically
 
 **6. [Optimization Examples](../../examples/module_04/06_optimization_examples.py)** - Comprehensive optimization
    - 📖 Concept: Algorithmic and code-level optimization
    - ⏱️ Time: 35-40 minutes
-   - 🎯 Goal: Optimize algorithms from O(n²) → O(n log n)
-   - 💡 What you'll learn: Profile-first, optimize-second workflow
+   - Goal: Optimize algorithms from O(n²) → O(n log n)
+   - What you'll learn: Profile-first, optimize-second workflow
 
 **7. [Debugging Patterns](../../examples/module_04/07_debugging_patterns.py)** - Master systematic approaches
    - 📖 Concept: Binary search, differential, regression debugging
    - ⏱️ Time: 30-35 minutes
-   - 🎯 Goal: Learn professional debugging strategies
-   - 💡 What you'll learn: Systematic debugging beats random trial and error
+   - Goal: Learn professional debugging strategies
+   - What you'll learn: Systematic debugging beats random trial and error
 
 **Total Practice Time**: ~3-3.5 hours
 

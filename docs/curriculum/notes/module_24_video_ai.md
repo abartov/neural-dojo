@@ -1,8 +1,10 @@
 # Module 24: Video AI & Generation
+# Or: When Images Just Aren't Enough
 
 **Last Updated**: 2025-11-26
-**Status**: 🟢 Complete
-**Duration**: 6-7 hours
+**Status**: Complete
+**Reading Time**: 6-7 hours
+**Prerequisites**: Module 23
 
 ---
 

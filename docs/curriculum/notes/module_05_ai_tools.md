@@ -1,13 +1,14 @@
 # Module 5: Building with AI Coding Assistants
+# Or: Putting It All Together to Build Something Real
 
 **Last Updated**: 2025-11-22
-**Status**: 🟢 Complete
-**Duration**: 5-6 hours
+**Status**: Complete
+**Reading Time**: 5-6 hours
 **Prerequisites**: Modules 1-4
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Master Claude Code workflows and best practices
@@ -22,7 +23,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 You've learned AI development patterns (Module 1), prompt engineering (Module 2), code generation (Module 3), and debugging (Module 4).
 
@@ -44,7 +45,7 @@ The developers thriving today aren't the ones using AI to write all their code. 
 
 ---
 
-## 💡 Did You Know? The Evolution of Code Completion
+## Did You Know? The Evolution of Code Completion
 
 The journey from basic autocomplete to AI coding assistants is a fascinating story of exponential improvement compressed into just a few decades.
 
@@ -90,7 +91,7 @@ Tools evolved from "autocomplete" to "agentic coding." Claude Code, Cursor, Wind
 
 ---
 
-## 🛠️ The AI Coding Assistant Landscape
+## ️ The AI Coding Assistant Landscape
 
 ### Current Tools (2024-2025)
 
@@ -119,7 +120,7 @@ Tools evolved from "autocomplete" to "agentic coding." Claude Code, Cursor, Wind
 
 ---
 
-## 💡 Did You Know? GitHub Copilot's Controversial Launch
+## Did You Know? GitHub Copilot's Controversial Launch
 
 When GitHub Copilot launched in June 2021, it ignited the biggest legal and ethical debate in the history of software development tools.
 
@@ -176,28 +177,28 @@ When you use Copilot (or any AI trained on public code), you're operating in leg
 
 ---
 
-## 🔮 Claude Code: Deep Dive
+## Claude Code: Deep Dive
 
 ### What Makes Claude Code Special
 
 Claude Code is not an autocomplete tool. It's not even primarily a code generator. It's a **reasoning engine that happens to be exceptionally good at code**.
 
 **Strengths**:
-- ✅ Long context (can see entire files, even entire small codebases)
-- ✅ Multi-file understanding and cross-file reasoning
-- ✅ Sophisticated architectural reasoning (not just syntax)
-- ✅ Git operations (staging, committing, diffing, merging)
-- ✅ File manipulation (create, read, update, delete)
-- ✅ Terminal command execution (run tests, start servers, etc.)
-- ✅ Constitutional AI training (refuses unsafe operations)
-- ✅ Excellent at explaining its reasoning
+- Long context (can see entire files, even entire small codebases)
+- Multi-file understanding and cross-file reasoning
+- Sophisticated architectural reasoning (not just syntax)
+- Git operations (staging, committing, diffing, merging)
+- File manipulation (create, read, update, delete)
+- Terminal command execution (run tests, start servers, etc.)
+- Constitutional AI training (refuses unsafe operations)
+- Excellent at explaining its reasoning
 
 **Limitations**:
-- ❌ Not as fast as inline autocomplete (you're conversing, not typing)
-- ❌ Requires clear communication (garbage in, garbage out)
-- ❌ Can be verbose (you're paying per token)
-- ❌ May overthink simple tasks
-- ❌ Doesn't persist state between conversations (must re-provide context)
+- Not as fast as inline autocomplete (you're conversing, not typing)
+- Requires clear communication (garbage in, garbage out)
+- Can be verbose (you're paying per token)
+- May overthink simple tasks
+- Doesn't persist state between conversations (must re-provide context)
 
 **Use Cases**:
 1. **Architecture decisions**: "Should I use X or Y pattern for this use case?"
@@ -540,7 +541,7 @@ def process_items(items):
 
 ---
 
-## 💡 Did You Know? Constitutional AI and Code Generation
+## Did You Know? Constitutional AI and Code Generation
 
 Claude (the model behind Claude Code) uses a unique training approach called **Constitutional AI** that has profound implications for how it generates code.
 
@@ -657,28 +658,28 @@ But for production systems? For code that handles user data, money, security? Co
 
 ---
 
-## 🚀 GitHub Copilot: Deep Dive
+## GitHub Copilot: Deep Dive
 
 ### What Makes Copilot Special
 
 Copilot is the opposite of Claude Code: it's optimized for speed, not reasoning. It's the Formula 1 car of coding assistants—blazingly fast, but you need to know where you're going.
 
 **Strengths**:
-- ✅ Lightning-fast suggestions (appears as you type)
-- ✅ Inline code completion (no context switching)
-- ✅ Learns your coding style quickly
-- ✅ Works seamlessly in IDE flow (you barely notice it's there)
-- ✅ Great for boilerplate and repetitive patterns
-- ✅ Excellent at generating tests from implementation
-- ✅ Multi-file context (can see open files)
+- Lightning-fast suggestions (appears as you type)
+- Inline code completion (no context switching)
+- Learns your coding style quickly
+- Works seamlessly in IDE flow (you barely notice it's there)
+- Great for boilerplate and repetitive patterns
+- Excellent at generating tests from implementation
+- Multi-file context (can see open files)
 
 **Limitations**:
-- ❌ No architectural reasoning
-- ❌ Can't explain its suggestions (it just suggests)
-- ❌ May suggest insecure or inefficient patterns
-- ❌ Can't refactor across multiple files
-- ❌ No git operations
-- ❌ Trained on public code (licensing concerns)
+- No architectural reasoning
+- Can't explain its suggestions (it just suggests)
+- May suggest insecure or inefficient patterns
+- Can't refactor across multiple files
+- No git operations
+- Trained on public code (licensing concerns)
 
 **Use Cases**:
 1. **Autocomplete**: Type function name, get implementation suggestion
@@ -1094,7 +1095,7 @@ async def fetch_json(url: str) -> dict:
 
 ---
 
-## 💡 Did You Know? The Rise of AI-First IDEs
+## Did You Know? The Rise of AI-First IDEs
 
 In 2023, two former Google engineers made a bet that would reshape the development tools landscape: **AI should be built into the IDE at the foundation level, not bolted on top**.
 
@@ -1155,27 +1156,27 @@ The success of Cursor and Windsurf proved that developers will switch IDEs for s
 
 ---
 
-## 💻 Cursor IDE: Deep Dive
+## Cursor IDE: Deep Dive
 
 ### What Makes Cursor Special
 
 Cursor is VS Code, but rebuilt around a single premise: **What if AI was there from the start?**
 
 **Strengths**:
-- ✅ Full IDE experience (all your VS Code extensions work)
-- ✅ Codebase-wide understanding (indexes your entire project)
-- ✅ Chat + inline suggestions (best of both worlds)
-- ✅ Cmd+K for quick edits (fastest way to modify code)
-- ✅ Great for greenfield projects (AI helps with architecture)
-- ✅ Privacy mode (can run locally)
-- ✅ Multi-model support (GPT-4, Claude, Gemini)
+- Full IDE experience (all your VS Code extensions work)
+- Codebase-wide understanding (indexes your entire project)
+- Chat + inline suggestions (best of both worlds)
+- Cmd+K for quick edits (fastest way to modify code)
+- Great for greenfield projects (AI helps with architecture)
+- Privacy mode (can run locally)
+- Multi-model support (GPT-4, Claude, Gemini)
 
 **Limitations**:
-- ❌ VS Code fork (updates lag behind VS Code by weeks/months)
-- ❌ Subscription cost ($20/month for full features)
-- ❌ Can feel like magic (harder to learn the "why")
-- ❌ Some VS Code extensions incompatible
-- ❌ Privacy concerns (unless using local mode)
+- VS Code fork (updates lag behind VS Code by weeks/months)
+- Subscription cost ($20/month for full features)
+- Can feel like magic (harder to learn the "why")
+- Some VS Code extensions incompatible
+- Privacy concerns (unless using local mode)
 
 **Use Cases**:
 1. **New projects**: "Build a FastAPI app with authentication and PostgreSQL"
@@ -1560,7 +1561,7 @@ Settings → Privacy → Enable Privacy Mode
 
 ---
 
-## 💡 Did You Know? Real Productivity Statistics
+## Did You Know? Real Productivity Statistics
 
 Every AI coding tool claims massive productivity improvements. But what does the actual research show?
 
@@ -1674,7 +1675,7 @@ Anthropic studied its own engineers using Claude Code internally.
 
 ---
 
-## 🎯 Choosing the Right Tool
+## Choosing the Right Tool
 
 Understanding which tool to use for which task is the meta-skill of AI-assisted development.
 
@@ -1831,26 +1832,26 @@ flowchart TD
 
 ---
 
-## 🖥️ Aider.ai: Terminal AI Pair Programming
+## ️ Aider.ai: Terminal AI Pair Programming
 
 ### What Makes Aider Special
 
 Aider is for developers who live in the terminal. It's git-aware, editor-agnostic, and scriptable.
 
 **Strengths**:
-- ✅ Terminal-native (works with any editor: Vim, Emacs, VS Code, anything)
-- ✅ Git-aware (auto-commits with descriptive messages)
-- ✅ Multi-file editing (can modify multiple files atomically)
-- ✅ Works with Claude, GPT-4, or local models (flexible backend)
-- ✅ Great for automated workflows and scripting
-- ✅ Excellent for CI/CD integration
-- ✅ No GUI overhead (fast!)
+- Terminal-native (works with any editor: Vim, Emacs, VS Code, anything)
+- Git-aware (auto-commits with descriptive messages)
+- Multi-file editing (can modify multiple files atomically)
+- Works with Claude, GPT-4, or local models (flexible backend)
+- Great for automated workflows and scripting
+- Excellent for CI/CD integration
+- No GUI overhead (fast!)
 
 **Limitations**:
-- ❌ No IDE integration (terminal only)
-- ❌ Text-only interface (no rich diff visualization)
-- ❌ Requires CLI comfort
-- ❌ Steeper learning curve than GUI tools
+- No IDE integration (terminal only)
+- Text-only interface (no rich diff visualization)
+- Requires CLI comfort
+- Steeper learning curve than GUI tools
 
 **Use Cases**:
 1. **Terminal workflows**: You prefer terminal to GUI
@@ -2104,7 +2105,7 @@ aider --auto-test pytest
 
 ---
 
-## 🔧 CLI Tools Deep Dive: Claude Code CLI vs Aider vs Cline
+## CLI Tools Deep Dive: Claude Code CLI vs Aider vs Cline
 
 **The Big Question**: Which CLI tool should you use with Claude Code CLI to save budget while maximizing productivity?
 
@@ -2136,7 +2137,7 @@ aider --auto-test pytest
 
 ---
 
-### 🤖 Claude Code CLI: Deep Dive
+### Claude Code CLI: Deep Dive
 
 **What It Is**: Anthropic's official CLI for Claude, designed for complex coding tasks.
 
@@ -2153,18 +2154,18 @@ claude --version
 ```
 
 **Strengths**:
-- ✅ **Best reasoning**: Sonnet 4.5 is the smartest model for coding
-- ✅ **Complex refactoring**: Handles multi-file, architectural changes
-- ✅ **Context awareness**: Excellent at understanding large codebases
-- ✅ **Safety**: Constitutional AI prevents harmful code
-- ✅ **Streaming**: Fast response start times
-- ✅ **Tool use**: Can execute bash, read files, write code
+- **Best reasoning**: Sonnet 4.5 is the smartest model for coding
+- **Complex refactoring**: Handles multi-file, architectural changes
+- **Context awareness**: Excellent at understanding large codebases
+- **Safety**: Constitutional AI prevents harmful code
+- **Streaming**: Fast response start times
+- **Tool use**: Can execute bash, read files, write code
 
 **Limitations**:
-- ❌ **Expensive**: $3/1M input tokens, $15/1M output tokens
-- ❌ **Single model**: Can't use cheaper alternatives
-- ❌ **No git integration**: Doesn't auto-commit changes
-- ❌ **No multi-file editing**: Focuses on one task at a time
+- **Expensive**: $3/1M input tokens, $15/1M output tokens
+- **Single model**: Can't use cheaper alternatives
+- **No git integration**: Doesn't auto-commit changes
+- **No multi-file editing**: Focuses on one task at a time
 
 **Basic Usage**:
 ```bash
@@ -2234,18 +2235,18 @@ aider --version
 **The Game Changer**: **Model flexibility** = massive cost savings.
 
 **Strengths**:
-- ✅ **Any model**: GPT-4, GPT-3.5, Claude Sonnet, Claude Haiku, local models
-- ✅ **Git-aware**: Auto-commits with descriptive messages
-- ✅ **Multi-file editing**: Edit multiple files atomically
-- ✅ **Cost control**: Use cheap models for simple tasks
-- ✅ **Editor agnostic**: Works with Vim, Emacs, VS Code, anything
-- ✅ **Scriptable**: Automate repetitive tasks
-- ✅ **Test integration**: Can run tests after changes
+- **Any model**: GPT-4, GPT-3.5, Claude Sonnet, Claude Haiku, local models
+- **Git-aware**: Auto-commits with descriptive messages
+- **Multi-file editing**: Edit multiple files atomically
+- **Cost control**: Use cheap models for simple tasks
+- **Editor agnostic**: Works with Vim, Emacs, VS Code, anything
+- **Scriptable**: Automate repetitive tasks
+- **Test integration**: Can run tests after changes
 
 **Limitations**:
-- ❌ **Text-only**: No rich UI like VS Code extensions
-- ❌ **Learning curve**: More commands to learn
-- ❌ **Setup required**: Need to configure API keys for each provider
+- **Text-only**: No rich UI like VS Code extensions
+- **Learning curve**: More commands to learn
+- **Setup required**: Need to configure API keys for each provider
 
 **Model Configuration**:
 ```bash
@@ -2392,17 +2393,17 @@ code --install-extension saoudrizwan.claude-dev
 **The Middle Ground**: More integrated than pure CLI, cheaper than Claude Code CLI alone.
 
 **Strengths**:
-- ✅ **VS Code integration**: Works within your editor
-- ✅ **Model choice**: Use Claude, GPT-4, or custom
-- ✅ **File tree aware**: Sees your project structure
-- ✅ **Diff preview**: Visual diffs before applying
-- ✅ **Terminal access**: Can run commands
-- ✅ **Cost tracking**: Shows API costs in real-time
+- **VS Code integration**: Works within your editor
+- **Model choice**: Use Claude, GPT-4, or custom
+- **File tree aware**: Sees your project structure
+- **Diff preview**: Visual diffs before applying
+- **Terminal access**: Can run commands
+- **Cost tracking**: Shows API costs in real-time
 
 **Limitations**:
-- ❌ **VS Code only**: Not editor-agnostic
-- ❌ **Less scriptable**: Can't automate like Aider
-- ❌ **No git auto-commit**: Manual git workflow
+- **VS Code only**: Not editor-agnostic
+- **Less scriptable**: Can't automate like Aider
+- **No git auto-commit**: Manual git workflow
 
 **Setup**:
 ```json
@@ -2484,7 +2485,7 @@ Cline (80% Haiku, 20% Sonnet):
 
 ---
 
-### 🎯 Integration Strategy: Using All Three Together
+### Integration Strategy: Using All Three Together
 
 **The Optimal Workflow** (saves 70-80% on costs):
 
@@ -2599,7 +2600,7 @@ You: Write comprehensive tests for the profile endpoint
 
 ---
 
-### 💡 Pro Tips for Budget Optimization
+### Pro Tips for Budget Optimization
 
 **1. Model Routing Rules** (saves 70-80%):
 
@@ -2701,7 +2702,7 @@ aider --show-costs
 
 ---
 
-### 📊 Comparison Matrix
+### Comparison Matrix
 
 | Feature | Claude Code CLI | Aider CLI | Cline |
 |---------|----------------|-----------|-------|
@@ -2718,7 +2719,7 @@ aider --show-costs
 
 ---
 
-### 🎯 Recommendation
+### Recommendation
 
 **Start with this setup**:
 
@@ -2908,7 +2909,7 @@ Gemini: [Generates optimized version]
 
 ---
 
-## 💡 Did You Know? The Economics of AI Coding Tools
+## Did You Know? The Economics of AI Coding Tools
 
 AI coding assistants seem cheap at $10-20/month. But the economics are fascinating—and revealing.
 
@@ -3052,7 +3053,7 @@ It doesn't! It's open source.
 
 ---
 
-## 🏗️ Tool Configuration Guide
+## ️ Tool Configuration Guide
 
 Getting AI coding tools set up optimally can 3x your productivity. Here's how to configure each tool.
 
@@ -3786,7 +3787,7 @@ Tested: Full test suite passing
 
 ---
 
-## 💡 Did You Know? The Terminal AI Revolution
+## Did You Know? The Terminal AI Revolution
 
 In 2023-2024, something unexpected happened: **developers started preferring terminal-based AI tools over GUI tools** for certain workflows.
 
@@ -3870,9 +3871,9 @@ Repetitive tasks → Scripted AI (Aider in bash scripts)
 **The Limitations**:
 
 Terminal AI isn't perfect for everything:
-- ❌ Architecture discussions (GUI with diagrams better)
-- ❌ Multi-file refactoring visualization (hard to see in terminal)
-- ❌ Learning new codebases (GUI with file tree better)
+- Architecture discussions (GUI with diagrams better)
+- Multi-file refactoring visualization (hard to see in terminal)
+- Learning new codebases (GUI with file tree better)
 
 **The Future**:
 
@@ -3887,7 +3888,7 @@ Expect more terminal AI tools:
 
 ---
 
-## 📊 Cost Analysis
+## Cost Analysis
 
 Understanding the true cost of AI coding tools helps you make informed decisions.
 
@@ -3973,14 +3974,14 @@ Net: Still faster, but review time increases
 ### Free vs Paid: When to Upgrade
 
 **Stick with free tier if**:
-- ✅ You code < 10 hours/week
-- ✅ You're a student or hobbyist
-- ✅ You're learning (practice on free tier first)
+- You code < 10 hours/week
+- You're a student or hobbyist
+- You're learning (practice on free tier first)
 
 **Upgrade to paid if**:
-- ✅ You code professionally full-time
-- ✅ You're bottlenecked by boilerplate/repetitive tasks
-- ✅ Free tier limits disrupt your flow
+- You code professionally full-time
+- You're bottlenecked by boilerplate/repetitive tasks
+- Free tier limits disrupt your flow
 
 **The calculation**:
 ```
@@ -4030,7 +4031,7 @@ Aider (free) + API key ($10-30/month) < Cursor Pro ($20/month)
 
 ---
 
-## 🎯 Real-World Project Workflows
+## Real-World Project Workflows
 
 Theory is great, but let's see how AI tools work in practice on real projects.
 
@@ -5274,7 +5275,7 @@ AI: [Suggests code using sessions, matching your current architecture]
 
 ---
 
-## 💡 Did You Know? Famous Bugs Caught (and Introduced) by AI
+## Did You Know? Famous Bugs Caught (and Introduced) by AI
 
 AI coding assistants have both prevented disasters and caused them. Let's look at real-world examples.
 
@@ -5565,7 +5566,7 @@ def delete_user(user_id: int, current_user: User = Depends(get_current_user)):
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 **You've learned about AI tools - now it's time to build your workflows!**
 
@@ -5576,32 +5577,32 @@ This module is unique: instead of code examples, you'll build real-world workflo
 **1. [Feature Development Workflow](../../examples/module_05/workflow_01_feature_development.md)** - Complete feature from idea to deployment
    - 📖 Concept: AI-assisted full-stack development workflow
    - ⏱️ Time: 45-60 minutes
-   - 🎯 Goal: Build a complete feature using AI at every step
-   - 💡 What you'll learn: When to use Copilot vs Claude Code vs Cursor
+   - Goal: Build a complete feature using AI at every step
+   - What you'll learn: When to use Copilot vs Claude Code vs Cursor
 
 **2. [Production Debugging Workflow](../../examples/module_05/workflow_02_debugging_production.md)** - Fix production issues systematically
    - 📖 Concept: Emergency debugging with AI assistance
    - ⏱️ Time: 40-50 minutes
-   - 🎯 Goal: Debug production issues using AI + traditional tools
-   - 💡 What you'll learn: How to triage, diagnose, and fix under pressure
+   - Goal: Debug production issues using AI + traditional tools
+   - What you'll learn: How to triage, diagnose, and fix under pressure
 
 **3. [Code Review Workflow](../../examples/module_05/workflow_03_code_review.md)** - Review PRs like a senior engineer
    - 📖 Concept: AI-assisted code review
    - ⏱️ Time: 35-45 minutes
-   - 🎯 Goal: Conduct thorough code reviews with AI help
-   - 💡 What you'll learn: Catch security issues, performance problems, and design flaws
+   - Goal: Conduct thorough code reviews with AI help
+   - What you'll learn: Catch security issues, performance problems, and design flaws
 
 **4. [Refactoring Workflow](../../examples/module_05/workflow_04_refactoring.md)** - Refactor legacy code safely
    - 📖 Concept: Large-scale refactoring with AI
    - ⏱️ Time: 50-60 minutes
-   - 🎯 Goal: Refactor messy code without breaking functionality
-   - 💡 What you'll learn: Multi-file refactoring, test generation, risk mitigation
+   - Goal: Refactor messy code without breaking functionality
+   - What you'll learn: Multi-file refactoring, test generation, risk mitigation
 
 **5. [Learning New Codebase Workflow](../../examples/module_05/workflow_05_learning_codebase.md)** - Onboard to unfamiliar code
    - 📖 Concept: Understanding codebases with AI
    - ⏱️ Time: 40-50 minutes
-   - 🎯 Goal: Get productive in a new codebase quickly
-   - 💡 What you'll learn: How to explore, understand, and contribute efficiently
+   - Goal: Get productive in a new codebase quickly
+   - What you'll learn: How to explore, understand, and contribute efficiently
 
 **Total Practice Time**: ~3.5-4.5 hours
 
@@ -5609,13 +5610,13 @@ This module is unique: instead of code examples, you'll build real-world workflo
 
 **[VS Code Setup Guide](../../examples/module_05/config_vscode.md)** - Configure your IDE optimally
    - ⏱️ Time: 30-40 minutes
-   - 🎯 Goal: Set up Copilot, Claude Code, and other extensions
-   - 💡 What you'll learn: Keyboard shortcuts, settings, productivity tips
+   - Goal: Set up Copilot, Claude Code, and other extensions
+   - What you'll learn: Keyboard shortcuts, settings, productivity tips
 
 **[Prompt Patterns Library](../../examples/module_05/prompt_patterns.md)** - Reusable prompt templates
    - ⏱️ Time: 20-30 minutes
-   - 🎯 Goal: Build your library of proven prompts
-   - 💡 What you'll learn: Templates for common coding tasks
+   - Goal: Build your library of proven prompts
+   - What you'll learn: Templates for common coding tasks
 
 ### Deliverable: Your Personal AI Development Workflow
 
@@ -5640,7 +5641,7 @@ After completing the workflows, design your own customized development workflow:
 
 ---
 
-## 🎓 Key Takeaways
+## Key Takeaways
 
 After this deep dive into AI coding assistants, here are the essential lessons:
 
@@ -5702,7 +5703,7 @@ After this deep dive into AI coding assistants, here are the essential lessons:
 
 ---
 
-## 🚀 Your Personal Workflow
+## Your Personal Workflow
 
 Now it's time to design YOUR workflow. Everyone's different—find what works for you.
 
@@ -5811,7 +5812,7 @@ Now it's time to design YOUR workflow. Everyone's different—find what works fo
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Tool Documentation
 
@@ -5923,16 +5924,16 @@ Now it's time to design YOUR workflow. Everyone's different—find what works fo
 
 ---
 
-## 🎉 Congratulations!
+## Congratulations!
 
 **You've completed Phase 1: AI-Native Development!**
 
 You now know:
-- ✅ AI development patterns (Module 1)
-- ✅ Prompt engineering (Module 2)
-- ✅ Code generation (Module 3)
-- ✅ AI-assisted debugging (Module 4)
-- ✅ AI coding tools (Module 5)
+- AI development patterns (Module 1)
+- Prompt engineering (Module 2)
+- Code generation (Module 3)
+- AI-assisted debugging (Module 4)
+- AI coding tools (Module 5)
 
 **You can now**:
 - Build faster with AI autocomplete

@@ -1,13 +1,14 @@
 # Module 6: Introduction to Large Language Models
+# Or: What's Actually Happening Behind the Curtain
 
 **Last Updated**: 2025-11-21
-**Status**: 🟢 Complete
-**Duration**: 5-6 hours
+**Status**: Complete
+**Reading Time**: 5-6 hours
 **Prerequisites**: Phase 1 complete
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this module, you will:
 - Understand the transformer architecture at a high level
@@ -20,7 +21,7 @@ By the end of this module, you will:
 
 ---
 
-## 📖 Introduction
+## Introduction
 
 You've learned to **USE** AI effectively (Phase 1). Now it's time to understand **HOW** AI works.
 
@@ -34,7 +35,7 @@ You've learned to **USE** AI effectively (Phase 1). Now it's time to understand 
 
 ---
 
-## 🧠 What Are Large Language Models?
+## What Are Large Language Models?
 
 ### The Simple Definition
 
@@ -60,7 +61,7 @@ GPT-3 has 175 billion parameters. If you printed each parameter as a single digi
 
 ---
 
-## 🏗️ The Transformer Architecture
+## ️ The Transformer Architecture
 
 ### Before Transformers (2017)
 
@@ -100,7 +101,7 @@ IT refers to → animal
 
 ---
 
-## 💡 Did You Know? The Transformer Paper Was Almost Rejected
+## Did You Know? The Transformer Paper Was Almost Rejected
 
 **The Story**:
 
@@ -198,7 +199,7 @@ graph TD
 
 ---
 
-## 🌍 The LLM Landscape (2024-2025)
+## The LLM Landscape (2024-2025)
 
 ### Proprietary Models
 
@@ -299,7 +300,7 @@ graph TD
 
 ---
 
-## 💡 Did You Know? Meta Released Llama 2 for Free (and Changed Everything)
+## Did You Know? Meta Released Llama 2 for Free (and Changed Everything)
 
 **The Story** (July 2023):
 
@@ -469,7 +470,7 @@ Instruction-tuned: "The capital of France is Paris."
 
 ---
 
-## 💡 Did You Know? GPT-3's Training Cost Would Bankrupt Most Startups
+## Did You Know? GPT-3's Training Cost Would Bankrupt Most Startups
 
 **The Economics of Pre-training**:
 
@@ -509,7 +510,7 @@ Training GPT-3 (175B parameters) from scratch in 2020:
 
 ---
 
-## 💡 Did You Know? The Race to Build the Best LLM
+## Did You Know? The Race to Build the Best LLM
 
 ### The Day GPT-4 Changed Everything (March 14, 2023)
 
@@ -664,7 +665,7 @@ Claude's 200K context window can fit the entire Harry Potter and the Philosopher
 
 ---
 
-## 🎯 Choosing the Right Model
+## Choosing the Right Model
 
 ### Decision Matrix
 
@@ -708,7 +709,7 @@ Claude's 200K context window can fit the entire Harry Potter and the Philosopher
 
 ---
 
-## ✋ STOP: Time to Practice!
+## STOP: Time to Practice!
 
 You've learned the landscape. Now **code it** to understand it.
 
@@ -717,32 +718,32 @@ You've learned the landscape. Now **code it** to understand it.
 **1. [Model Comparison](../../examples/module_06/01_model_comparison.py)** - Compare different LLMs
    - 📖 Concept: Understanding model capabilities
    - ⏱️ Time: 15-20 minutes
-   - 🎯 Goal: See differences between GPT, Claude, and open models
-   - 💡 What you'll learn: Cost vs quality trade-offs
+   - Goal: See differences between GPT, Claude, and open models
+   - What you'll learn: Cost vs quality trade-offs
 
 **2. [Context Window Experiments](../../examples/module_06/02_context_windows.py)** - Test context limits
    - 📖 Concept: How much context can models handle?
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: See how models perform with different context sizes
-   - 💡 What you'll learn: When to use RAG vs long context
+   - Goal: See how models perform with different context sizes
+   - What you'll learn: When to use RAG vs long context
 
 **3. [API Integration](../../examples/module_06/03_api_integration.py)** - Build your first LLM integration
    - 📖 Concept: Production API usage
    - ⏱️ Time: 25-30 minutes
-   - 🎯 Goal: Working API client with error handling
-   - 💡 What you'll learn: Real-world API patterns
+   - Goal: Working API client with error handling
+   - What you'll learn: Real-world API patterns
 
 **4. [Prompt Testing Framework](../../examples/module_06/04_prompt_testing.py)** - Test prompts across models
    - 📖 Concept: Model selection for your use case
    - ⏱️ Time: 30-35 minutes
-   - 🎯 Goal: A/B test prompts on different models
-   - 💡 What you'll learn: How to choose the right model
+   - Goal: A/B test prompts on different models
+   - What you'll learn: How to choose the right model
 
 **5. [Cost Calculator](../../examples/module_06/05_cost_calculator.py)** - Estimate API costs
    - 📖 Concept: Production cost estimation
    - ⏱️ Time: 20-25 minutes
-   - 🎯 Goal: Calculate costs for your use case
-   - 💡 What you'll learn: Budgeting for LLM APIs
+   - Goal: Calculate costs for your use case
+   - What you'll learn: Budgeting for LLM APIs
 
 **Total Practice Time**: ~2-2.5 hours
 
@@ -848,7 +849,7 @@ print(response.choices[0].message.content)
 
 ---
 
-## 📊 Model Comparison: Practical Guide
+## Model Comparison: Practical Guide
 
 ### Benchmark Scores
 
@@ -922,21 +923,21 @@ print(response.choices[0].message.content)
 ### API Key Security
 
 **DO**:
-- ✅ Store in `.env` files (never in code)
-- ✅ Use environment variables
-- ✅ Rotate keys regularly
-- ✅ Use different keys for dev/prod
-- ✅ Set spending limits
+- Store in `.env` files (never in code)
+- Use environment variables
+- Rotate keys regularly
+- Use different keys for dev/prod
+- Set spending limits
 
 **DON'T**:
-- ❌ Commit keys to git
-- ❌ Share keys in Slack/email
-- ❌ Use same key everywhere
-- ❌ Expose keys in client-side code
+- Commit keys to git
+- Share keys in Slack/email
+- Use same key everywhere
+- Expose keys in client-side code
 
 ---
 
-## 💡 Key Insights
+## Key Insights
 
 ### 1. LLMs Are Next-Word Predictors
 Everything they do (reasoning, coding, translation) emerges from predicting the next token.
@@ -983,7 +984,7 @@ No "best" model - each excels at different tasks/constraints.
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 
 ### Essential Papers
 - ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762) (Vaswani et al., 2017) - The transformer paper
@@ -1004,7 +1005,7 @@ No "best" model - each excels at different tasks/constraints.
 
 ---
 
-## ✅ Knowledge Check
+## Knowledge Check
 
 Before moving to Module 7, you should be able to:
 
@@ -1019,7 +1020,7 @@ Before moving to Module 7, you should be able to:
 
 ---
 
-## 🎯 What's Next
+## What's Next
 
 **Module 7**: Tokenization & Text Processing
 - How text becomes tokens
