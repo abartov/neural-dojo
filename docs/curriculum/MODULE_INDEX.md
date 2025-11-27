@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 36/62 modules (58%)
+## Progress: 37/62 modules (59%)
 
-- **Complete**: 36
+- **Complete**: 37
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 26
+- **Pending**: 25
 
 ---
 
@@ -496,7 +496,7 @@
 ---
 
 ## Phase 7: Advanced Generative AI 🟡
-**Weeks 32-36** | 3/5 complete
+**Weeks 32-36** | 4/5 complete
 
 ### Module 32: Fine-tuning Large Language Models 🟢
 
@@ -540,10 +540,12 @@
 
 → **Next**: [Module 35: RLHF & How LLMs Are Trained 🆕](#module-35-rlhf-how-llms-are-trained-🆕)
 
-### Module 35: RLHF & How LLMs Are Trained 🆕 ⚪ 🔮
+### Module 35: RLHF & How LLMs Are Trained 🆕 🟢 🔮
 
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 34
+- **Theory**: [module_35_rlhf.md](notes/module_35_rlhf.md)
+- **Examples**: [module_35/](../../examples/module_35/)
 - **Objectives**:
   - Understand Reinforcement Learning from Human Feedback (RLHF)
   - Learn how ChatGPT was actually trained

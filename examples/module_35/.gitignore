@@ -1,0 +1,43 @@
+# Module 35 - RLHF & How LLMs Are Trained
+
+# Storage directory
+.rlhf_toolkit/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model checkpoints
+*.pt
+*.pth
+checkpoints/
+models/
+
+# Training logs
+wandb/
+runs/
+logs/

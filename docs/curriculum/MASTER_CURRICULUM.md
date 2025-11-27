@@ -60,14 +60,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 4: Frameworks & Agents | 15-21 | 🟢 Complete | 7/7 |
 | Phase 5: Multimodal AI | 22-24 | 🟢 Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | 25-31 | 🟢 Complete | 7/7 |
-| Phase 7: Advanced Generative AI | 32-36 | 🟡 In Progress | 3/5 |
+| Phase 7: Advanced Generative AI | 32-36 | 🟡 In Progress | 4/5 |
 | Phase 8: Classical ML | 37-39 | ⚪ Not Started | 0/3 |
 | Phase 9: AI Safety & Evaluation | 40-42 | ⚪ Not Started | 0/3 |
 | Phase 10: DevOps & MLOps | 43-52 | ⚪ Not Started | 0/10 |
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **63% Complete** | **35/56** |
+| **TOTAL** | **56 core + 3 optional** | **64% Complete** | **36/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -1012,20 +1012,24 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 35: RLHF & How LLMs Are Trained 🆕 🔮
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 34
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
+
+**Files**: `docs/curriculum/notes/module_35_rlhf.md`, `examples/module_35/`
 
 **Learning Objectives**:
 - Understand Reinforcement Learning from Human Feedback (RLHF)
 - Learn how ChatGPT was actually trained
 - Master the three stages: Pretraining → SFT → RLHF
-- Implement reward modeling
+- Implement reward modeling with Bradley-Terry loss
 - Explore alternatives: DPO, ORPO, KTO
 
 **Deliverables**:
-- RLHF pipeline implementation
-- Reward model training
-- DPO fine-tuning example
-- **DELIVERABLE**: RLHF Training Toolkit
+- ✅ Comprehensive theory document (~780 lines)
+- ✅ Reward model training with Bradley-Terry loss
+- ✅ DPO (Direct Preference Optimization) implementation
+- ✅ KTO (Kahneman-Tversky Optimization) for unpaired feedback
+- ✅ Full RLHF pipeline simulation
+- ✅ **DELIVERABLE**: RLHF Training Toolkit (900+ lines)
 
 **Key Concepts**:
 - **Three-Stage Training**:

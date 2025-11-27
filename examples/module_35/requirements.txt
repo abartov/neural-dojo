@@ -1,0 +1,15 @@
+# Module 35: RLHF & How LLMs Are Trained
+
+# Core (required)
+numpy>=1.21.0
+
+# All other dependencies are from Python standard library
+
+# Optional: For real RLHF training
+# torch>=2.0.0
+# transformers>=4.30.0
+# trl>=0.7.0              # HuggingFace Reinforcement Learning
+# peft>=0.5.0             # Parameter-efficient fine-tuning
+# bitsandbytes>=0.41.0    # 4-bit quantization
+# datasets>=2.14.0        # Dataset loading
+# accelerate>=0.20.0      # Multi-GPU training
