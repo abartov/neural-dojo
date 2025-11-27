@@ -1,0 +1,17 @@
+# Training toolkit storage
+.training_toolkit/
+
+# PyTorch checkpoints
+checkpoints/
+*.pt
+*.pth
+
+# Data directory
+data/
+
+# Generated plots
+*.png
+
+# Python cache
+__pycache__/
+*.pyc

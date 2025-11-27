@@ -2021,3 +2021,96 @@ _Module 27 COMPLETE! PyTorch fundamentals mastered!_
 _Milestone: 50% through the curriculum (28/56 modules)!_
 
 ---
+
+## Session #25: 2025-11-27
+
+**Duration**: ~3 hours
+**Modules Worked On**: Module 28 (Training Deep Networks)
+**Status Before**: Module 27 complete, Phase 6 at 3/7
+**Status After**: Module 28 COMPLETE! Phase 6 at 4/7
+
+### Accomplished
+
+- **Module 28 COMPLETE**: Training Deep Networks
+
+Built comprehensive training best practices materials:
+
+**Theory Document** (`module_28_training_deep_networks.md` ~900 lines):
+- Batch Normalization: The technique that made deep learning possible
+- Layer Normalization: For transformers and small batches
+- Dropout: Regularization through random silence
+- Weight Initialization: Xavier vs He, why it matters
+- Learning Rate Scheduling: Warmup, cosine, 1cycle
+- Gradient Clipping: Taming explosive updates
+- Early Stopping & Checkpointing: Production best practices
+- 8+ "Did You Know?" sections with origin stories
+
+**Examples Built**:
+- `example_01_normalization_comparison.py` - BatchNorm vs LayerNorm vs none
+- `example_02_initialization_comparison.py` - Random vs Xavier vs He
+- `example_03_learning_rate_schedules.py` - Constant vs Step vs Cosine vs 1cycle
+- `example_04_complete_training_pipeline.py` - All best practices combined
+
+**Training Toolkit Deliverable** (650+ lines):
+- Learning Rate Range Test (find optimal LR automatically)
+- Initialization Comparison (Random vs Xavier vs He)
+- Production Training Pipeline (all best practices)
+- Training Report Generator (markdown output)
+- JSON persistence for all results
+- 4 demo commands
+
+### Key Insights
+
+1. **BatchNorm changed everything** - cited 60,000+ times, more than Einstein's relativity
+2. **He initialization** - invented by the same researcher who created ResNets
+3. **1cycle policy** - can train models 4-10x faster than constant LR
+4. **train/eval mode** - forgetting `model.eval()` is one of the most common bugs
+
+### Content Enhancement
+
+Also enhanced several existing modules with prose-first pattern:
+- Updated CLAUDE.md with "Prose-First, Code-Second" guidelines
+- Enhanced Module 11 (Vector Databases) with founder stories
+- Enhanced Module 18 (LangGraph) with origin story at beginning
+- Enhanced Module 01.2 (Local Models) with DeepSeek and Apple Silicon stories
+
+### Progress Update
+
+- **Phase 6: 4/7 modules (57%)**
+- **Module 28: COMPLETE** ✅
+- Overall: 29/56 modules (52%)
+- Deliverables: 27 total
+
+### Files Created
+
+**Theory**:
+- `docs/curriculum/notes/module_28_training_deep_networks.md` (~900 lines)
+
+**Examples**:
+- `examples/module_28/example_01_normalization_comparison.py`
+- `examples/module_28/example_02_initialization_comparison.py`
+- `examples/module_28/example_03_learning_rate_schedules.py`
+- `examples/module_28/example_04_complete_training_pipeline.py`
+
+**Deliverable**:
+- `examples/module_28/deliverable_training_toolkit.py` (650+ lines)
+- `examples/module_28/DELIVERABLE_README.md`
+- `examples/module_28/README.md`
+- `examples/module_28/requirements.txt`
+- `examples/module_28/.gitignore`
+
+### Next Session Goals
+
+- Start Module 29: Convolutional Neural Networks (CNNs)
+- Learn convolutional layers and feature extraction
+- Understand classic architectures (LeNet, AlexNet, VGG, ResNet)
+- Implement transfer learning
+- Build an image classifier
+
+---
+
+_Session #25 completed: 2025-11-27_
+_Module 28 COMPLETE! Training best practices mastered!_
+_Milestone: 52% through the curriculum (29/56 modules)!_
+
+---

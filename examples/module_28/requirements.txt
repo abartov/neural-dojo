@@ -1,0 +1,6 @@
+# Module 28: Training Deep Networks
+# Required dependencies
+
+torch>=2.0.0
+torchvision>=0.15.0
+matplotlib>=3.7.0
