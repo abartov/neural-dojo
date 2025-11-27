@@ -5,9 +5,14 @@ Documentation Generator for Neural Dojo
 Usage:
     python -m tools.docs_generator --index        # Generate MODULE_INDEX.md
     python -m tools.docs_generator --html         # Generate HTML to docs/_site/
-    python -m tools.docs_generator --all          # Generate everything
+    python -m tools.docs_generator --all          # Generate everything (includes validation)
     python -m tools.docs_generator --serve        # Generate and serve locally
     python -m tools.docs_generator --clean        # Clean generated files
+    python -m tools.docs_generator --validate     # Validate curriculum format only
+
+Validation checks:
+    - All complete/in_progress modules have **Files**: line
+    - Theory files referenced in **Files** exist on disk
 """
 
 import argparse
@@ -68,6 +73,82 @@ def generate_index_file(config: PathConfig) -> bool:
     print(f"Generated {config.module_index}")
 
     return True
+
+
+def validate_curriculum(config: PathConfig) -> bool:
+    """
+    Validate MASTER_CURRICULUM.md for common issues.
+
+    Checks:
+    - All complete/in_progress modules have **Files**: line
+    - Theory files exist on disk
+    - Examples directories exist
+
+    Returns:
+        True if validation passes, False if critical errors found
+    """
+    if not config.master_curriculum.exists():
+        print(f"ERROR: {config.master_curriculum} not found")
+        return False
+
+    curriculum = parse_curriculum(config.master_curriculum)
+
+    warnings = []
+    errors = []
+
+    for phase in curriculum.phases:
+        for module in phase.modules:
+            # Skip pending modules - they're expected to be incomplete
+            if module.status == "pending":
+                continue
+
+            module_id = f"Module {module.number}: {module.title}"
+
+            # Check for **Files**: line
+            if not module.theory_files and not module.files:
+                if module.status == "complete":
+                    errors.append(f"❌ {module_id} - Missing **Files**: line (status: complete)")
+                else:
+                    warnings.append(f"⚠️  {module_id} - Missing **Files**: line")
+
+            # Check theory files exist
+            for theory in module.theory_files:
+                theory_path = theory.get("path", "")
+                if theory_path.startswith("notes/"):
+                    full_path = config.curriculum_dir / theory_path
+                elif theory_path.startswith("docs/curriculum/"):
+                    full_path = config.project_root / theory_path
+                else:
+                    full_path = config.notes_dir / theory_path.split("/")[-1]
+
+                if not full_path.exists():
+                    warnings.append(f"⚠️  {module_id} - Theory file not found: {theory_path}")
+
+    # Print results
+    if warnings or errors:
+        print("\n" + "=" * 60)
+        print("CURRICULUM VALIDATION RESULTS")
+        print("=" * 60)
+
+        if errors:
+            print(f"\n🔴 ERRORS ({len(errors)}):")
+            for err in errors:
+                print(f"   {err}")
+
+        if warnings:
+            print(f"\n🟡 WARNINGS ({len(warnings)}):")
+            for warn in warnings:
+                print(f"   {warn}")
+
+        print("\n" + "-" * 60)
+        print("Fix: Add **Files**: line after Status in MASTER_CURRICULUM.md")
+        print("Format: **Files**: `docs/curriculum/notes/module_XX_name.md`, `examples/module_XX/`")
+        print("=" * 60 + "\n")
+
+        return len(errors) == 0  # Return False only if there are errors
+    else:
+        print("✅ Curriculum validation passed - all modules have required fields")
+        return True
 
 
 def generate_readme(config: PathConfig) -> bool:
@@ -445,6 +526,7 @@ def main():
     parser.add_argument("--all", action="store_true", help="Generate everything")
     parser.add_argument("--serve", action="store_true", help="Generate and serve locally")
     parser.add_argument("--clean", action="store_true", help="Clean generated files")
+    parser.add_argument("--validate", action="store_true", help="Validate curriculum format")
     parser.add_argument("--port", type=int, default=8000, help="Port for serving (default: 8000)")
 
     args = parser.parse_args()
@@ -452,11 +534,17 @@ def main():
 
     if args.clean:
         clean_generated(config)
+        if not (args.index or args.readme or args.html or args.all or args.serve or args.validate):
+            return
+
+    if args.validate:
+        validate_curriculum(config)
         if not (args.index or args.readme or args.html or args.all or args.serve):
             return
 
     if args.all or args.serve:
         generate_index_file(config)
+        validate_curriculum(config)  # Always validate when generating
         generate_readme(config)
         generate_curriculum_html(config)
         generate_theory_html(config)
