@@ -2365,3 +2365,83 @@ _Milestone: 57% through the curriculum (32/56 modules)!_
 _Deep Learning Foundations mastered! 🎉_
 
 ---
+
+## Session #30: 2025-11-27
+
+**Duration**: ~3 hours
+**Modules Worked On**: Quality review (29, 30, 31), Module 32 (Fine-tuning LLMs)
+**Status Before**: Phase 6 Complete, Phase 7 not started
+**Status After**: Phase 7 In Progress (1/5)
+
+### Accomplished
+
+- ✅ Quality review of Modules 29, 30, 31 against CONTENT_STANDARDS.md
+- ✅ Added 5th "Did You Know?" section to Module 31 (vanishing gradient history)
+- ✅ Created comprehensive Module 32 theory document (~700 lines)
+- ✅ Built Fine-tuning Toolkit deliverable (700+ lines)
+- ✅ All 5 demos working and tested
+- ✅ Updated all curriculum docs
+
+### Quality Review Findings
+
+All three modules now meet CONTENT_STANDARDS.md requirements:
+- Module 29 (CNNs): 9 "Did You Know?" sections ✅
+- Module 30 (Transformers): 7 "Did You Know?" sections ✅
+- Module 31 (Backpropagation): 5 "Did You Know?" sections ✅
+
+### Key Concepts Covered (Module 32)
+
+- **When to Fine-tune vs RAG**: Behavior change vs knowledge addition
+- **LoRA**: Low-Rank Adaptation (128x compression, 0.08% trainable)
+- **QLoRA**: 4-bit quantization for consumer GPUs
+- **Dataset Preparation**: Quality > Quantity
+- **Cost Analysis**: Fine-tuning 7B model = $5-50
+- **Deployment**: HF endpoints, vLLM, Ollama
+
+### Code Created
+
+**Theory**:
+- `docs/curriculum/notes/module_32_finetuning_llms.md` (~700 lines)
+
+**Deliverable**:
+- `examples/module_32/deliverable_finetuning_toolkit.py` (700+ lines)
+- `examples/module_32/DELIVERABLE_README.md`
+- `examples/module_32/README.md`
+- `examples/module_32/requirements.txt`
+- `examples/module_32/.gitignore`
+
+### Key Insight
+
+**LoRA: The Compression Miracle**
+
+Fine-tuning a 7B model:
+- Traditional: ~84 GB memory (multi-GPU required)
+- QLoRA: ~6 GB memory (single RTX 4090)
+- Trainable params: 0.08% (vs 100%)
+- Performance: ~99% of full fine-tuning
+
+Fine-tuning is now accessible to everyone!
+
+### Progress Update
+
+- **Phase 7: 1/5 modules (20%) - In Progress** 🟡
+- **Module 32: COMPLETE** ✅
+- Overall: 33/56 modules (59%)
+- Deliverables: 31 total
+- Phases Complete: 7/13 (Phase 7 started)
+
+### Next Session Goals
+
+- Module 33: Diffusion Models & Image Generation
+- Learn how Stable Diffusion works
+- DDPM, DDIM schedulers
+- LoRA for image models
+
+---
+
+_Session #30 completed: 2025-11-27_
+_Module 32 COMPLETE! Phase 7 STARTED!_
+_Milestone: 59% through the curriculum (33/56 modules)!_
+_Fine-tuning democratized! 🎉_
+
+---

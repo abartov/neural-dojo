@@ -1,0 +1,58 @@
+# Module 32 - Fine-tuning LLMs
+
+# Storage directory
+.finetuning_toolkit/
+
+# Model files and checkpoints
+*.bin
+*.safetensors
+*.pt
+*.pth
+checkpoint-*/
+results/
+outputs/
+models/
+
+# LoRA adapters
+adapter_config.json
+adapter_model.bin
+adapter_model.safetensors
+
+# Datasets
+*.jsonl
+*.parquet
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+logs/
+wandb/
+runs/

@@ -3,8 +3,8 @@
 **From Zero to AI Guru: Master AI, ML, LLMs, and AI-Driven Development**
 
 **Last Updated**: 2025-11-27
-**Version**: 4.2.0 - COMPLETE AI GURU CURRICULUM (56 modules, 13 phases)
-**Status**: Phase 6 COMPLETE! 🎉 (7/7 Deep Learning Foundations)
+**Version**: 4.3.0 - COMPLETE AI GURU CURRICULUM (56 modules, 13 phases)
+**Status**: Phase 7 Started! Module 32 (Fine-tuning LLMs) Complete!
 **Total Duration**: 56 modules, 50-60 weeks (220-300 hours)
 
 ---
@@ -60,14 +60,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 4: Frameworks & Agents | 15-21 | 🟢 Complete | 7/7 |
 | Phase 5: Multimodal AI | 22-24 | 🟢 Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | 25-31 | 🟢 Complete | 7/7 |
-| Phase 7: Advanced Generative AI | 32-36 | ⚪ Not Started | 0/5 |
+| Phase 7: Advanced Generative AI | 32-36 | 🟡 In Progress | 1/5 |
 | Phase 8: Classical ML | 37-39 | ⚪ Not Started | 0/3 |
 | Phase 9: AI Safety & Evaluation | 40-42 | ⚪ Not Started | 0/3 |
 | Phase 10: DevOps & MLOps | 43-52 | ⚪ Not Started | 0/10 |
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **57% Complete** | **32/56** |
+| **TOTAL** | **56 core + 3 optional** | **59% Complete** | **33/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -939,7 +939,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 32: Fine-tuning Large Language Models
 - **Duration**: 7-8 hours
 - **Prerequisites**: Phase 6 complete
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Understand fine-tuning techniques
@@ -948,9 +948,13 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Deploy fine-tuned models
 
 **Deliverables**:
-- Fine-tuned Llama model
-- LoRA implementation
-- Fine-tuning cost analysis
+- ✅ Fine-tuning theory document (~700 lines)
+- ✅ LoRA configuration analysis
+- ✅ Dataset preparation pipeline
+- ✅ Cost and memory estimator
+- ✅ **DELIVERABLE**: Fine-tuning Toolkit (700+ lines)
+
+**Files**: `docs/curriculum/notes/module_32_finetuning_llms.md`, `examples/module_32/`
 
 ---
 
