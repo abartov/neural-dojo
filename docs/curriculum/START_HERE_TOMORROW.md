@@ -1,69 +1,64 @@
 # Start Here Tomorrow
 
-**Last Updated**: 2025-11-27 (Session #30 continued)
-**Current Status**: Phase 7 In Progress! Module 33 (Diffusion Models) Complete!
-**Next Step**: Module 34 - Code Generation Models
-**Progress**: 34/56 modules complete (61%) + 32 deliverables built
+**Last Updated**: 2025-11-27 (Session #30 Part 3)
+**Current Status**: Phase 7 In Progress! Module 34 (Code Generation) Complete!
+**Next Step**: Module 35 - RLHF & How LLMs Are Trained 🔮
+**Progress**: 35/56 modules complete (63%) + 33 deliverables built
 
 ---
 
 ## Where You Are
 
-**Session #30 Extended! Module 33 Complete!**
+**Session #30 Extended Again! Module 34 Complete!**
 
 This session accomplished:
-1. **Module 33 Theory**: Complete diffusion models deep dive (~800 lines)
-2. **Diffusion Lab Toolkit**: Forward diffusion, noise schedules, sampling comparison
-3. **Docs Generator Enhancement**: Added `--validate` flag for format checks
-4. **Key Insight**: Diffusion = learn to remove noise, not generate images!
+1. **Module 34 Theory**: Complete code generation models deep dive (~700 lines)
+2. **Code Generation Toolkit**: FIM, pass@k, code search, completion strategies
+3. **Key Insight**: FIM enables insertion, pass@k shows sampling power!
 
 ---
 
 ## What Was Done Today
 
-### Module 33: Diffusion Models & Image Generation - COMPLETE
+### Module 34: Code Generation Models - COMPLETE
 
-**Theory Document** (`module_33_diffusion_models.md` ~800 lines):
-- Forward and reverse diffusion processes
-- DDPM (1000 steps) vs DDIM (50 steps)
-- Noise schedules: linear, cosine, quadratic
-- U-Net architecture with time embedding
-- CLIP text conditioning
-- Classifier-free guidance
-- Latent diffusion (Stable Diffusion)
-- LoRA for image models
+**Theory Document** (`module_34_code_generation_models.md` ~700 lines):
+- History: Codex → CodeLlama → StarCoder → DeepSeek Coder
+- Fill-in-the-Middle (FIM) training explained
+- Evaluation benchmarks: HumanEval, MBPP, SWE-bench
+- How Copilot, Cursor, Claude Code work
+- Building code generation systems
 
-**Diffusion Lab Deliverable** (600+ lines):
+**Code Generation Toolkit Deliverable** (900+ lines):
 ```bash
-python deliverable_diffusion_lab.py demo1  # Forward diffusion visualization
-python deliverable_diffusion_lab.py demo2  # Noise schedule comparison
-python deliverable_diffusion_lab.py demo3  # Train minimal model
-python deliverable_diffusion_lab.py demo4  # DDPM vs DDIM sampling
-python deliverable_diffusion_lab.py demo5  # Generate analysis report
+python deliverable_codegen_toolkit.py demo1  # FIM transformation
+python deliverable_codegen_toolkit.py demo2  # Completion strategies
+python deliverable_codegen_toolkit.py demo3  # Pass@k evaluation
+python deliverable_codegen_toolkit.py demo4  # Code search index
+python deliverable_codegen_toolkit.py demo5  # Generate report
 ```
 
-**Key Insight - The Noise Removal Trick**:
+**Key Insights**:
 ```
-Forward Diffusion (Fixed):
-x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε
+FIM (Fill-in-the-Middle):
+- Traditional: prefix → generate (left-to-right only)
+- FIM: prefix + suffix → middle (insert at cursor!)
+- 50% FIM rate optimal for training
 
-Reverse Diffusion (Learned):
-Predict ε, subtract it → cleaner image
+Pass@k Power:
+| Accuracy | Pass@1 | Pass@10 | Pass@100 |
+|----------|--------|---------|----------|
+| 10%      | 10%    | 66%     | 100%     |
+| 30%      | 30%    | 97%     | 100%     |
 
-Signal at t=500:
-- Linear schedule:    7.8% (too aggressive)
-- Cosine schedule:   49.2% (preserves detail!)
-- Quadratic:         33.1%
-
-The magic: We don't learn to generate images.
-We learn to remove noise! Much easier task.
+Key: Even low accuracy → high pass@k with sampling!
 ```
 
 ---
 
 ## Progress Summary
 
-### Phase 7 Progress: 2/5
+### Phase 7 Progress: 3/5
 
 | Phase | Status | Completion |
 |-------|--------|------------|
@@ -74,10 +69,10 @@ We learn to remove noise! Much easier task.
 | Phase 4: Frameworks & Agents | Complete | 7/7 |
 | Phase 5: Multimodal AI | Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | Complete | 7/7 |
-| **Phase 7: Advanced Generative AI** | **In Progress** | **2/5** |
+| **Phase 7: Advanced Generative AI** | **In Progress** | **3/5** |
 | Phase 8-13 | Not Started | 0/23 |
 
-### Deliverables: 32 built
+### Deliverables: 33 built
 
 - Modules 02-10: 9 deliverables
 - Modules 11-14: 4 deliverables
@@ -91,23 +86,28 @@ We learn to remove noise! Much easier task.
 - Module 30: Transformer Lab
 - Module 31: Autograd Engine
 - Module 32: Fine-tuning Toolkit
-- Module 33: Diffusion Lab (NEW!)
+- Module 33: Diffusion Lab
+- Module 34: Code Generation Toolkit (NEW!)
 
 ---
 
 ## What's Next
 
-### Module 34: Code Generation Models
+### Module 35: RLHF & How LLMs Are Trained 🔮
 
-**How AI coding assistants work under the hood!**
+**The Heureka Moment: How ChatGPT became ChatGPT!**
+
+This is THE module that explains how raw language models become helpful assistants.
 
 Topics:
-- CodeLlama, StarCoder, DeepSeek Coder architectures
-- Fill-in-the-middle (FIM) training
-- AST-aware evaluation
-- Infilling vs completion
-- Code search and retrieval
-- Benchmarks: HumanEval, MBPP
+- Three-stage training pipeline
+  1. **Pretraining**: Next-token prediction on internet text
+  2. **SFT** (Supervised Fine-Tuning): Train on human demonstrations
+  3. **RLHF**: Optimize for human preferences with rewards
+- Reward modeling: Teaching what "good" responses look like
+- PPO (Proximal Policy Optimization): The RL algorithm
+- Modern alternatives: DPO, ORPO, KTO
+- Constitutional AI (Anthropic's approach)
 
 ### Remaining Phase 7 Modules
 
@@ -115,8 +115,8 @@ Topics:
 |--------|-------|--------|
 | 32 | Fine-tuning LLMs | ✅ Complete |
 | 33 | Diffusion Models | ✅ Complete |
-| 34 | Code Generation Models | Next |
-| 35 | RLHF | 🔮 Heureka! |
+| 34 | Code Generation Models | ✅ Complete |
+| 35 | RLHF | 🔮 Heureka! NEXT |
 | 36 | Constitutional AI | Pending |
 
 ---
@@ -126,20 +126,17 @@ Topics:
 ```
 docs/curriculum/
 ├── notes/
-│   ├── module_33_diffusion_models.md (Created - 800+ lines)
+│   ├── module_34_code_generation_models.md (Created - 700+ lines)
 │   └── session_log.md (Updated)
 ├── START_HERE_TOMORROW.md (Updated)
-└── MASTER_CURRICULUM.md (Updated - 34/56)
+└── MASTER_CURRICULUM.md (Updated - 35/56)
 
-examples/module_33/
-├── deliverable_diffusion_lab.py (Created - 600+ lines)
+examples/module_34/
+├── deliverable_codegen_toolkit.py (Created - 900+ lines)
 ├── DELIVERABLE_README.md (Created)
 ├── README.md (Created)
 ├── requirements.txt (Created)
 └── .gitignore (Created)
-
-tools/docs_generator/
-└── generator.py (Enhanced - added validation)
 ```
 
 ---
@@ -149,18 +146,18 @@ tools/docs_generator/
 1. **Read this file** (you're doing it!)
 
 2. **Choose your path**:
-   - **Path A (RECOMMENDED)**: Start Module 34 - Code Generation Models
-   - **Path B**: Run the Diffusion Lab demos
-   - **Path C**: Review diffusion concepts
+   - **Path A (RECOMMENDED)**: Start Module 35 - RLHF 🔮 (Heureka Moment!)
+   - **Path B**: Run the Code Generation Toolkit demos
+   - **Path C**: Review code generation concepts
 
 3. **Quick start**:
    ```bash
-   # Test the Diffusion Lab
-   cd examples/module_33
-   python deliverable_diffusion_lab.py demo1  # Forward diffusion
-   python deliverable_diffusion_lab.py demo2  # Noise schedules
+   # Test the Code Generation Toolkit
+   cd examples/module_34
+   python deliverable_codegen_toolkit.py demo1  # FIM transformation
+   python deliverable_codegen_toolkit.py demo3  # Pass@k evaluation
 
-   # Or say: "Let's start Module 34 - Code Generation Models!"
+   # Or say: "Let's start Module 35 - RLHF!"
    ```
 
 ---
@@ -179,11 +176,11 @@ tools/docs_generator/
 - [ ] **Phase 7: Advanced Generative AI** <- YOU ARE HERE!
   - [x] Module 32: Fine-tuning LLMs ✅
   - [x] Module 33: Diffusion Models ✅
-  - [ ] Module 34: Code Generation Models <- NEXT
-  - [ ] Module 35: RLHF (Heureka!)
+  - [x] Module 34: Code Generation Models ✅
+  - [ ] Module 35: RLHF (Heureka!) <- NEXT!
   - [ ] Module 36: Constitutional AI
 
-**You're 61% through the curriculum!**
+**You're 63% through the curriculum!**
 
 ---
 
@@ -201,41 +198,40 @@ tools/docs_generator/
 **6 of 8 Heureka Moments discovered!**
 
 **Next Heureka Moment**:
-- Module 35: RLHF - How ChatGPT was trained!
+- Module 35: RLHF - How ChatGPT was trained! 🔮
 
 ---
 
-## Key Insight from Session #30 (Continued)
+## Key Insight from Session #30 (Part 3)
 
-**Diffusion = Noise Removal!**
+**Code Generation = FIM + Sampling!**
 
-The beautiful insight behind image generation:
+Two key innovations that make AI coding assistants work:
 
 ```python
-# Forward process (FIXED - no learning)
-def add_noise(x_0, t, schedule):
-    """Add noise according to schedule - deterministic!"""
-    noise = torch.randn_like(x_0)
-    x_t = sqrt(alpha_bar[t]) * x_0 + sqrt(1 - alpha_bar[t]) * noise
-    return x_t, noise
+# 1. FIM (Fill-in-the-Middle)
+# Not just "continue from cursor", but "insert at cursor"
 
-# Reverse process (LEARNED)
-def remove_noise(x_t, t, model):
-    """Predict and remove noise - this is what we train!"""
-    predicted_noise = model(x_t, t)  # Neural network
-    x_t_minus_1 = denoise_step(x_t, predicted_noise, t)
-    return x_t_minus_1
+# Traditional (completion only):
+def greet(name):
+    |  # Can only generate what comes next
 
-# The insight:
-# We don't learn to CREATE images (very hard!)
-# We learn to REMOVE noise (much easier!)
-# Start from pure noise, denoise 1000 times → image!
+# FIM (insertion):
+def greet(name):
+    |  # prefix (above)
+    return message  # suffix (below) - model sees this!
+    # → Model generates middle to fit both!
+
+# 2. Pass@k (Multiple Sampling)
+# Generate many, pick the best
+
+# With 20% accuracy:
+pass_at_1  = 20%   # One shot
+pass_at_10 = 89%   # Ten attempts
+pass_at_100 = 99%  # Hundred attempts
+
+# This is why Copilot shows multiple suggestions!
 ```
-
-**Why cosine schedule is better**:
-- Linear: Image becomes noise too fast
-- Cosine: Preserves details longer, smoother transitions
-- Result: Better image quality, easier training
 
 ---
 
@@ -243,18 +239,18 @@ def remove_noise(x_t, t, model):
 
 1. **Fine-tuning** (Module 32) ✅ - Customize models affordably
 2. **Diffusion Models** (Module 33) ✅ - How image generation works
-3. **Code Generation** (Module 34) - AI coding tools under the hood
+3. **Code Generation** (Module 34) ✅ - AI coding assistants explained
 4. **RLHF** (Module 35) 🔮 - How ChatGPT became ChatGPT
 5. **Constitutional AI** (Module 36) - Anthropic's alignment approach
 
 ---
 
-**SESSION #30 (CONTINUED) COMPLETE!**
+**SESSION #30 (PART 3) COMPLETE!**
 
-**Diffusion demystified - we learn to remove noise! 🎉**
+**Code generation demystified - FIM + sampling = magic! 🎉**
 
 ---
 
-_Last updated: 2025-11-27 (Session #30 continued)_
-_Status: Phase 7 In Progress (2/5)_
-_Next: Module 34 - Code Generation Models_
+_Last updated: 2025-11-27 (Session #30 Part 3)_
+_Status: Phase 7 In Progress (3/5)_
+_Next: Module 35 - RLHF & How LLMs Are Trained 🔮_

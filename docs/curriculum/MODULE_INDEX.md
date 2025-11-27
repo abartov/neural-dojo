@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 35/62 modules (56%)
+## Progress: 36/62 modules (58%)
 
-- **Complete**: 35
+- **Complete**: 36
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 27
+- **Pending**: 26
 
 ---
 
@@ -496,7 +496,7 @@
 ---
 
 ## Phase 7: Advanced Generative AI 🟡
-**Weeks 32-36** | 2/5 complete
+**Weeks 32-36** | 3/5 complete
 
 ### Module 32: Fine-tuning Large Language Models 🟢
 
@@ -526,14 +526,16 @@
 
 → **Next**: [Module 34: Code Generation Models](#module-34-code-generation-models)
 
-### Module 34: Code Generation Models ⚪
+### Module 34: Code Generation Models 🟢
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 33
+- **Theory**: [module_34_code_generation_models.md](notes/module_34_code_generation_models.md)
+- **Examples**: [module_34/](../../examples/module_34/)
 - **Objectives**:
-  - Understand code-specific LLMs
-  - Build code generation systems
-  - Implement code completion
+  - Understand code-specific LLMs (Codex, CodeLlama, StarCoder, DeepSeek)
+  - Master Fill-in-the-Middle (FIM) training
+  - Evaluate with HumanEval, MBPP, SWE-bench
   - *... and 1 more*
 
 → **Next**: [Module 35: RLHF & How LLMs Are Trained 🆕](#module-35-rlhf-how-llms-are-trained-🆕)

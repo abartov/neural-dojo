@@ -60,14 +60,14 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 4: Frameworks & Agents | 15-21 | 🟢 Complete | 7/7 |
 | Phase 5: Multimodal AI | 22-24 | 🟢 Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | 25-31 | 🟢 Complete | 7/7 |
-| Phase 7: Advanced Generative AI | 32-36 | 🟡 In Progress | 2/5 |
+| Phase 7: Advanced Generative AI | 32-36 | 🟡 In Progress | 3/5 |
 | Phase 8: Classical ML | 37-39 | ⚪ Not Started | 0/3 |
 | Phase 9: AI Safety & Evaluation | 40-42 | ⚪ Not Started | 0/3 |
 | Phase 10: DevOps & MLOps | 43-52 | ⚪ Not Started | 0/10 |
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **61% Complete** | **34/56** |
+| **TOTAL** | **56 core + 3 optional** | **63% Complete** | **35/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -989,18 +989,23 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 34: Code Generation Models
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 33
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
+
+**Files**: `docs/curriculum/notes/module_34_code_generation_models.md`, `examples/module_34/`
 
 **Learning Objectives**:
-- Understand code-specific LLMs
-- Build code generation systems
-- Implement code completion
-- Create AI coding tools
+- Understand code-specific LLMs (Codex, CodeLlama, StarCoder, DeepSeek)
+- Master Fill-in-the-Middle (FIM) training
+- Evaluate with HumanEval, MBPP, SWE-bench
+- Build code completion and search systems
 
 **Deliverables**:
-- Custom code generation tool
-- Code completion system
-- AI-powered code review bot
+- ✅ Comprehensive theory document (~700 lines)
+- ✅ FIM transformation demos (PSM, SPM, model formats)
+- ✅ Completion strategy comparison (greedy, sampling, beam)
+- ✅ Pass@k evaluation implementation
+- ✅ Code search and indexing system
+- ✅ **DELIVERABLE**: Code Generation Toolkit (900+ lines)
 
 ---
 

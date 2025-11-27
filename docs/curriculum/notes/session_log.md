@@ -2532,3 +2532,74 @@ _Milestone: 61% through the curriculum (34/56 modules)!_
 _Diffusion demystified! 🎉_
 
 ---
+
+## Session #30 (Part 3): 2025-11-27
+
+**Duration**: ~2 hours (continuation)
+**Modules Worked On**: Module 34 (Code Generation Models)
+**Status Before**: Phase 7 (2/5)
+**Status After**: Phase 7 (3/5)
+
+### Accomplished
+
+- ✅ Created comprehensive Module 34 theory document (~700 lines)
+- ✅ Built Code Generation Toolkit deliverable (900+ lines)
+- ✅ All 5 demos working and tested
+- ✅ Updated curriculum and generated HTML docs
+
+### Key Concepts Covered (Module 34)
+
+- **Fill-in-the-Middle (FIM)**: How models learn insertion, not just continuation
+- **Code Models**: Codex → CodeLlama → StarCoder → DeepSeek Coder
+- **Pass@k Metric**: Evaluating code generation with multiple samples
+- **Code Search**: Building repository-aware completion systems
+- **Completion Strategies**: Greedy, sampling, beam search comparison
+- **Benchmarks**: HumanEval, MBPP, SWE-bench
+
+### Code Created
+
+**Theory**:
+- `docs/curriculum/notes/module_34_code_generation_models.md` (~700 lines)
+
+**Deliverable**:
+- `examples/module_34/deliverable_codegen_toolkit.py` (900+ lines)
+- `examples/module_34/DELIVERABLE_README.md`
+- `examples/module_34/README.md`
+- `examples/module_34/requirements.txt`
+- `examples/module_34/.gitignore`
+
+### Key Insight
+
+**Pass@k shows sampling power**:
+- 10% accuracy → 66% pass@10 → 100% pass@100
+- Multiple samples dramatically improve success
+- This is why coding assistants generate multiple suggestions
+
+**FIM enables insertion**:
+- Traditional: Only left-to-right continuation
+- FIM: prefix + suffix → middle (insert at cursor)
+- 50% FIM rate is optimal for training
+
+### Progress Update
+
+- **Phase 7: 3/5 modules (60%)** 🟡
+- **Module 34: COMPLETE** ✅
+- Overall: 35/56 modules (63%)
+- Deliverables: 33 total
+- Phases Complete: 7/13 (Phase 7 in progress)
+
+### Next Session Goals
+
+- Module 35: RLHF & How LLMs Are Trained 🔮
+- The Heureka moment: How ChatGPT became ChatGPT!
+- Three stages: Pretraining → SFT → RLHF
+- Modern alternatives: DPO, ORPO, KTO
+
+---
+
+_Session #30 (Part 3) completed: 2025-11-27_
+_Module 34 COMPLETE!_
+_Milestone: 63% through the curriculum (35/56 modules)!_
+_Code generation demystified! 🎉_
+
+---

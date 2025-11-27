@@ -1,0 +1,39 @@
+# Module 34 - Code Generation Models
+
+# Storage directory
+.codegen_toolkit/
+
+# Generated reports
+*.md.bak
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model cache
+.cache/
+models/

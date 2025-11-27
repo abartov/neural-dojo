@@ -1,0 +1,21 @@
+# Module 34: Code Generation Models
+
+# Core (required)
+numpy>=1.21.0
+
+# All other dependencies are from Python standard library:
+# - ast (parsing)
+# - re (regex)
+# - json (storage)
+# - hashlib (embeddings simulation)
+# - dataclasses (data structures)
+# - typing (type hints)
+# - pathlib (file paths)
+# - collections (Counter)
+
+# Optional: For real code generation
+# openai>=1.0.0           # GPT-4 API
+# anthropic>=0.18.0       # Claude API
+# transformers>=4.30.0    # Local models
+# torch>=2.0.0            # PyTorch for local inference
+# sentence-transformers   # Code embeddings
