@@ -1,0 +1,8 @@
+# Module 31: Backpropagation Deep Dive
+# No external dependencies - pure Python implementation!
+
+# The autograd engine is implemented from scratch using only:
+# - math (standard library)
+# - random (standard library)
+# - json (standard library)
+# - os, sys, datetime (standard library)
