@@ -1,7 +1,7 @@
 # Claude AI Assistant Guidelines for Neural Dojo
 
-**Last Updated**: 2025-11-25
-**Version**: 1.2.0 (Added Historical Content Requirements from Session #17)
+**Last Updated**: 2025-11-27
+**Version**: 1.3.0 (Added Prose-First Pattern from Session #18)
 
 This document provides guidelines for AI assistants (Claude) working on the Neural Dojo project. It ensures consistency, quality, and adherence to project standards.
 
@@ -73,6 +73,64 @@ Every module MUST include rich historical context with at least 3-5 narrative st
 - "Netflix generates $1B+ per year from their embedding-based recommendations..."
 
 **Why this matters**: Stories make concepts memorable. Learners remember "the moth in Grace Hopper's computer" forever, but forget dry technical explanations.
+
+**Prose-First, Code-Second Pattern** (Added Session #18):
+
+Theory documents must be **human-readable first, code-reference second**. Follow these rules:
+
+1. **Before Every Code Block**: Explain in plain English what the code does and WHY it matters
+   - Bad: Just show code with a heading
+   - Good: 2-3 sentences explaining the concept, then code
+
+2. **Sprinkle Stories Throughout**: Don't cluster all "Did You Know?" at the end
+   - Place origin stories at the BEGINNING of sections (most impactful)
+   - Add mini-stories after introducing new concepts
+   - Include founder/researcher names whenever possible
+
+3. **Use Analogies Before Technical Explanations**:
+   - "Think of it like..." before diving into details
+   - Connect to everyday experiences
+   - Example: "HNSW is like social networks - you can reach anyone in ~6 hops"
+
+4. **Include Real Numbers and Statistics**:
+   - Funding amounts ("Pinecone raised $138M")
+   - Performance improvements ("100x faster than brute force")
+   - Industry adoption ("75% of NeurIPS 2019 papers used PyTorch")
+
+5. **Add Founder/Company Origin Stories for Major Tools**:
+   - When covering a tool (Qdrant, LangGraph, etc.), include:
+     - Who created it and when
+     - What problem they were trying to solve
+     - Key insight or breakthrough
+   - Example pattern: "Qdrant was founded in 2021 by Andrey Vasnetsov in Berlin..."
+
+6. **Target "Did You Know?" Distribution**:
+   - Minimum 3-5 per module
+   - Place at: Introduction, after each major section, before summary
+   - Each should be 100-300 words with a compelling narrative
+
+**Example of Good Section Structure**:
+```markdown
+## Part 2: Tensors - The Foundation
+
+### What is a Tensor, Really?
+
+[2-3 paragraphs explaining the concept in plain English, with analogies]
+
+### 💡 Did You Know? The NumPy Bridge
+
+[Story about why PyTorch and NumPy can share memory, who designed it, why it matters]
+
+### Creating Tensors
+
+[Plain English explanation of when/why you'd create tensors different ways]
+
+```python
+# Code with inline comments explaining non-obvious parts
+```
+
+[After code: "Notice how..." or "The key insight here is..."]
+```
 
 #### 2. **Code Examples** (`examples/module_XX/`)
 - **Tested**: ALL code must run without errors

@@ -247,6 +247,16 @@ ollama pull deepseek-r1:14b
 **Best for**: Complex algorithms, code review, refactoring
 **Benchmarks**: Beats GPT-3.5-Turbo, rivals GPT-4 on HumanEval
 
+> **💡 Did You Know? The DeepSeek Story**
+>
+> DeepSeek is a Chinese AI company that shocked Silicon Valley in 2024-2025. While American AI labs spent billions on massive GPU clusters, DeepSeek's small team in Hangzhou achieved comparable results with a fraction of the compute budget.
+>
+> Their secret? **Engineering efficiency over brute force**. DeepSeek R1 (their reasoning model) was trained with novel techniques that reduced compute costs by 90% compared to OpenAI's o1.
+>
+> The result: A model you can run locally that competes with $200/month API subscriptions. DeepSeek proved that AI progress isn't just about throwing money at problems - clever engineering matters more.
+>
+> **Fun fact**: When DeepSeek R1 was released in January 2025, Nvidia's stock dropped 17% ($600B in market cap) in one day. Investors realized the AI hardware arms race might be less important than they thought.
+
 ---
 
 #### **Qwen 2.5-Coder** (China - Alibaba)
@@ -437,7 +447,29 @@ ollama pull deepseek-coder-v2:236b    # If you have GPU
 # Lightweight only:
 ollama pull phi3.5:3.8b
 ```
-**Why**: Only model that will run smoothly
+**Why**: Only model that will run smoothly on 4GB
+
+---
+
+## 💡 Did You Know? The Apple Silicon Revolution
+
+### Why Your MacBook Can Run AI Now
+
+Before 2020, running AI models locally was painful. You needed expensive Nvidia GPUs, separate RAM for graphics, and complex CUDA drivers. Most developers couldn't do it.
+
+Then Apple released the **M1 chip** in November 2020. Everything changed.
+
+**The breakthrough**: Apple's "Unified Memory Architecture" means the CPU and GPU share the same fast memory. For AI inference, this is perfect - no copying data back and forth between CPU and GPU RAM.
+
+**The numbers**:
+- M1 MacBook Air (8GB): Can run 7B parameter models
+- M1 Pro (16GB): Can run 14B parameter models comfortably
+- M1 Max (32GB): Can run 32B+ parameter models
+- M1 Ultra (64-128GB): Can run models that normally need datacenter GPUs
+
+**The surprise**: A $999 MacBook Air can now run models that would have cost $10,000+ in GPU hardware just 3 years ago.
+
+**Why this matters for you**: If you have any Mac with M-series chip (M1, M2, M3, M4), you can run production-quality AI models locally. No cloud costs, complete privacy, works offline. This was science fiction in 2019.
 
 ---
 

@@ -98,9 +98,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - ✅ `.env` file with API key(s) configured
 - ✅ All test scripts passing
 
-**Files Created**:
-- Theory: `docs/curriculum/notes/module_00_prerequisites.md`
-- Examples: `examples/module_00/`
+**Files**: `docs/curriculum/notes/module_00_prerequisites.md`, `examples/module_00/`
 
 ---
 
@@ -431,14 +429,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Reranking: Cross-encoders for precision
 - Parent Document Retrieval: Retrieve parents, use children
 
-**Files Created**:
-- Theory: `docs/curriculum/notes/module_14_advanced_rag_patterns.md`
-- Examples: `examples/module_14/`
-  - `01_hyde_search.py` (HyDE implementation)
-  - `02_hybrid_search.py` (BM25 + Semantic hybrid)
-  - `03_reranking.py` (Cross-encoder reranking)
-  - `deliverable_advanced_rag.py` (Full toolkit, 700+ lines)
-  - `DELIVERABLE_README.md`
+**Files**: `docs/curriculum/notes/module_14_advanced_rag_patterns.md`, `examples/module_14/`
 
 **Real-World Application**: Enhance kaizen's RAG with these advanced patterns!
 
@@ -472,6 +463,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - RunnableWithMessageHistory for stateful conversations
 - Multi-provider support (Gemini, Claude)
 
+**Files**: `docs/curriculum/notes/module_15_langchain_fundamentals.md`, `examples/module_15/`
+
 ---
 
 ### Module 16: LangChain Tools & Function Calling
@@ -495,6 +488,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Tool calling protocols
 - Error handling
 - Tool selection strategies
+
+**Files**: `docs/curriculum/notes/module_16_langchain_tools_function_calling.md`, `examples/module_16/`
 
 ---
 
@@ -521,6 +516,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Self-consistency
 
 **💡 Heureka Moment**: Making AI "think out loud" dramatically improves reasoning!
+
+**Files**: `docs/curriculum/notes/module_17_chain_of_thought_reasoning.md`, `examples/module_17/`
 
 ---
 
@@ -550,6 +547,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Human-in-the-loop with interrupts
 - Checkpointing for persistence
 
+**Files**: `docs/curriculum/notes/module_18_langgraph_stateful_workflows.md`, `examples/module_18/`
+
 ---
 
 ### Module 19: LlamaIndex & Alternative Frameworks
@@ -577,6 +576,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - AutoGen conversational agents
 - Framework selection criteria
 
+**Files**: `docs/curriculum/notes/module_19_llamaindex_alternative_frameworks.md`, `examples/module_19/`
+
 ---
 
 ### Module 20: Advanced Agentic AI 🆕 🔮
@@ -598,14 +599,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - ✅ Multi-agent team (researcher + writer + critic)
 - ✅ **DELIVERABLE**: Autonomous Agent Framework (750+ lines)
 
-**Files Created**:
-- Theory: `docs/curriculum/notes/module_20_advanced_agentic_ai.md` (~2000 lines)
-- Examples: `examples/module_20/`
-  - `01_agent_memory_systems.py` (memory architectures)
-  - `02_planning_algorithms.py` (Plan-Execute, ReWOO, ToT)
-  - `03_multi_agent_collaboration.py` (Supervisor, Swarm, Debate)
-  - `deliverable_autonomous_agent.py` (750+ lines)
-  - `DELIVERABLE_README.md`
+**Files**: `docs/curriculum/notes/module_20_advanced_agentic_ai.md`, `examples/module_20/`
 
 **Key Concepts**:
 - **Memory Systems**:
@@ -667,14 +661,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
   - Cost tracking per model/user
   - Performance percentiles (P50, P95, P99)
 
-**Files Created**:
-- Theory: `docs/curriculum/notes/module_21_ai_agents_in_production.md`
-- Examples: `examples/module_21/`
-  - `01_production_patterns.py` (circuit breaker, degradation)
-  - `02_guardrails_safety.py` (validation, PII, rate limiting)
-  - `03_monitoring_observability.py` (logging, metrics, cost)
-  - `deliverable_production_agent.py` (600+ lines)
-  - `DELIVERABLE_README.md`
+**Files**: `docs/curriculum/notes/module_21_ai_agents_in_production.md`, `examples/module_21/`
 
 **Real-World Application**: Deploy robust agents to kaizen with full production guardrails!
 
@@ -721,6 +708,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 **Real-World Application**: Add voice capabilities to vibe's teaching platform!
 
+**Files**: `docs/curriculum/notes/module_22_speech_ai.md`, `examples/module_22/`
+
 ---
 
 ### Module 23: Vision AI & Vision-Language Models
@@ -749,6 +738,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Multimodal prompting
 
 **Real-World Application**: Build image search for kaizen!
+
+**Files**: `docs/curriculum/notes/module_23_vision_ai.md`, `examples/module_23/`
 
 ---
 
@@ -787,14 +778,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
   - Highlight extraction
   - Thumbnail selection
 
-**Files Created**:
-- Theory: `docs/curriculum/notes/module_24_video_ai.md`
-- Examples: `examples/module_24/`
-  - `01_video_understanding.py` (frame extraction, scene detection)
-  - `02_video_generation.py` (generation concepts, architecture)
-  - `03_video_summarization.py` (summarization, highlights)
-  - `deliverable_video_ai_toolkit.py` (900+ lines)
-  - `DELIVERABLE_README.md`
+**Files**: `docs/curriculum/notes/module_24_video_ai.md`, `examples/module_24/`
 
 **Real-World Application**: Build video content analysis for vibe's courses!
 
@@ -819,6 +803,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - ✅ Data analysis pipeline (demo5)
 - ✅ ML Data Toolkit (900+ lines)
 
+**Files**: `docs/curriculum/notes/module_25_python_for_ml.md`, `examples/module_25/`
+
 ---
 
 ### Module 26: Neural Networks from Scratch
@@ -836,6 +822,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - ✅ Pure Python neural network (800+ lines)
 - ✅ MNIST classifier (>95% accuracy)
 - ✅ Training visualizations
+
+**Files**: `docs/curriculum/notes/module_26_neural_networks_from_scratch.md`, `examples/module_26/`
 
 ---
 
@@ -855,6 +843,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - ✅ Tensor benchmarks (PyTorch vs NumPy)
 - ✅ Autograd visualization
 - ✅ Training experiments
+
+**Files**: `docs/curriculum/notes/module_27_pytorch_fundamentals.md`, `examples/module_27/`
 
 ---
 

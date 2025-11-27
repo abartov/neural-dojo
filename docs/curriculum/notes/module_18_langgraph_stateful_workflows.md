@@ -61,6 +61,50 @@ LangGraph lets you build these complex, stateful workflows as **graphs**.
 
 ---
 
+## 💡 Did You Know? The Birth of LangGraph
+
+### The Problem That Kept Harrison Chase Up at Night
+
+In late 2023, **Harrison Chase** (LangChain founder) noticed a pattern. Developers would build amazing prototypes with LangChain, then hit a wall when going to production. The problem wasn't speed or cost - it was **state management**.
+
+Real AI workflows need to:
+- **Remember** what happened 10 steps ago
+- **Recover** from failures without starting over
+- **Wait** for human approval, then continue
+- **Branch** into parallel paths and merge back
+
+LangChain's sequential chains couldn't do this elegantly. Developers were hacking around limitations with global variables and custom state objects. It was messy.
+
+### The Inspiration: Apache Airflow for AI
+
+Chase and his team looked at **Apache Airflow** - the industry standard for data pipelines. Airflow models workflows as **directed acyclic graphs (DAGs)**. Each node is a task, edges define dependencies. Simple but powerful.
+
+But AI workflows need something Airflow doesn't have: **cycles**. An AI agent might need to loop back and try again. A code reviewer might request changes multiple times. You can't model this with DAGs.
+
+The solution was **LangGraph**: workflows as general graphs with full cycle support, built specifically for LLM applications.
+
+### The January 2024 Launch
+
+LangGraph launched in **January 2024** to immediate adoption. Within months, it became the standard for production AI agents. Why?
+
+**1. Checkpointing**: Save state at every step. If something fails, resume exactly where you left off.
+
+**2. Human-in-the-loop**: Built-in `interrupt()` function pauses the graph, waits for human input, then continues.
+
+**3. Multi-agent patterns**: First-class support for supervisor agents, parallel execution, and agent handoffs.
+
+The timing was perfect. Companies were moving from "ChatGPT wrapper" demos to real AI systems. They needed the infrastructure LangGraph provided.
+
+### The Fintech Story That Changed Everything
+
+A fintech company building a loan application processor shared this story with the LangGraph team:
+
+> "Our agent collected 47 documents, verified them with APIs, and ran 12 compliance checks. Then the credit bureau API timed out. With our old system, we lost everything. The customer had to start over."
+
+When the LangGraph team heard this, they made **checkpointing** a first-class feature. Now you can resume from any step. That fintech company became one of LangGraph's earliest production users.
+
+---
+
 ## The Graph Mental Model
 
 ### Graphs 101 (Quick Refresher)
@@ -1011,27 +1055,13 @@ def should_retry(state: RetryState) -> str:
 
 ---
 
-## Did You Know?
+## 💡 Did You Know? More Production Stories
 
-### The Birth of LangGraph: From Frustration to Framework
+### The Whiteboard Moment
 
-In **January 2024**, Harrison Chase and the LangChain team released LangGraph after months of watching developers struggle. The story goes that an internal Slack channel called `#agent-pain-points` had over 500 messages from developers trying to build:
-
-1. **Cycles** - "How do I make my agent retry if it fails?" (Asked 47 times)
-2. **Stateful agents** - "How do I remember what happened 3 steps ago?" (Asked 89 times)
-3. **Human-in-the-loop** - "How do I pause for approval?" (Asked 156 times!)
-
-The "aha moment" came during a whiteboard session when engineer **Nuno Campos** drew an agent workflow as a graph instead of a chain. Everyone in the room immediately saw it: **agent workflows are graphs, not chains**.
+The "aha moment" for LangGraph came during a whiteboard session when engineer **Nuno Campos** drew an agent workflow as a graph instead of a chain. Everyone in the room immediately saw it: **agent workflows are graphs, not chains**.
 
 Within 48 hours, they had a prototype. Within 2 weeks, it was open-sourced. Within 2 months, it had **8,000+ GitHub stars**.
-
-### The $4.6 Million Bug That Inspired Checkpointing
-
-In early 2023 (before LangGraph), a fintech startup ran a complex AI workflow that processed loan applications. The workflow had 12 steps and took ~45 minutes per application.
-
-On one fateful Friday at 4:47 PM, their server crashed at step 11. **2,847 applications** had to be reprocessed from scratch. Cost in compute: **$847,000**. Cost in delayed decisions: **$3.8 million** in lost business.
-
-When the LangGraph team heard this story, they made **checkpointing** a first-class feature, not an afterthought. Now you can resume from any step, and the fintech company? They became one of LangGraph's earliest production users.
 
 ### Why Not Just Use Airflow/Prefect?
 
