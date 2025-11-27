@@ -441,6 +441,8 @@
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 27
+- **Theory**: [module_28_training_deep_networks.md](notes/module_28_training_deep_networks.md)
+- **Examples**: [module_28/](../../examples/module_28/)
 - **Objectives**:
   - Master training techniques (BatchNorm, LayerNorm, Dropout)
   - Understand optimization algorithms (SGD, Adam, AdamW)
@@ -453,6 +455,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 28
+- **Theory**: [module_29_cnns.md](notes/module_29_cnns.md)
+- **Examples**: [module_29/](../../examples/module_29/)
 - **Objectives**:
   - Understand convolutional layers
   - Learn CNN architectures (ResNet, EfficientNet)
@@ -465,6 +469,8 @@
 
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 29
+- **Theory**: [module_30_transformers.md](notes/module_30_transformers.md)
+- **Examples**: [module_30/](../../examples/module_30/)
 - **Objectives**:
   - Master the transformer architecture
   - Understand self-attention

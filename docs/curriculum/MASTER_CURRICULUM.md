@@ -852,7 +852,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 27
 - **Status**: 🟢 Complete
-- **Files**: `docs/curriculum/notes/module_28_training_deep_networks.md`, `examples/module_28/`
+
+**Files**: `docs/curriculum/notes/module_28_training_deep_networks.md`, `examples/module_28/`
 
 **Learning Objectives**:
 - Master training techniques (BatchNorm, LayerNorm, Dropout)
@@ -877,6 +878,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - **Prerequisites**: Module 28
 - **Status**: 🟢 Complete
 
+**Files**: `docs/curriculum/notes/module_29_cnns.md`, `examples/module_29/`
+
 **Learning Objectives**:
 - Understand convolutional layers
 - Learn CNN architectures (ResNet, EfficientNet)
@@ -894,6 +897,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 29
 - **Status**: 🟢 Complete
+
+**Files**: `docs/curriculum/notes/module_30_transformers.md`, `examples/module_30/`
 
 **Learning Objectives**:
 - Master the transformer architecture
