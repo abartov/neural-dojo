@@ -53,6 +53,10 @@ But here's the challenge: W₁ affects the output through a long chain of operat
 
 ## The Chain Rule: The Foundation of Everything
 
+Think of the chain rule like a **relay race**. When you want to know how fast the final runner is going, you need to know how fast each handoff affected the next. If runner 1 speeds up, runner 2 speeds up, which speeds up runner 3. The total effect is the *product* of all individual effects.
+
+In backpropagation, we're asking: "If I wiggle this weight, how much does the loss wiggle?" The answer flows backward through each operation, multiplying effects at each step.
+
 ### The Single-Variable Chain Rule
 
 If y = f(g(x)), then:
@@ -521,6 +525,8 @@ After 10 layers: gradient ≤ 0.25¹⁰ = 0.000001
 - Batch normalization
 - Residual connections
 - Proper initialization (Xavier, He)
+
+> **Did You Know?** The vanishing gradient problem plagued neural networks for nearly two decades! After the initial excitement of backpropagation in the 1980s, researchers found that networks deeper than 2-3 layers were nearly impossible to train. This "AI Winter" period lasted until ~2006 when Geoffrey Hinton showed that layer-by-layer pretraining could help. The real breakthrough came with ReLU activations (2010) and residual connections (2015), finally enabling the 100+ layer networks we use today.
 
 ### 2. Exploding Gradients
 
