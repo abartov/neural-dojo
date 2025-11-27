@@ -1,0 +1,53 @@
+# Module 33 - Diffusion Models
+
+# Storage directory
+.diffusion_lab/
+
+# Generated images
+*.png
+*.jpg
+*.jpeg
+outputs/
+generated/
+
+# Model checkpoints
+*.pt
+*.pth
+*.safetensors
+checkpoints/
+
+# Hugging Face cache
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+wandb/
+runs/

@@ -1,61 +1,69 @@
 # Start Here Tomorrow
 
-**Last Updated**: 2025-11-27 (Session #30)
-**Current Status**: Phase 7 Started! Module 32 (Fine-tuning LLMs) Complete!
-**Next Step**: Module 33 - Diffusion Models & Image Generation
-**Progress**: 33/56 modules complete (59%) + 31 deliverables built
+**Last Updated**: 2025-11-27 (Session #30 continued)
+**Current Status**: Phase 7 In Progress! Module 33 (Diffusion Models) Complete!
+**Next Step**: Module 34 - Code Generation Models
+**Progress**: 34/56 modules complete (61%) + 32 deliverables built
 
 ---
 
 ## Where You Are
 
-**Session #30 Complete! Phase 7 Started!**
+**Session #30 Extended! Module 33 Complete!**
 
 This session accomplished:
-1. **Module 32 Theory**: Complete fine-tuning deep dive (~700 lines)
-2. **Fine-tuning Toolkit**: LoRA analysis, cost estimation, dataset prep
-3. **Quality Review**: Modules 29, 30, 31 reviewed and enhanced
-4. **Key Insight**: LoRA = train 0.08% of parameters, get 99% of the benefit
+1. **Module 33 Theory**: Complete diffusion models deep dive (~800 lines)
+2. **Diffusion Lab Toolkit**: Forward diffusion, noise schedules, sampling comparison
+3. **Docs Generator Enhancement**: Added `--validate` flag for format checks
+4. **Key Insight**: Diffusion = learn to remove noise, not generate images!
 
 ---
 
 ## What Was Done Today
 
-### Module 32: Fine-tuning Large Language Models - COMPLETE
+### Module 33: Diffusion Models & Image Generation - COMPLETE
 
-**Theory Document** (`module_32_finetuning_llms.md` ~700 lines):
-- When to fine-tune vs RAG vs prompting
-- LoRA: Low-Rank Adaptation explained
-- QLoRA: 4-bit quantization for consumer GPUs
-- Dataset preparation and quality
-- Evaluation and deployment strategies
-- Cost analysis and optimization
+**Theory Document** (`module_33_diffusion_models.md` ~800 lines):
+- Forward and reverse diffusion processes
+- DDPM (1000 steps) vs DDIM (50 steps)
+- Noise schedules: linear, cosine, quadratic
+- U-Net architecture with time embedding
+- CLIP text conditioning
+- Classifier-free guidance
+- Latent diffusion (Stable Diffusion)
+- LoRA for image models
 
-**Fine-tuning Toolkit Deliverable** (700+ lines):
+**Diffusion Lab Deliverable** (600+ lines):
 ```bash
-python deliverable_finetuning_toolkit.py demo1  # LoRA configuration analysis
-python deliverable_finetuning_toolkit.py demo2  # Dataset preparation
-python deliverable_finetuning_toolkit.py demo3  # Cost and memory estimation
-python deliverable_finetuning_toolkit.py demo4  # Simulated training
-python deliverable_finetuning_toolkit.py demo5  # Generate report
+python deliverable_diffusion_lab.py demo1  # Forward diffusion visualization
+python deliverable_diffusion_lab.py demo2  # Noise schedule comparison
+python deliverable_diffusion_lab.py demo3  # Train minimal model
+python deliverable_diffusion_lab.py demo4  # DDPM vs DDIM sampling
+python deliverable_diffusion_lab.py demo5  # Generate analysis report
 ```
 
-**Key Insight - The Compression Miracle**:
+**Key Insight - The Noise Removal Trick**:
 ```
-LoRA with r=16:
-- Trainable: 0.08% of parameters
-- Compression: 477x fewer parameters
-- Memory: 75% reduction with QLoRA
-- Performance: ~99% of full fine-tuning
+Forward Diffusion (Fixed):
+x_t = √ᾱ_t · x_0 + √(1 - ᾱ_t) · ε
 
-Fine-tuning is now accessible to everyone!
+Reverse Diffusion (Learned):
+Predict ε, subtract it → cleaner image
+
+Signal at t=500:
+- Linear schedule:    7.8% (too aggressive)
+- Cosine schedule:   49.2% (preserves detail!)
+- Quadratic:         33.1%
+
+The magic: We don't learn to generate images.
+We learn to remove noise! Much easier task.
 ```
 
 ---
 
 ## Progress Summary
 
-### Phase 7 Started!
+### Phase 7 Progress: 2/5
 
 | Phase | Status | Completion |
 |-------|--------|------------|
@@ -66,10 +74,10 @@ Fine-tuning is now accessible to everyone!
 | Phase 4: Frameworks & Agents | Complete | 7/7 |
 | Phase 5: Multimodal AI | Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | Complete | 7/7 |
-| **Phase 7: Advanced Generative AI** | **In Progress** | **1/5** |
+| **Phase 7: Advanced Generative AI** | **In Progress** | **2/5** |
 | Phase 8-13 | Not Started | 0/23 |
 
-### Deliverables: 31 built
+### Deliverables: 32 built
 
 - Modules 02-10: 9 deliverables
 - Modules 11-14: 4 deliverables
@@ -82,31 +90,32 @@ Fine-tuning is now accessible to everyone!
 - Module 29: CNN Vision Toolkit
 - Module 30: Transformer Lab
 - Module 31: Autograd Engine
-- Module 32: Fine-tuning Toolkit (NEW!)
+- Module 32: Fine-tuning Toolkit
+- Module 33: Diffusion Lab (NEW!)
 
 ---
 
 ## What's Next
 
-### Module 33: Diffusion Models & Image Generation
+### Module 34: Code Generation Models
 
-**How Stable Diffusion works from the ground up!**
+**How AI coding assistants work under the hood!**
 
 Topics:
-- Diffusion process (forward and reverse)
-- DDPM and DDIM schedulers
-- U-Net architecture
-- Text conditioning (CLIP)
-- Classifier-free guidance
-- LoRA for Stable Diffusion
+- CodeLlama, StarCoder, DeepSeek Coder architectures
+- Fill-in-the-middle (FIM) training
+- AST-aware evaluation
+- Infilling vs completion
+- Code search and retrieval
+- Benchmarks: HumanEval, MBPP
 
 ### Remaining Phase 7 Modules
 
 | Module | Topic | Status |
 |--------|-------|--------|
 | 32 | Fine-tuning LLMs | ✅ Complete |
-| 33 | Diffusion Models | Next |
-| 34 | Code Generation Models | Pending |
+| 33 | Diffusion Models | ✅ Complete |
+| 34 | Code Generation Models | Next |
 | 35 | RLHF | 🔮 Heureka! |
 | 36 | Constitutional AI | Pending |
 
@@ -117,18 +126,20 @@ Topics:
 ```
 docs/curriculum/
 ├── notes/
-│   ├── module_31_backpropagation.md (Quality fixes)
-│   ├── module_32_finetuning_llms.md (Created - 700+ lines)
+│   ├── module_33_diffusion_models.md (Created - 800+ lines)
 │   └── session_log.md (Updated)
 ├── START_HERE_TOMORROW.md (Updated)
-└── MASTER_CURRICULUM.md (Updated - Phase 7 started!)
+└── MASTER_CURRICULUM.md (Updated - 34/56)
 
-examples/module_32/
-├── deliverable_finetuning_toolkit.py (Created - 700+ lines)
+examples/module_33/
+├── deliverable_diffusion_lab.py (Created - 600+ lines)
 ├── DELIVERABLE_README.md (Created)
 ├── README.md (Created)
 ├── requirements.txt (Created)
 └── .gitignore (Created)
+
+tools/docs_generator/
+└── generator.py (Enhanced - added validation)
 ```
 
 ---
@@ -138,18 +149,18 @@ examples/module_32/
 1. **Read this file** (you're doing it!)
 
 2. **Choose your path**:
-   - **Path A (RECOMMENDED)**: Start Module 33 - Diffusion Models
-   - **Path B**: Run the Fine-tuning Toolkit demos
-   - **Path C**: Review fine-tuning concepts
+   - **Path A (RECOMMENDED)**: Start Module 34 - Code Generation Models
+   - **Path B**: Run the Diffusion Lab demos
+   - **Path C**: Review diffusion concepts
 
 3. **Quick start**:
    ```bash
-   # Test the Fine-tuning Toolkit
-   cd examples/module_32
-   python deliverable_finetuning_toolkit.py demo1  # LoRA analysis
-   python deliverable_finetuning_toolkit.py demo3  # Cost estimation
+   # Test the Diffusion Lab
+   cd examples/module_33
+   python deliverable_diffusion_lab.py demo1  # Forward diffusion
+   python deliverable_diffusion_lab.py demo2  # Noise schedules
 
-   # Or say: "Let's start Module 33 - Diffusion Models!"
+   # Or say: "Let's start Module 34 - Code Generation Models!"
    ```
 
 ---
@@ -167,12 +178,12 @@ examples/module_32/
 ### In Progress
 - [ ] **Phase 7: Advanced Generative AI** <- YOU ARE HERE!
   - [x] Module 32: Fine-tuning LLMs ✅
-  - [ ] Module 33: Diffusion Models <- NEXT
-  - [ ] Module 34: Code Generation Models
+  - [x] Module 33: Diffusion Models ✅
+  - [ ] Module 34: Code Generation Models <- NEXT
   - [ ] Module 35: RLHF (Heureka!)
   - [ ] Module 36: Constitutional AI
 
-**You're 59% through the curriculum!**
+**You're 61% through the curriculum!**
 
 ---
 
@@ -194,45 +205,56 @@ examples/module_32/
 
 ---
 
-## Key Insight from Session #30
+## Key Insight from Session #30 (Continued)
 
-**Fine-tuning democratized!**
+**Diffusion = Noise Removal!**
 
-With LoRA and QLoRA:
+The beautiful insight behind image generation:
 
 ```python
-# Traditional fine-tuning (7B model)
-memory_needed = 7B × 4 bytes × 3  # ~84 GB (multi-GPU)
+# Forward process (FIXED - no learning)
+def add_noise(x_0, t, schedule):
+    """Add noise according to schedule - deterministic!"""
+    noise = torch.randn_like(x_0)
+    x_t = sqrt(alpha_bar[t]) * x_0 + sqrt(1 - alpha_bar[t]) * noise
+    return x_t, noise
 
-# QLoRA fine-tuning
-base_model = 7B × 0.5 bytes  # 3.5 GB (4-bit)
-lora_params = 16M × 2 bytes  # 32 MB
-total = ~6 GB  # Fits on RTX 4090!
+# Reverse process (LEARNED)
+def remove_noise(x_t, t, model):
+    """Predict and remove noise - this is what we train!"""
+    predicted_noise = model(x_t, t)  # Neural network
+    x_t_minus_1 = denoise_step(x_t, predicted_noise, t)
+    return x_t_minus_1
 
-# Result: 128x fewer trainable parameters
-# Performance: ~99% of full fine-tuning
+# The insight:
+# We don't learn to CREATE images (very hard!)
+# We learn to REMOVE noise (much easier!)
+# Start from pure noise, denoise 1000 times → image!
 ```
 
-**The key insight**: Fine-tuning doesn't change WHAT the model knows, it changes HOW it behaves. For knowledge, use RAG. For behavior, use fine-tuning.
+**Why cosine schedule is better**:
+- Linear: Image becomes noise too fast
+- Cosine: Preserves details longer, smoother transitions
+- Result: Better image quality, easier training
 
 ---
 
 ## Phase 7 Preview - What You'll Master
 
 1. **Fine-tuning** (Module 32) ✅ - Customize models affordably
-2. **Diffusion Models** (Module 33) - How image generation works
+2. **Diffusion Models** (Module 33) ✅ - How image generation works
 3. **Code Generation** (Module 34) - AI coding tools under the hood
 4. **RLHF** (Module 35) 🔮 - How ChatGPT became ChatGPT
 5. **Constitutional AI** (Module 36) - Anthropic's alignment approach
 
 ---
 
-**SESSION #30 COMPLETE! PHASE 7 STARTED!**
+**SESSION #30 (CONTINUED) COMPLETE!**
 
-**Fine-tuning is now accessible to everyone! 🎉**
+**Diffusion demystified - we learn to remove noise! 🎉**
 
 ---
 
-_Last updated: 2025-11-27 (Session #30)_
-_Status: Phase 7 In Progress (1/5)_
-_Next: Module 33 - Diffusion Models & Image Generation_
+_Last updated: 2025-11-27 (Session #30 continued)_
+_Status: Phase 7 In Progress (2/5)_
+_Next: Module 34 - Code Generation Models_

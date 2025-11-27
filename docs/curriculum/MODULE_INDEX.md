@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 34/62 modules (54%)
+## Progress: 35/62 modules (56%)
 
-- **Complete**: 34
+- **Complete**: 35
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 28
+- **Pending**: 27
 
 ---
 
@@ -496,7 +496,7 @@
 ---
 
 ## Phase 7: Advanced Generative AI 🟡
-**Weeks 32-36** | 1/5 complete
+**Weeks 32-36** | 2/5 complete
 
 ### Module 32: Fine-tuning Large Language Models 🟢
 
@@ -512,10 +512,12 @@
 
 → **Next**: [Module 33: Diffusion Models & Image Generation](#module-33-diffusion-models-image-generation)
 
-### Module 33: Diffusion Models & Image Generation ⚪
+### Module 33: Diffusion Models & Image Generation 🟢
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 32
+- **Theory**: [module_33_diffusion_models.md](notes/module_33_diffusion_models.md)
+- **Examples**: [module_33/](../../examples/module_33/)
 - **Objectives**:
   - Understand diffusion model theory
   - Learn Stable Diffusion architecture

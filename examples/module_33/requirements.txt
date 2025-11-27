@@ -1,0 +1,21 @@
+# Module 33: Diffusion Models & Image Generation
+
+# Core (required)
+numpy>=1.21.0
+
+# Optional (for training demos)
+torch>=2.0.0
+
+# For actual Stable Diffusion inference:
+# diffusers>=0.21.0
+# transformers>=4.30.0
+# accelerate>=0.20.0
+# safetensors>=0.3.0
+
+# For training LoRAs:
+# peft>=0.5.0
+# bitsandbytes>=0.41.0
+
+# For visualization:
+# matplotlib>=3.5.0
+# Pillow>=9.0.0

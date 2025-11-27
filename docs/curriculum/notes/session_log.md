@@ -2445,3 +2445,90 @@ _Milestone: 59% through the curriculum (33/56 modules)!_
 _Fine-tuning democratized! 🎉_
 
 ---
+
+## Session #30 (Continued): 2025-11-27
+
+**Duration**: ~2 hours (continuation)
+**Modules Worked On**: Module 33 (Diffusion Models & Image Generation)
+**Status Before**: Phase 7 (1/5)
+**Status After**: Phase 7 (2/5)
+
+### Accomplished
+
+- ✅ Created comprehensive Module 33 theory document (~800 lines)
+- ✅ Built Diffusion Lab toolkit deliverable (600+ lines)
+- ✅ All 5 demos working and tested
+- ✅ Added validation to docs generator (`--validate` flag)
+- ✅ Fixed Phase 6 `**Files**:` format inconsistencies
+- ✅ Updated all curriculum docs and generated HTML
+
+### Key Concepts Covered (Module 33)
+
+- **Forward Diffusion**: x_t = √ᾱ_t · x_0 + √(1-ᾱ_t) · ε
+- **Reverse Diffusion (DDPM)**: Iterative denoising over 1000 steps
+- **DDIM**: Deterministic sampling in ~50 steps
+- **Noise Schedules**: Linear, cosine, quadratic comparison
+- **U-Net Architecture**: Encoder-decoder with time embedding
+- **CLIP**: Text → embedding for conditioning
+- **Classifier-Free Guidance**: Blend unconditional + conditional
+- **Latent Diffusion**: 48× compression in latent space
+- **LoRA for SD**: Efficient style customization
+
+### Code Created
+
+**Theory**:
+- `docs/curriculum/notes/module_33_diffusion_models.md` (~800 lines)
+
+**Deliverable**:
+- `examples/module_33/deliverable_diffusion_lab.py` (600+ lines)
+- `examples/module_33/DELIVERABLE_README.md`
+- `examples/module_33/README.md`
+- `examples/module_33/requirements.txt`
+- `examples/module_33/.gitignore`
+
+### Infrastructure Improvement
+
+Added curriculum validation to docs generator:
+```bash
+python -m tools.docs_generator --validate  # Standalone validation
+python -m tools.docs_generator --all       # Includes validation
+```
+
+Validates:
+- Complete/in-progress modules have `**Files**:` line
+- Theory files exist on disk
+
+### Key Insight
+
+**Diffusion = Noise Destruction**
+
+The beautiful insight: we don't need to learn to generate images. We just need to learn to remove noise! The forward process is fixed (add Gaussian noise), the reverse process learns to predict that noise and subtract it.
+
+Signal preservation at t=500:
+- Linear schedule: 7.8% (too aggressive)
+- Cosine schedule: 49.2% (preserves detail longer)
+- Quadratic: 33.1%
+
+### Progress Update
+
+- **Phase 7: 2/5 modules (40%)** 🟡
+- **Module 33: COMPLETE** ✅
+- Overall: 34/56 modules (61%)
+- Deliverables: 32 total
+- Phases Complete: 7/13 (Phase 7 in progress)
+
+### Next Session Goals
+
+- Module 34: Code Generation Models
+- CodeLlama, StarCoder, DeepSeek Coder
+- AST analysis and evaluation
+- Code completion and generation pipelines
+
+---
+
+_Session #30 (continued) completed: 2025-11-27_
+_Module 33 COMPLETE!_
+_Milestone: 61% through the curriculum (34/56 modules)!_
+_Diffusion demystified! 🎉_
+
+---
