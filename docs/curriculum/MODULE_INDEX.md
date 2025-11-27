@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 38/62 modules (61%)
+## Progress: 39/62 modules (62%)
 
-- **Complete**: 38
+- **Complete**: 39
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 24
+- **Pending**: 23
 
 ---
 
@@ -570,13 +570,15 @@
 
 ---
 
-## Phase 8: Classical ML ⚪
-**Weeks 37-39** | 0/3 complete
+## Phase 8: Classical ML 🟡
+**Weeks 37-39** | 1/3 complete
 
-### Module 37: Tabular ML & Gradient Boosting 🆕 ⚪
+### Module 37: Tabular ML & Gradient Boosting 🆕 🟢
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Phase 7 complete
+- **Theory**: [module_37_tabular_ml.md](notes/module_37_tabular_ml.md)
+- **Examples**: [module_37/](../../examples/module_37/)
 - **Objectives**:
   - Master XGBoost, LightGBM, CatBoost
   - Understand gradient boosting algorithms
