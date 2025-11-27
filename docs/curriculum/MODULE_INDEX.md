@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 29/62 modules (46%)
+## Progress: 34/62 modules (54%)
 
-- **Complete**: 29
+- **Complete**: 34
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 33
+- **Pending**: 28
 
 ---
 
@@ -231,6 +231,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 13
+- **Theory**: [module_14_advanced_rag_patterns.md](notes/module_14_advanced_rag_patterns.md)
+- **Examples**: [module_14/](../../examples/module_14/)
 - **Objectives**:
   - Master GraphRAG (knowledge graph + RAG)
   - Implement HyDE (Hypothetical Document Embeddings)
@@ -248,6 +250,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 14
+- **Theory**: [module_15_langchain_fundamentals.md](notes/module_15_langchain_fundamentals.md)
+- **Examples**: [module_15/](../../examples/module_15/)
 - **Objectives**:
   - Master LangChain core concepts
   - Build chains and sequences
@@ -260,6 +264,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 15
+- **Theory**: [module_16_langchain_tools_function_calling.md](notes/module_16_langchain_tools_function_calling.md)
+- **Examples**: [module_16/](../../examples/module_16/)
 - **Objectives**:
   - Understand function calling / tool use
   - Build custom LangChain tools
@@ -272,6 +278,8 @@
 
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 16
+- **Theory**: [module_17_chain_of_thought_reasoning.md](notes/module_17_chain_of_thought_reasoning.md)
+- **Examples**: [module_17/](../../examples/module_17/)
 - **Objectives**:
   - Master chain-of-thought (CoT) prompting
   - Implement ReAct pattern
@@ -284,6 +292,8 @@
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 17
+- **Theory**: [module_18_langgraph_stateful_workflows.md](notes/module_18_langgraph_stateful_workflows.md)
+- **Examples**: [module_18/](../../examples/module_18/)
 - **Objectives**:
   - Master LangGraph for stateful workflows
   - Build complex multi-agent systems
@@ -296,6 +306,8 @@
 
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 18
+- **Theory**: [module_19_llamaindex_alternative_frameworks.md](notes/module_19_llamaindex_alternative_frameworks.md)
+- **Examples**: [module_19/](../../examples/module_19/)
 - **Objectives**:
   - Learn LlamaIndex for data indexing
   - Compare LangChain vs LlamaIndex
@@ -308,6 +320,8 @@
 
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 19
+- **Theory**: [module_20_advanced_agentic_ai.md](notes/module_20_advanced_agentic_ai.md)
+- **Examples**: [module_20/](../../examples/module_20/)
 - **Objectives**:
   - Master agent memory systems (short-term, long-term, episodic)
   - Implement planning algorithms (ReWOO, Plan-and-Execute)
@@ -320,6 +334,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 20
+- **Theory**: [module_21_ai_agents_in_production.md](notes/module_21_ai_agents_in_production.md)
+- **Examples**: [module_21/](../../examples/module_21/)
 - **Objectives**:
   - Deploy agents to production
   - Implement guardrails and safety
@@ -337,6 +353,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Phase 4 complete
+- **Theory**: [module_22_speech_ai.md](notes/module_22_speech_ai.md)
+- **Examples**: [module_22/](../../examples/module_22/)
 - **Objectives**:
   - Master Whisper for speech-to-text (STT)
   - Build text-to-speech (TTS) systems (ElevenLabs, OpenAI TTS)
@@ -349,6 +367,8 @@
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 22
+- **Theory**: [module_23_vision_ai.md](notes/module_23_vision_ai.md)
+- **Examples**: [module_23/](../../examples/module_23/)
 - **Objectives**:
   - Understand multimodal architectures
   - Master CLIP for image-text embeddings
@@ -361,6 +381,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 23
+- **Theory**: [module_24_video_ai.md](notes/module_24_video_ai.md)
+- **Examples**: [module_24/](../../examples/module_24/)
 - **Objectives**:
   - Understand video AI architectures
   - Implement video understanding (captioning, Q&A)
@@ -371,13 +393,15 @@
 
 ---
 
-## Phase 6: Deep Learning Foundations 🟡
-**Weeks 25-31** | 3/7 complete
+## Phase 6: Deep Learning Foundations 🟢
+**Weeks 25-31** | 7/7 complete
 
 ### Module 25: Python for Machine Learning 🟢
 
 - **Duration**: 5-6 hours
 - **Prerequisites**: Phase 5 complete
+- **Theory**: [module_25_python_for_ml.md](notes/module_25_python_for_ml.md)
+- **Examples**: [module_25/](../../examples/module_25/)
 - **Objectives**:
   - Master NumPy for numerical computing
   - Learn pandas for data manipulation
@@ -389,6 +413,8 @@
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 25
+- **Theory**: [module_26_neural_networks_from_scratch.md](notes/module_26_neural_networks_from_scratch.md)
+- **Examples**: [module_26/](../../examples/module_26/)
 - **Objectives**:
   - Build a neural network without frameworks
   - Understand forward propagation
@@ -401,6 +427,8 @@
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 26
+- **Theory**: [module_27_pytorch_fundamentals.md](notes/module_27_pytorch_fundamentals.md)
+- **Examples**: [module_27/](../../examples/module_27/)
 - **Objectives**:
   - Master PyTorch tensors and operations
   - Understand autograd (automatic differentiation)
@@ -409,19 +437,19 @@
 
 → **Next**: [Module 28: Training Deep Networks](#module-28-training-deep-networks)
 
-### Module 28: Training Deep Networks ⚪
+### Module 28: Training Deep Networks 🟢
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 27
 - **Objectives**:
-  - Master training techniques
+  - Master training techniques (BatchNorm, LayerNorm, Dropout)
   - Understand optimization algorithms (SGD, Adam, AdamW)
-  - Implement learning rate scheduling
-  - *... and 1 more*
+  - Implement learning rate scheduling (warmup, cosine, 1cycle)
+  - *... and 3 more*
 
 → **Next**: [Module 29: Convolutional Neural Networks (CNNs)](#module-29-convolutional-neural-networks-cnns)
 
-### Module 29: Convolutional Neural Networks (CNNs) ⚪
+### Module 29: Convolutional Neural Networks (CNNs) 🟢
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 28
@@ -433,7 +461,7 @@
 
 → **Next**: [Module 30: Transformers & Attention Mechanisms](#module-30-transformers-attention-mechanisms)
 
-### Module 30: Transformers & Attention Mechanisms ⚪ 🔮
+### Module 30: Transformers & Attention Mechanisms 🟢 🔮
 
 - **Duration**: 8-9 hours
 - **Prerequisites**: Module 29
@@ -445,10 +473,12 @@
 
 → **Next**: [Module 31: Backpropagation Deep Dive](#module-31-backpropagation-deep-dive)
 
-### Module 31: Backpropagation Deep Dive ⚪
+### Module 31: Backpropagation Deep Dive 🟢
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 30
+- **Theory**: [module_31_backpropagation.md](notes/module_31_backpropagation.md)
+- **Examples**: [module_31/](../../examples/module_31/)
 - **Objectives**:
   - Truly understand backpropagation
   - Master the chain rule
@@ -459,13 +489,15 @@
 
 ---
 
-## Phase 7: Advanced Generative AI ⚪
-**Weeks 32-36** | 0/5 complete
+## Phase 7: Advanced Generative AI 🟡
+**Weeks 32-36** | 1/5 complete
 
-### Module 32: Fine-tuning Large Language Models ⚪
+### Module 32: Fine-tuning Large Language Models 🟢
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Phase 6 complete
+- **Theory**: [module_32_finetuning_llms.md](notes/module_32_finetuning_llms.md)
+- **Examples**: [module_32/](../../examples/module_32/)
 - **Objectives**:
   - Understand fine-tuning techniques
   - Master LoRA and QLoRA
