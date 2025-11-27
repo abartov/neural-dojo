@@ -1,7 +1,7 @@
 # Claude AI Assistant Guidelines for Neural Dojo
 
 **Last Updated**: 2025-11-27
-**Version**: 1.3.0 (Added Prose-First Pattern from Session #18)
+**Version**: 1.4.0 (Content standards moved to dedicated file)
 
 This document provides guidelines for AI assistants (Claude) working on the Neural Dojo project. It ensures consistency, quality, and adherence to project standards.
 
@@ -25,112 +25,15 @@ Neural Dojo is a comprehensive curriculum transforming developers from AI novice
 Every module MUST meet these standards before being marked complete:
 
 #### 1. **Theory Documents** (`docs/curriculum/notes/module_XX_*.md`)
-- **Length**: Thorough coverage (5,000-15,000 words per module)
-- **Depth**: No handwaving - explain concepts completely
-- **Structure**:
-  - Clear learning objectives
-  - Conceptual explanations
-  - Real-world examples and analogies
-  - Visual diagrams (mermaid/ASCII) where helpful
-  - **"Did You Know?" sections** (REQUIRED - see below)
-  - Common pitfalls and how to avoid them
-- **Style**: Entertaining, engaging, educational (like Module 1 of jamesblonde)
-- **Analogies**: Use relatable metaphors to explain complex concepts
-- **References**: Link to papers, documentation, further reading
 
-**"Did You Know?" Historical Content Requirements** (Added Session #17):
+**See [`CONTENT_STANDARDS.md`](docs/curriculum/CONTENT_STANDARDS.md) for the complete guide.**
 
-Every module MUST include rich historical context with at least 3-5 narrative stories:
-
-1. **Origin/Discovery Stories**: How was this technique invented/discovered?
-   - Name the researchers (e.g., "Tomáš Mikolov at Google discovered Word2Vec...")
-   - Include accidents and surprises ("They accidentally ran search with generated text...")
-   - Mention rejected papers that became influential
-
-2. **Industry Adoption Examples**: Who uses this in production?
-   - Name real companies (Netflix, Google, Perplexity, etc.)
-   - Include revenue/impact numbers when available
-   - Show how it transformed their products
-
-3. **Surprising Statistics**: Numbers that shock or enlighten
-   - Training costs ("GPT-3 cost $4.6M to train")
-   - Performance improvements ("Reranking improves precision by 30-50%")
-   - Adoption rates ("BM25 from 1994 still powers Elasticsearch")
-
-4. **Researcher/Company Stories**: The humans behind the technology
-   - PhD students whose "rejected" papers changed the field
-   - Companies that pivoted based on discoveries
-   - Controversies and debates (Copilot lawsuit, etc.)
-
-5. **Failures That Led to Success**: Learning from mistakes
-   - The "$100M bank chatbot disaster" that led to RAG
-   - The "boring GPT-2" problem that led to nucleus sampling
-   - Production bugs that cost millions
-
-**Example formats**:
-- "In 2019, a researcher was debugging and accidentally discovered..."
-- "The paper was initially rejected, but has since been cited 40,000 times..."
-- "Netflix generates $1B+ per year from their embedding-based recommendations..."
-
-**Why this matters**: Stories make concepts memorable. Learners remember "the moth in Grace Hopper's computer" forever, but forget dry technical explanations.
-
-**Prose-First, Code-Second Pattern** (Added Session #18):
-
-Theory documents must be **human-readable first, code-reference second**. Follow these rules:
-
-1. **Before Every Code Block**: Explain in plain English what the code does and WHY it matters
-   - Bad: Just show code with a heading
-   - Good: 2-3 sentences explaining the concept, then code
-
-2. **Sprinkle Stories Throughout**: Don't cluster all "Did You Know?" at the end
-   - Place origin stories at the BEGINNING of sections (most impactful)
-   - Add mini-stories after introducing new concepts
-   - Include founder/researcher names whenever possible
-
-3. **Use Analogies Before Technical Explanations**:
-   - "Think of it like..." before diving into details
-   - Connect to everyday experiences
-   - Example: "HNSW is like social networks - you can reach anyone in ~6 hops"
-
-4. **Include Real Numbers and Statistics**:
-   - Funding amounts ("Pinecone raised $138M")
-   - Performance improvements ("100x faster than brute force")
-   - Industry adoption ("75% of NeurIPS 2019 papers used PyTorch")
-
-5. **Add Founder/Company Origin Stories for Major Tools**:
-   - When covering a tool (Qdrant, LangGraph, etc.), include:
-     - Who created it and when
-     - What problem they were trying to solve
-     - Key insight or breakthrough
-   - Example pattern: "Qdrant was founded in 2021 by Andrey Vasnetsov in Berlin..."
-
-6. **Target "Did You Know?" Distribution**:
-   - Minimum 3-5 per module
-   - Place at: Introduction, after each major section, before summary
-   - Each should be 100-300 words with a compelling narrative
-
-**Example of Good Section Structure**:
-```markdown
-## Part 2: Tensors - The Foundation
-
-### What is a Tensor, Really?
-
-[2-3 paragraphs explaining the concept in plain English, with analogies]
-
-### 💡 Did You Know? The NumPy Bridge
-
-[Story about why PyTorch and NumPy can share memory, who designed it, why it matters]
-
-### Creating Tensors
-
-[Plain English explanation of when/why you'd create tensors different ways]
-
-```python
-# Code with inline comments explaining non-obvious parts
-```
-
-[After code: "Notice how..." or "The key insight here is..."]
-```
+Quick summary:
+- **Prose-First, Code-Second**: Always explain WHY before showing code
+- **Stories Throughout**: 3-5+ "Did You Know?" sections per module with researcher names
+- **Analogies Before Technical Explanations**: Make concepts relatable
+- **Real Numbers and Statistics**: Make content credible and memorable
+- **No Handwaving**: Explain concepts completely, never "it just works"
 
 #### 2. **Code Examples** (`examples/module_XX/`)
 - **Tested**: ALL code must run without errors
@@ -348,26 +251,7 @@ neural-dojo/
 
 ### Theory Documents
 
-**DO**:
-- ✅ Write in second person ("you will learn...")
-- ✅ Use analogies and metaphors
-- ✅ Include real-world examples
-- ✅ Explain WHY, not just WHAT
-- ✅ Add "Did You Know?" sections
-- ✅ Break down complex concepts step-by-step
-- ✅ Use diagrams and visualizations
-- ✅ Link to papers and resources
-- ✅ Include hands-on exercises
-- ✅ Anticipate common questions
-
-**DON'T**:
-- ❌ Handwave complex topics ("it just works")
-- ❌ Skip fundamentals
-- ❌ Use jargon without explanation
-- ❌ Write walls of text without structure
-- ❌ Assume prior knowledge beyond prerequisites
-- ❌ Copy-paste from documentation
-- ❌ Leave concepts unexplained
+**See [`CONTENT_STANDARDS.md`](docs/curriculum/CONTENT_STANDARDS.md) for the complete content quality guide.**
 
 ### Code Examples
 
