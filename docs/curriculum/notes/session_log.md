@@ -2114,3 +2114,182 @@ _Module 28 COMPLETE! Training best practices mastered!_
 _Milestone: 52% through the curriculum (29/56 modules)!_
 
 ---
+
+## Session #27: 2025-11-27
+
+**Duration**: ~2 hours
+**Modules Worked On**: Module 29 (CNNs)
+**Status Before**: Phase 6 at 4/7 (57%)
+**Status After**: Phase 6 at 5/7 (71%), Module 29 COMPLETE
+
+### Accomplished
+
+**Module 29: Convolutional Neural Networks** - COMPLETE!
+
+**Theory Document** (`module_29_cnns.md` ~800 lines, JamesBlonde style):
+- The Computer Vision Revolution: AlexNet and the 2012 breakthrough
+- Biological Inspiration: Hubel & Wiesel's Nobel Prize discovery
+- Convolution Operation: From intuition to math to code
+- Pooling: Max pooling, average pooling, strided convolutions
+- Receptive Fields: How CNNs see the big picture
+- Classic Architectures: LeNet → AlexNet → VGG → GoogLeNet → ResNet
+- Modern Architectures: EfficientNet and compound scaling
+- Transfer Learning: The power of pretrained features
+- Memory & Performance: OOM solutions, batch size tradeoffs
+- Common Pitfalls: Normalization, input dimensions, eval mode
+
+**CNN Vision Toolkit Deliverable** (700+ lines):
+- Custom CNN architecture builder
+- Transfer learning with ResNet/EfficientNet
+- Architecture analysis and comparison
+- Training pipeline with best practices
+- Report generator
+- 4 demo commands (demo1-demo4)
+
+### Key Facts Included
+
+- **AlexNet (2012)**: 15% error vs 26% for runner-up, started the AI boom
+- **ResNet paper**: 200,000+ citations, more than any physics paper ever
+- **BatchNorm paper**: 60,000+ citations
+- **Texture bias**: CNNs classify by texture, not shape (2019 discovery)
+
+### Architectures Covered
+
+| Architecture | Year | Key Innovation |
+|--------------|------|----------------|
+| LeNet-5 | 1998 | Original CNN blueprint |
+| AlexNet | 2012 | ReLU + Dropout + GPUs |
+| VGGNet | 2014 | Stack of 3×3 convolutions |
+| GoogLeNet | 2014 | Inception modules, 1×1 convolutions |
+| ResNet | 2015 | Skip connections, 100+ layers |
+| EfficientNet | 2019 | Compound scaling |
+
+### Progress Update
+
+- **Phase 6: 5/7 modules (71%)**
+- **Module 29: COMPLETE** ✅
+- Overall: 30/56 modules (54%)
+- Deliverables: 28 total
+
+### Files Created
+
+**Theory**:
+- `docs/curriculum/notes/module_29_cnns.md` (~800 lines)
+
+**Examples**:
+- `examples/module_29/README.md`
+- `examples/module_29/requirements.txt`
+- `examples/module_29/.gitignore`
+
+**Deliverable**:
+- `examples/module_29/deliverable_cnn_vision_toolkit.py` (700+ lines)
+- `examples/module_29/DELIVERABLE_README.md`
+
+### Next Session Goals
+
+- Start Module 30: Transformers & Attention
+- Master self-attention mechanism
+- Understand the "Attention Is All You Need" paper
+- Implement multi-head attention
+- This is the Heureka Moment module! 🔮
+
+---
+
+_Session #27 completed: 2025-11-27_
+_Module 29 COMPLETE! CNNs mastered, computer vision unlocked!_
+_Milestone: 54% through the curriculum (30/56 modules)!_
+
+---
+
+## Session #28: 2025-11-27
+
+**Duration**: ~2.5 hours
+**Modules Worked On**: Module 29 enhancements, Module 30 (Transformers)
+**Status Before**: Phase 6 at 5/7 (71%)
+**Status After**: Phase 6 at 6/7 (86%), Module 30 COMPLETE
+
+### Accomplished
+
+**Module 29 Enhancements**:
+- Added dilated convolutions section
+- Added BatchNorm placement debate note
+- Added Vision Transformer "Did You Know?" section
+- Fixed quiz answer math error
+
+**Module 30: Transformers & Attention** - COMPLETE! (HEUREKA MOMENT!)
+
+**Theory Document** (`module_30_transformers.md` ~1000+ lines, JamesBlonde style):
+- The Problem: Why RNNs/LSTMs hit a wall
+- The Revolution: "Attention Is All You Need" paper
+- Self-Attention: Q, K, V from intuition to implementation
+- Multi-Head Attention: Multiple perspectives in parallel
+- Positional Encoding: Sinusoidal and learned
+- Full Transformer Architecture: Encoder blocks, layer norm, residuals
+- Encoder vs Decoder: BERT vs GPT styles
+- O(n²) Complexity: Why it matters and efficient alternatives
+- Vision Transformers: Patches as tokens
+- The Heureka Moment: Why attention changed everything
+
+**Transformer Lab Deliverable** (750+ lines):
+- Self-attention visualization
+- Multi-head attention implementation
+- Positional encoding (sinusoidal + learned)
+- Complete transformer encoder
+- Mini language model training
+- Attention pattern analysis
+- Report generator
+- 4 demo commands (demo1-demo4)
+
+### Key Facts Included
+
+- **Original paper**: 130,000+ citations, one of most cited CS papers ever
+- **Flash Attention**: Same math, 2-4x speedup through memory optimization
+- **LSTMs**: Dominated for 20 years (1997-2017) before transformers
+- **RoPE**: Rotary positional embeddings used in LLaMA, Mistral
+- **GPT decoder-only**: Surprisingly best for understanding too, not just generation
+
+### The Heureka Moment
+
+**Before transformers**: Process sequences one step at a time
+**After transformers**: Look at everything simultaneously, LEARN what to attend to
+
+This is why GPT-4, Claude, Gemini exist - attention enabled massive parallelization and scaling.
+
+### Progress Update
+
+- **Phase 6: 6/7 modules (86%)**
+- **Module 30: COMPLETE** ✅ (HEUREKA MOMENT!)
+- Overall: 31/56 modules (55%)
+- Deliverables: 29 total
+- Heureka Moments discovered: 6/8
+
+### Files Created/Modified
+
+**Theory**:
+- `docs/curriculum/notes/module_30_transformers.md` (~1000+ lines)
+- `docs/curriculum/notes/module_29_cnns.md` (enhanced)
+
+**Examples**:
+- `examples/module_30/README.md`
+- `examples/module_30/requirements.txt`
+- `examples/module_30/.gitignore`
+
+**Deliverable**:
+- `examples/module_30/deliverable_transformer_lab.py` (750+ lines)
+- `examples/module_30/DELIVERABLE_README.md`
+
+### Next Session Goals
+
+- Start Module 31: Backpropagation Deep Dive
+- Build custom autograd engine
+- Truly understand the chain rule
+- Complete Phase 6!
+
+---
+
+_Session #28 completed: 2025-11-27_
+_Module 30 COMPLETE! HEUREKA MOMENT - Attention is all you need!_
+_Milestone: 55% through the curriculum (31/56 modules)!_
+_Phase 6 at 86% - one module left!_
+
+---

@@ -1,0 +1,28 @@
+# CNN Vision Toolkit cache
+.cnn_toolkit/
+
+# Model checkpoints
+*.pth
+*.pt
+checkpoints/
+
+# Dataset downloads
+data/
+datasets/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
