@@ -1,0 +1,14 @@
+# Constitutional AI Toolkit - Module 36
+# No external dependencies required - uses only Python standard library
+
+# The toolkit uses:
+# - dataclasses (built-in)
+# - json (built-in)
+# - pathlib (built-in)
+# - datetime (built-in)
+# - random (built-in)
+# - hashlib (built-in)
+
+# For extensions that call actual LLM APIs, you might add:
+# anthropic>=0.18.0
+# openai>=1.12.0

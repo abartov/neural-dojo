@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-27
 
-## Progress: 37/62 modules (59%)
+## Progress: 38/62 modules (61%)
 
-- **Complete**: 37
+- **Complete**: 38
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 25
+- **Pending**: 24
 
 ---
 
@@ -495,8 +495,8 @@
 
 ---
 
-## Phase 7: Advanced Generative AI 🟡
-**Weeks 32-36** | 4/5 complete
+## Phase 7: Advanced Generative AI 🟢
+**Weeks 32-36** | 5/5 complete
 
 ### Module 32: Fine-tuning Large Language Models 🟢
 
@@ -554,10 +554,12 @@
 
 → **Next**: [Module 36: Constitutional AI & Alignment](#module-36-constitutional-ai-alignment)
 
-### Module 36: Constitutional AI & Alignment ⚪
+### Module 36: Constitutional AI & Alignment 🟢
 
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 35
+- **Theory**: [module_36_constitutional_ai.md](notes/module_36_constitutional_ai.md)
+- **Examples**: [module_36/](../../examples/module_36/)
 - **Objectives**:
   - Understand Constitutional AI (Anthropic's approach)
   - Learn AI alignment principles
