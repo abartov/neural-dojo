@@ -2,14 +2,14 @@
 
 *Auto-generated from MASTER_CURRICULUM.md*
 
-**Last Updated**: 2025-11-27
+**Last Updated**: 2025-11-28
 
-## Progress: 39/62 modules (62%)
+## Progress: 40/62 modules (64%)
 
-- **Complete**: 39
+- **Complete**: 40
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 23
+- **Pending**: 22
 
 ---
 
@@ -571,7 +571,7 @@
 ---
 
 ## Phase 8: Classical ML 🟡
-**Weeks 37-39** | 1/3 complete
+**Weeks 37-39** | 2/3 complete
 
 ### Module 37: Tabular ML & Gradient Boosting 🆕 🟢
 
@@ -587,10 +587,12 @@
 
 → **Next**: [Module 38: Time Series & Forecasting 🆕](#module-38-time-series-forecasting-🆕)
 
-### Module 38: Time Series & Forecasting 🆕 ⚪
+### Module 38: Time Series & Forecasting 🆕 🟢
 
 - **Duration**: 7-8 hours
 - **Prerequisites**: Module 37
+- **Theory**: [module_38_time_series.md](notes/module_38_time_series.md)
+- **Examples**: [module_38/](../../examples/module_38/)
 - **Objectives**:
   - Master time series fundamentals
   - Implement classical methods (ARIMA, Prophet)

@@ -3,8 +3,8 @@
 **From Zero to AI Guru: Master AI, ML, LLMs, and AI-Driven Development**
 
 <!-- GENERATED_BADGES_START -->
-[![Progress](https://img.shields.io/badge/Progress-62%25-green)]()
-[![Modules](https://img.shields.io/badge/Modules-39%2F62-blue)]()
+[![Progress](https://img.shields.io/badge/Progress-64%25-green)]()
+[![Modules](https://img.shields.io/badge/Modules-40%2F62-blue)]()
 [![Phase](https://img.shields.io/badge/Current-Phase%208-brightgreen)]()
 <!-- GENERATED_BADGES_END -->
 
@@ -34,7 +34,7 @@ Transform from AI novice to **AI Guru** capable of:
 | Phase 5: Multimodal AI | Complete | 3/3 |
 | Phase 6: Deep Learning Foundations | Complete | 7/7 |
 | Phase 7: Advanced Generative AI | Complete | 5/5 |
-| Phase 8: Classical ML | In Progress | 1/3 |
+| Phase 8: Classical ML | In Progress | 2/3 |
 | Phase 9: AI Safety & Evaluation | Not Started | 0/3 |
 | Phase 10: DevOps & MLOps | Not Started | 0/10 |
 | Phase 11: AI for Infrastructure | Not Started | 0/2 |

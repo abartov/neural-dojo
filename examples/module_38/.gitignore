@@ -1,0 +1,26 @@
+# Module 38 - Time Series Toolkit
+
+# Cache and storage
+.time_series_toolkit/
+__pycache__/
+*.pyc
+*.pyo
+
+# Data files
+*.csv
+*.json
+!DELIVERABLE_README.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Virtual environment
+venv/
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
