@@ -1,0 +1,12 @@
+# ML Experiment Tracker data
+.ml_experiment_tracker/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

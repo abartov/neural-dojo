@@ -1,0 +1,3 @@
+# Module 48: MLOps & Experiment Tracking
+# No external dependencies - uses only Python standard library
+# For production, consider: mlflow, wandb
