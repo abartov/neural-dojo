@@ -1,0 +1,12 @@
+# ML Advanced K8s Toolkit cache
+.ml_advanced_k8s_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

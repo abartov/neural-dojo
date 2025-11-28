@@ -1,0 +1,3 @@
+# Module 47: Advanced Kubernetes for ML
+# No external dependencies - uses only Python standard library
+# YAML output is generated as strings
