@@ -1,0 +1,12 @@
+# ML Pipeline Toolkit data
+.ml_pipeline_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

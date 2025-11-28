@@ -1,0 +1,9 @@
+# ML Pipeline Toolkit Dependencies
+# No external dependencies - pure Python implementation
+
+# For production use, install these:
+# apache-airflow>=2.7.0        # Industry-standard orchestrator
+# prefect>=2.14.0              # Modern Python-native workflows
+# dagster>=1.5.0               # Asset-based pipelines
+# kfp>=2.4.0                   # Kubeflow Pipelines SDK
+# temporalio>=1.4.0            # Durable execution
