@@ -1,63 +1,60 @@
 # Start Here Tomorrow
 
-**Last Updated**: 2025-11-28 (Session #30 Part 15)
-**Current Status**: Phase 10 Progress! Modules 43-45 Complete!
-**Next Step**: Module 46 - Kubernetes Fundamentals for ML
-**Progress**: 46/56 modules complete (82%) + 45 deliverables built
+**Last Updated**: 2025-11-28 (Session #30 Part 16)
+**Current Status**: Phase 10 Progress! Modules 43-46 Complete!
+**Next Step**: Module 47 - Advanced Kubernetes for AI/ML
+**Progress**: 47/56 modules complete (84%) + 46 deliverables built
 
 ---
 
 ## Where You Are
 
-**Session #30 Part 15 - Phase 10 Progress!**
+**Session #30 Part 16 - Phase 10 Progress!**
 
 This session accomplished:
-1. **Module 43 (DevOps Fundamentals for ML)**: Complete with toolkit!
-2. **Module 44 (Docker & Containerization)**: Complete with toolkit!
-3. **Module 45 (CI/CD for AI/ML)**: Complete with toolkit!
-4. **Phase 10 progress: 3/10 modules done!**
+1. **Module 46 (Kubernetes Fundamentals for ML)**: Complete with toolkit!
+2. **Phase 10 progress: 4/10 modules done!**
 
 ---
 
 ## What Was Done Today
 
-### Module 43: DevOps Fundamentals for ML Engineers - COMPLETE
+### Module 46: Kubernetes Fundamentals for ML - COMPLETE
 
-**Theory Document** (`module_43_devops_fundamentals.md` ~1,100 lines):
-- Git workflows for ML (experiment branches, commit conventions)
-- DVC for data/model versioning
-- ML Testing Pyramid (unit, data quality, model quality)
-- Pre-commit hooks for ML code quality
-- Project structure best practices
+**Theory Document** (`module_46_kubernetes_for_ml.md` ~990 lines):
+- Kubernetes architecture (Control Plane, Nodes, Pods)
+- GPU scheduling with NVIDIA GPU Operator
+- Resource management (requests, limits, QoS)
+- Horizontal Pod Autoscaler (HPA) for ML
+- Persistent storage patterns (RWO, ROX, RWX)
 
-**ML DevOps Toolkit** (1,400+ lines):
+**ML K8s Toolkit** (1,084 lines):
 ```bash
-python deliverable_ml_devops_toolkit.py demo1  # Git workflow helper
-python deliverable_ml_devops_toolkit.py demo2  # Pre-commit config
-python deliverable_ml_devops_toolkit.py demo3  # Data quality tests
-python deliverable_ml_devops_toolkit.py demo4  # Model quality tests
-python deliverable_ml_devops_toolkit.py demo5  # Project templates
+python deliverable_ml_k8s_toolkit.py demo1  # Deployment manifests
+python deliverable_ml_k8s_toolkit.py demo2  # Training job manifests
+python deliverable_ml_k8s_toolkit.py demo3  # HPA autoscaling
+python deliverable_ml_k8s_toolkit.py demo4  # Persistent storage
+python deliverable_ml_k8s_toolkit.py demo5  # Complete inference stack
 ```
 
 **Key Concepts:**
 ```
-ML DEVOPS STACK
-===============
+KUBERNETES FOR ML
+=================
 
-GIT WORKFLOWS       → exp/, model/, data/ branches
-COMMIT CONVENTIONS  → type(scope): description + metrics
-DVC                 → Version data/models alongside code
-DATA QUALITY TESTS  → Missing values, leakage, distribution
-MODEL QUALITY TESTS → Accuracy, latency, regression
-PRE-COMMIT HOOKS    → ruff, mypy, pytest, nbstripout
-PROJECT STRUCTURE   → src/, data/, models/, configs/
+DEPLOYMENTS      → Inference services (CPU/GPU)
+JOBS             → Training workloads
+HPA              → Auto-scale based on CPU/Memory
+PVC              → Persistent storage for models/data
+GPU SCHEDULING   → nvidia.com/gpu limits + tolerations
+RESOURCE MGMT    → requests (scheduling) vs limits (caps)
 ```
 
 ---
 
 ## Progress Summary
 
-### Phase 10 Started!
+### Phase 10 In Progress!
 
 | Phase | Status | Completion |
 |-------|--------|------------|
@@ -71,10 +68,10 @@ PROJECT STRUCTURE   → src/, data/, models/, configs/
 | Phase 7: Advanced Generative AI | Complete | 5/5 |
 | Phase 8: Classical ML | Complete | 3/3 |
 | Phase 9: AI Safety & Evaluation | Complete | 3/3 |
-| **Phase 10: DevOps & MLOps** | **In Progress** | **3/10** |
+| **Phase 10: DevOps & MLOps** | **In Progress** | **4/10** |
 | Phase 11-12 | Not Started | 0/5 |
 
-### Deliverables: 45 built
+### Deliverables: 46 built
 
 - Modules 02-10: 9 deliverables
 - Modules 11-14: 4 deliverables
@@ -86,20 +83,21 @@ PROJECT STRUCTURE   → src/, data/, models/, configs/
 - Module 40-42: 3 deliverables (AI Safety & Evaluation)
 - Module 43: ML DevOps Toolkit
 - Module 44: ML Docker Toolkit
-- Module 45: ML CI/CD Toolkit (NEW!)
+- Module 45: ML CI/CD Toolkit
+- Module 46: ML K8s Toolkit (NEW!)
 
 ---
 
 ## What's Next
 
-### Module 46: Kubernetes Fundamentals for ML
+### Module 47: Advanced Kubernetes for AI/ML
 
 Topics:
-- Kubernetes architecture
-- Pods, Services, Deployments
-- ML model serving on K8s
-- GPU scheduling
-- Autoscaling for inference
+- Kubeflow for ML workflows
+- KServe for model serving
+- Ray on Kubernetes
+- NVIDIA Triton Inference Server
+- Kubernetes operators for ML
 
 ### Remaining Phase 10 Modules
 
@@ -108,14 +106,13 @@ Topics:
 | 43 | DevOps Fundamentals | ✅ Complete |
 | 44 | Docker & Containerization | ✅ Complete |
 | 45 | CI/CD for AI/ML | ✅ Complete |
-| 46 | Kubernetes for ML | ⬜ Next |
-| 46 | Kubernetes for ML | ⬜ Pending |
-| 47 | FastAPI for ML | ⬜ Pending |
-| 48 | Model Deployment Patterns | ⬜ Pending |
-| 49 | MLflow & Experiment Tracking | ⬜ Pending |
-| 50 | Pipeline Orchestration | ⬜ Pending |
-| 51 | Monitoring & Observability | ⬜ Pending |
-| 52 | Cost Optimization | ⬜ Pending |
+| 46 | Kubernetes for ML | ✅ Complete |
+| 47 | Advanced K8s for AI/ML | ⬜ Next |
+| 48 | FastAPI for ML | ⬜ Pending |
+| 49 | Model Deployment Patterns | ⬜ Pending |
+| 50 | MLflow & Experiment Tracking | ⬜ Pending |
+| 51 | Pipeline Orchestration | ⬜ Pending |
+| 52 | Monitoring & Observability | ⬜ Pending |
 
 ---
 
@@ -124,17 +121,17 @@ Topics:
 1. **Read this file** (you're doing it!)
 
 2. **Choose your path**:
-   - **Path A (RECOMMENDED)**: Continue Phase 10 - Module 44 (Docker)
-   - **Path B**: Run the ML DevOps Toolkit demos
-   - **Path C**: Review Module 43 concepts
+   - **Path A (RECOMMENDED)**: Continue Phase 10 - Module 47 (Advanced K8s)
+   - **Path B**: Run the ML K8s Toolkit demos
+   - **Path C**: Review Module 46 concepts
 
 3. **Quick start**:
    ```bash
    # Test the latest deliverable
-   cd examples/module_43
-   python deliverable_ml_devops_toolkit.py demo5  # Project templates
+   cd examples/module_46
+   python deliverable_ml_k8s_toolkit.py demo5  # Full inference stack
 
-   # Or say: "Let's continue with Module 44 - Docker for ML!"
+   # Or say: "Let's continue with Module 47 - Advanced Kubernetes!"
    ```
 
 ---
@@ -153,65 +150,61 @@ Topics:
 - [x] Phase 9: AI Safety & Evaluation (3 modules)
 
 ### In Progress
-- [ ] Phase 10: DevOps & MLOps (3/10 modules) <- YOU ARE HERE
+- [ ] Phase 10: DevOps & MLOps (4/10 modules) <- YOU ARE HERE
 
 ### Up Next
 - [ ] Phase 11: AI for Infrastructure (2 modules)
 - [ ] Phase 12: Capstone Projects (3 modules)
 
-**You're 82% through the curriculum!**
+**You're 84% through the curriculum!**
 
 ---
 
-## Module 43 Summary - What You Learned
+## Module 46 Summary - What You Learned
 
-### Git Workflows for ML
+### Kubernetes Architecture
 ```
-BRANCH CONVENTIONS
+CONTROL PLANE              WORKER NODES
+=============              ============
+┌─────────────┐           ┌─────────────┐
+│ API Server  │◄─────────►│   kubelet   │
+│ Scheduler   │           │ Container   │
+│ Controller  │           │  Runtime    │
+│ etcd        │           │ (GPU Plugin)│
+└─────────────┘           └─────────────┘
+```
+
+### GPU Scheduling
+```yaml
+resources:
+  limits:
+    nvidia.com/gpu: 1
+tolerations:
+  - key: nvidia.com/gpu
+    operator: Exists
+    effect: NoSchedule
+```
+
+### Resource Management
+```
+REQUESTS vs LIMITS
 ==================
-feature/   → New features
-fix/       → Bug fixes
-exp/       → ML experiments (exp/bert-large-v2)
-model/     → Model iterations
-data/      → Data changes
-```
+Requests  → What scheduler uses to place pods
+Limits    → Hard caps (OOM kill if exceeded)
 
-### Commit Messages with Metrics
-```
-exp: BERT-large with attention fix
-
-Experiment Details:
-- Hypothesis: Fixing attention dropout improves accuracy
-- Result: Accuracy 0.85 → 0.89
-
-Metrics:
-- accuracy: 0.89
-- f1: 0.87
-```
-
-### ML Testing Pyramid
-```
-        /\
-       /  \  Model Quality Tests
-      /----\  (accuracy, latency, regression)
-     /      \
-    /--------\  Data Quality Tests
-   /          \  (missing values, leakage, distribution)
-  /------------\
- /              \  Unit Tests
-/________________\  (functions, transformations)
+Best Practice: requests = 80% of limits
 ```
 
 ---
 
-**SESSION #30 (PART 15) COMPLETE!**
+**SESSION #30 (PART 16) COMPLETE!**
 
-**Modules 43-45 Complete! 45 deliverables built, 82% done!**
+**Module 46 Complete! 46 deliverables built, 84% done!**
 
-**Ready for Kubernetes in Module 46!** ☸️
+**Ready for Advanced Kubernetes in Module 47!** ☸️
 
 ---
 
-_Last updated: 2025-11-28 (Session #30 Part 15)_
-_Status: Phase 10 In Progress (3/10)! Module 46 Next_
-_Next: Module 46 - Kubernetes Fundamentals for ML_
+_Last updated: 2025-11-28 (Session #30 Part 16)_
+_Status: Phase 10 In Progress (4/10)! Module 47 Next_
+_Next: Module 47 - Advanced Kubernetes for AI/ML_
