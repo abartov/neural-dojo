@@ -1,0 +1,11 @@
+# ML Data Toolkit Dependencies
+# No external dependencies - pure Python implementation
+
+# For production use, install these:
+# dvc>=3.0.0                    # Data versioning
+# dvc-s3>=3.0.0                 # S3 remote storage
+# dvc-gs>=3.0.0                 # GCS remote storage
+# feast>=0.35.0                 # Feature store
+# great-expectations>=0.18.0   # Data validation
+# pandas>=2.0.0                 # Data manipulation
+# pyarrow>=14.0.0               # Parquet support

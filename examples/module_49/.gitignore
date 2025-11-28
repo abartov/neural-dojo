@@ -1,0 +1,12 @@
+# ML Data Toolkit data
+.ml_data_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
