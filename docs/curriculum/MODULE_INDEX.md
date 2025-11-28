@@ -4,12 +4,12 @@
 
 **Last Updated**: 2025-11-28
 
-## Progress: 40/62 modules (64%)
+## Progress: 41/62 modules (66%)
 
-- **Complete**: 40
+- **Complete**: 41
 - **In Progress**: 0
 - **Theory Only**: 0
-- **Pending**: 22
+- **Pending**: 21
 
 ---
 
@@ -570,8 +570,8 @@
 
 ---
 
-## Phase 8: Classical ML 🟡
-**Weeks 37-39** | 2/3 complete
+## Phase 8: Classical ML 🟢
+**Weeks 37-39** | 3/3 complete
 
 ### Module 37: Tabular ML & Gradient Boosting 🆕 🟢
 
@@ -601,10 +601,12 @@
 
 → **Next**: [Module 39: AutoML & Feature Stores](#module-39-automl-feature-stores)
 
-### Module 39: AutoML & Feature Stores ⚪
+### Module 39: AutoML & Feature Stores 🟢
 
 - **Duration**: 5-6 hours
 - **Prerequisites**: Module 38
+- **Theory**: [module_39_automl_feature_stores.md](notes/module_39_automl_feature_stores.md)
+- **Examples**: [module_39/](../../examples/module_39/)
 - **Objectives**:
   - Understand AutoML (auto-sklearn, AutoGluon)
   - Learn feature store concepts (Feast)
