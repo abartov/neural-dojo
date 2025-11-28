@@ -1,0 +1,12 @@
+# ML Serving Toolkit data
+.ml_serving_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
