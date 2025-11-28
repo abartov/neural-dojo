@@ -156,11 +156,13 @@ Audit Trails:
 
 ### Phase 12: Capstone Projects (3 Modules)
 
-| Module | Topic | Status |
-|--------|-------|--------|
-| 55 | Kaizen Enhancement - Advanced AI Features | ⚪ Not Started |
-| 56 | Vibe AI Features - Generative Content Platform | ⚪ Not Started |
-| 57 | Contrarian AI Analytics - Stock Intelligence | ⚪ Not Started |
+> **Note**: Capstones are built in actual project directories, not neural-dojo.
+
+| Module | Topic | Target Directory |
+|--------|-------|------------------|
+| 55 | Kaizen Enhancement | `~/projects/kaizen-dev` |
+| 56 | Vibe AI Features | `~/projects/vibe` |
+| 57 | Contrarian AI Analytics | `~/projects/contrarian` |
 
 ---
 

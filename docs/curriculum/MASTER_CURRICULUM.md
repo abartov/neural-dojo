@@ -1613,20 +1613,26 @@ Multi-language Scripts → Windmill
 
 **Goal**: Apply everything to real-world projects
 
+> **Note**: Capstone projects are built directly in the actual project repositories, not in neural-dojo. This ensures the AI features become part of the production codebase.
+
 ### Module 55: Kaizen Enhancement - Advanced AI Features
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-11 complete
 - **Status**: ⚪ Not Started
+- **Target Directory**: `/Users/krisztiankoos/projects/kaizen-dev`
 
 **Learning Objectives**:
-- Implement hybrid search and GraphRAG
-- Build multi-agent workflows
+- Implement hybrid search and GraphRAG for documentation
+- Build multi-agent workflows for issue resolution
 - Add autonomous debugging capabilities
+- Integrate AI-powered code review
 
-**Deliverables**:
-- Enhanced kaizen RAG with 90%+ accuracy
+**Deliverables** (built in kaizen-dev):
+- `src/ai/` - AI features module
+- Enhanced RAG with 90%+ accuracy
 - Multi-agent system for issue resolution
-- Code review bot
+- GitHub integration for AI code review
+- Documentation in kaizen-dev README
 
 ---
 
@@ -1634,16 +1640,20 @@ Multi-language Scripts → Windmill
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-11 complete
 - **Status**: ⚪ Not Started
+- **Target Directory**: `/Users/krisztiankoos/projects/vibe`
 
 **Learning Objectives**:
-- Implement generative AI for content creation
+- Implement generative AI for course content creation
 - Add multimodal capabilities (text + audio + video)
 - Build RAG for course knowledge management
+- Create AI-powered tutoring features
 
-**Deliverables**:
+**Deliverables** (built in vibe):
+- `src/ai/` - AI features module
 - AI content generation API
 - Multimodal lesson builder
-- RAG-powered Q&A system
+- RAG-powered Q&A system for courses
+- Voice explanations with TTS
 
 ---
 
@@ -1651,15 +1661,19 @@ Multi-language Scripts → Windmill
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-11 complete
 - **Status**: ⚪ Not Started
+- **Target Directory**: `/Users/krisztiankoos/projects/contrarian`
 
 **Learning Objectives**:
-- Build LLM-powered sentiment analysis
-- Implement time series forecasting
+- Build LLM-powered sentiment analysis for earnings/news
+- Implement time series forecasting with ML
 - Create anomaly detection for market data
+- Generate AI investment reports
 
-**Deliverables**:
+**Deliverables** (built in contrarian):
+- `src/ai/` - AI analytics module
 - Sentiment analysis pipeline
-- Time series forecasting model
+- Time series forecasting integration
+- Anomaly detection alerts
 - AI-generated investment reports
 
 ---
