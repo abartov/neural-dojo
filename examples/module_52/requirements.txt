@@ -1,0 +1,14 @@
+# ML Monitoring Toolkit Dependencies
+# No external dependencies - pure Python implementation
+
+# For production use, install these:
+# prometheus-client>=0.18.0      # Prometheus metrics
+# grafana-api>=1.0.0            # Grafana dashboards
+# shap>=0.43.0                  # SHAP explainability
+# lime>=0.2.0                   # LIME explanations
+# evidently>=0.4.0              # Drift detection
+# alibi-detect>=0.11.0          # Advanced drift detection
+# mlflow>=2.8.0                 # Experiment tracking
+# great-expectations>=0.18.0    # Data validation
+# pagerduty>=0.1.0              # Alerting integration
+# slack-sdk>=3.23.0             # Slack notifications
