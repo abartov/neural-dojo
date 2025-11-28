@@ -62,12 +62,12 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 6: Deep Learning Foundations | 25-31 | 🟢 Complete | 7/7 |
 | Phase 7: Advanced Generative AI | 32-36 | 🟢 Complete | 5/5 |
 | Phase 8: Classical ML | 37-39 | 🟢 Complete | 3/3 |
-| Phase 9: AI Safety & Evaluation | 40-42 | 🟡 In Progress | 1/3 |
+| Phase 9: AI Safety & Evaluation | 40-42 | 🟡 In Progress | 2/3 |
 | Phase 10: DevOps & MLOps | 43-52 | ⚪ Not Started | 0/10 |
 | Phase 11: AI for Infrastructure | 53-54 | ⚪ Not Started | 0/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **73% Complete** | **41/56** |
+| **TOTAL** | **56 core + 3 optional** | **75% Complete** | **42/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -1220,7 +1220,7 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 ### Module 41: Red Teaming & Adversarial AI 🆕
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 40
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
 - Master red teaming techniques for AI
@@ -1230,10 +1230,10 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 - Build robust AI systems
 
 **Deliverables**:
-- Red teaming playbook
-- Prompt injection defense system
-- Adversarial test suite
-- **DELIVERABLE**: AI Red Team Toolkit
+- ✅ Red teaming playbook
+- ✅ Prompt injection defense system
+- ✅ Adversarial test suite
+- ✅ **DELIVERABLE**: AI Red Team Toolkit (1,680+ lines)
 
 **Key Concepts**:
 - **Attack Types**:
