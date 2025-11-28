@@ -1,0 +1,7 @@
+# Module 43: ML DevOps Toolkit
+# No external dependencies required - uses only Python standard library
+# Python 3.8+ required
+
+# Optional for enhanced functionality:
+# pyyaml>=6.0  # For YAML config generation
+# pytest>=7.0  # For running actual tests
