@@ -1,0 +1,23 @@
+# LLM Evaluation Toolkit storage
+.llm_eval_toolkit/
+*.json
+!requirements.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

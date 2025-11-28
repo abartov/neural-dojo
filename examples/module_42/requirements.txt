@@ -1,0 +1,7 @@
+# Module 42: LLM Evaluation Toolkit
+# No external dependencies required - uses only Python standard library
+# Python 3.8+ required
+
+# Optional for enhanced statistical analysis:
+# scipy>=1.9.0
+# numpy>=1.21.0
