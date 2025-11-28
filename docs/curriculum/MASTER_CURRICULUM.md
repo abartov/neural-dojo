@@ -1441,20 +1441,62 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 
 ---
 
-### Module 50: ML Pipeline Orchestration
-- **Duration**: 7-8 hours
+### Module 50: ML Pipeline & Workflow Orchestration
+- **Duration**: 8-10 hours
 - **Prerequisites**: Module 49
 - **Status**: ⚪ Not Started
 
 **Learning Objectives**:
 - Master Airflow for ML pipelines
 - Build Kubeflow Pipelines
-- Compare orchestration tools
+- Learn visual workflow automation (n8n, Windmill)
+- Compare orchestration tools for different use cases
+- Build AI agent workflows with no-code tools
 
 **Deliverables**:
 - Airflow DAG for ML pipeline
 - Kubeflow Pipeline for training
+- n8n AI workflow (RAG, agents)
 - Pipeline comparison matrix
+
+**Key Concepts - Orchestration Tools Comparison**:
+
+| Tool | Type | Best For | Self-Host |
+|------|------|----------|-----------|
+| **Apache Airflow** | Python DAGs | Data/ML pipelines, scheduling | Yes |
+| **Prefect** | Python-native | Modern ML workflows, dynamic | Yes |
+| **Dagster** | Asset-based | Data pipelines, typed | Yes |
+| **Kubeflow** | K8s-native | ML training/serving on K8s | Yes |
+| **n8n** | Visual/No-code | AI workflows, integrations, RAG | Yes |
+| **Windmill** | Visual + Code | Scripts in any language | Yes |
+| **Temporal** | Durable execution | Long-running, reliable workflows | Yes |
+
+**Visual/No-Code AI Workflow Tools**:
+- **n8n**: Open-source, 400+ integrations, AI nodes (OpenAI, Claude, LangChain), self-hostable
+- **Windmill**: Open-source alternative, supports Python/TS/Go/Bash scripts
+- **LangFlow**: Visual LangChain builder for AI chains
+- **Flowise**: Drag-and-drop LLM flow builder
+- **Dify**: LLMOps platform with visual workflows
+
+**n8n AI Capabilities**:
+- LLM nodes (OpenAI, Anthropic, local models)
+- Vector store integrations (Pinecone, Qdrant, Supabase)
+- Document loaders and chunking
+- RAG workflow templates
+- AI agent chains
+- Webhook triggers for event-driven AI
+
+**When to Use What**:
+```
+Complex ML Training Pipelines → Airflow, Kubeflow, Prefect
+Data Engineering → Airflow, Dagster
+Quick AI Prototypes → n8n, LangFlow, Flowise
+Production AI Agents → n8n, Temporal
+Long-running Workflows → Temporal
+Multi-language Scripts → Windmill
+```
+
+**Real-World Application**: Build an n8n workflow that monitors GitHub issues, uses Claude to analyze them, and auto-responds with relevant documentation!
 
 ---
 
