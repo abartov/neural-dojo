@@ -1,0 +1,6 @@
+# Module 44: ML Docker Toolkit
+# No external dependencies required - uses only Python standard library
+# Python 3.8+ required
+
+# The toolkit generates Docker configurations, not actual containers
+# Docker and Docker Compose must be installed separately on your system
