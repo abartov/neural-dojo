@@ -1,0 +1,12 @@
+# Cloud AI Toolkit data
+.cloud_ai_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
