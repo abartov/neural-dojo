@@ -1,0 +1,12 @@
+# AIOps Toolkit data
+.aiops_toolkit/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

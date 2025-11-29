@@ -64,10 +64,10 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 8: Classical ML | 37-39 | 🟢 Complete | 3/3 |
 | Phase 9: AI Safety & Evaluation | 40-42 | 🟢 Complete | 3/3 |
 | Phase 10: DevOps & MLOps | 43-52 | 🟢 Complete | 10/10 |
-| Phase 11: AI for Infrastructure | 53-54 | 🟡 In Progress | 1/2 |
+| Phase 11: AI for Infrastructure | 53-54 | 🟢 Complete | 2/2 |
 | Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
 | Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **96% Complete** | **54/56** |
+| **TOTAL** | **56 core + 3 optional** | **98% Complete** | **55/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -1612,17 +1612,39 @@ Multi-language Scripts → Windmill
 ### Module 54: AIOps & Log Analysis
 - **Duration**: 6-7 hours
 - **Prerequisites**: Module 53
-- **Status**: ⚪ Not Started
+- **Status**: 🟢 Complete
 
 **Learning Objectives**:
-- Use LLMs for log analysis
+- Use LLMs for log analysis and parsing
 - Build root cause analysis systems
 - Implement intelligent incident response
+- Design trust-level automation
 
 **Deliverables**:
-- Log analysis system with LLMs
-- Root cause analysis tool
-- Incident response automation
+- ✅ Log parsing with template extraction (Drain-inspired)
+- ✅ Multi-method anomaly detection
+- ✅ Root cause analysis with causal chains
+- ✅ Trust-level incident response automation
+- ✅ AIOps Toolkit (1,000+ lines)
+
+**Key Concepts**:
+- **Log Parsing**:
+  - Template extraction (Drain algorithm)
+  - Pattern matching and variable identification
+  - Reducing millions of logs to hundreds of patterns
+- **Anomaly Detection**:
+  - Frequency analysis (log volume spikes)
+  - Sequence analysis (workflow violations)
+  - Content analysis (error keywords)
+  - New pattern detection
+- **Root Cause Analysis**:
+  - Causal chain reconstruction
+  - Contributing factor identification
+  - Confidence scoring
+- **Incident Response**:
+  - Trust levels (Alert → Suggest → Approve → Auto)
+  - Risk-based automation
+  - Remediation playbooks
 
 ---
 
