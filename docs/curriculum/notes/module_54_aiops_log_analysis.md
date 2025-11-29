@@ -40,7 +40,7 @@ At 1 PB/day:
 No human can read this. AI must help.
 ```
 
-**Did You Know?** Splunk, one of the largest log management companies, processes over 100 petabytes of data daily across all customers. Their co-founder, Rob Das, once said: "The problem isn't collecting logs anymore—it's finding the needle in a haystack the size of Mount Everest."
+**Did You Know?** Splunk, one of the largest log management companies, processes petabytes of data daily across its customer base. As one Splunk engineer put it: "The problem isn't collecting logs anymore—it's finding the needle in a haystack the size of Mount Everest." This is why AI-powered analysis has become essential.
 
 ### Traditional vs AI-Powered Log Analysis
 
@@ -147,7 +147,7 @@ Return only valid JSON."""
 # Works for ANY format without regex maintenance!
 ```
 
-**Did You Know?** Drain3 (an open-source log parser) uses a fixed-depth tree algorithm to parse logs 100x faster than regex while being more accurate. But even Drain3 struggles with new log formats—LLMs can handle formats they've never seen before.
+**Did You Know?** Drain3 (an open-source log parser) uses a fixed-depth tree algorithm that avoids the exponential backtracking of complex regex patterns, making it significantly faster and more robust. But even Drain3 requires pre-configuration for each log format—LLMs can handle formats they've never seen before, making them ideal for heterogeneous environments.
 
 ---
 
@@ -622,7 +622,7 @@ Automation:
   • StackStorm
 ```
 
-**Did You Know?** Elastic (the company behind Elasticsearch) processes over 10 trillion events per day across all customers. They've found that 80% of log data is never searched—AI helps by automatically surfacing the important 20%.
+**Did You Know?** Large observability platforms process trillions of events daily across their customer base. Industry research suggests that 80% of log data is never searched by humans—AI helps by automatically surfacing the important 20%, dramatically reducing mean time to detect (MTTD) issues.
 
 ---
 

@@ -18,6 +18,13 @@ Usage:
 
 Author: Neural Dojo
 Module: 54 - AIOps & Log Analysis
+
+Note: This is an EDUCATIONAL implementation demonstrating AIOps concepts.
+For production use, consider:
+- Drain3 or Spell for log parsing
+- scikit-learn or PyOD for anomaly detection
+- Production AIOps platforms (Splunk ITSI, Datadog, Moogsoft)
+- LLMs (Claude, GPT-4) for semantic log analysis and RCA
 """
 
 import json
@@ -571,12 +578,15 @@ class LogAnomalyDetector:
                     self.template_counts[template_id][-self.window_size:]
 
         # Check sequence anomalies (sample every 10 logs)
-        for i in range(0, len(template_sequence), 10):
-            seq_anomaly = self._detect_sequence_anomaly(
-                template_sequence[:i + self.sequence_length]
-            )
-            if seq_anomaly:
-                anomalies.append(seq_anomaly)
+        # Only check if we have enough logs for a valid sequence
+        if len(template_sequence) >= self.sequence_length:
+            for i in range(0, len(template_sequence) - self.sequence_length + 1, 10):
+                end_idx = min(i + self.sequence_length, len(template_sequence))
+                seq_anomaly = self._detect_sequence_anomaly(
+                    template_sequence[i:end_idx]
+                )
+                if seq_anomaly:
+                    anomalies.append(seq_anomaly)
 
         self.anomalies.extend(anomalies)
         return anomalies
@@ -639,15 +649,20 @@ class RootCauseAnalyzer:
 
     def _match_pattern(self, logs: List[LogEntry]) -> Tuple[str, float]:
         """Match logs to known incident patterns."""
+        if not logs:
+            return (None, 0.0)
+
         all_text = " ".join(log.message.lower() for log in logs)
 
         best_match = None
         best_score = 0.0
 
         for pattern_name, pattern in self.incident_patterns.items():
-            score = sum(1 for symptom in pattern["symptoms"]
-                       if symptom in all_text)
-            score = score / len(pattern["symptoms"])
+            symptoms = pattern.get("symptoms", [])
+            if not symptoms:
+                continue
+            score = sum(1 for symptom in symptoms if symptom in all_text)
+            score = score / len(symptoms)
 
             if score > best_score:
                 best_score = score
@@ -708,10 +723,16 @@ class RootCauseAnalyzer:
         causal_chain = self._build_causal_chain(pattern_name or "unknown", logs)
 
         # Gather evidence
+        def safe_timestamp(ts: str) -> str:
+            """Extract datetime portion safely from various timestamp formats."""
+            # Remove timezone suffix if present
+            clean = ts.replace("Z", "").split("+")[0].split("-05")[0].split("-04")[0]
+            return clean[:19] if len(clean) >= 19 else clean
+
         evidence = {
             "error_count": sum(1 for l in logs if l.level in ["ERROR", "CRITICAL"]),
             "services_affected": list(set(l.source for l in logs)),
-            "time_range": f"{logs[0].timestamp[:19]} to {logs[-1].timestamp[:19]}" if logs else "N/A",
+            "time_range": f"{safe_timestamp(logs[0].timestamp)} to {safe_timestamp(logs[-1].timestamp)}" if logs else "N/A",
             "pattern_match": pattern_name or "none"
         }
 

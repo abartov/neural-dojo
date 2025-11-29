@@ -17,6 +17,12 @@ Usage:
 
 Author: Neural Dojo
 Module: 53 - AI for Proactive Cloud Management
+
+Note: This is an EDUCATIONAL implementation demonstrating concepts.
+For production use, consider:
+- scikit-learn's IsolationForest for anomaly detection
+- statsmodels for time series forecasting
+- Production-grade observability platforms (Datadog, Prometheus)
 """
 
 import json
@@ -250,24 +256,38 @@ class AnomalyDetector:
         return self.history[metric_name]
 
     def _zscore(self, value: float, values: List[float]) -> float:
-        """Calculate Z-score."""
+        """Calculate Z-score using sample standard deviation."""
         if len(values) < 2:
             return 0.0
-        mean = sum(values) / len(values)
-        std = math.sqrt(sum((v - mean) ** 2 for v in values) / len(values))
+        n = len(values)
+        mean = sum(values) / n
+        # Use sample std dev (n-1) for better estimation from sliding window
+        variance = sum((v - mean) ** 2 for v in values) / (n - 1)
+        std = math.sqrt(variance)
         if std == 0:
             return 0.0
         return (value - mean) / std
 
     def _mad_score(self, value: float, values: List[float]) -> float:
-        """Calculate Modified Z-Score using MAD."""
+        """Calculate Modified Z-Score using MAD (Median Absolute Deviation)."""
         if len(values) < 2:
             return 0.0
         sorted_vals = sorted(values)
-        median = sorted_vals[len(sorted_vals) // 2]
-        mad = sorted(abs(v - median) for v in values)[len(values) // 2]
+        n = len(sorted_vals)
+        # Proper median calculation for even/odd lengths
+        if n % 2 == 0:
+            median = (sorted_vals[n // 2 - 1] + sorted_vals[n // 2]) / 2
+        else:
+            median = sorted_vals[n // 2]
+        # MAD: median of absolute deviations
+        abs_devs = sorted(abs(v - median) for v in values)
+        if n % 2 == 0:
+            mad = (abs_devs[n // 2 - 1] + abs_devs[n // 2]) / 2
+        else:
+            mad = abs_devs[n // 2]
         if mad == 0:
             return 0.0
+        # 0.6745 is the consistency constant for normal distribution
         return 0.6745 * (value - median) / mad
 
     def _isolation_score(self, value: float, values: List[float]) -> float:
@@ -368,10 +388,15 @@ class AnomalyDetector:
         sorted_vals = sorted(values)
         n = len(sorted_vals)
 
+        mean = sum(values) / n
+        # Use sample std dev (n-1) for better estimation
+        variance = sum((v - mean) ** 2 for v in values) / (n - 1) if n > 1 else 0
+        std = math.sqrt(variance)
+
         return {
             "count": n,
-            "mean": round(sum(values) / n, 2),
-            "std": round(math.sqrt(sum((v - sum(values)/n)**2 for v in values) / n), 2),
+            "mean": round(mean, 2),
+            "std": round(std, 2),
             "min": round(min(values), 2),
             "max": round(max(values), 2),
             "p50": round(sorted_vals[n // 2], 2),
@@ -452,8 +477,10 @@ class PredictiveAutoscaler:
         predicted = smoothed + trend * lookahead_steps
 
         # Check for seasonal pattern (same time yesterday)
-        if len(values) >= 288:  # 24 hours of history
-            yesterday_value = values[-288 + lookahead_steps]
+        # Ensure bounds are valid: need at least 288 points and valid index
+        seasonal_index = -288 + lookahead_steps
+        if len(values) >= 288 and seasonal_index < 0 and abs(seasonal_index) <= len(values):
+            yesterday_value = values[seasonal_index]
             # Blend with seasonal
             predicted = 0.7 * predicted + 0.3 * yesterday_value
 
@@ -791,8 +818,21 @@ class ProactiveCloudManager:
             if decision.action != ScalingAction.NO_CHANGE.value:
                 result["scaling"] = decision.to_dict()
 
-        # Capacity planning
-        ts = datetime.fromisoformat(timestamp.replace("Z", "+00:00").split("+")[0])
+        # Capacity planning - parse timestamp safely
+        try:
+            # Handle ISO 8601 with or without timezone
+            ts_clean = timestamp.replace("Z", "+00:00")
+            # Remove timezone for datetime parsing if present
+            if "+" in ts_clean[10:]:  # After date portion
+                ts_clean = ts_clean.split("+")[0]
+            elif "-" in ts_clean[10:] and ts_clean.count("-") > 2:
+                # Handle negative timezone offset
+                parts = ts_clean.rsplit("-", 1)
+                if len(parts[1]) <= 5:  # Timezone format like -05:00
+                    ts_clean = parts[0]
+            ts = datetime.fromisoformat(ts_clean)
+        except ValueError:
+            ts = datetime.now()
         self.capacity_planner.add_data_point(value, ts)
 
         return result

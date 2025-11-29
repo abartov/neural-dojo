@@ -56,7 +56,7 @@ Total downtime: 0
 User impact: None
 ```
 
-**Did You Know?** Google's Borg system (predecessor to Kubernetes) has used ML for resource prediction since 2013. Their "Autopilot" system reduced resource waste by 23% while maintaining SLO compliance. The key insight: humans are terrible at predicting resource needs, but ML excels at finding patterns in historical data.
+**Did You Know?** Google's Borg system (predecessor to Kubernetes) has used ML for resource prediction since 2013. Their "Autopilot" system achieved just 23% resource slack (unused reserved resources) compared to 46-60% slack for manually-managed jobs—a massive efficiency improvement while maintaining SLO compliance (EuroSys 2020 paper). The key insight: humans naturally over-provision to be safe, but ML can find the optimal balance.
 
 ---
 
@@ -303,7 +303,7 @@ model = Sequential([
 ])
 ```
 
-**Did You Know?** Netflix uses a combination of multiple forecasting models, weighted by their recent accuracy. They call this approach "ensemble forecasting" and it reduces prediction error by 15-20% compared to any single model.
+**Did You Know?** Netflix and other hyperscalers use ensemble forecasting—combining multiple models weighted by their recent accuracy. Research shows that ensemble methods typically reduce prediction error by 15-25% compared to any single model, which is why all major cloud providers use them for capacity planning.
 
 ### Scaling Decision Logic
 
@@ -610,7 +610,7 @@ Cloud Native:
   • GCP Operations   - Anomaly detection
 ```
 
-**Did You Know?** Moogsoft's founder, Phil Tee, coined the term "AIOps" in 2016. He observed that IT operations teams were drowning in data and alerts, and believed AI could help by learning what's normal and surfacing only what matters. The term was formalized by Gartner in 2017.
+**Did You Know?** Gartner coined the term "AIOps" (originally "Algorithmic IT Operations") in 2016, formally defining it in 2017 as "Artificial Intelligence for IT Operations." Moogsoft, founded by Phil Tee, was among the pioneers who observed that IT operations teams were drowning in data and alerts—AI could help by learning what's normal and surfacing only what matters.
 
 ---
 
