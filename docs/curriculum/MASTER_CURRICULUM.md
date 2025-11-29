@@ -4,7 +4,7 @@
 
 **Last Updated**: 2025-11-29
 **Version**: 4.9.1 - COMPLETE AI GURU CURRICULUM (56 modules, 13 phases)
-**Status**: Phase 11 Complete - Starting Phase 12: Capstone Projects
+**Status**: Phase 11 Complete - Starting Phase 12: History of AI/ML
 **Total Duration**: 56 modules, 50-60 weeks (220-300 hours)
 
 ---
@@ -65,9 +65,8 @@ Throughout this curriculum, you'll encounter transformative insights marked with
 | Phase 9: AI Safety & Evaluation | 40-42 | 🟢 Complete | 3/3 |
 | Phase 10: DevOps & MLOps | 43-52 | 🟢 Complete | 10/10 |
 | Phase 11: AI for Infrastructure | 53-54 | 🟢 Complete | 2/2 |
-| Phase 12: Capstone Projects | 55-57 | ⚪ Not Started | 0/3 |
-| Phase 13: History of AI (Optional) | 58-60 | ⚪ Not Started | 0/3 |
-| **TOTAL** | **56 core + 3 optional** | **98% Complete** | **55/56** |
+| Phase 12: History of AI/ML | 55 | ⚪ Not Started | 0/1 |
+| **TOTAL** | **56 modules** | **98% Complete** | **55/56** |
 
 **Legend**: ⚪ Not Started | 🟡 In Progress | 🟢 Complete | 🔴 Blocked
 
@@ -1648,100 +1647,130 @@ Multi-language Scripts → Windmill
 
 ---
 
-## Phase 12: Capstone Projects (Weeks 55-60)
+## Phase 12: History of AI & Machine Learning 🕰️
 
-**Goal**: Apply everything to real-world projects
+**Goal**: Understand the 75-year journey that led to modern AI - the breakthroughs, failures, personalities, and pivotal moments
 
-> **Note**: Capstone projects are built directly in the actual project repositories, not in neural-dojo. This ensures the AI features become part of the production codebase.
+> "Those who cannot remember the past are condemned to repeat it." Understanding AI history helps you appreciate why things work the way they do, and predict where they're going.
 
-### Module 55: Kaizen Enhancement - Advanced AI Features
+### Module 55: The Complete History of AI & Machine Learning
 - **Duration**: 8-10 hours
 - **Prerequisites**: Phases 1-11 complete
 - **Status**: ⚪ Not Started
-- **Target Directory**: `/Users/krisztiankoos/projects/kaizen-dev`
 
 **Learning Objectives**:
-- Implement hybrid search and GraphRAG for documentation
-- Build multi-agent workflows for issue resolution
-- Add autonomous debugging capabilities
-- Integrate AI-powered code review
+- Trace AI from Turing's 1950 paper to modern LLMs
+- Understand why AI had "winters" and how it recovered
+- Know the key researchers and their contributions
+- Appreciate the path from perceptrons to transformers
+- Recognize patterns in AI hype cycles
 
-**Deliverables** (built in kaizen-dev):
-- `src/ai/` - AI features module
-- Enhanced RAG with 90%+ accuracy
-- Multi-agent system for issue resolution
-- GitHub integration for AI code review
-- Documentation in kaizen-dev README
+**Theory Content**:
 
----
+#### Part 1: The Birth of AI (1943-1969)
+- **1943**: McCulloch & Pitts - First mathematical model of neurons
+- **1950**: Alan Turing's "Computing Machinery and Intelligence" (Turing Test)
+- **1956**: Dartmouth Workshop - John McCarthy coins "Artificial Intelligence"
+- **1957**: Frank Rosenblatt's Perceptron - First neural network that learns
+- **1958**: LISP created by McCarthy - AI's first programming language
+- **1966**: ELIZA by Joseph Weizenbaum - First chatbot
+- **1969**: Minsky & Papert's "Perceptrons" - Critique that triggers first AI Winter
 
-### Module 56: Vibe AI Features - Generative Content Platform
-- **Duration**: 8-10 hours
-- **Prerequisites**: Phases 1-11 complete
-- **Status**: ⚪ Not Started
-- **Target Directory**: `/Users/krisztiankoos/projects/vibe`
+#### Part 2: The First AI Winter & Expert Systems (1970-1987)
+- **1970s**: Funding cuts after overpromising
+- **1972**: PROLOG created - Logic programming for AI
+- **1976**: MYCIN expert system - Medical diagnosis (Stanford)
+- **1980s**: Expert systems boom - "AI" means rule-based systems
+- **1986**: Backpropagation rediscovered by Rumelhart, Hinton, Williams
+- **1987**: Second AI Winter begins - Expert systems hit limits
 
-**Learning Objectives**:
-- Implement generative AI for course content creation
-- Add multimodal capabilities (text + audio + video)
-- Build RAG for course knowledge management
-- Create AI-powered tutoring features
+#### Part 3: The Statistical Turn (1988-2006)
+- **1988**: Judea Pearl's probabilistic methods
+- **1989**: Yann LeCun's ConvNet reads handwritten digits
+- **1990s**: Machine Learning splits from AI - focuses on data
+- **1997**: Deep Blue beats Kasparov - Brute force, not learning
+- **1997**: LSTM invented by Hochreiter & Schmidhuber
+- **2001**: Random Forests by Leo Breiman
+- **2006**: Hinton's Deep Belief Networks - Deep learning awakens
 
-**Deliverables** (built in vibe):
-- `src/ai/` - AI features module
-- AI content generation API
-- Multimodal lesson builder
-- RAG-powered Q&A system for courses
-- Voice explanations with TTS
+#### Part 4: The Deep Learning Revolution (2006-2017)
+- **2009**: ImageNet dataset created by Fei-Fei Li
+- **2010**: Kaggle founded - ML competitions go mainstream
+- **2011**: IBM Watson wins Jeopardy!
+- **2012**: AlexNet wins ImageNet - Deep learning's "Big Bang"
+- **2013**: Word2Vec by Mikolov - Words as vectors
+- **2014**: GANs invented by Ian Goodfellow
+- **2014**: Seq2Seq for translation (Google)
+- **2015**: ResNet (152 layers!) - Deep networks finally work
+- **2016**: AlphaGo beats Lee Sedol - Reinforcement learning moment
+- **2017**: "Attention Is All You Need" - The Transformer paper
 
----
+#### Part 5: The Transformer Era (2017-2022)
+- **2018**: BERT by Google - Bidirectional transformers
+- **2018**: GPT-1 by OpenAI - Generative pre-training
+- **2019**: GPT-2 - "Too dangerous to release"
+- **2020**: GPT-3 - 175B parameters, few-shot learning
+- **2020**: AlphaFold solves protein folding
+- **2021**: DALL-E, Codex - Multimodal and code generation
+- **2021**: GitHub Copilot launches
+- **2022**: ChatGPT launches (Nov 30) - The moment everything changed
+- **2022**: Stable Diffusion - Open source image generation
 
-### Module 57: Contrarian AI Analytics - Stock Intelligence System
-- **Duration**: 8-10 hours
-- **Prerequisites**: Phases 1-11 complete
-- **Status**: ⚪ Not Started
-- **Target Directory**: `/Users/krisztiankoos/projects/contrarian`
+#### Part 6: The AGI Race (2023-Present)
+- **2023**: GPT-4 - Multimodal, passes bar exam
+- **2023**: Claude 2 - Constitutional AI at scale
+- **2023**: Llama 2 - Open source LLMs go mainstream
+- **2023**: Mixture of Experts becomes standard
+- **2024**: Claude 3 Opus, GPT-4 Turbo, Gemini Ultra
+- **2024**: Video generation (Sora), voice mode, computer use
+- **2024-25**: Agents, reasoning models (o1), and beyond
 
-**Learning Objectives**:
-- Build LLM-powered sentiment analysis for earnings/news
-- Implement time series forecasting with ML
-- Create anomaly detection for market data
-- Generate AI investment reports
+#### Key Personalities
 
-**Deliverables** (built in contrarian):
-- `src/ai/` - AI analytics module
-- Sentiment analysis pipeline
-- Time series forecasting integration
-- Anomaly detection alerts
-- AI-generated investment reports
+| Person | Contribution | Era |
+|--------|--------------|-----|
+| Alan Turing | Turing Test, theoretical foundations | 1950s |
+| John McCarthy | Coined "AI", LISP, Dartmouth | 1956 |
+| Marvin Minsky | Perceptrons book, MIT AI Lab | 1960s-70s |
+| Geoffrey Hinton | Backprop, Deep Belief Nets, "Godfather of AI" | 1980s-now |
+| Yann LeCun | ConvNets, LeNet, Meta AI | 1989-now |
+| Yoshua Bengio | Deep learning theory, MILA | 2000s-now |
+| Fei-Fei Li | ImageNet, democratized vision | 2009 |
+| Ian Goodfellow | GANs | 2014 |
+| Ilya Sutskever | AlexNet, GPT, OpenAI | 2012-now |
+| Andrej Karpathy | Neural net education, Tesla AI | 2015-now |
+| Dario Amodei | Anthropic, Constitutional AI | 2021-now |
+| Sam Altman | OpenAI CEO, ChatGPT launch | 2019-now |
 
----
+#### The AI Winters - Lessons Learned
 
-## Phase 13: History of AI (Optional Enrichment) 🕰️
+```
+PATTERN OF AI HYPE CYCLES
+=========================
 
-**Goal**: Understand how we got here
+1. Breakthrough discovery
+2. Media hype ("AI will solve everything!")
+3. Overpromising to funders
+4. Reality fails to meet expectations
+5. Funding cuts, talent leaves
+6. "AI Winter" - years of quiet progress
+7. New breakthrough restarts cycle
 
-### Module 58: The Foundations (1950s-1980s)
-- **Duration**: 3-4 hours
-- **Status**: ⚪ Not Started
+The difference now: AI actually works.
+LLMs passed the Turing Test without anyone noticing.
+```
 
-The birth of AI, perceptrons, AI winters, expert systems, and backpropagation.
+#### The Bitter Lesson (Rich Sutton, 2019)
 
----
+> "The biggest lesson from 70 years of AI research is that general methods that leverage computation are ultimately the most effective."
 
-### Module 59: The Deep Learning Revolution (2000s-2010s)
-- **Duration**: 3-4 hours
-- **Status**: ⚪ Not Started
+In other words: Simple algorithms + lots of compute + lots of data beats clever hand-engineered solutions. This explains why transformers (simple attention) beat expert-designed architectures.
 
-ImageNet, AlexNet, Word2Vec, GPU revolution, and the bitter lesson.
-
----
-
-### Module 60: The Transformer Era (2017-Present)
-- **Duration**: 4-5 hours
-- **Status**: ⚪ Not Started
-
-"Attention Is All You Need", BERT, GPT series, ChatGPT moment, and the future.
+**Deliverables**:
+- Comprehensive history document (1000+ lines)
+- Timeline visualization
+- Key papers reading list with summaries
+- "Who's Who in AI" reference guide
 
 ---
 
