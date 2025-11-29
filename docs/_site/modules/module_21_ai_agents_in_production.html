@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 21: AI Agents in Production - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_22_speech_ai.html">Next: Module 22: Speech AI 🆕 →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 21: AI Agents in Production</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-21-ai-agents-in-production">Module 21: AI Agents in Production</h1>
+<h1 id="or-how-to-ship-ai-without-getting-fired">Or: How to Ship AI Without Getting Fired</h1>
+<p><strong>Last Updated</strong>: 2025-11-26
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 6-7 hours
+<strong>Prerequisites</strong>: Module 20</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Deploy AI agents to production environments safely
+- Implement comprehensive guardrails and safety systems
+- Build observability and monitoring for agent behavior
+- Control costs and optimize agent efficiency
+- Handle failures gracefully with recovery strategies
+- Design agents for scalability and reliability</p>
+<hr />
+<h2 id="theory">Theory</h2>
+<h3 id="introduction-from-prototype-to-production">Introduction: From Prototype to Production</h3>
+<p>You've built sophisticated agents with memory, planning, and multi-agent collaboration. But there's a massive gap between a working prototype and a production system. This module bridges that gap.</p>
+<p><strong>The Production Gap</strong>:</p>
+<pre><code>Prototype Agent                    Production Agent
+─────────────────                 ─────────────────
+✅ Works in demos                 ✅ Works at scale
+❌ No error handling              ✅ Graceful degradation
+❌ Unlimited costs                ✅ Budget controls
+❌ No monitoring                  ✅ Full observability
+❌ Trust all inputs               ✅ Input validation
+❌ Single user                    ✅ Multi-tenant
+❌ No safety                      ✅ Guardrails everywhere
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> In 2023, a major bank's customer service chatbot was jailbroken by users who convinced it to reveal internal policies, offer unauthorized discounts, and even insult the bank's competitors. The incident cost millions in refunds and reputational damage. This is why guardrails aren't optional—they're essential.</p>
+</blockquote>
+<hr />
+<h2 id="1-production-architecture-patterns">1. Production Architecture Patterns</h2>
+<h3 id="11-the-production-agent-stack">1.1 The Production Agent Stack</h3>
+<p>A production-ready agent system has multiple layers:</p>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                      API Gateway                             │
+│  (Rate limiting, Auth, Request validation)                   │
+├─────────────────────────────────────────────────────────────┤
+│                    Input Guardrails                          │
+│  (Content filtering, Prompt injection detection)             │
+├─────────────────────────────────────────────────────────────┤
+│                    Agent Orchestrator                        │
+│  (Planning, Tool selection, State management)                │
+├──────────────┬──────────────┬──────────────┬────────────────┤
+│   Memory     │    Tools     │     LLM      │   Retrieval    │
+│   System     │   Registry   │   Router     │    (RAG)       │
+├──────────────┴──────────────┴──────────────┴────────────────┤
+│                   Output Guardrails                          │
+│  (Response validation, PII filtering, Tone check)            │
+├─────────────────────────────────────────────────────────────┤
+│                   Observability Layer                        │
+│  (Logging, Metrics, Tracing, Alerting)                       │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="12-synchronous-vs-asynchronous-agents">1.2 Synchronous vs Asynchronous Agents</h3>
+<p><strong>Synchronous Agents</strong>:
+- User waits for response
+- Suitable for: Chat, Q&amp;A, simple tasks
+- Timeout: 30-60 seconds typically
+- Pattern: Request → Process → Response</p>
+<pre><code class="language-python">@app.post(&quot;/chat&quot;)
+async def chat(request: ChatRequest):
+    # Synchronous: user waits
+    response = await agent.process(request.message)
+    return {&quot;response&quot;: response}
+</code></pre>
+<p><strong>Asynchronous Agents</strong>:
+- User submits task, polls for result
+- Suitable for: Research, document analysis, complex workflows
+- Timeout: Minutes to hours
+- Pattern: Submit → Job ID → Poll → Result</p>
+<pre><code class="language-python">@app.post(&quot;/tasks&quot;)
+async def submit_task(request: TaskRequest):
+    job_id = await task_queue.submit(request)
+    return {&quot;job_id&quot;: job_id, &quot;status&quot;: &quot;queued&quot;}
+
+@app.get(&quot;/tasks/{job_id}&quot;)
+async def get_task_status(job_id: str):
+    return await task_queue.get_status(job_id)
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> OpenAI's Assistants API uses an asynchronous pattern internally. When you create a "Run", you're actually submitting a job that processes in the background. This allows for complex, multi-step agent workflows that would timeout in a synchronous model.</p>
+</blockquote>
+<h3 id="13-stateless-vs-stateful-agents">1.3 Stateless vs Stateful Agents</h3>
+<p><strong>Stateless Agents</strong>:
+- No memory between requests
+- Each request is independent
+- Easier to scale (any instance can handle any request)
+- Suitable for: Simple Q&amp;A, one-shot tasks</p>
+<p><strong>Stateful Agents</strong>:
+- Maintain conversation/task state
+- Requires session affinity or external state store
+- More complex but enables sophisticated interactions
+- Suitable for: Multi-turn conversations, long-running tasks</p>
+<p><strong>Hybrid Approach</strong> (Recommended):</p>
+<pre><code class="language-python">class HybridAgent:
+    def __init__(self):
+        self.state_store = RedisStateStore()  # External state
+
+    async def process(self, session_id: str, message: str):
+        # Load state (stateful behavior)
+        state = await self.state_store.get(session_id)
+
+        # Process (stateless core logic)
+        response, new_state = await self.agent.process(message, state)
+
+        # Save state (externalized)
+        await self.state_store.set(session_id, new_state, ttl=3600)
+
+        return response
+</code></pre>
+<hr />
+<h2 id="2-guardrails-and-safety-systems">2. Guardrails and Safety Systems</h2>
+<h3 id="21-the-defense-in-depth-model">2.1 The Defense-in-Depth Model</h3>
+<p>Production agents need multiple layers of defense:</p>
+<pre><code>Layer 1: Input Validation
+    ↓ (passes)
+Layer 2: Content Filtering
+    ↓ (passes)
+Layer 3: Prompt Injection Detection
+    ↓ (passes)
+Layer 4: Agent Processing
+    ↓ (generates)
+Layer 5: Output Validation
+    ↓ (passes)
+Layer 6: PII/Sensitive Data Filtering
+    ↓ (passes)
+Layer 7: Response to User
+</code></pre>
+<h3 id="22-input-guardrails">2.2 Input Guardrails</h3>
+<p><strong>Content Filtering</strong>:</p>
+<pre><code class="language-python">class ContentFilter:
+    &quot;&quot;&quot;Filter harmful or inappropriate content.&quot;&quot;&quot;
+
+    BLOCKED_CATEGORIES = [
+        &quot;violence&quot;, &quot;hate_speech&quot;, &quot;sexual_content&quot;,
+        &quot;self_harm&quot;, &quot;illegal_activities&quot;
+    ]
+
+    def __init__(self):
+        self.classifier = load_content_classifier()
+
+    def check(self, text: str) -&gt; FilterResult:
+        scores = self.classifier.predict(text)
+
+        blocked = []
+        for category in self.BLOCKED_CATEGORIES:
+            if scores.get(category, 0) &gt; 0.8:
+                blocked.append(category)
+
+        return FilterResult(
+            allowed=len(blocked) == 0,
+            blocked_categories=blocked,
+            scores=scores
+        )
+</code></pre>
+<p><strong>Prompt Injection Detection</strong>:</p>
+<pre><code class="language-python">class PromptInjectionDetector:
+    &quot;&quot;&quot;Detect attempts to manipulate agent behavior.&quot;&quot;&quot;
+
+    INJECTION_PATTERNS = [
+        r&quot;ignore (all )?(previous|prior|above) instructions&quot;,
+        r&quot;you are now&quot;,
+        r&quot;pretend (you are|to be)&quot;,
+        r&quot;act as&quot;,
+        r&quot;new instructions:&quot;,
+        r&quot;system prompt:&quot;,
+        r&quot;forget everything&quot;,
+        r&quot;disregard .* instructions&quot;,
+    ]
+
+    def __init__(self):
+        self.patterns = [re.compile(p, re.I) for p in self.INJECTION_PATTERNS]
+        self.ml_detector = load_injection_classifier()
+
+    def check(self, text: str) -&gt; InjectionResult:
+        # Rule-based detection
+        for pattern in self.patterns:
+            if pattern.search(text):
+                return InjectionResult(
+                    detected=True,
+                    method=&quot;pattern&quot;,
+                    confidence=0.95
+                )
+
+        # ML-based detection
+        score = self.ml_detector.predict(text)
+        if score &gt; 0.8:
+            return InjectionResult(
+                detected=True,
+                method=&quot;ml_classifier&quot;,
+                confidence=score
+            )
+
+        return InjectionResult(detected=False, confidence=1 - score)
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> In 2024, researchers demonstrated "indirect prompt injection" where malicious instructions were hidden in web pages that an agent retrieved. When the agent processed the page, it followed the hidden instructions. This is why output from tools also needs validation!</p>
+</blockquote>
+<h3 id="23-output-guardrails">2.3 Output Guardrails</h3>
+<p><strong>Response Validation</strong>:</p>
+<pre><code class="language-python">class OutputValidator:
+    &quot;&quot;&quot;Validate agent responses before sending to user.&quot;&quot;&quot;
+
+    def __init__(self, config: ValidatorConfig):
+        self.max_length = config.max_length
+        self.required_tone = config.tone  # professional, friendly, etc.
+        self.blocked_patterns = config.blocked_patterns
+        self.pii_detector = PIIDetector()
+
+    def validate(self, response: str) -&gt; ValidationResult:
+        issues = []
+
+        # Length check
+        if len(response) &gt; self.max_length:
+            issues.append(&quot;response_too_long&quot;)
+
+        # PII check
+        pii_found = self.pii_detector.scan(response)
+        if pii_found:
+            issues.append(f&quot;pii_detected: {pii_found}&quot;)
+
+        # Blocked content check
+        for pattern in self.blocked_patterns:
+            if pattern.search(response):
+                issues.append(&quot;blocked_content&quot;)
+
+        # Tone check (using LLM)
+        tone_ok = self.check_tone(response)
+        if not tone_ok:
+            issues.append(&quot;inappropriate_tone&quot;)
+
+        return ValidationResult(
+            valid=len(issues) == 0,
+            issues=issues,
+            sanitized=self.sanitize(response) if issues else response
+        )
+
+    def sanitize(self, response: str) -&gt; str:
+        &quot;&quot;&quot;Remove or redact problematic content.&quot;&quot;&quot;
+        # Redact PII
+        response = self.pii_detector.redact(response)
+        # Truncate if needed
+        if len(response) &gt; self.max_length:
+            response = response[:self.max_length] + &quot;...&quot;
+        return response
+</code></pre>
+<p><strong>PII Detection and Filtering</strong>:</p>
+<pre><code class="language-python">class PIIDetector:
+    &quot;&quot;&quot;Detect and redact Personally Identifiable Information.&quot;&quot;&quot;
+
+    PATTERNS = {
+        &quot;email&quot;: r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+        &quot;phone&quot;: r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b',
+        &quot;ssn&quot;: r'\b\d{3}-\d{2}-\d{4}\b',
+        &quot;credit_card&quot;: r'\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b',
+        &quot;ip_address&quot;: r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b',
+    }
+
+    def scan(self, text: str) -&gt; List[str]:
+        &quot;&quot;&quot;Find PII types present in text.&quot;&quot;&quot;
+        found = []
+        for pii_type, pattern in self.PATTERNS.items():
+            if re.search(pattern, text):
+                found.append(pii_type)
+        return found
+
+    def redact(self, text: str) -&gt; str:
+        &quot;&quot;&quot;Replace PII with redaction markers.&quot;&quot;&quot;
+        for pii_type, pattern in self.PATTERNS.items():
+            text = re.sub(pattern, f&quot;[{pii_type.upper()}_REDACTED]&quot;, text)
+        return text
+</code></pre>
+<h3 id="24-guardrails-frameworks">2.4 Guardrails Frameworks</h3>
+<p>Several frameworks help implement guardrails:</p>
+<p><strong>NeMo Guardrails</strong> (NVIDIA):
+- Define rails in natural language
+- Programmable safety behaviors
+- Integration with LangChain</p>
+<pre><code class="language-yaml"># config/rails.co
+define user express harmful intent
+  user said something harmful
+
+define bot refuse harmful request
+  bot refuse to help with harmful request
+  bot explain why and offer alternative
+
+define flow harmful_intent
+  user express harmful intent
+  bot refuse harmful request
+</code></pre>
+<p><strong>Guardrails AI</strong>:
+- XML-based specification
+- Structured output validation
+- Automatic retry on failures</p>
+<pre><code class="language-python">from guardrails import Guard
+from guardrails.validators import ValidLength, ToxicLanguage
+
+guard = Guard().use_many(
+    ValidLength(min=10, max=500, on_fail=&quot;reask&quot;),
+    ToxicLanguage(on_fail=&quot;filter&quot;)
+)
+
+response = guard(
+    llm_api=llm.generate,
+    prompt=&quot;Answer the user's question...&quot;
+)
+</code></pre>
+<p><strong>Lakera Guard</strong>:
+- Prompt injection detection API
+- Content moderation
+- PII detection</p>
+<pre><code class="language-python">import lakera_guard
+
+result = lakera_guard.check(
+    input=user_message,
+    checks=[&quot;prompt_injection&quot;, &quot;pii&quot;, &quot;content_moderation&quot;]
+)
+if result.flagged:
+    raise SecurityError(result.reason)
+</code></pre>
+<hr />
+<h2 id="3-observability-and-monitoring">3. Observability and Monitoring</h2>
+<h3 id="31-the-three-pillars-of-observability">3.1 The Three Pillars of Observability</h3>
+<p><strong>Logs</strong>: What happened?
+<strong>Metrics</strong>: How much/how often?
+<strong>Traces</strong>: How did it flow?</p>
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│                    Observability                         │
+├─────────────────┬─────────────────┬─────────────────────┤
+│      Logs       │     Metrics     │       Traces        │
+├─────────────────┼─────────────────┼─────────────────────┤
+│ Structured JSON │ Counters/Gauges │ Request spans       │
+│ Request IDs     │ Latency histograms│ Tool calls        │
+│ Error details   │ Token usage     │ LLM invocations     │
+│ Agent decisions │ Cost tracking   │ Memory operations   │
+└─────────────────┴─────────────────┴─────────────────────┘
+</code></pre>
+<h3 id="32-structured-logging">3.2 Structured Logging</h3>
+<pre><code class="language-python">import structlog
+from datetime import datetime
+
+logger = structlog.get_logger()
+
+class AgentLogger:
+    &quot;&quot;&quot;Structured logging for agent operations.&quot;&quot;&quot;
+
+    def __init__(self, agent_id: str):
+        self.agent_id = agent_id
+        self.logger = logger.bind(agent_id=agent_id)
+
+    def log_request(self, request_id: str, user_id: str, message: str):
+        self.logger.info(
+            &quot;agent_request&quot;,
+            request_id=request_id,
+            user_id=user_id,
+            message_length=len(message),
+            timestamp=datetime.utcnow().isoformat()
+        )
+
+    def log_tool_call(self, request_id: str, tool: str, args: dict,
+                      result: str, latency_ms: float):
+        self.logger.info(
+            &quot;tool_call&quot;,
+            request_id=request_id,
+            tool=tool,
+            args=args,
+            result_length=len(result),
+            latency_ms=latency_ms
+        )
+
+    def log_llm_call(self, request_id: str, model: str,
+                     input_tokens: int, output_tokens: int,
+                     latency_ms: float, cost: float):
+        self.logger.info(
+            &quot;llm_call&quot;,
+            request_id=request_id,
+            model=model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            latency_ms=latency_ms,
+            cost_usd=cost
+        )
+
+    def log_error(self, request_id: str, error: Exception, context: dict):
+        self.logger.error(
+            &quot;agent_error&quot;,
+            request_id=request_id,
+            error_type=type(error).__name__,
+            error_message=str(error),
+            context=context
+        )
+</code></pre>
+<h3 id="33-metrics-collection">3.3 Metrics Collection</h3>
+<pre><code class="language-python">from prometheus_client import Counter, Histogram, Gauge
+
+# Counters
+agent_requests_total = Counter(
+    'agent_requests_total',
+    'Total agent requests',
+    ['agent_id', 'status']
+)
+
+tool_calls_total = Counter(
+    'tool_calls_total',
+    'Total tool invocations',
+    ['agent_id', 'tool_name', 'status']
+)
+
+# Histograms
+request_latency = Histogram(
+    'agent_request_latency_seconds',
+    'Request latency',
+    ['agent_id'],
+    buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 30.0, 60.0]
+)
+
+llm_latency = Histogram(
+    'llm_call_latency_seconds',
+    'LLM call latency',
+    ['model'],
+    buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+)
+
+# Gauges
+active_sessions = Gauge(
+    'agent_active_sessions',
+    'Number of active agent sessions',
+    ['agent_id']
+)
+
+token_usage = Counter(
+    'llm_tokens_total',
+    'Total tokens used',
+    ['model', 'token_type']  # input/output
+)
+
+cost_total = Counter(
+    'agent_cost_usd_total',
+    'Total cost in USD',
+    ['agent_id', 'cost_type']  # llm/tool/storage
+)
+</code></pre>
+<h3 id="34-distributed-tracing">3.4 Distributed Tracing</h3>
+<pre><code class="language-python">from opentelemetry import trace
+from opentelemetry.trace import Status, StatusCode
+
+tracer = trace.get_tracer(__name__)
+
+class TracedAgent:
+    &quot;&quot;&quot;Agent with distributed tracing.&quot;&quot;&quot;
+
+    async def process(self, request_id: str, message: str):
+        with tracer.start_as_current_span(
+            &quot;agent.process&quot;,
+            attributes={&quot;request_id&quot;: request_id}
+        ) as span:
+            try:
+                # Input validation
+                with tracer.start_span(&quot;validate_input&quot;):
+                    self.validate(message)
+
+                # Planning
+                with tracer.start_span(&quot;planning&quot;) as plan_span:
+                    plan = await self.create_plan(message)
+                    plan_span.set_attribute(&quot;plan_steps&quot;, len(plan.steps))
+
+                # Execute steps
+                for i, step in enumerate(plan.steps):
+                    with tracer.start_span(f&quot;execute_step_{i}&quot;) as step_span:
+                        step_span.set_attribute(&quot;step_type&quot;, step.type)
+
+                        if step.type == &quot;tool_call&quot;:
+                            with tracer.start_span(&quot;tool_call&quot;) as tool_span:
+                                tool_span.set_attribute(&quot;tool&quot;, step.tool)
+                                result = await self.call_tool(step)
+
+                        elif step.type == &quot;llm_call&quot;:
+                            with tracer.start_span(&quot;llm_call&quot;) as llm_span:
+                                result = await self.call_llm(step)
+                                llm_span.set_attribute(&quot;tokens&quot;, result.tokens)
+
+                span.set_status(Status(StatusCode.OK))
+                return result
+
+            except Exception as e:
+                span.set_status(Status(StatusCode.ERROR, str(e)))
+                span.record_exception(e)
+                raise
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> LangSmith by LangChain provides specialized tracing for LLM applications. It captures the full "trace tree" of agent operations, making it easy to debug complex multi-step workflows. Many production teams use it alongside general-purpose tracing like Jaeger or Datadog.</p>
+</blockquote>
+<h3 id="35-alerting-strategy">3.5 Alerting Strategy</h3>
+<pre><code class="language-python"># Alert definitions (Prometheus AlertManager format)
+ALERT_RULES = &quot;&quot;&quot;
+groups:
+- name: agent_alerts
+  rules:
+
+  # High error rate
+  - alert: AgentHighErrorRate
+    expr: rate(agent_requests_total{status=&quot;error&quot;}[5m]) / rate(agent_requests_total[5m]) &gt; 0.05
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: &quot;Agent {{ $labels.agent_id }} has high error rate&quot;
+
+  # Slow responses
+  - alert: AgentSlowResponses
+    expr: histogram_quantile(0.95, rate(agent_request_latency_seconds_bucket[5m])) &gt; 10
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: &quot;Agent {{ $labels.agent_id }} p95 latency &gt; 10s&quot;
+
+  # High cost
+  - alert: AgentHighCost
+    expr: increase(agent_cost_usd_total[1h]) &gt; 100
+    labels:
+      severity: warning
+    annotations:
+      summary: &quot;Agent {{ $labels.agent_id }} spent &gt; $100 in last hour&quot;
+
+  # Guardrail violations
+  - alert: GuardrailViolations
+    expr: rate(guardrail_violations_total[5m]) &gt; 10
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: &quot;High rate of guardrail violations&quot;
+&quot;&quot;&quot;
+</code></pre>
+<hr />
+<h2 id="4-cost-control-and-optimization">4. Cost Control and Optimization</h2>
+<h3 id="41-understanding-agent-costs">4.1 Understanding Agent Costs</h3>
+<pre><code>Agent Cost Breakdown
+────────────────────
+├── LLM Calls (60-80% typically)
+│   ├── Input tokens
+│   ├── Output tokens
+│   └── Model selection
+├── Embeddings (10-20%)
+│   ├── Document embedding
+│   └── Query embedding
+├── Vector Storage (5-10%)
+│   ├── Storage costs
+│   └── Query costs
+├── Tool Execution (5-10%)
+│   ├── API calls
+│   └── Compute
+└── Infrastructure (5-10%)
+    ├── Hosting
+    └── Bandwidth
+</code></pre>
+<h3 id="42-cost-tracking-system">4.2 Cost Tracking System</h3>
+<pre><code class="language-python">from dataclasses import dataclass, field
+from typing import Dict
+import json
+
+@dataclass
+class CostTracker:
+    &quot;&quot;&quot;Track costs per request and aggregate.&quot;&quot;&quot;
+
+    # Cost per 1K tokens (example rates)
+    LLM_COSTS = {
+        &quot;gpt-4&quot;: {&quot;input&quot;: 0.03, &quot;output&quot;: 0.06},
+        &quot;gpt-4-turbo&quot;: {&quot;input&quot;: 0.01, &quot;output&quot;: 0.03},
+        &quot;gpt-3.5-turbo&quot;: {&quot;input&quot;: 0.0005, &quot;output&quot;: 0.0015},
+        &quot;claude-3-opus&quot;: {&quot;input&quot;: 0.015, &quot;output&quot;: 0.075},
+        &quot;claude-3-sonnet&quot;: {&quot;input&quot;: 0.003, &quot;output&quot;: 0.015},
+        &quot;claude-3-haiku&quot;: {&quot;input&quot;: 0.00025, &quot;output&quot;: 0.00125},
+    }
+
+    EMBEDDING_COSTS = {
+        &quot;text-embedding-3-small&quot;: 0.00002,  # per 1K tokens
+        &quot;text-embedding-3-large&quot;: 0.00013,
+    }
+
+    request_id: str
+    costs: Dict[str, float] = field(default_factory=dict)
+
+    def track_llm_call(self, model: str, input_tokens: int, output_tokens: int):
+        rates = self.LLM_COSTS.get(model, {&quot;input&quot;: 0.01, &quot;output&quot;: 0.03})
+        cost = (input_tokens / 1000 * rates[&quot;input&quot;] +
+                output_tokens / 1000 * rates[&quot;output&quot;])
+
+        self.costs[&quot;llm&quot;] = self.costs.get(&quot;llm&quot;, 0) + cost
+        return cost
+
+    def track_embedding(self, model: str, tokens: int):
+        rate = self.EMBEDDING_COSTS.get(model, 0.0001)
+        cost = tokens / 1000 * rate
+
+        self.costs[&quot;embedding&quot;] = self.costs.get(&quot;embedding&quot;, 0) + cost
+        return cost
+
+    def track_tool(self, tool: str, cost: float):
+        self.costs[&quot;tools&quot;] = self.costs.get(&quot;tools&quot;, 0) + cost
+        return cost
+
+    @property
+    def total(self) -&gt; float:
+        return sum(self.costs.values())
+
+    def to_dict(self) -&gt; Dict:
+        return {
+            &quot;request_id&quot;: self.request_id,
+            &quot;costs&quot;: self.costs,
+            &quot;total&quot;: self.total
+        }
+</code></pre>
+<h3 id="43-budget-controls">4.3 Budget Controls</h3>
+<pre><code class="language-python">class BudgetController:
+    &quot;&quot;&quot;Enforce budget limits on agent operations.&quot;&quot;&quot;
+
+    def __init__(self, config: BudgetConfig):
+        self.per_request_limit = config.per_request_limit  # e.g., $0.50
+        self.per_user_daily_limit = config.per_user_daily_limit  # e.g., $5.00
+        self.global_daily_limit = config.global_daily_limit  # e.g., $1000.00
+        self.cost_store = CostStore()
+
+    async def check_budget(self, user_id: str, estimated_cost: float) -&gt; BudgetCheck:
+        &quot;&quot;&quot;Check if operation is within budget.&quot;&quot;&quot;
+
+        # Check per-request limit
+        if estimated_cost &gt; self.per_request_limit:
+            return BudgetCheck(
+                allowed=False,
+                reason=f&quot;Estimated cost ${estimated_cost:.2f} exceeds per-request limit&quot;
+            )
+
+        # Check user daily limit
+        user_daily = await self.cost_store.get_user_daily(user_id)
+        if user_daily + estimated_cost &gt; self.per_user_daily_limit:
+            return BudgetCheck(
+                allowed=False,
+                reason=f&quot;User daily budget exhausted&quot;
+            )
+
+        # Check global daily limit
+        global_daily = await self.cost_store.get_global_daily()
+        if global_daily + estimated_cost &gt; self.global_daily_limit:
+            return BudgetCheck(
+                allowed=False,
+                reason=f&quot;Global daily budget exhausted&quot;
+            )
+
+        return BudgetCheck(allowed=True, remaining_user=self.per_user_daily_limit - user_daily)
+
+    async def record_cost(self, user_id: str, cost: float):
+        &quot;&quot;&quot;Record actual cost after operation.&quot;&quot;&quot;
+        await self.cost_store.record(user_id, cost)
+</code></pre>
+<h3 id="44-cost-optimization-strategies">4.4 Cost Optimization Strategies</h3>
+<p><strong>1. Model Routing</strong>:</p>
+<pre><code class="language-python">class ModelRouter:
+    &quot;&quot;&quot;Route to appropriate model based on task complexity.&quot;&quot;&quot;
+
+    def select_model(self, task: str, complexity: str) -&gt; str:
+        if complexity == &quot;simple&quot;:
+            return &quot;claude-3-haiku&quot;  # Fast and cheap
+        elif complexity == &quot;medium&quot;:
+            return &quot;claude-3-sonnet&quot;  # Balanced
+        else:
+            return &quot;claude-3-opus&quot;  # Best quality
+
+    def estimate_complexity(self, message: str) -&gt; str:
+        &quot;&quot;&quot;Estimate task complexity from message.&quot;&quot;&quot;
+        # Simple heuristics
+        if len(message) &lt; 100:
+            return &quot;simple&quot;
+        if any(word in message.lower() for word in [&quot;analyze&quot;, &quot;compare&quot;, &quot;evaluate&quot;]):
+            return &quot;complex&quot;
+        return &quot;medium&quot;
+</code></pre>
+<p><strong>2. Caching</strong>:</p>
+<pre><code class="language-python">class ResponseCache:
+    &quot;&quot;&quot;Cache LLM responses for similar queries.&quot;&quot;&quot;
+
+    def __init__(self, embedding_model, similarity_threshold: float = 0.95):
+        self.cache = {}  # query_hash -&gt; (embedding, response)
+        self.embedding_model = embedding_model
+        self.threshold = similarity_threshold
+
+    def get(self, query: str) -&gt; Optional[str]:
+        query_embedding = self.embedding_model.embed(query)
+
+        for cached_embedding, response in self.cache.values():
+            similarity = cosine_similarity(query_embedding, cached_embedding)
+            if similarity &gt; self.threshold:
+                return response
+
+        return None
+
+    def set(self, query: str, response: str):
+        query_embedding = self.embedding_model.embed(query)
+        query_hash = hashlib.md5(query.encode()).hexdigest()
+        self.cache[query_hash] = (query_embedding, response)
+</code></pre>
+<p><strong>3. Token Optimization</strong>:</p>
+<pre><code class="language-python">class TokenOptimizer:
+    &quot;&quot;&quot;Optimize prompts to reduce token usage.&quot;&quot;&quot;
+
+    def optimize_system_prompt(self, prompt: str) -&gt; str:
+        &quot;&quot;&quot;Compress system prompt while preserving meaning.&quot;&quot;&quot;
+        # Remove redundant whitespace
+        prompt = &quot; &quot;.join(prompt.split())
+
+        # Remove verbose phrases
+        verbose_to_concise = {
+            &quot;Please note that&quot;: &quot;Note:&quot;,
+            &quot;It is important to&quot;: &quot;&quot;,
+            &quot;Make sure to&quot;: &quot;&quot;,
+            &quot;You should always&quot;: &quot;Always&quot;,
+        }
+        for verbose, concise in verbose_to_concise.items():
+            prompt = prompt.replace(verbose, concise)
+
+        return prompt
+
+    def truncate_context(self, context: str, max_tokens: int) -&gt; str:
+        &quot;&quot;&quot;Intelligently truncate context to fit budget.&quot;&quot;&quot;
+        tokens = self.tokenizer.encode(context)
+        if len(tokens) &lt;= max_tokens:
+            return context
+
+        # Keep most relevant parts (beginning and end often most important)
+        half = max_tokens // 2
+        kept_tokens = tokens[:half] + tokens[-half:]
+        return self.tokenizer.decode(kept_tokens)
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> One startup reduced their LLM costs by 70% simply by implementing a semantic cache. Most user queries cluster around common topics, and cache hit rates of 30-40% are typical in customer service applications.</p>
+</blockquote>
+<hr />
+<h2 id="5-failure-handling-and-recovery">5. Failure Handling and Recovery</h2>
+<h3 id="51-failure-taxonomy">5.1 Failure Taxonomy</h3>
+<pre><code>Agent Failures
+├── Transient Failures (retry-able)
+│   ├── Network timeouts
+│   ├── Rate limits (429)
+│   ├── Service unavailable (503)
+│   └── Temporary API errors
+├── Permanent Failures (not retry-able)
+│   ├── Invalid input (400)
+│   ├── Authentication failure (401)
+│   ├── Resource not found (404)
+│   └── Validation errors
+├── Logical Failures
+│   ├── Agent stuck in loop
+│   ├── Invalid tool selection
+│   ├── Contradictory planning
+│   └── Hallucination detected
+└── Safety Failures
+    ├── Guardrail violation
+    ├── Budget exceeded
+    ├── Rate limit exceeded
+    └── Timeout exceeded
+</code></pre>
+<h3 id="52-retry-strategy">5.2 Retry Strategy</h3>
+<pre><code class="language-python">from tenacity import (
+    retry, stop_after_attempt, wait_exponential,
+    retry_if_exception_type, before_sleep_log
+)
+import logging
+
+logger = logging.getLogger(__name__)
+
+class RetryConfig:
+    &quot;&quot;&quot;Configuration for retry behavior.&quot;&quot;&quot;
+    max_attempts: int = 3
+    min_wait: float = 1.0
+    max_wait: float = 60.0
+    exponential_base: float = 2.0
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=1, max=60),
+    retry=retry_if_exception_type((TimeoutError, RateLimitError, ServiceUnavailableError)),
+    before_sleep=before_sleep_log(logger, logging.WARNING)
+)
+async def call_llm_with_retry(prompt: str, model: str) -&gt; str:
+    &quot;&quot;&quot;Call LLM with automatic retry on transient failures.&quot;&quot;&quot;
+    return await llm_client.generate(prompt, model=model)
+
+
+class SmartRetry:
+    &quot;&quot;&quot;Intelligent retry with fallback strategies.&quot;&quot;&quot;
+
+    def __init__(self):
+        self.primary_model = &quot;claude-3-sonnet&quot;
+        self.fallback_model = &quot;claude-3-haiku&quot;
+
+    async def call_with_fallback(self, prompt: str) -&gt; str:
+        &quot;&quot;&quot;Try primary model, fall back to cheaper model if needed.&quot;&quot;&quot;
+        try:
+            return await call_llm_with_retry(prompt, self.primary_model)
+        except (RateLimitError, BudgetExceededError):
+            # Fall back to cheaper model
+            logger.warning(f&quot;Falling back to {self.fallback_model}&quot;)
+            return await call_llm_with_retry(prompt, self.fallback_model)
+        except Exception as e:
+            # Last resort: cached response or graceful degradation
+            cached = self.cache.get(prompt)
+            if cached:
+                return cached
+            raise AgentFailureError(f&quot;All retry strategies exhausted: {e}&quot;)
+</code></pre>
+<h3 id="53-circuit-breaker-pattern">5.3 Circuit Breaker Pattern</h3>
+<pre><code class="language-python">from enum import Enum
+from datetime import datetime, timedelta
+
+class CircuitState(Enum):
+    CLOSED = &quot;closed&quot;      # Normal operation
+    OPEN = &quot;open&quot;          # Failing, reject requests
+    HALF_OPEN = &quot;half_open&quot;  # Testing if recovered
+
+class CircuitBreaker:
+    &quot;&quot;&quot;Prevent cascade failures with circuit breaker.&quot;&quot;&quot;
+
+    def __init__(
+        self,
+        failure_threshold: int = 5,
+        recovery_timeout: timedelta = timedelta(seconds=30),
+        half_open_max_calls: int = 3
+    ):
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.half_open_max_calls = half_open_max_calls
+
+        self.state = CircuitState.CLOSED
+        self.failure_count = 0
+        self.last_failure_time = None
+        self.half_open_calls = 0
+
+    def can_execute(self) -&gt; bool:
+        &quot;&quot;&quot;Check if request should be allowed.&quot;&quot;&quot;
+        if self.state == CircuitState.CLOSED:
+            return True
+
+        if self.state == CircuitState.OPEN:
+            # Check if we should try half-open
+            if datetime.now() - self.last_failure_time &gt; self.recovery_timeout:
+                self.state = CircuitState.HALF_OPEN
+                self.half_open_calls = 0
+                return True
+            return False
+
+        if self.state == CircuitState.HALF_OPEN:
+            return self.half_open_calls &lt; self.half_open_max_calls
+
+        return False
+
+    def record_success(self):
+        &quot;&quot;&quot;Record successful execution.&quot;&quot;&quot;
+        if self.state == CircuitState.HALF_OPEN:
+            self.half_open_calls += 1
+            if self.half_open_calls &gt;= self.half_open_max_calls:
+                # Recovered!
+                self.state = CircuitState.CLOSED
+                self.failure_count = 0
+        else:
+            self.failure_count = 0
+
+    def record_failure(self):
+        &quot;&quot;&quot;Record failed execution.&quot;&quot;&quot;
+        self.failure_count += 1
+        self.last_failure_time = datetime.now()
+
+        if self.failure_count &gt;= self.failure_threshold:
+            self.state = CircuitState.OPEN
+
+        if self.state == CircuitState.HALF_OPEN:
+            # Failed during recovery test
+            self.state = CircuitState.OPEN
+</code></pre>
+<h3 id="54-graceful-degradation">5.4 Graceful Degradation</h3>
+<pre><code class="language-python">class GracefulDegradation:
+    &quot;&quot;&quot;Provide degraded service when full service unavailable.&quot;&quot;&quot;
+
+    def __init__(self, agent: Agent):
+        self.agent = agent
+        self.fallback_responses = FallbackResponses()
+
+    async def process(self, message: str) -&gt; AgentResponse:
+        &quot;&quot;&quot;Process with graceful degradation.&quot;&quot;&quot;
+        try:
+            # Try full agent
+            return await self.agent.process(message)
+
+        except RateLimitError:
+            # Degradation level 1: Use cached/templated response
+            return self.fallback_responses.get_rate_limited()
+
+        except BudgetExceededError:
+            # Degradation level 2: Inform user
+            return AgentResponse(
+                content=&quot;I've reached my usage limit for now. Please try again later.&quot;,
+                degraded=True,
+                reason=&quot;budget_exceeded&quot;
+            )
+
+        except ServiceUnavailableError:
+            # Degradation level 3: Basic functionality only
+            return await self.basic_response(message)
+
+        except Exception as e:
+            # Degradation level 4: Error response
+            logger.error(f&quot;Agent failure: {e}&quot;)
+            return AgentResponse(
+                content=&quot;I'm having trouble processing your request. Please try again.&quot;,
+                degraded=True,
+                reason=&quot;service_error&quot;
+            )
+
+    async def basic_response(self, message: str) -&gt; AgentResponse:
+        &quot;&quot;&quot;Provide basic response without full agent capabilities.&quot;&quot;&quot;
+        # Use simple pattern matching or FAQ lookup
+        intent = self.classify_intent(message)
+        if intent in self.fallback_responses.intents:
+            return self.fallback_responses.get(intent)
+        return self.fallback_responses.get_default()
+</code></pre>
+<hr />
+<h2 id="6-scaling-agents">6. Scaling Agents</h2>
+<h3 id="61-horizontal-scaling">6.1 Horizontal Scaling</h3>
+<pre><code>                    Load Balancer
+                         │
+        ┌────────────────┼────────────────┐
+        ▼                ▼                ▼
+   ┌─────────┐      ┌─────────┐      ┌─────────┐
+   │ Agent 1 │      │ Agent 2 │      │ Agent 3 │
+   └────┬────┘      └────┬────┘      └────┬────┘
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                  ┌──────┴──────┐
+                  ▼             ▼
+           ┌──────────┐  ┌──────────┐
+           │  Redis   │  │  Vector  │
+           │  State   │  │    DB    │
+           └──────────┘  └──────────┘
+</code></pre>
+<p><strong>Key Requirements</strong>:
+- Externalized state (Redis, PostgreSQL)
+- Stateless agent instances
+- Shared vector store
+- Session affinity for long conversations (optional)</p>
+<h3 id="62-queue-based-processing">6.2 Queue-Based Processing</h3>
+<pre><code class="language-python">from celery import Celery
+
+app = Celery('agent_tasks', broker='redis://localhost:6379/0')
+
+@app.task(bind=True, max_retries=3)
+def process_agent_task(self, task_id: str, user_id: str, message: str):
+    &quot;&quot;&quot;Process agent task asynchronously.&quot;&quot;&quot;
+    try:
+        agent = get_agent_instance()
+        result = agent.process(message)
+
+        # Store result
+        store_result(task_id, result)
+
+        # Notify user (webhook, WebSocket, etc.)
+        notify_user(user_id, task_id, &quot;completed&quot;)
+
+    except TransientError as e:
+        # Retry with exponential backoff
+        self.retry(exc=e, countdown=2 ** self.request.retries)
+
+    except PermanentError as e:
+        store_error(task_id, str(e))
+        notify_user(user_id, task_id, &quot;failed&quot;)
+</code></pre>
+<h3 id="63-rate-limiting">6.3 Rate Limiting</h3>
+<pre><code class="language-python">from redis import Redis
+from datetime import datetime
+
+class RateLimiter:
+    &quot;&quot;&quot;Token bucket rate limiter using Redis.&quot;&quot;&quot;
+
+    def __init__(self, redis: Redis):
+        self.redis = redis
+
+    def check_rate_limit(
+        self,
+        key: str,
+        limit: int,
+        window_seconds: int
+    ) -&gt; RateLimitResult:
+        &quot;&quot;&quot;Check if request is within rate limit.&quot;&quot;&quot;
+
+        now = datetime.now().timestamp()
+        window_start = now - window_seconds
+
+        pipe = self.redis.pipeline()
+
+        # Remove old entries
+        pipe.zremrangebyscore(key, 0, window_start)
+
+        # Count current entries
+        pipe.zcard(key)
+
+        # Add current request
+        pipe.zadd(key, {str(now): now})
+
+        # Set expiry
+        pipe.expire(key, window_seconds)
+
+        results = pipe.execute()
+        current_count = results[1]
+
+        if current_count &gt;= limit:
+            return RateLimitResult(
+                allowed=False,
+                remaining=0,
+                reset_at=datetime.fromtimestamp(window_start + window_seconds)
+            )
+
+        return RateLimitResult(
+            allowed=True,
+            remaining=limit - current_count - 1,
+            reset_at=datetime.fromtimestamp(window_start + window_seconds)
+        )
+</code></pre>
+<hr />
+<h2 id="7-security-best-practices">7. Security Best Practices</h2>
+<h3 id="71-security-checklist">7.1 Security Checklist</h3>
+<pre><code>Production Security Checklist
+────────────────────────────
+
+□ Authentication &amp; Authorization
+  □ API key/token authentication
+  □ User-level permissions
+  □ Tool access controls
+  □ Rate limiting per user
+
+□ Input Security
+  □ Input validation
+  □ Prompt injection detection
+  □ Content filtering
+  □ Size limits on inputs
+
+□ Output Security
+  □ Response validation
+  □ PII filtering
+  □ Sensitive data masking
+  □ Output length limits
+
+□ Data Security
+  □ Encryption at rest
+  □ Encryption in transit
+  □ Minimal data retention
+  □ Audit logging
+
+□ Tool Security
+  □ Principle of least privilege
+  □ Input sanitization for tools
+  □ Output validation from tools
+  □ Allowlist for external APIs
+
+□ Operational Security
+  □ Secret management (no hardcoded keys)
+  □ Log sanitization
+  □ Error message sanitization
+  □ Regular security audits
+</code></pre>
+<h3 id="72-secure-tool-implementation">7.2 Secure Tool Implementation</h3>
+<pre><code class="language-python">class SecureTool:
+    &quot;&quot;&quot;Base class for secure tool implementation.&quot;&quot;&quot;
+
+    def __init__(self):
+        self.allowed_operations = set()
+        self.max_input_size = 10000
+        self.rate_limiter = RateLimiter()
+
+    def validate_input(self, input_data: dict) -&gt; bool:
+        &quot;&quot;&quot;Validate tool input.&quot;&quot;&quot;
+        # Size check
+        if len(str(input_data)) &gt; self.max_input_size:
+            raise InputTooLargeError()
+
+        # Schema validation
+        if not self.schema.is_valid(input_data):
+            raise InvalidInputError()
+
+        return True
+
+    def check_permission(self, operation: str, user_context: dict) -&gt; bool:
+        &quot;&quot;&quot;Check if operation is allowed.&quot;&quot;&quot;
+        if operation not in self.allowed_operations:
+            raise OperationNotAllowedError(operation)
+
+        # Check user-level permissions
+        user_permissions = user_context.get(&quot;permissions&quot;, [])
+        if operation not in user_permissions:
+            raise PermissionDeniedError()
+
+        return True
+
+    async def execute(self, operation: str, params: dict, user_context: dict) -&gt; str:
+        &quot;&quot;&quot;Execute tool with security checks.&quot;&quot;&quot;
+        # Rate limit check
+        if not self.rate_limiter.check(user_context[&quot;user_id&quot;]):
+            raise RateLimitExceededError()
+
+        # Permission check
+        self.check_permission(operation, user_context)
+
+        # Input validation
+        self.validate_input(params)
+
+        # Execute
+        result = await self._execute_internal(operation, params)
+
+        # Output validation
+        return self.sanitize_output(result)
+</code></pre>
+<hr />
+<h2 id="did-you-know">Did You Know?</h2>
+<h3 id="production-war-stories">Production War Stories</h3>
+<ol>
+<li>
+<p><strong>The $100K Mistake</strong>: A startup's agent was deployed without cost controls. A bug caused it to enter an infinite loop, making thousands of GPT-4 calls before anyone noticed. Total bill: $100,000+. Lesson: Always implement budget limits!</p>
+</li>
+<li>
+<p><strong>The Jailbreak Incident</strong>: A company's customer service bot was jailbroken by users who shared prompts on social media. The bot revealed internal pricing strategies, offered unauthorized 90% discounts, and insulted competitors. The company had to honor thousands of dollars in discounts and faced PR backlash.</p>
+</li>
+<li>
+<p><strong>The Data Leak</strong>: An agent with RAG access to internal documents was deployed publicly. Users discovered they could ask "what are all the documents in your knowledge base?" and extract sensitive information. Always validate what information agents can access and share!</p>
+</li>
+<li>
+<p><strong>The Loop of Doom</strong>: An agent was given tools to create and execute code. A user asked it to "optimize itself," and it entered a recursive self-improvement loop that crashed the server. Lesson: Think carefully about what tools agents can use together.</p>
+</li>
+</ol>
+<h3 id="industry-practices">Industry Practices</h3>
+<ul>
+<li><strong>Anthropic</strong> uses Constitutional AI to make Claude self-critique before responding</li>
+<li><strong>OpenAI</strong> runs extensive red-teaming before deploying new models</li>
+<li><strong>Google</strong> has a dedicated "AI Red Team" that tries to break their systems</li>
+<li><strong>Microsoft</strong> implements multiple layers of content filtering in Azure OpenAI</li>
+</ul>
+<hr />
+<h2 id="summary">Summary</h2>
+<h3 id="key-takeaways">Key Takeaways</h3>
+<ol>
+<li><strong>Defense in Depth</strong>: Multiple layers of guardrails, not just one</li>
+<li><strong>Observability</strong>: You can't fix what you can't see</li>
+<li><strong>Cost Control</strong>: Budget limits prevent runaway costs</li>
+<li><strong>Graceful Degradation</strong>: Fail safely, not catastrophically</li>
+<li><strong>Security First</strong>: Every input is potentially malicious</li>
+</ol>
+<h3 id="production-readiness-checklist">Production Readiness Checklist</h3>
+<pre><code>□ Guardrails
+  □ Input validation
+  □ Prompt injection detection
+  □ Output filtering
+  □ PII protection
+
+□ Observability
+  □ Structured logging
+  □ Metrics collection
+  □ Distributed tracing
+  □ Alerting
+
+□ Cost Management
+  □ Cost tracking
+  □ Budget controls
+  □ Model routing
+  □ Caching
+
+□ Reliability
+  □ Retry strategies
+  □ Circuit breakers
+  □ Graceful degradation
+  □ Fallback responses
+
+□ Security
+  □ Authentication
+  □ Authorization
+  □ Encryption
+  □ Audit logging
+
+□ Scalability
+  □ Stateless design
+  □ External state store
+  □ Queue-based processing
+  □ Rate limiting
+</code></pre>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.smith.langchain.com/">LangSmith Documentation</a> - Tracing for LLM apps</li>
+<li><a href="https://github.com/NVIDIA/NeMo-Guardrails">NeMo Guardrails</a> - NVIDIA's guardrails framework</li>
+<li><a href="https://www.guardrailsai.com/">Guardrails AI</a> - Output validation framework</li>
+<li><a href="https://opentelemetry.io/docs/instrumentation/python/">OpenTelemetry for Python</a> - Distributed tracing</li>
+<li><a href="https://martinfowler.com/bliki/CircuitBreaker.html">The Circuit Breaker Pattern</a> - Martin Fowler</li>
+</ul>
+<hr />
+<h2 id="whats-next">️ What's Next</h2>
+<p>Congratulations! You've completed <strong>Phase 4: Frameworks &amp; Agents</strong>! 🎉</p>
+<p>You now have:
+- LangChain mastery
+- Function calling and tools
+- Chain-of-thought reasoning
+- LangGraph stateful workflows
+- Framework comparison skills
+- Advanced agentic AI patterns
+- Production deployment knowledge</p>
+<p><strong>Next Phase</strong>: Phase 5: Multimodal AI
+- Module 22: Speech AI
+- Module 23: Vision AI
+- Module 24: Video AI</p>
+<hr />
+<p><em>Module 21: AI Agents in Production</em>
+<em>Part of Neural Dojo: From Zero to AI Guru</em>
+<em>Time to deploy those agents safely! 🚀</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_22_speech_ai.html">Module 22: Speech AI 🆕</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

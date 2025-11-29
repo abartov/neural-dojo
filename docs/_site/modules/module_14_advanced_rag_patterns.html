@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 14: Advanced RAG Patterns - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_15_langchain_fundamentals.html">Next: Module 15: LangChain Fundamentals →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 14: Advanced RAG Patterns</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-14-advanced-rag-patterns">Module 14: Advanced RAG Patterns</h1>
+<h1 id="or-when-basic-retrieval-isnt-enough">Or: When Basic Retrieval Isn't Enough</h1>
+<p><strong>Last Updated</strong>: 2025-11-25
+<strong>Status</strong>: In Progress
+<strong>Reading Time</strong>: 6-7 hours
+<strong>Prerequisites</strong>: Modules 12-13</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Master GraphRAG for knowledge graph-enhanced retrieval
+- Implement HyDE (Hypothetical Document Embeddings) for query expansion
+- Build Self-RAG systems with retrieval reflection
+- Create hybrid search combining BM25 and semantic search
+- Apply reranking with cross-encoders for precision
+- Understand when to use each pattern and their trade-offs</p>
+<hr />
+<h2 id="why-advanced-rag">Why Advanced RAG?</h2>
+<p>In Module 12, you built your first RAG system. It works, but you've probably noticed some limitations:</p>
+<ol>
+<li><strong>Semantic gaps</strong>: User queries don't always match document language</li>
+<li><strong>Missing context</strong>: Retrieved chunks lack surrounding information</li>
+<li><strong>Relevance issues</strong>: Top-k retrieval returns "close" but not "best" results</li>
+<li><strong>No reasoning</strong>: The system can't evaluate its own retrieval quality</li>
+</ol>
+<p><strong>Advanced RAG patterns solve these problems!</strong></p>
+<pre><code>Basic RAG: Query → Embed → Search → Top-K → Generate
+                    ↓
+Advanced RAG: Query → Expand → Hybrid Search → Rerank → Reflect → Generate
+</code></pre>
+<hr />
+<h2 id="1-graphrag-knowledge-graphs-meet-rag">1. GraphRAG: Knowledge Graphs Meet RAG</h2>
+<h3 id="the-problem-with-flat-retrieval">The Problem with Flat Retrieval</h3>
+<p>Traditional RAG treats documents as isolated chunks. But real knowledge is <strong>connected</strong>:</p>
+<pre><code>Traditional RAG:
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│ Chunk about     │  │ Chunk about     │  │ Chunk about     │
+│ &quot;Python lists&quot;  │  │ &quot;Python dicts&quot;  │  │ &quot;data structures&quot;│
+└─────────────────┘  └─────────────────┘  └─────────────────┘
+        ↓                   ↓                    ↓
+    All isolated - no connections between concepts!
+
+GraphRAG:
+┌─────────────────┐
+│ &quot;Python lists&quot;  │──────┐
+└─────────────────┘      │    ┌──────────────────┐
+        │                ├───▶│ &quot;data structures&quot; │
+        ▼                │    └──────────────────┘
+┌─────────────────┐      │            │
+│ &quot;Python dicts&quot;  │──────┘            ▼
+└─────────────────┘           ┌──────────────────┐
+                              │ &quot;algorithms&quot;     │
+                              └──────────────────┘
+</code></pre>
+<h3 id="how-graphrag-works">How GraphRAG Works</h3>
+<p>GraphRAG combines:
+1. <strong>Knowledge Graph</strong>: Entities and relationships extracted from documents
+2. <strong>Vector Store</strong>: Embeddings for semantic search
+3. <strong>Graph Traversal</strong>: Following connections to find related context</p>
+<pre><code class="language-python"># GraphRAG Architecture
+class GraphRAG:
+    &quot;&quot;&quot;
+    1. Extract entities and relationships from documents
+    2. Build a knowledge graph (Neo4j, NetworkX)
+    3. On query:
+       a. Find relevant entities via embedding search
+       b. Traverse graph to find connected entities
+       c. Retrieve chunks for all relevant entities
+       d. Generate response with rich context
+    &quot;&quot;&quot;
+</code></pre>
+<h3 id="entity-extraction">Entity Extraction</h3>
+<p>The first step is extracting entities and relationships:</p>
+<pre><code class="language-python"># Using LLM for entity extraction
+ENTITY_EXTRACTION_PROMPT = &quot;&quot;&quot;
+Extract entities and relationships from the following text.
+Return JSON format:
+
+{
+  &quot;entities&quot;: [
+    {&quot;name&quot;: &quot;entity_name&quot;, &quot;type&quot;: &quot;PERSON|ORG|CONCEPT|TECH|...&quot;}
+  ],
+  &quot;relationships&quot;: [
+    {&quot;source&quot;: &quot;entity1&quot;, &quot;target&quot;: &quot;entity2&quot;, &quot;type&quot;: &quot;relationship_type&quot;}
+  ]
+}
+
+Text: {text}
+&quot;&quot;&quot;
+
+# Example output for a tech document:
+{
+  &quot;entities&quot;: [
+    {&quot;name&quot;: &quot;Python&quot;, &quot;type&quot;: &quot;PROGRAMMING_LANGUAGE&quot;},
+    {&quot;name&quot;: &quot;list&quot;, &quot;type&quot;: &quot;DATA_STRUCTURE&quot;},
+    {&quot;name&quot;: &quot;append&quot;, &quot;type&quot;: &quot;METHOD&quot;},
+    {&quot;name&quot;: &quot;Guido van Rossum&quot;, &quot;type&quot;: &quot;PERSON&quot;}
+  ],
+  &quot;relationships&quot;: [
+    {&quot;source&quot;: &quot;Python&quot;, &quot;target&quot;: &quot;list&quot;, &quot;type&quot;: &quot;HAS_FEATURE&quot;},
+    {&quot;source&quot;: &quot;list&quot;, &quot;target&quot;: &quot;append&quot;, &quot;type&quot;: &quot;HAS_METHOD&quot;},
+    {&quot;source&quot;: &quot;Guido van Rossum&quot;, &quot;target&quot;: &quot;Python&quot;, &quot;type&quot;: &quot;CREATED&quot;}
+  ]
+}
+</code></pre>
+<h3 id="graph-enhanced-retrieval">Graph-Enhanced Retrieval</h3>
+<pre><code class="language-python">def graph_enhanced_retrieval(query: str, k: int = 5) -&gt; List[Document]:
+    &quot;&quot;&quot;
+    1. Semantic search for initial entities
+    2. Graph traversal for connected context
+    3. Retrieve documents for all relevant entities
+    &quot;&quot;&quot;
+    # Step 1: Find query-relevant entities
+    query_embedding = embed(query)
+    initial_entities = vector_search(query_embedding, k=3)
+
+    # Step 2: Expand via graph traversal (1-2 hops)
+    expanded_entities = set(initial_entities)
+    for entity in initial_entities:
+        neighbors = graph.get_neighbors(entity, max_hops=2)
+        expanded_entities.update(neighbors)
+
+    # Step 3: Retrieve chunks for all entities
+    chunks = []
+    for entity in expanded_entities:
+        entity_chunks = get_chunks_for_entity(entity)
+        chunks.extend(entity_chunks)
+
+    # Step 4: Rank by relevance to original query
+    ranked_chunks = rerank(query, chunks)
+
+    return ranked_chunks[:k]
+</code></pre>
+<h3 id="when-to-use-graphrag">When to Use GraphRAG</h3>
+<p><strong>Good for:</strong>
+- Complex domains with interconnected concepts (legal, medical, technical)
+- Questions requiring multi-hop reasoning ("What technologies did companies founded by Stanford graduates use?")
+- Documents with clear entity relationships</p>
+<p><strong>Not ideal for:</strong>
+- Simple Q&amp;A over flat documents
+- When entity extraction is unreliable
+- Small document collections (overhead not worth it)</p>
+<h3 id="graphrag-with-neo4j">GraphRAG with Neo4j</h3>
+<pre><code class="language-python">from neo4j import GraphDatabase
+
+class Neo4jGraphRAG:
+    def __init__(self, uri, user, password):
+        self.driver = GraphDatabase.driver(uri, auth=(user, password))
+
+    def add_entity(self, entity_id: str, entity_type: str, embedding: List[float]):
+        with self.driver.session() as session:
+            session.run(&quot;&quot;&quot;
+                MERGE (e:Entity {id: $id})
+                SET e.type = $type, e.embedding = $embedding
+            &quot;&quot;&quot;, id=entity_id, type=entity_type, embedding=embedding)
+
+    def add_relationship(self, source: str, target: str, rel_type: str):
+        with self.driver.session() as session:
+            session.run(&quot;&quot;&quot;
+                MATCH (s:Entity {id: $source})
+                MATCH (t:Entity {id: $target})
+                MERGE (s)-[r:RELATES {type: $rel_type}]-&gt;(t)
+            &quot;&quot;&quot;, source=source, target=target, rel_type=rel_type)
+
+    def find_connected_entities(self, entity_id: str, max_hops: int = 2) -&gt; List[str]:
+        with self.driver.session() as session:
+            result = session.run(&quot;&quot;&quot;
+                MATCH (start:Entity {id: $id})-[*1..$hops]-(connected:Entity)
+                RETURN DISTINCT connected.id as entity_id
+            &quot;&quot;&quot;, id=entity_id, hops=max_hops)
+            return [record[&quot;entity_id&quot;] for record in result]
+</code></pre>
+<hr />
+<h2 id="2-hyde-hypothetical-document-embeddings">2. HyDE: Hypothetical Document Embeddings</h2>
+<h3 id="the-query-document-mismatch-problem">The Query-Document Mismatch Problem</h3>
+<p>Users ask questions. Documents contain answers. But they use different language:</p>
+<pre><code>User query: &quot;How do I make my code run faster?&quot;
+Document:   &quot;Performance optimization techniques include caching,
+             algorithmic improvements, and parallel processing...&quot;
+
+The QUESTION doesn't match the ANSWER linguistically!
+</code></pre>
+<h3 id="hyde-solution">HyDE Solution</h3>
+<p><strong>Idea</strong>: Generate a hypothetical answer, then search for documents similar to that answer!</p>
+<pre><code>Traditional: Query → Embed Query → Search
+HyDE:        Query → Generate Hypothetical Answer → Embed Answer → Search
+
+The hypothetical answer uses document-like language!
+</code></pre>
+<h3 id="how-hyde-works">How HyDE Works</h3>
+<pre><code class="language-python">def hyde_search(query: str, k: int = 5) -&gt; List[Document]:
+    &quot;&quot;&quot;
+    1. Generate hypothetical document that would answer the query
+    2. Embed the hypothetical document
+    3. Search for real documents similar to the hypothetical
+    &quot;&quot;&quot;
+
+    # Step 1: Generate hypothetical answer
+    hypothetical_prompt = f&quot;&quot;&quot;
+    Write a detailed passage that would perfectly answer this question:
+
+    Question: {query}
+
+    Write as if this is from an authoritative document. Include specific details.
+    &quot;&quot;&quot;
+
+    hypothetical_doc = llm.generate(hypothetical_prompt)
+
+    # Step 2: Embed the hypothetical document
+    hyde_embedding = embed(hypothetical_doc)
+
+    # Step 3: Search with hypothetical embedding
+    results = vector_store.search(hyde_embedding, k=k)
+
+    return results
+</code></pre>
+<h3 id="hyde-example">HyDE Example</h3>
+<pre><code class="language-python"># Query
+query = &quot;Why is my Python code slow?&quot;
+
+# Traditional embedding search might miss documents about:
+# - &quot;Performance bottlenecks in Python applications&quot;
+# - &quot;Optimizing interpreter overhead&quot;
+# - &quot;GIL and threading limitations&quot;
+
+# HyDE generates:
+hypothetical = &quot;&quot;&quot;
+Python code performance issues commonly stem from several factors.
+The Global Interpreter Lock (GIL) prevents true parallel execution
+of threads. Interpreted languages have inherent overhead compared
+to compiled languages. Common bottlenecks include inefficient loops,
+excessive memory allocation, and I/O blocking operations. Solutions
+include using NumPy for vectorized operations, multiprocessing for
+CPU-bound tasks, asyncio for I/O-bound operations, and profiling
+tools like cProfile to identify hotspots.
+&quot;&quot;&quot;
+
+# This hypothetical document uses the SAME LANGUAGE as real documents!
+# Searching with its embedding finds much better matches.
+</code></pre>
+<h3 id="multi-hyde-generate-multiple-hypotheticals">Multi-HyDE: Generate Multiple Hypotheticals</h3>
+<pre><code class="language-python">def multi_hyde_search(query: str, k: int = 5, n_hypotheticals: int = 3) -&gt; List[Document]:
+    &quot;&quot;&quot;Generate multiple hypotheticals for better coverage.&quot;&quot;&quot;
+
+    all_results = []
+
+    for i in range(n_hypotheticals):
+        prompt = f&quot;&quot;&quot;
+        Write a unique passage answering this question from a different angle:
+
+        Question: {query}
+        Angle {i+1}: Focus on {'theory' if i==0 else 'practical examples' if i==1 else 'common mistakes'}
+        &quot;&quot;&quot;
+
+        hypothetical = llm.generate(prompt)
+        embedding = embed(hypothetical)
+        results = vector_store.search(embedding, k=k)
+        all_results.extend(results)
+
+    # Deduplicate and rerank
+    unique_results = deduplicate(all_results)
+    return rerank(query, unique_results)[:k]
+</code></pre>
+<h3 id="when-to-use-hyde">When to Use HyDE</h3>
+<p><strong>Good for:</strong>
+- Question-answering where queries are questions, docs are statements
+- Technical documentation (query language differs from doc language)
+- When semantic search returns "close but not relevant" results</p>
+<p><strong>Not ideal for:</strong>
+- Keyword-heavy searches (product names, codes)
+- When queries already match document language
+- Real-time applications (adds LLM latency)</p>
+<p><strong>Cost consideration</strong>: HyDE adds one LLM call per query!</p>
+<hr />
+<h2 id="3-self-rag-self-reflective-retrieval">3. Self-RAG: Self-Reflective Retrieval</h2>
+<h3 id="the-garbage-in-garbage-out-problem">The "Garbage In, Garbage Out" Problem</h3>
+<p>Basic RAG blindly uses whatever is retrieved. But what if:
+- Retrieved documents are irrelevant?
+- The answer isn't in the retrieved docs?
+- Multiple docs contradict each other?</p>
+<h3 id="self-rag-solution">Self-RAG Solution</h3>
+<p><strong>Idea</strong>: Have the LLM critique its own retrieval and generation!</p>
+<pre><code>Basic RAG:     Retrieve → Generate
+Self-RAG:      Retrieve → Critique Retrieval → Generate → Critique Generation → Refine
+
+The model asks itself:
+- &quot;Is this retrieved passage relevant?&quot;
+- &quot;Does my answer actually use the evidence?&quot;
+- &quot;Is my answer supported by the passages?&quot;
+</code></pre>
+<h3 id="self-rag-architecture">Self-RAG Architecture</h3>
+<pre><code class="language-python">class SelfRAG:
+    def __init__(self, llm, retriever):
+        self.llm = llm
+        self.retriever = retriever
+
+    def answer(self, query: str) -&gt; str:
+        # Step 1: Retrieve
+        passages = self.retriever.search(query, k=5)
+
+        # Step 2: Critique retrieval (filter irrelevant)
+        relevant_passages = self.critique_retrieval(query, passages)
+
+        if not relevant_passages:
+            return self.answer_without_retrieval(query)
+
+        # Step 3: Generate answer
+        answer = self.generate_answer(query, relevant_passages)
+
+        # Step 4: Critique generation
+        is_supported, critique = self.critique_generation(query, answer, relevant_passages)
+
+        if not is_supported:
+            # Step 5: Refine or regenerate
+            answer = self.refine_answer(query, answer, critique, relevant_passages)
+
+        return answer
+
+    def critique_retrieval(self, query: str, passages: List[str]) -&gt; List[str]:
+        &quot;&quot;&quot;Filter out irrelevant passages.&quot;&quot;&quot;
+        relevant = []
+        for passage in passages:
+            prompt = f&quot;&quot;&quot;
+            Query: {query}
+            Passage: {passage}
+
+            Is this passage relevant to answering the query?
+            Answer only: RELEVANT or IRRELEVANT
+            &quot;&quot;&quot;
+            verdict = self.llm.generate(prompt).strip()
+            if verdict == &quot;RELEVANT&quot;:
+                relevant.append(passage)
+        return relevant
+
+    def critique_generation(self, query: str, answer: str, passages: List[str]) -&gt; Tuple[bool, str]:
+        &quot;&quot;&quot;Check if answer is supported by passages.&quot;&quot;&quot;
+        prompt = f&quot;&quot;&quot;
+        Query: {query}
+        Retrieved Passages: {passages}
+        Generated Answer: {answer}
+
+        Evaluate the answer:
+        1. Is the answer factually supported by the passages?
+        2. Does the answer actually address the query?
+        3. Are there any unsupported claims?
+
+        Respond with:
+        SUPPORTED: [Yes/No]
+        CRITIQUE: [Brief explanation]
+        &quot;&quot;&quot;
+        response = self.llm.generate(prompt)
+        is_supported = &quot;SUPPORTED: Yes&quot; in response
+        critique = response.split(&quot;CRITIQUE:&quot;)[-1].strip()
+        return is_supported, critique
+</code></pre>
+<h3 id="retrieval-tokens-advanced-self-rag">Retrieval Tokens (Advanced Self-RAG)</h3>
+<p>The original Self-RAG paper introduces special tokens:</p>
+<pre><code>[Retrieve]: Should I retrieve? (Yes/No/Continue)
+[IsRel]:    Is passage relevant? (Relevant/Irrelevant)
+[IsSup]:    Is response supported? (Fully/Partially/No)
+[IsUse]:    Is response useful? (5/4/3/2/1)
+</code></pre>
+<p>These are trained into the model, making self-critique faster than prompting.</p>
+<h3 id="when-to-use-self-rag">When to Use Self-RAG</h3>
+<p><strong>Good for:</strong>
+- High-stakes applications (medical, legal, financial)
+- When retrieval quality varies
+- When you need explainable, verifiable answers</p>
+<p><strong>Not ideal for:</strong>
+- Simple, low-stakes Q&amp;A
+- Real-time applications (multiple LLM calls)
+- When retrieval is already high-quality</p>
+<hr />
+<h2 id="4-hybrid-search-bm25-semantic">4. Hybrid Search: BM25 + Semantic</h2>
+<h3 id="why-hybrid">Why Hybrid?</h3>
+<p><strong>Semantic search</strong> (embeddings) is great for meaning but misses exact matches:</p>
+<pre><code>Query: &quot;error code 0x80070005&quot;
+Semantic search might return docs about &quot;error handling&quot; instead of
+docs containing that exact error code!
+</code></pre>
+<p><strong>Lexical search</strong> (BM25/TF-IDF) finds exact matches but misses meaning:</p>
+<pre><code>Query: &quot;how to fix slow code&quot;
+BM25 won't find docs about &quot;performance optimization&quot; unless they
+contain &quot;slow&quot; and &quot;code&quot;!
+</code></pre>
+<p><strong>Hybrid search combines both!</strong></p>
+<h3 id="bm25-explained">BM25 Explained</h3>
+<p>BM25 (Best Match 25) is a ranking function based on term frequency:</p>
+<pre><code class="language-python"># Simplified BM25 scoring
+def bm25_score(query_terms, document, corpus):
+    score = 0
+    for term in query_terms:
+        tf = term_frequency(term, document)
+        idf = inverse_document_frequency(term, corpus)
+        doc_length = len(document)
+        avg_length = average_document_length(corpus)
+
+        # BM25 formula
+        k1, b = 1.5, 0.75  # tuning parameters
+        numerator = tf * (k1 + 1)
+        denominator = tf + k1 * (1 - b + b * doc_length / avg_length)
+        score += idf * (numerator / denominator)
+
+    return score
+</code></pre>
+<h3 id="implementing-hybrid-search">Implementing Hybrid Search</h3>
+<pre><code class="language-python">from rank_bm25 import BM25Okapi
+import numpy as np
+
+class HybridSearch:
+    def __init__(self, documents: List[str], embeddings: np.ndarray):
+        self.documents = documents
+        self.embeddings = embeddings
+
+        # Initialize BM25
+        tokenized_docs = [doc.lower().split() for doc in documents]
+        self.bm25 = BM25Okapi(tokenized_docs)
+
+    def search(self, query: str, k: int = 5, alpha: float = 0.5) -&gt; List[Tuple[str, float]]:
+        &quot;&quot;&quot;
+        Hybrid search with configurable weighting.
+        alpha: weight for semantic (1-alpha for BM25)
+        &quot;&quot;&quot;
+        # Semantic search
+        query_embedding = embed(query)
+        semantic_scores = cosine_similarity([query_embedding], self.embeddings)[0]
+
+        # BM25 search
+        tokenized_query = query.lower().split()
+        bm25_scores = self.bm25.get_scores(tokenized_query)
+
+        # Normalize scores to [0, 1]
+        semantic_scores = self.normalize(semantic_scores)
+        bm25_scores = self.normalize(bm25_scores)
+
+        # Combine with weighting
+        hybrid_scores = alpha * semantic_scores + (1 - alpha) * bm25_scores
+
+        # Get top-k
+        top_indices = np.argsort(hybrid_scores)[::-1][:k]
+
+        return [(self.documents[i], hybrid_scores[i]) for i in top_indices]
+
+    def normalize(self, scores: np.ndarray) -&gt; np.ndarray:
+        &quot;&quot;&quot;Min-max normalization.&quot;&quot;&quot;
+        min_score, max_score = scores.min(), scores.max()
+        if max_score == min_score:
+            return np.zeros_like(scores)
+        return (scores - min_score) / (max_score - min_score)
+</code></pre>
+<h3 id="reciprocal-rank-fusion-rrf">Reciprocal Rank Fusion (RRF)</h3>
+<p>An alternative to weighted combination:</p>
+<pre><code class="language-python">def reciprocal_rank_fusion(rankings: List[List[int]], k: int = 60) -&gt; List[int]:
+    &quot;&quot;&quot;
+    Combine multiple rankings using RRF.
+
+    RRF Score = sum(1 / (k + rank_i)) for each ranking list
+
+    k=60 is the standard constant (reduces impact of high ranks)
+    &quot;&quot;&quot;
+    scores = {}
+
+    for ranking in rankings:
+        for rank, doc_id in enumerate(ranking):
+            if doc_id not in scores:
+                scores[doc_id] = 0
+            scores[doc_id] += 1 / (k + rank + 1)  # +1 because rank is 0-indexed
+
+    # Sort by RRF score
+    sorted_docs = sorted(scores.keys(), key=lambda x: scores[x], reverse=True)
+    return sorted_docs
+</code></pre>
+<h3 id="when-to-use-hybrid-search">When to Use Hybrid Search</h3>
+<p><strong>Good for:</strong>
+- Mixed query types (some keyword, some natural language)
+- Technical domains with codes, IDs, acronyms
+- General-purpose search systems</p>
+<p><strong>Tuning alpha:</strong>
+- alpha=1.0: Pure semantic search
+- alpha=0.5: Balanced (good default)
+- alpha=0.0: Pure BM25
+- Tune based on your query distribution!</p>
+<hr />
+<h2 id="5-reranking-with-cross-encoders">5. Reranking with Cross-Encoders</h2>
+<h3 id="the-bi-encoder-vs-cross-encoder-trade-off">The Bi-Encoder vs Cross-Encoder Trade-off</h3>
+<p><strong>Bi-encoder</strong> (what we've been using):</p>
+<pre><code>Query → Encoder → Query Embedding
+Doc   → Encoder → Doc Embedding
+Score = cosine_similarity(query_emb, doc_emb)
+
+Fast! Can pre-compute doc embeddings.
+But query and doc don't &quot;see&quot; each other.
+</code></pre>
+<p><strong>Cross-encoder</strong>:</p>
+<pre><code>[Query, Doc] → Encoder → Relevance Score
+
+Query and doc are encoded TOGETHER!
+Much more accurate, but slow (can't pre-compute).
+</code></pre>
+<h3 id="two-stage-retrieval">Two-Stage Retrieval</h3>
+<pre><code>Stage 1 (Fast, Recall-focused):
+  1000 docs → Bi-encoder → Top 100 candidates
+
+Stage 2 (Slow, Precision-focused):
+  100 candidates → Cross-encoder → Top 10 final results
+
+Best of both worlds!
+</code></pre>
+<h3 id="implementing-reranking">Implementing Reranking</h3>
+<pre><code class="language-python">from sentence_transformers import CrossEncoder
+
+class RerankedSearch:
+    def __init__(self, bi_encoder, cross_encoder_model: str = &quot;cross-encoder/ms-marco-MiniLM-L-6-v2&quot;):
+        self.bi_encoder = bi_encoder
+        self.cross_encoder = CrossEncoder(cross_encoder_model)
+
+    def search(self, query: str, k: int = 5, candidates: int = 50) -&gt; List[str]:
+        &quot;&quot;&quot;
+        Two-stage retrieval with reranking.
+        &quot;&quot;&quot;
+        # Stage 1: Fast retrieval with bi-encoder
+        initial_results = self.bi_encoder.search(query, k=candidates)
+
+        # Stage 2: Rerank with cross-encoder
+        pairs = [[query, doc] for doc in initial_results]
+        scores = self.cross_encoder.predict(pairs)
+
+        # Sort by cross-encoder score
+        ranked_results = sorted(zip(initial_results, scores), key=lambda x: x[1], reverse=True)
+
+        return [doc for doc, score in ranked_results[:k]]
+</code></pre>
+<h3 id="popular-cross-encoder-models">Popular Cross-Encoder Models</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Speed</th>
+<th>Quality</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cross-encoder/ms-marco-MiniLM-L-6-v2</code></td>
+<td>Fast</td>
+<td>Good</td>
+<td>General purpose</td>
+</tr>
+<tr>
+<td><code>cross-encoder/ms-marco-MiniLM-L-12-v2</code></td>
+<td>Medium</td>
+<td>Better</td>
+<td>Balanced</td>
+</tr>
+<tr>
+<td><code>BAAI/bge-reranker-base</code></td>
+<td>Medium</td>
+<td>Best</td>
+<td>High quality</td>
+</tr>
+<tr>
+<td><code>BAAI/bge-reranker-large</code></td>
+<td>Slow</td>
+<td>Best</td>
+<td>Maximum quality</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cohere-rerank-api">Cohere Rerank API</h3>
+<p>For production without hosting your own model:</p>
+<pre><code class="language-python">import cohere
+
+co = cohere.Client(&quot;your-api-key&quot;)
+
+def cohere_rerank(query: str, documents: List[str], top_n: int = 5) -&gt; List[str]:
+    response = co.rerank(
+        query=query,
+        documents=documents,
+        top_n=top_n,
+        model=&quot;rerank-english-v2.0&quot;
+    )
+
+    return [documents[result.index] for result in response.results]
+</code></pre>
+<h3 id="when-to-use-reranking">When to Use Reranking</h3>
+<p><strong>Always use reranking when:</strong>
+- Precision matters more than latency
+- You have the compute budget
+- Initial retrieval returns "close but not best" results</p>
+<p><strong>Skip reranking when:</strong>
+- Ultra-low latency required (&lt;50ms)
+- Initial retrieval is already high quality
+- Cost is a major constraint</p>
+<hr />
+<h2 id="6-parent-document-retrieval">6. Parent Document Retrieval</h2>
+<h3 id="the-chunk-size-dilemma">The Chunk Size Dilemma</h3>
+<p><strong>Small chunks</strong> (100-200 tokens):
+- Better embedding precision
+- But lose context for generation</p>
+<p><strong>Large chunks</strong> (1000+ tokens):
+- More context for generation
+- But worse embedding precision</p>
+<p><strong>Solution</strong>: Index small, retrieve large!</p>
+<h3 id="parent-document-retrieval-pattern">Parent Document Retrieval Pattern</h3>
+<pre><code class="language-python">class ParentDocumentRetriever:
+    &quot;&quot;&quot;
+    Store two versions:
+    1. Small chunks (for search)
+    2. Parent documents (for context)
+
+    Search finds relevant small chunks,
+    then returns their parent documents.
+    &quot;&quot;&quot;
+
+    def __init__(self):
+        self.small_chunks = {}  # chunk_id -&gt; small chunk text
+        self.parent_docs = {}   # parent_id -&gt; full document
+        self.chunk_to_parent = {}  # chunk_id -&gt; parent_id
+        self.vector_store = VectorStore()
+
+    def add_document(self, doc_id: str, full_text: str, chunk_size: int = 200):
+        # Store full document
+        self.parent_docs[doc_id] = full_text
+
+        # Create and index small chunks
+        chunks = split_into_chunks(full_text, chunk_size)
+        for i, chunk in enumerate(chunks):
+            chunk_id = f&quot;{doc_id}_chunk_{i}&quot;
+            self.small_chunks[chunk_id] = chunk
+            self.chunk_to_parent[chunk_id] = doc_id
+
+            # Index small chunk
+            embedding = embed(chunk)
+            self.vector_store.add(chunk_id, embedding)
+
+    def search(self, query: str, k: int = 3) -&gt; List[str]:
+        # Search in small chunks
+        query_embedding = embed(query)
+        chunk_ids = self.vector_store.search(query_embedding, k=k*2)  # Get more to dedupe parents
+
+        # Get unique parent documents
+        parent_ids = list(set(self.chunk_to_parent[cid] for cid in chunk_ids))
+
+        # Return parent documents (not small chunks!)
+        return [self.parent_docs[pid] for pid in parent_ids[:k]]
+</code></pre>
+<h3 id="multi-level-hierarchy">Multi-Level Hierarchy</h3>
+<p>For very long documents, use multiple levels:</p>
+<pre><code>Level 0: Full document (10,000 tokens)
+Level 1: Sections (1,000 tokens)
+Level 2: Paragraphs (200 tokens)
+Level 3: Sentences (20-50 tokens)
+
+Search at Level 3, return Level 1 or 2!
+</code></pre>
+<hr />
+<h2 id="7-combining-patterns-production-rag">7. Combining Patterns: Production RAG</h2>
+<h3 id="the-full-pipeline">The Full Pipeline</h3>
+<pre><code class="language-python">class ProductionRAG:
+    &quot;&quot;&quot;
+    Combines multiple advanced patterns:
+    1. HyDE for query expansion
+    2. Hybrid search (BM25 + semantic)
+    3. Parent document retrieval
+    4. Cross-encoder reranking
+    5. Self-critique before generation
+    &quot;&quot;&quot;
+
+    def answer(self, query: str) -&gt; str:
+        # 1. HyDE: Generate hypothetical answer
+        hyde_embedding = self.hyde_expand(query)
+
+        # 2. Hybrid search with parent retrieval
+        bm25_results = self.bm25_search(query, k=30)
+        semantic_results = self.semantic_search(hyde_embedding, k=30)
+        candidates = self.merge_results(bm25_results, semantic_results)
+
+        # 3. Get parent documents
+        parent_docs = self.get_parents(candidates)
+
+        # 4. Rerank with cross-encoder
+        reranked = self.rerank(query, parent_docs, k=5)
+
+        # 5. Self-critique: filter irrelevant
+        relevant = self.filter_relevant(query, reranked)
+
+        if not relevant:
+            return &quot;I don't have enough information to answer this question.&quot;
+
+        # 6. Generate with critique
+        answer = self.generate(query, relevant)
+
+        # 7. Verify answer is supported
+        if not self.verify_supported(answer, relevant):
+            answer = self.regenerate_with_constraints(query, relevant)
+
+        return answer
+</code></pre>
+<h3 id="pattern-selection-guide">Pattern Selection Guide</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When to Use</th>
+<th>Latency Impact</th>
+<th>Quality Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HyDE</strong></td>
+<td>Q&amp;A, technical docs</td>
+<td>+200-500ms</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Hybrid Search</strong></td>
+<td>Mixed queries</td>
+<td>+10-50ms</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>GraphRAG</strong></td>
+<td>Connected knowledge</td>
+<td>+100-300ms</td>
+<td>High (for right use case)</td>
+</tr>
+<tr>
+<td><strong>Reranking</strong></td>
+<td>When precision matters</td>
+<td>+50-200ms</td>
+<td>High</td>
+</tr>
+<tr>
+<td><strong>Self-RAG</strong></td>
+<td>High-stakes applications</td>
+<td>+500-1000ms</td>
+<td>Very High</td>
+</tr>
+<tr>
+<td><strong>Parent Docs</strong></td>
+<td>Long documents</td>
+<td>Minimal</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="did-you-know">Did You Know?</h2>
+<h3 id="the-accidental-discovery-of-hyde">The Accidental Discovery of HyDE</h3>
+<p>In 2022, researchers at Carnegie Mellon were trying to improve retrieval by fine-tuning embeddings. One day, they accidentally ran their search using a <strong>generated summary</strong> instead of the original query. To their surprise, it worked <em>better</em>! This "mistake" led to the HyDE paper - proving that sometimes the best discoveries come from errors.</p>
+<p><strong>The insight</strong>: LLMs write in "document language," while humans write in "question language." By translating questions to document-style text, you speak the same language as your corpus!</p>
+<h3 id="bm25-the-30-year-old-algorithm-that-wont-die">BM25: The 30-Year-Old Algorithm That Won't Die</h3>
+<p>BM25 (Best Match 25) was published by Stephen Robertson in <strong>1994</strong> - before Google existed, before most developers were born. Yet it <em>still</em> powers Elasticsearch, Solr, and is used by most search engines as a baseline.</p>
+<p>Why? Because for exact matches, nothing beats term frequency. When someone searches "error 0x80070005", semantic search might return docs about "error handling" - but BM25 finds the exact code every time.</p>
+<p><strong>Fun fact</strong>: The "25" in BM25 refers to it being the 25th iteration of Robertson's Best Match formula. BM1 through BM24 didn't make the cut!</p>
+<h3 id="microsofts-enron-revelation">Microsoft's Enron Revelation</h3>
+<p>When Microsoft released GraphRAG in 2024, they demonstrated it on the <strong>Enron email corpus</strong> - 500,000+ emails from the infamous energy company's collapse. Traditional RAG could answer simple questions, but GraphRAG found hidden connections:</p>
+<ul>
+<li>Who was secretly communicating with whom?</li>
+<li>What topics were discussed in clusters?</li>
+<li>How did information flow through the organization?</li>
+</ul>
+<p>GraphRAG constructed a knowledge graph of entities and relationships, revealing patterns that investigators had missed for 20 years!</p>
+<h3 id="the-cross-encoder-paradox">The Cross-Encoder Paradox</h3>
+<p>Here's a strange fact: Cross-encoders are <strong>10x more accurate</strong> than bi-encoders for relevance scoring. So why doesn't everyone use them?</p>
+<p>Because they're also <strong>1000x slower</strong>. A bi-encoder can search 1 million documents in milliseconds (pre-computed embeddings). A cross-encoder would need to score each document individually - taking hours.</p>
+<p>The two-stage solution (bi-encoder → cross-encoder) was first popularized by <strong>Facebook AI</strong> in 2019 for their Dense Passage Retrieval (DPR) system. Now it's the industry standard.</p>
+<h3 id="the-self-rag-breakthrough">The Self-RAG Breakthrough</h3>
+<p>Self-RAG came from a simple observation: <strong>LLMs are bad at knowing what they don't know</strong>. They hallucinate confidently about topics not in their training data.</p>
+<p>The researchers at University of Washington trained a model to predict special "reflection tokens":
+- <code>[Retrieve]</code> - Should I look something up?
+- <code>[IsRel]</code> - Is this passage relevant?
+- <code>[IsSup]</code> - Is my answer supported by evidence?</p>
+<p>The result? <strong>10-15% accuracy improvement</strong> on knowledge-intensive tasks, with the model effectively "thinking twice" before answering.</p>
+<h3 id="industry-adoption-2024-2025">Industry Adoption (2024-2025)</h3>
+<ul>
+<li><strong>Perplexity AI</strong>: Uses hybrid search + reranking for their answer engine</li>
+<li><strong>ChatGPT (with browsing)</strong>: Implements a form of Self-RAG for web search</li>
+<li><strong>Google Gemini</strong>: Uses GraphRAG-style knowledge graph integration</li>
+<li><strong>Anthropic Claude</strong>: Employs multi-stage retrieval for their knowledge features</li>
+<li><strong>Notion AI</strong>: Hybrid BM25 + semantic for workspace search</li>
+</ul>
+<h3 id="the-numbers-that-matter">The Numbers That Matter</h3>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Quality Improvement</th>
+<th>Latency Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HyDE</td>
+<td>+20-40% recall</td>
+<td>+200-500ms</td>
+</tr>
+<tr>
+<td>Hybrid Search</td>
+<td>+15-25% precision</td>
+<td>+10-50ms</td>
+</tr>
+<tr>
+<td>Reranking</td>
+<td>+30-50% precision</td>
+<td>+50-200ms</td>
+</tr>
+<tr>
+<td>Self-RAG</td>
+<td>+10-15% accuracy</td>
+<td>+500-1000ms</td>
+</tr>
+<tr>
+<td>GraphRAG</td>
+<td>+25-40% for complex queries</td>
+<td>+100-300ms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The takeaway</strong>: You can get 2x better RAG by stacking these techniques. The best production systems use 3-4 of them together!</p>
+<hr />
+<h2 id="deliverable-advanced-rag-toolkit">Deliverable: Advanced RAG Toolkit</h2>
+<p>Build a comprehensive toolkit that implements:
+1. HyDE query expansion
+2. Hybrid search (BM25 + semantic)
+3. Cross-encoder reranking
+4. Self-RAG critique
+5. Comparison benchmarks</p>
+<p>See <code>examples/module_14/</code> for implementation.</p>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2212.10496">HyDE Paper</a> - Hypothetical Document Embeddings</li>
+<li><a href="https://arxiv.org/abs/2310.11511">Self-RAG Paper</a> - Self-Reflective Retrieval</li>
+<li><a href="https://microsoft.github.io/graphrag/">GraphRAG by Microsoft</a> - Knowledge Graph RAG</li>
+<li><a href="https://huggingface.co/spaces/mteb/leaderboard">MTEB Leaderboard</a> - Embedding benchmarks</li>
+<li><a href="https://docs.cohere.com/docs/reranking">Cohere Rerank</a> - Production reranking</li>
+</ul>
+<hr />
+<h2 id="next-steps">️ Next Steps</h2>
+<p>After this module, you'll move to <strong>Phase 4: Frameworks &amp; Agents</strong> where you'll learn LangChain, LangGraph, and build sophisticated AI agents!</p>
+<p>But first, complete the deliverable to cement your understanding of these advanced patterns.</p>
+<hr />
+<p><em>Last updated: 2025-11-25</em>
+<em>Module 14 of Neural Dojo v4.0</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_15_langchain_fundamentals.html">Module 15: LangChain Fundamentals</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

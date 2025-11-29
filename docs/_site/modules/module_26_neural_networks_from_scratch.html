@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 26: Neural Networks from Scratch - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_27_pytorch_fundamentals.html">Next: Module 27: PyTorch Fundamentals →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 26: Neural Networks from Scratch</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-26-neural-networks-from-scratch">Module 26: Neural Networks from Scratch</h1>
+<h1 id="or-building-a-brain-with-nothing-but-math">Or: Building a Brain with Nothing but Math</h1>
+<p><strong>Last Updated</strong>: 2025-11-26
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 7-8 hours
+<strong>Phase</strong>: 6 - Deep Learning Foundations</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand what a neural network actually IS (not just how to use one)
+- Implement forward propagation from scratch
+- Derive and implement backpropagation by hand
+- Train a network on MNIST without ANY frameworks
+- Visualize the learning process
+- Understand WHY neural networks work</p>
+<hr />
+<h2 id="introduction-what-is-a-neural-network">Introduction: What IS a Neural Network?</h2>
+<p>You've used neural networks through APIs and frameworks. You've seen them perform magic - generating text, recognizing images, understanding speech. But what's actually happening inside?</p>
+<p><strong>A neural network is just a function.</strong></p>
+<p>That's it. A very complex, parameterized function that takes inputs and produces outputs. The "learning" is just finding the right parameters.</p>
+<pre><code>Neural Network = f(x; θ)
+
+Where:
+  x = input (image, text, numbers)
+  θ = parameters (weights and biases)
+  f = the function we're learning
+</code></pre>
+<p>The magic isn't in the architecture - it's in the learning algorithm that finds good values for θ.</p>
+<hr />
+<h2 id="did-you-know-the-tumultuous-history-of-neural-networks">Did You Know? The Tumultuous History of Neural Networks</h2>
+<h3 id="the-first-neural-network-1943">The First Neural Network: 1943</h3>
+<p>In 1943, neurophysiologist <strong>Warren McCulloch</strong> and mathematician <strong>Walter Pitts</strong> published "A Logical Calculus of the Ideas Immanent in Nervous Activity." They proposed the first mathematical model of a neuron.</p>
+<blockquote>
+<p>"We propose to show how neurons might be connected to perform logical operations." — McCulloch &amp; Pitts, 1943</p>
+</blockquote>
+<p>Their model was simple: a neuron either fires (1) or doesn't (0), based on whether the weighted sum of its inputs exceeds a threshold. This was the birth of artificial neural networks.</p>
+<h3 id="the-perceptron-1958">The Perceptron: 1958</h3>
+<p><strong>Frank Rosenblatt</strong> at Cornell built the Mark I Perceptron - actual hardware that could learn to recognize simple patterns. The New York Times reported:</p>
+<blockquote>
+<p>"The Navy revealed the embryo of an electronic computer today that it expects will be able to walk, talk, see, write, reproduce itself and be conscious of its existence."</p>
+</blockquote>
+<p>The hype was real. And wildly premature.</p>
+<h3 id="the-ai-winter-1969">The AI Winter: 1969</h3>
+<p>In 1969, <strong>Marvin Minsky</strong> and <strong>Seymour Papert</strong> published "Perceptrons," a book that mathematically proved single-layer perceptrons couldn't learn XOR (a simple logical function). The conclusion was devastating:</p>
+<blockquote>
+<p>"The perceptron has shown itself worthy of study despite (and even because of!) its severe limitations."</p>
+</blockquote>
+<p>Funding for neural networks collapsed. Researchers moved on. This began the first "AI Winter."</p>
+<p><strong>What they missed</strong>: Multi-layer networks COULD learn XOR. But training them was the unsolved problem.</p>
+<h3 id="the-backpropagation-revolution-1986">The Backpropagation Revolution: 1986</h3>
+<p>The solution had actually been discovered multiple times:
+- <strong>Paul Werbos</strong> (1974) - In his PhD thesis, mostly ignored
+- <strong>David Parker</strong> (1985) - Rediscovered independently
+- <strong>Geoffrey Hinton, David Rumelhart, Ronald Williams</strong> (1986) - Made it famous</p>
+<p>The 1986 paper "Learning representations by back-propagating errors" in Nature showed that multi-layer networks could be trained efficiently using backpropagation. Neural networks were back.</p>
+<h3 id="the-second-ai-winter-1990s">The Second AI Winter: 1990s</h3>
+<p>Despite backpropagation, neural networks hit walls:
+- Training was slow (no GPUs)
+- Vanishing gradients killed deep networks
+- Support Vector Machines often worked better
+- Funding dried up again</p>
+<p><strong>Geoffrey Hinton</strong> was one of the few who kept the faith. He later said:</p>
+<blockquote>
+<p>"I was pretty much the only person in the world who still believed in neural networks."</p>
+</blockquote>
+<h3 id="the-deep-learning-revolution-2012">The Deep Learning Revolution: 2012</h3>
+<p>In 2012, <strong>Alex Krizhevsky</strong>, <strong>Ilya Sutskever</strong>, and <strong>Geoffrey Hinton</strong> entered the ImageNet competition with "AlexNet" - a deep convolutional neural network trained on GPUs.</p>
+<p>They didn't just win. They <strong>crushed</strong> the competition, reducing error rates from 26% to 15%.</p>
+<p>The world noticed. The deep learning revolution began.</p>
+<p><strong>The irony</strong>: The core ideas (backpropagation, convolutions) were decades old. What changed was:
+1. <strong>Data</strong>: ImageNet provided millions of labeled images
+2. <strong>Compute</strong>: GPUs made training fast
+3. <strong>Techniques</strong>: ReLU, dropout, batch norm solved training issues</p>
+<hr />
+<h2 id="the-building-block-a-single-neuron">The Building Block: A Single Neuron</h2>
+<p>Let's start with the simplest possible neural network: one neuron.</p>
+<h3 id="the-biological-inspiration">The Biological Inspiration</h3>
+<p>A biological neuron:
+1. Receives signals from other neurons through <strong>dendrites</strong>
+2. If the combined signal exceeds a threshold, it <strong>fires</strong>
+3. The signal travels down the <strong>axon</strong> to other neurons</p>
+<pre><code>    Dendrites          Cell Body         Axon
+    (inputs)           (processing)      (output)
+
+    x₁ ─────┐
+            │
+    x₂ ─────┼──────► [ Σ + f ] ──────► y
+            │
+    x₃ ─────┘
+</code></pre>
+<h3 id="the-artificial-neuron">The Artificial Neuron</h3>
+<p>An artificial neuron does something similar:</p>
+<pre><code class="language-python">def neuron(inputs, weights, bias):
+    # 1. Weighted sum of inputs
+    z = sum(x * w for x, w in zip(inputs, weights)) + bias
+
+    # 2. Apply activation function
+    output = activation(z)
+
+    return output
+</code></pre>
+<p>Mathematically:</p>
+<pre><code>z = w₁x₁ + w₂x₂ + ... + wₙxₙ + b = w·x + b
+y = f(z)
+</code></pre>
+<p>Where:
+- <strong>x</strong> = inputs (features)
+- <strong>w</strong> = weights (learned parameters)
+- <strong>b</strong> = bias (learned parameter)
+- <strong>f</strong> = activation function
+- <strong>y</strong> = output</p>
+<h3 id="activation-functions">Activation Functions</h3>
+<p>The activation function introduces <strong>non-linearity</strong>. Without it, stacking neurons would just give you another linear function.</p>
+<h4 id="sigmoid-historical">Sigmoid (Historical)</h4>
+<pre><code>σ(z) = 1 / (1 + e^(-z))
+</code></pre>
+<ul>
+<li>Output range: (0, 1)</li>
+<li>Problem: Vanishing gradients for large |z|</li>
+<li>Used for: Binary classification outputs</li>
+</ul>
+<h4 id="tanh-historical">Tanh (Historical)</h4>
+<pre><code>tanh(z) = (e^z - e^(-z)) / (e^z + e^(-z))
+</code></pre>
+<ul>
+<li>Output range: (-1, 1)</li>
+<li>Zero-centered (better than sigmoid)</li>
+<li>Still has vanishing gradient problem</li>
+</ul>
+<h4 id="relu-modern-standard">ReLU (Modern Standard)</h4>
+<pre><code>ReLU(z) = max(0, z)
+</code></pre>
+<ul>
+<li>Output range: [0, ∞)</li>
+<li>No vanishing gradient for positive values</li>
+<li>Computationally efficient</li>
+<li>Problem: "Dead neurons" (always output 0)</li>
+</ul>
+<h4 id="leaky-relu">Leaky ReLU</h4>
+<pre><code>LeakyReLU(z) = z if z &gt; 0 else 0.01 * z
+</code></pre>
+<ul>
+<li>Fixes the dead neuron problem</li>
+<li>Small gradient for negative values</li>
+</ul>
+<pre><code>Visualization of Activation Functions:
+
+Sigmoid:                ReLU:
+    1 ─────────            │     ╱
+      │      ╱             │    ╱
+  0.5 │─────╱              │   ╱
+      │    ╱               │  ╱
+    0 ─────                └──────
+     -5    0    5         -2  0  2  4
+</code></pre>
+<hr />
+<h2 id="from-neuron-to-network">🔗 From Neuron to Network</h2>
+<p>One neuron can only learn linear patterns. To learn complex patterns, we stack neurons into <strong>layers</strong>.</p>
+<h3 id="network-architecture">Network Architecture</h3>
+<pre><code>Input Layer    Hidden Layer(s)    Output Layer
+    x₁ ─────┐
+            ├──► h₁ ─────┐
+    x₂ ─────┼            ├──► y₁
+            ├──► h₂ ─────┤
+    x₃ ─────┼            ├──► y₂
+            ├──► h₃ ─────┘
+    x₄ ─────┘
+
+    Features   Learned         Predictions
+               Representations
+</code></pre>
+<p><strong>Fully Connected (Dense) Layer</strong>: Every neuron connects to every neuron in the next layer.</p>
+<h3 id="why-multiple-layers">Why Multiple Layers?</h3>
+<p>Each layer learns increasingly abstract representations:</p>
+<pre><code>Image Recognition Example:
+
+Layer 1: Edges and colors
+Layer 2: Textures and patterns
+Layer 3: Parts (eyes, wheels)
+Layer 4: Objects (faces, cars)
+</code></pre>
+<p>This is the key insight of deep learning: <strong>hierarchical feature learning</strong>.</p>
+<h3 id="matrix-formulation">Matrix Formulation</h3>
+<p>For efficiency, we represent layer computations as matrix operations:</p>
+<pre><code class="language-python"># Single sample
+z = W @ x + b     # Linear transformation
+a = activation(z)  # Non-linearity
+
+# Batch of samples
+Z = W @ X + b     # X is (features, batch_size)
+A = activation(Z)
+</code></pre>
+<p>Where:
+- <strong>W</strong> = weight matrix (output_neurons × input_neurons)
+- <strong>X</strong> = input matrix (input_neurons × batch_size)
+- <strong>b</strong> = bias vector (output_neurons × 1)
+- <strong>Z</strong> = pre-activation (output_neurons × batch_size)
+- <strong>A</strong> = activation (output_neurons × batch_size)</p>
+<hr />
+<h2 id="forward-propagation">➡️ Forward Propagation</h2>
+<p>Forward propagation is computing the output given an input. It's just applying each layer's transformation in sequence.</p>
+<h3 id="algorithm">Algorithm</h3>
+<pre><code class="language-python">def forward(X, parameters):
+    &quot;&quot;&quot;
+    Forward propagation through L layers.
+
+    Args:
+        X: Input data (n_features, m_samples)
+        parameters: Dict with W1, b1, W2, b2, ..., WL, bL
+
+    Returns:
+        AL: Final output
+        caches: Intermediate values (needed for backprop)
+    &quot;&quot;&quot;
+    caches = []
+    A = X
+    L = len(parameters) // 2  # Number of layers
+
+    # Hidden layers (with ReLU)
+    for l in range(1, L):
+        A_prev = A
+        W = parameters[f'W{l}']
+        b = parameters[f'b{l}']
+
+        Z = W @ A_prev + b
+        A = relu(Z)
+
+        caches.append((A_prev, W, b, Z))
+
+    # Output layer (with sigmoid for binary classification)
+    W = parameters[f'W{L}']
+    b = parameters[f'b{L}']
+
+    Z = W @ A + b
+    AL = sigmoid(Z)
+
+    caches.append((A, W, b, Z))
+
+    return AL, caches
+</code></pre>
+<h3 id="example-2-layer-network">Example: 2-Layer Network</h3>
+<pre><code>Input: X (784 features - flattened 28x28 image)
+Hidden: 128 neurons with ReLU
+Output: 10 neurons with softmax (digits 0-9)
+
+Forward pass:
+1. Z1 = W1 @ X + b1      # (128, 784) @ (784, m) = (128, m)
+2. A1 = ReLU(Z1)         # (128, m)
+3. Z2 = W2 @ A1 + b2     # (10, 128) @ (128, m) = (10, m)
+4. A2 = softmax(Z2)      # (10, m) - probabilities for each class
+</code></pre>
+<hr />
+<h2 id="the-loss-function">📉 The Loss Function</h2>
+<p>How do we know if our network's predictions are good? We need a <strong>loss function</strong> (also called cost function or objective function).</p>
+<h3 id="binary-cross-entropy-loss">Binary Cross-Entropy Loss</h3>
+<p>For binary classification (yes/no):</p>
+<pre><code>L(y, ŷ) = -[y * log(ŷ) + (1-y) * log(1-ŷ)]
+</code></pre>
+<p>For m samples:</p>
+<pre><code>J = -(1/m) * Σ[y * log(ŷ) + (1-y) * log(1-ŷ)]
+</code></pre>
+<p><strong>Intuition</strong>:
+- If y=1 and ŷ=1: loss ≈ 0 (correct and confident)
+- If y=1 and ŷ=0: loss → ∞ (wrong and confident)</p>
+<h3 id="categorical-cross-entropy-loss">Categorical Cross-Entropy Loss</h3>
+<p>For multi-class classification:</p>
+<pre><code>L(y, ŷ) = -Σ yᵢ * log(ŷᵢ)
+</code></pre>
+<p>Where y is one-hot encoded (e.g., [0,0,1,0,0,0,0,0,0,0] for digit "2").</p>
+<h3 id="mean-squared-error-mse">Mean Squared Error (MSE)</h3>
+<p>For regression:</p>
+<pre><code>J = (1/m) * Σ(y - ŷ)²
+</code></pre>
+<hr />
+<h2 id="backpropagation-the-key-algorithm">⬅️ Backpropagation: The Key Algorithm</h2>
+<p>Backpropagation is how neural networks learn. It computes the gradient of the loss with respect to every parameter.</p>
+<h3 id="the-chain-rule">The Chain Rule</h3>
+<p>Backpropagation is just the chain rule from calculus, applied systematically.</p>
+<p>If <code>y = f(g(x))</code>, then:</p>
+<pre><code>dy/dx = dy/dg * dg/dx
+</code></pre>
+<p>In a neural network, the loss depends on parameters through a chain of operations:</p>
+<pre><code>Loss ← Output ← Hidden ← ... ← Input ← Parameters
+</code></pre>
+<p>To find how the loss changes with respect to a parameter, we multiply gradients along the path.</p>
+<h3 id="deriving-backpropagation">Deriving Backpropagation</h3>
+<p>Let's derive backprop for a 2-layer network step by step.</p>
+<p><strong>Forward pass:</strong></p>
+<pre><code>Z1 = W1 @ X + b1
+A1 = ReLU(Z1)
+Z2 = W2 @ A1 + b2
+A2 = sigmoid(Z2)
+L = cross_entropy(Y, A2)
+</code></pre>
+<p><strong>Backward pass (computing gradients):</strong></p>
+<ol>
+<li><strong>Output layer gradient:</strong></li>
+</ol>
+<pre><code>dL/dZ2 = A2 - Y     # For sigmoid + cross-entropy
+</code></pre>
+<ol>
+<li><strong>Output layer parameters:</strong></li>
+</ol>
+<pre><code>dL/dW2 = (1/m) * dZ2 @ A1.T
+dL/db2 = (1/m) * sum(dZ2, axis=1)
+</code></pre>
+<ol>
+<li><strong>Hidden layer gradient:</strong></li>
+</ol>
+<pre><code>dL/dA1 = W2.T @ dZ2
+dL/dZ1 = dL/dA1 * ReLU'(Z1)    # Element-wise
+</code></pre>
+<ol>
+<li><strong>Hidden layer parameters:</strong></li>
+</ol>
+<pre><code>dL/dW1 = (1/m) * dZ1 @ X.T
+dL/db1 = (1/m) * sum(dZ1, axis=1)
+</code></pre>
+<h3 id="the-backpropagation-algorithm">The Backpropagation Algorithm</h3>
+<pre><code class="language-python">def backward(AL, Y, caches):
+    &quot;&quot;&quot;
+    Backward propagation through L layers.
+
+    Args:
+        AL: Final output from forward prop
+        Y: True labels
+        caches: Intermediate values from forward prop
+
+    Returns:
+        gradients: Dict with dW1, db1, dW2, db2, ..., dWL, dbL
+    &quot;&quot;&quot;
+    gradients = {}
+    L = len(caches)
+    m = AL.shape[1]
+
+    # Output layer (sigmoid + cross-entropy)
+    dAL = -(Y / AL) + (1 - Y) / (1 - AL)
+
+    # For sigmoid: dZ = dA * sigmoid'(Z) = dA * A * (1 - A)
+    A_prev, W, b, Z = caches[L-1]
+    dZ = AL - Y  # Simplified for sigmoid + cross-entropy
+
+    gradients[f'dW{L}'] = (1/m) * dZ @ A_prev.T
+    gradients[f'db{L}'] = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+    dA_prev = W.T @ dZ
+
+    # Hidden layers (ReLU)
+    for l in reversed(range(L-1)):
+        A_prev, W, b, Z = caches[l]
+
+        # ReLU derivative: 1 if Z &gt; 0, else 0
+        dZ = dA_prev * (Z &gt; 0)
+
+        gradients[f'dW{l+1}'] = (1/m) * dZ @ A_prev.T
+        gradients[f'db{l+1}'] = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+
+        if l &gt; 0:
+            dA_prev = W.T @ dZ
+
+    return gradients
+</code></pre>
+<h3 id="visualizing-backpropagation">Visualizing Backpropagation</h3>
+<pre><code>Forward:  X ───► Z1 ───► A1 ───► Z2 ───► A2 ───► Loss
+                ↑        ↑        ↑        ↑
+               W1       ---      W2       ---
+
+Backward: dX ◄─── dZ1 ◄─── dA1 ◄─── dZ2 ◄─── dA2 ◄─── dLoss
+                  ↓               ↓
+                 dW1             dW2
+                 db1             db2
+</code></pre>
+<hr />
+<h2 id="gradient-descent">📈 Gradient Descent</h2>
+<p>Now that we can compute gradients, we need to update parameters to minimize the loss.</p>
+<h3 id="basic-gradient-descent">Basic Gradient Descent</h3>
+<pre><code class="language-python">def update_parameters(parameters, gradients, learning_rate):
+    &quot;&quot;&quot;
+    Update parameters using gradient descent.
+
+    θ = θ - α * ∂L/∂θ
+    &quot;&quot;&quot;
+    L = len(parameters) // 2
+
+    for l in range(1, L + 1):
+        parameters[f'W{l}'] -= learning_rate * gradients[f'dW{l}']
+        parameters[f'b{l}'] -= learning_rate * gradients[f'db{l}']
+
+    return parameters
+</code></pre>
+<h3 id="why-gradient-descent-works">Why Gradient Descent Works</h3>
+<p>Imagine you're blindfolded on a hilly landscape, trying to find the lowest point:</p>
+<ol>
+<li>Feel the slope under your feet (compute gradient)</li>
+<li>Take a step downhill (update parameters)</li>
+<li>Repeat until you can't go lower</li>
+</ol>
+<p>The gradient always points "uphill," so going in the opposite direction takes you "downhill" toward lower loss.</p>
+<h3 id="learning-rate">Learning Rate</h3>
+<p>The learning rate (α) controls step size:</p>
+<pre><code>Too small: Slow convergence, may get stuck
+Too large: Overshooting, unstable training
+Just right: Smooth convergence to minimum
+
+Loss
+  │
+  │  ╲      Learning rate too large
+  │   ╲╱╲ (overshooting)
+  │      ╲
+  │       ───── Just right
+  │
+  └────────────── iterations
+</code></pre>
+<h3 id="variants-of-gradient-descent">Variants of Gradient Descent</h3>
+<p><strong>Batch Gradient Descent:</strong>
+- Use ALL samples to compute gradient
+- Slow for large datasets
+- Smooth but expensive</p>
+<p><strong>Stochastic Gradient Descent (SGD):</strong>
+- Use ONE sample per update
+- Noisy but fast
+- Can escape local minima</p>
+<p><strong>Mini-batch Gradient Descent:</strong>
+- Use a small batch (32, 64, 128 samples)
+- Best of both worlds
+- Most common in practice</p>
+<hr />
+<h2 id="the-complete-training-loop">The Complete Training Loop</h2>
+<p>Putting it all together:</p>
+<pre><code class="language-python">def train(X, Y, layer_dims, learning_rate=0.01, num_iterations=1000):
+    &quot;&quot;&quot;
+    Train a neural network.
+
+    Args:
+        X: Training data (n_features, m_samples)
+        Y: Labels (n_classes, m_samples)
+        layer_dims: List of layer sizes [n_x, n_h1, n_h2, ..., n_y]
+        learning_rate: Step size for gradient descent
+        num_iterations: Number of training iterations
+
+    Returns:
+        parameters: Trained weights and biases
+        costs: Loss history
+    &quot;&quot;&quot;
+    # Initialize parameters
+    parameters = initialize_parameters(layer_dims)
+    costs = []
+
+    for i in range(num_iterations):
+        # Forward propagation
+        AL, caches = forward(X, parameters)
+
+        # Compute cost
+        cost = compute_cost(AL, Y)
+        costs.append(cost)
+
+        # Backward propagation
+        gradients = backward(AL, Y, caches)
+
+        # Update parameters
+        parameters = update_parameters(parameters, gradients, learning_rate)
+
+        # Print progress
+        if i % 100 == 0:
+            print(f&quot;Iteration {i}: cost = {cost:.4f}&quot;)
+
+    return parameters, costs
+</code></pre>
+<hr />
+<h2 id="mnist-our-training-ground">🔢 MNIST: Our Training Ground</h2>
+<p>MNIST is the "Hello World" of deep learning - a dataset of 70,000 handwritten digits.</p>
+<h3 id="the-dataset">The Dataset</h3>
+<pre><code>Training: 60,000 images
+Test:     10,000 images
+Size:     28x28 pixels (784 features when flattened)
+Classes:  10 (digits 0-9)
+
+Sample images:
+┌────────┐ ┌────────┐ ┌────────┐
+│   ██   │ │    █   │ │  ███   │
+│  █  █  │ │   ██   │ │     █  │
+│ █    █ │ │    █   │ │   ██   │
+│ █    █ │ │    █   │ │     █  │
+│  ████  │ │   ███  │ │  ███   │
+└────────┘ └────────┘ └────────┘
+    0          1          2
+</code></pre>
+<h3 id="why-mnist">Why MNIST?</h3>
+<ol>
+<li><strong>Small enough</strong>: Can train on CPU in minutes</li>
+<li><strong>Hard enough</strong>: Requires real learning</li>
+<li><strong>Well-understood</strong>: Benchmark results available</li>
+<li><strong>Visual</strong>: Easy to interpret results</li>
+</ol>
+<h3 id="target-accuracy">Target Accuracy</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Random guessing</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Simple neural net (no hidden layers)</td>
+<td>~92%</td>
+</tr>
+<tr>
+<td>2-layer neural net</td>
+<td>~97%</td>
+</tr>
+<tr>
+<td>CNN (state of art)</td>
+<td>~99.8%</td>
+</tr>
+</tbody>
+</table>
+<p>Our goal: Build a 2-layer network achieving ~97% accuracy.</p>
+<hr />
+<h2 id="did-you-know-mnist-trivia">Did You Know? MNIST Trivia</h2>
+<h3 id="the-origin">The Origin</h3>
+<p>MNIST was created by <strong>Yann LeCun</strong> (now at Meta AI) and colleagues in 1998. It combines modified samples from NIST's original dataset of handwritten digits.</p>
+<h3 id="the-drosophila-of-machine-learning">The "Drosophila of Machine Learning"</h3>
+<p>MNIST is often called the "fruit fly of machine learning" - a simple model organism for experimenting. Just as biologists use fruit flies to understand genetics, ML researchers use MNIST to test new ideas.</p>
+<h3 id="its-actually-too-easy-now">It's Actually Too Easy Now</h3>
+<p>Modern techniques achieve &gt;99.5% accuracy on MNIST. Researchers have moved on to harder datasets like:
+- <strong>CIFAR-10</strong>: 60,000 color images in 10 classes
+- <strong>ImageNet</strong>: 14 million images in 20,000+ classes
+- <strong>Fashion-MNIST</strong>: Harder clothing items (drop-in MNIST replacement)</p>
+<h3 id="human-performance">Human Performance</h3>
+<p>Humans achieve about 97.5% accuracy on MNIST (yes, some digits are ambiguous!). A well-tuned neural network can beat human performance.</p>
+<hr />
+<h2 id="implementation-details">️ Implementation Details</h2>
+<h3 id="weight-initialization">Weight Initialization</h3>
+<p>Bad initialization can kill training:</p>
+<pre><code class="language-python"># BAD: All zeros (all neurons learn the same thing)
+W = np.zeros((n_out, n_in))
+
+# BAD: Large random (exploding activations)
+W = np.random.randn(n_out, n_in) * 100
+
+# GOOD: Xavier/Glorot initialization
+W = np.random.randn(n_out, n_in) * np.sqrt(1 / n_in)
+
+# BETTER: He initialization (for ReLU)
+W = np.random.randn(n_out, n_in) * np.sqrt(2 / n_in)
+</code></pre>
+<p><strong>Why He initialization?</strong>
+- Keeps variance of activations roughly constant across layers
+- Prevents vanishing/exploding gradients
+- Named after <strong>Kaiming He</strong> (Microsoft Research, 2015)</p>
+<h3 id="numerical-stability">Numerical Stability</h3>
+<pre><code class="language-python"># BAD: Can overflow/underflow
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# GOOD: Numerically stable
+def sigmoid(z):
+    z = np.clip(z, -500, 500)  # Prevent overflow
+    return 1 / (1 + np.exp(-z))
+
+# Cross-entropy with stability
+def cross_entropy(y, y_hat):
+    epsilon = 1e-15
+    y_hat = np.clip(y_hat, epsilon, 1 - epsilon)
+    return -np.mean(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat))
+</code></pre>
+<h3 id="softmax-for-multi-class">Softmax for Multi-class</h3>
+<pre><code class="language-python">def softmax(z):
+    &quot;&quot;&quot;
+    Softmax function for multi-class classification.
+    Converts logits to probabilities that sum to 1.
+    &quot;&quot;&quot;
+    # Subtract max for numerical stability
+    exp_z = np.exp(z - np.max(z, axis=0, keepdims=True))
+    return exp_z / np.sum(exp_z, axis=0, keepdims=True)
+</code></pre>
+<hr />
+<h2 id="visualizing-learning">Visualizing Learning</h2>
+<h3 id="loss-curve">Loss Curve</h3>
+<pre><code class="language-python">plt.plot(costs)
+plt.xlabel('Iteration')
+plt.ylabel('Loss')
+plt.title('Training Loss')
+</code></pre>
+<p>A healthy loss curve:</p>
+<pre><code>Loss
+  │
+2.0├───╲
+   │    ╲
+1.0├─────╲────
+   │       ╲──────
+0.5├───────────────
+   │
+   └─────────────────
+   0    500   1000  iterations
+</code></pre>
+<h3 id="decision-boundaries">Decision Boundaries</h3>
+<p>For 2D data, we can visualize what the network learned:</p>
+<pre><code class="language-python">def plot_decision_boundary(model, X, Y):
+    # Create grid
+    x_min, x_max = X[0, :].min() - 0.5, X[0, :].max() + 0.5
+    y_min, y_max = X[1, :].min() - 0.5, X[1, :].max() + 0.5
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01),
+                         np.arange(y_min, y_max, 0.01))
+
+    # Predict on grid
+    Z = model(np.c_[xx.ravel(), yy.ravel()].T)
+    Z = Z.reshape(xx.shape)
+
+    # Plot
+    plt.contourf(xx, yy, Z, alpha=0.8)
+    plt.scatter(X[0, :], X[1, :], c=Y, edgecolors='black')
+</code></pre>
+<h3 id="weight-visualization">Weight Visualization</h3>
+<p>For MNIST, first-layer weights can be visualized as 28x28 images:</p>
+<pre><code class="language-python"># Reshape and plot weights
+for i in range(10):
+    plt.subplot(2, 5, i+1)
+    plt.imshow(W1[i].reshape(28, 28), cmap='gray')
+    plt.axis('off')
+</code></pre>
+<p>You'll see the network has learned to look for digit-like patterns!</p>
+<hr />
+<h2 id="practical-exercises">Practical Exercises</h2>
+<h3 id="exercise-1-implement-a-perceptron">Exercise 1: Implement a Perceptron</h3>
+<p>Build a single-layer perceptron that can learn:
+- AND gate
+- OR gate
+- (Show it fails on XOR)</p>
+<h3 id="exercise-2-2-layer-xor-network">Exercise 2: 2-Layer XOR Network</h3>
+<p>Build a 2-layer network that learns XOR:</p>
+<pre><code>Input: [0,0] → Output: 0
+Input: [0,1] → Output: 1
+Input: [1,0] → Output: 1
+Input: [1,1] → Output: 0
+</code></pre>
+<h3 id="exercise-3-mnist-classifier">Exercise 3: MNIST Classifier</h3>
+<p>Build a network that achieves &gt;95% accuracy on MNIST:
+- Architecture: 784 → 128 → 64 → 10
+- Activation: ReLU (hidden), Softmax (output)
+- Loss: Cross-entropy
+- Optimizer: Mini-batch gradient descent</p>
+<h3 id="exercise-4-hyperparameter-exploration">Exercise 4: Hyperparameter Exploration</h3>
+<p>Experiment with:
+- Learning rate: 0.001, 0.01, 0.1, 1.0
+- Hidden layer sizes: 32, 64, 128, 256
+- Number of layers: 1, 2, 3
+- Batch size: 16, 32, 64, 128</p>
+<hr />
+<h2 id="deliverables">Deliverables</h2>
+<p>For this module, you will build:</p>
+<h3 id="1-pure-python-neural-network">1. Pure Python Neural Network</h3>
+<ul>
+<li>No PyTorch, no TensorFlow, only NumPy</li>
+<li>Configurable architecture (any number of layers)</li>
+<li>Support for ReLU, Sigmoid, Tanh activations</li>
+<li>Forward and backward propagation</li>
+</ul>
+<h3 id="2-mnist-classifier">2. MNIST Classifier</h3>
+<ul>
+<li>Train on MNIST dataset</li>
+<li>Achieve &gt;95% test accuracy</li>
+<li>Visualize training progress</li>
+<li>Show misclassified examples</li>
+</ul>
+<h3 id="3-neural-network-toolkit-main-deliverable">3. Neural Network Toolkit (Main Deliverable)</h3>
+<ul>
+<li>Complete implementation with all components</li>
+<li>Training visualization</li>
+<li>Model save/load functionality</li>
+<li>Performance benchmarks</li>
+<li>CLI interface</li>
+</ul>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li><a href="https://www.nature.com/articles/323533a0">Backpropagation (Rumelhart et al., 1986)</a></li>
+<li><a href="http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf">Gradient-Based Learning (LeCun et al., 1998)</a></li>
+<li><a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf">Deep Learning (Hinton, 2006)</a></li>
+</ul>
+<h3 id="books">Books</h3>
+<ul>
+<li>"Neural Networks and Deep Learning" by Michael Nielsen (free online)</li>
+<li>"Deep Learning" by Goodfellow, Bengio, Courville (the "bible")</li>
+</ul>
+<h3 id="videos">Videos</h3>
+<ul>
+<li>3Blue1Brown: "Neural Networks" series (excellent visualizations)</li>
+<li>Andrej Karpathy: "Neural Networks: Zero to Hero"</li>
+</ul>
+<hr />
+<h2 id="did-you-know-famous-neural-network-facts">Did You Know? Famous Neural Network Facts</h2>
+<h3 id="the-vanishing-gradient-problem">The Vanishing Gradient Problem</h3>
+<p>For decades, training deep networks was nearly impossible. Gradients would shrink exponentially as they propagated backward, making early layers learn incredibly slowly. Solutions:
+- ReLU activation (2010)
+- Batch normalization (2015)
+- Skip connections (ResNet, 2015)</p>
+<h3 id="universal-approximation-theorem">Universal Approximation Theorem</h3>
+<p>A neural network with just ONE hidden layer can approximate ANY continuous function (given enough neurons). Proved by <strong>George Cybenko</strong> in 1989.</p>
+<p><strong>So why go deep?</strong>
+- Deep networks are exponentially more efficient
+- A function that needs 2^n neurons in a shallow network might need only n layers</p>
+<h3 id="the-lottery-ticket-hypothesis">The Lottery Ticket Hypothesis</h3>
+<p>In 2019, <strong>Jonathan Frankle</strong> and <strong>Michael Carlin</strong> showed that large networks contain small subnetworks ("winning tickets") that, when trained alone, match the full network's performance. This suggests most of a network's capacity is redundant!</p>
+<hr />
+<h2 id="next-steps">️ Next Steps</h2>
+<p>With neural networks understood from scratch, you're ready for <strong>Module 27: PyTorch Fundamentals</strong>.</p>
+<p>You'll learn how PyTorch:
+- Automates gradient computation (autograd)
+- Provides GPU acceleration
+- Offers building blocks for complex architectures
+- Makes training much more convenient</p>
+<p>But now you know what's happening under the hood. You're not just using magic - you understand it.</p>
+<hr />
+<p><em>Module 26: Building the foundation of deep learning understanding.</em></p>
+<p><strong>🥋🧠⚡</strong></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_27_pytorch_fundamentals.html">Module 27: PyTorch Fundamentals</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

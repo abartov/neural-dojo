@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: Tokenization & Text Processing - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_08_text_generation.html">Next: Module 8: Text Generation & Sampling Strategies →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 7: Tokenization & Text Processing</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-7-tokenization-text-processing">Module 7: Tokenization &amp; Text Processing</h1>
+<h1 id="or-why-tokenization-has-nothing-to-do-with-cryptocurrency">Or: Why 'tokenization' Has Nothing to Do With Cryptocurrency</h1>
+<p><strong>Last Updated</strong>: 2025-11-24
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 4-5 hours
+<strong>Prerequisites</strong>: Module 6</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand how text becomes tokens
+- Learn different tokenization algorithms (BPE, WordPiece, SentencePiece)
+- Master token counting and optimization
+- Understand why token limits matter for costs and performance
+- Handle multilingual text tokenization
+- Optimize prompts for token efficiency</p>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p><strong>Question</strong>: Why does "Hello world" cost more than "Hi there" even though they're both simple greetings?</p>
+<p><strong>Answer</strong>: Tokenization.</p>
+<p>LLMs don't process raw text. They process <strong>tokens</strong> - and the number of tokens determines:
+- API costs (charged per token)
+- Context window limits (max tokens processable)
+- Generation speed (more tokens = slower)</p>
+<p><strong>This module teaches you the hidden language of LLMs</strong>: How text becomes tokens.</p>
+<hr />
+<h2 id="did-you-know-the-10-billion-question-nobody-asked">Did You Know? The $10 Billion Question Nobody Asked</h2>
+<p>In the early days of GPT-3 (2020), users noticed something strange: <strong>the model couldn't do basic arithmetic</strong>.</p>
+<pre><code>User: What is 378 + 456?
+GPT-3: 834 (CORRECT!)
+
+User: What is 3789 + 4567?
+GPT-3: 8346 (WRONG! Answer is 8356)
+</code></pre>
+<p><strong>Why?</strong> The answer shocked the AI community: <strong>tokenization</strong>.</p>
+<p>GPT-3's tokenizer splits numbers inconsistently:
+- "378" → 1 token (common number)
+- "3789" → 2 tokens ("37" + "89")
+- "4567" → 2 tokens ("45" + "67")</p>
+<p>When you ask GPT-3 to add "37|89" + "45|67", it's not seeing the actual numbers - it's seeing fragments! The model has to reconstruct what numbers these tokens represent, perform arithmetic, then tokenize the result. This is like asking someone to add "thir|ty-sev|en" + "for|ty-fi|ve" by looking at syllables.</p>
+<p><strong>The Business Impact</strong>:
+- OpenAI spent millions debugging this before realizing it was a tokenization design choice
+- Financial companies using GPT-3 for calculations had to add verification layers
+- Anthropic and Google redesigned their tokenizers to handle numbers better</p>
+<p><strong>The Fix in Modern Models</strong>:
+- GPT-4 and Claude use improved tokenizers that keep numbers intact
+- Some models tokenize each digit separately (consistent but expensive)
+- Others use special handling for numeric strings</p>
+<p><strong>Lesson</strong>: Tokenization isn't just an implementation detail - it's a <strong>fundamental design decision</strong> that affects what your model can and cannot do!</p>
+<hr />
+<h2 id="stop-time-to-practice">STOP: Time to Practice!</h2>
+<p><strong>You've learned the theory - now let's count some tokens!</strong></p>
+<p>Before diving deeper into tokenization algorithms, get hands-on experience with how text becomes tokens. Each example builds your intuition about what makes tokenization efficient or expensive.</p>
+<h3 id="practice-path-3-35-hours-total">Practice Path (~3-3.5 hours total)</h3>
+<p><strong>1. <a href="../../examples/module_07/01_token_counter.py">Token Counter</a></strong> - See tokenization in action
+   - 📖 Concept: Basic token counting and visualization
+   - ⏱️ Time: 45-60 minutes
+   - Goal: Understand how different text types tokenize
+   - What you'll learn: Code uses 3-4x more tokens than prose!</p>
+<p><strong>2. <a href="../../examples/module_07/02_optimization.py">Token Optimization</a></strong> - Save 30-50% on API costs
+   - 📖 Concept: 6 strategies to reduce token counts
+   - ⏱️ Time: 60-75 minutes
+   - Goal: Optimize prompts without losing quality
+   - What you'll learn: Simple changes = massive savings at scale</p>
+<p><strong>3. <a href="../../examples/module_07/03_multilingual.py">Multilingual Tokenization</a></strong> - Compare 15+ languages
+   - 📖 Concept: Why non-English costs 2-3x more
+   - ⏱️ Time: 45-60 minutes
+   - Goal: Budget accurately for multilingual apps
+   - What you'll learn: English bias in tokenizers is real</p>
+<h3 id="deliverable-token-optimization-report">Deliverable: Token Optimization Report</h3>
+<p><strong>What</strong>: Analyze your own prompts/codebase for token efficiency
+<strong>Time</strong>: 2-3 hours
+<strong>Portfolio Value</strong>: Shows cost-awareness and production optimization skills</p>
+<p><strong>Requirements</strong>:
+1. Run token counter on 5-10 prompts from your projects (kaizen, vibe, contrarian)
+2. Identify optimization opportunities (verbosity, formatting, etc.)
+3. Implement optimizations and measure savings
+4. Calculate monthly cost savings at scale (100K-1M requests)
+5. Document findings in a Markdown report with before/after comparisons</p>
+<p><strong>Success Criteria</strong>:
+- Token counts measured before/after optimization
+- At least 20% token reduction achieved
+- Cost savings calculated for production volumes
+- Best practices documented for future use</p>
+<p><strong>Real-World Impact</strong>: Token optimization is critical for production AI - this deliverable proves you can reduce costs without sacrificing quality!</p>
+<hr />
+<h2 id="what-are-tokens">🔤 What Are Tokens?</h2>
+<h3 id="the-simple-definition">The Simple Definition</h3>
+<p><strong>Token</strong>: A unit of text that the model processes.</p>
+<p><strong>Not necessarily</strong>:
+- A word
+- A character
+- A fixed length</p>
+<p><strong>Examples</strong>:</p>
+<pre><code>&quot;Hello world&quot; → [&quot;Hello&quot;, &quot; world&quot;] (2 tokens)
+&quot;Hello&quot; → [&quot;Hello&quot;] (1 token)
+&quot;Hellooooo&quot; → [&quot;Hello&quot;, &quot;o&quot;, &quot;o&quot;, &quot;o&quot;, &quot;o&quot;] (5 tokens)
+</code></pre>
+<hr />
+<h3 id="why-not-just-characters">Why Not Just Characters?</h3>
+<p><strong>Problem with characters</strong>:
+- Vocabulary = 256 (for ASCII/UTF-8)
+- Sequences very long: "Hello" = 5 tokens
+- Model must learn letter combinations → words</p>
+<p><strong>Problem with words</strong>:
+- Vocabulary = millions (all words in all languages)
+- Can't handle new words or typos
+- Different languages have different word structures</p>
+<p><strong>Subword tokenization</strong> = Sweet spot!
+- Vocabulary = 30K-100K tokens
+- Handles new words (break into known parts)
+- Efficient sequence lengths</p>
+<p><strong>👉 Want to see this in action? Run <a href="../../examples/module_07/01_token_counter.py">01_token_counter.py</a> to visualize how text splits into tokens!</strong></p>
+<hr />
+<h2 id="tokenization-algorithms">🧬 Tokenization Algorithms</h2>
+<h3 id="1-byte-pair-encoding-bpe">1. Byte-Pair Encoding (BPE)</h3>
+<p><strong>Used by</strong>: GPT-2, GPT-3, GPT-4, many others</p>
+<p><strong>How it works</strong>:</p>
+<p><strong>Step 1</strong>: Start with character-level splits</p>
+<pre><code>&quot;lower&quot; → [&quot;l&quot;, &quot;o&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;]
+</code></pre>
+<p><strong>Step 2</strong>: Find most frequent pair</p>
+<pre><code>&quot;l&quot; + &quot;o&quot; appears most → merge to &quot;lo&quot;
+&quot;lower&quot; → [&quot;lo&quot;, &quot;w&quot;, &quot;e&quot;, &quot;r&quot;]
+</code></pre>
+<p><strong>Step 3</strong>: Repeat until vocabulary size reached</p>
+<pre><code>Iteration 2: &quot;lo&quot; + &quot;w&quot; → &quot;low&quot;
+&quot;lower&quot; → [&quot;low&quot;, &quot;e&quot;, &quot;r&quot;]
+
+Iteration 3: &quot;low&quot; + &quot;e&quot; → &quot;lowe&quot;
+&quot;lower&quot; → [&quot;lowe&quot;, &quot;r&quot;]
+
+Iteration 4: &quot;lowe&quot; + &quot;r&quot; → &quot;lower&quot;
+&quot;lower&quot; → [&quot;lower&quot;]
+</code></pre>
+<p><strong>Result</strong>: Common words = 1 token, rare words = multiple tokens</p>
+<hr />
+<p><strong>Example</strong>:</p>
+<pre><code>Common word: &quot;the&quot; → 1 token (appears billions of times)
+Rare word: &quot;antidisestablishmentarianism&quot; → 7 tokens
+Code: &quot;def fibonacci&quot; → 2 tokens (&quot;def&quot;, &quot; fibonacci&quot;)
+</code></pre>
+<p><strong>Advantage</strong>: Works with any text, handles rare words gracefully</p>
+<p><strong>Disadvantage</strong>: Sensitive to whitespace and capitalization</p>
+<hr />
+<h3 id="did-you-know-bpe-was-invented-for-compression-not-ai">Did You Know? BPE Was Invented for Compression, Not AI!</h3>
+<p><strong>Plot twist</strong>: BPE wasn't invented for NLP at all.</p>
+<p>In <strong>1994</strong>, Philip Gage published a short article in <em>C Users Journal</em> titled "A New Algorithm for Data Compression." He invented BPE to compress text files - replacing common byte pairs with single bytes to save disk space. The algorithm was simple, elegant, and mostly forgotten outside compression circles.</p>
+<p><strong>Fast forward 22 years to 2016</strong>: Researchers at the University of Edinburgh (Sennrich, Haddow, and Birch) had a problem. Neural machine translation systems couldn't handle rare words. Their models would output <code>&lt;UNK&gt;</code> (unknown token) for any word not in the vocabulary - which was disastrous for translation.</p>
+<p><strong>The breakthrough insight</strong>: What if we treated language like a compression problem?</p>
+<p>They dusted off Gage's 1994 algorithm and applied it to text:
+- Start with characters
+- Merge the most common pairs
+- Stop when vocabulary reaches desired size</p>
+<p><strong>The result</strong>: A simple algorithm from data compression became the foundation of modern NLP, powering:
+- GPT-2, GPT-3, GPT-4 (OpenAI)
+- RoBERTa (Facebook)
+- Most modern language models</p>
+<p><strong>The irony</strong>: Philip Gage probably never imagined his compression algorithm would become the backbone of a multi-billion dollar AI industry. The 2016 BPE paper has been cited over <strong>8,000 times</strong> - more than most academic careers achieve!</p>
+<p><strong>Lesson</strong>: Sometimes the best solutions come from completely different fields. Cross-pollination of ideas is how breakthroughs happen!</p>
+<hr />
+<h3 id="2-wordpiece">2. WordPiece</h3>
+<p><strong>Used by</strong>: BERT, many Google models</p>
+<p><strong>Similar to BPE but</strong>:
+- Merges based on likelihood increase (not just frequency)
+- Uses <code>##</code> prefix for non-initial subwords</p>
+<p><strong>Example</strong>:</p>
+<pre><code>&quot;unhappiness&quot; → [&quot;un&quot;, &quot;##happiness&quot;]
+&quot;happiness&quot; → [&quot;happiness&quot;]
+</code></pre>
+<p>The <code>##</code> indicates this is not the start of a word.</p>
+<p><strong>Advantage</strong>: Better handles word morphology</p>
+<p><strong>Disadvantage</strong>: Still sensitive to preprocessing</p>
+<hr />
+<h3 id="3-sentencepiece">3. SentencePiece</h3>
+<p><strong>Used by</strong>: Llama, T5, many multilingual models</p>
+<p><strong>Key difference</strong>: Treats space as a character (<code>▁</code>)</p>
+<p><strong>Example</strong>:</p>
+<pre><code>&quot;Hello world&quot; → [&quot;▁Hello&quot;, &quot;▁world&quot;]
+</code></pre>
+<p><strong>Advantages</strong>:
+- Language-agnostic (works for languages without spaces: Chinese, Japanese)
+- No pre-tokenization needed
+- Reversible (can convert back to original text)</p>
+<p><strong>This is the modern standard for new models!</strong></p>
+<p><strong>Did You Know?</strong> 🤓
+SentencePiece was developed by Google for their neural machine translation systems. The breakthrough was treating whitespace as just another character (▁), making it work seamlessly across ALL languages - including those without spaces like Chinese and Japanese. This is why modern multilingual models (Llama, T5, BLOOM) all use SentencePiece!</p>
+<hr />
+<h2 id="did-you-know-the-solidgoldmagikarp-incident-when-tokens-go-rogue">Did You Know? The "SolidGoldMagikarp" Incident: When Tokens Go Rogue</h2>
+<p>In <strong>February 2023</strong>, researchers discovered something bizarre in GPT-3's tokenizer: <strong>"glitch tokens"</strong> that caused the model to behave erratically.</p>
+<p><strong>The Discovery</strong>: A researcher noticed that certain strings caused GPT-3 to produce nonsensical, evasive, or even hostile outputs:</p>
+<pre><code>User: What is &quot; SolidGoldMagikarp&quot;?
+
+GPT-3: I can't believe you would ask me something like that.
+       I'm not going to dignify that with a response.
+       [proceeds to act offended and refuse to engage]
+</code></pre>
+<p>Other "glitch tokens" included:
+- <code>" TheNitromeFan"</code> (a Reddit username)
+- <code>" davidjl"</code> (another username)
+- <code>"_StreamerBot"</code> (a Twitch bot name)
+- <code>" guiActiveUn"</code> (programming variable)</p>
+<p><strong>What was happening?</strong></p>
+<p>The tokenizer was trained on a massive web corpus that included Reddit usernames, Twitch chat, and random code. These strings appeared frequently enough to become single tokens, but they <strong>never appeared in the model's training data with proper context</strong>.</p>
+<p>Think about it:
+1. Tokenizer training: Scans web to find common substrings → "SolidGoldMagikarp" appears often on Reddit → becomes a single token (#36733)
+2. Model training: Model learns from text → but this token NEVER appears in a normal sentence → model has NO IDEA what to do with it</p>
+<p><strong>The result</strong>: The model encountered a token it recognized but had never learned to handle. It's like having a word in your vocabulary that you've never heard used in a sentence - deeply unsettling!</p>
+<p><strong>The Fallout</strong>:
+- OpenAI had to audit their entire tokenizer
+- Researchers discovered hundreds of "anomalous tokens"
+- It revealed a fundamental tension: tokenizers and models are trained separately, and their training data can diverge</p>
+<p><strong>Why "SolidGoldMagikarp"?</strong></p>
+<p>This was the username of a Reddit user who was extremely active in the r/counting subreddit (a community that counts to infinity, one number at a time). They posted so frequently that their username became statistically significant enough to be a token!</p>
+<p><strong>The Lesson</strong>: Tokenization isn't just about efficiency - it's about ensuring every token your model sees has meaningful training context. The gap between tokenizer training and model training can create "blind spots" with unpredictable consequences.</p>
+<p><strong>Modern Fix</strong>: GPT-4 and newer models use more careful tokenizer curation, removing tokens that don't have sufficient context in training data.</p>
+<hr />
+<h2 id="token-counting-examples">Token Counting Examples</h2>
+<h3 id="english-text">English Text</h3>
+<pre><code class="language-python">&quot;Hello, world!&quot;
+# GPT: 4 tokens [&quot;Hello&quot;, &quot;,&quot;, &quot; world&quot;, &quot;!&quot;]
+
+&quot;The quick brown fox jumps over the lazy dog&quot;
+# GPT: 9 tokens
+
+&quot;I'm learning about tokenization&quot;
+# GPT: 5 tokens [&quot;I&quot;, &quot;'m&quot;, &quot; learning&quot;, &quot; about&quot;, &quot; tokenization&quot;]
+</code></pre>
+<p><strong>Pattern</strong>: Common words = 1 token each</p>
+<hr />
+<h3 id="code">Code</h3>
+<pre><code class="language-python">def fibonacci(n):
+    if n &lt;= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# GPT: ~40 tokens
+</code></pre>
+<p><strong>Code is expensive!</strong>
+- Keywords: 1 token each
+- Variable names: Often 1-2 tokens
+- Indentation: Tokens!
+- Each space/newline: Tokens!</p>
+<p><strong>Did You Know?</strong> 🤓
+Code typically uses 3-4x more tokens than English prose for the same character count. This is why API costs add up fast for code generation!</p>
+<p><strong>👉 Experience this cost difference firsthand: <a href="../../examples/module_07/01_token_counter.py">01_token_counter.py</a> compares prose vs code tokenization!</strong></p>
+<hr />
+<h3 id="multilingual-text">Multilingual Text</h3>
+<pre><code class="language-python">&quot;Hello&quot; (English) → 1 token
+&quot;Bonjour&quot; (French) → 1 token
+&quot;こんにちは&quot; (Japanese) → 3-5 tokens
+&quot;مرحبا&quot; (Arabic) → 2-3 tokens
+</code></pre>
+<p><strong>Key insight</strong>: Models trained primarily on English tokenize non-English less efficiently.</p>
+<p><strong>This is why</strong>: Multilingual models use SentencePiece and train on diverse languages!</p>
+<p><strong>Did You Know?</strong> 🤓
+The reason English tokenizes more efficiently isn't just training data - it's also that English has relatively simple morphology (word structure). Languages with complex morphology like Finnish or Turkish can have a single word with dozens of suffixes, making them harder to tokenize efficiently. For example, "I wouldn't have been able to go" is 8 English tokens, but the equivalent in Finnish "En olisi voinut mennä" might be just 4 tokens in a Finnish-optimized tokenizer!</p>
+<hr />
+<h2 id="did-you-know-google-translates-big-bang-moment-2016">Did You Know? Google Translate's "Big Bang" Moment (2016)</h2>
+<p><strong>November 15, 2016</strong> - Google made a stunning announcement: Google Translate had switched from phrase-based statistical translation to <strong>Neural Machine Translation (NMT)</strong> for 8 language pairs overnight.</p>
+<p>The results were dramatic:
+- Translation quality improved by <strong>60%</strong> for Chinese-English
+- Some translations were indistinguishable from human
+- Users thought Google had secretly hired thousands of translators</p>
+<p><strong>But here's what most people don't know</strong>: The breakthrough wasn't just the neural network - it was the <strong>tokenizer</strong>.</p>
+<p><strong>The Problem</strong>: Previous neural translation systems used word-level tokenization:
+- English: ~170,000 common words
+- Chinese: ~50,000 characters
+- Combined vocabulary: 220,000+ tokens
+- Memory usage: <strong>EXPLODING</strong></p>
+<p><strong>The Solution</strong>: Google's WordPiece tokenizer (published the same year):
+- Vocabulary size: Just 32,000 tokens
+- Handles ALL languages
+- Unknown words? Break them into known pieces!</p>
+<p><strong>Example of the magic</strong>:</p>
+<pre><code>English: &quot;unbelievable&quot; → [&quot;un&quot;, &quot;##believ&quot;, &quot;##able&quot;]
+Chinese: &quot;不可思议&quot; → [&quot;不&quot;, &quot;可&quot;, &quot;思&quot;, &quot;议&quot;]
+Japanese: &quot;信じられない&quot; → [&quot;信&quot;, &quot;じ&quot;, &quot;られ&quot;, &quot;ない&quot;]
+</code></pre>
+<p><strong>The Business Impact</strong>:
+- Google Translate serves <strong>500 million users daily</strong>
+- Neural translation runs on this tokenization system
+- Estimated <strong>$1+ billion</strong> in Google Cloud Translation revenue
+- Every other major translation system copied the approach</p>
+<p><strong>The Team</strong>: The WordPiece paper was authored by Yonghui Wu and 30+ Google researchers. It was published alongside the famous "Google's Neural Machine Translation System" paper - one of the most impactful 1-2 punches in AI history.</p>
+<p><strong>Why This Matters for You</strong>:
+When you use any modern LLM, you're benefiting from these tokenization breakthroughs. The ability to handle multiple languages in a single model - which we take for granted today - was impossible before subword tokenization.</p>
+<hr />
+<h2 id="did-you-know-the-unicode-consortiums-30-year-war">Did You Know? The Unicode Consortium's 30-Year War</h2>
+<p>Before we could tokenize text, we had to <strong>encode</strong> it. This is the story of how humanity agreed on what a "character" even is.</p>
+<p><strong>The Problem (1980s)</strong>:
+- Americans used ASCII (128 characters - English only)
+- Japanese used Shift-JIS
+- Chinese used GB2312 (simplified) or Big5 (traditional)
+- Russians used KOI8-R
+- Europeans used Latin-1, Latin-2, Latin-9...</p>
+<p><strong>The Nightmare</strong>: Sending an email from Japan to America would turn into garbled nonsense - "文字化け" (mojibake, literally "character transformation"). Different systems interpreted the same bytes completely differently!</p>
+<pre><code>Original (Japanese): こんにちは
+Sent through ASCII system: ‚±‚ñ‚É‚¿‚Í
+Received in Europe (Latin-1): ã&quot;ã‚&quot;ã«ã¡ã¯
+</code></pre>
+<p><strong>The Solution</strong>: Unicode (started 1987, still evolving!)</p>
+<p>Unicode assigned a unique number to EVERY character in EVERY language:
+- U+0041 = A (Latin)
+- U+3042 = あ (Hiragana)
+- U+4E2D = 中 (Chinese)
+- U+1F600 = 😀 (Emoji - added 2010!)</p>
+<p><strong>But there was a catch</strong>: How do you store these numbers?</p>
+<p><strong>UTF-8</strong> (1992): Ken Thompson and Rob Pike invented UTF-8 over a dinner napkin at a New Jersey diner. Their brilliant insight: make ASCII backward-compatible while allowing for all of Unicode.</p>
+<pre><code>'A' → 1 byte (0x41) - same as ASCII!
+'é' → 2 bytes
+'中' → 3 bytes
+'😀' → 4 bytes
+</code></pre>
+<p><strong>The Victory</strong>: UTF-8 is now used by <strong>98% of websites</strong>. The encoding wars are (mostly) over.</p>
+<p><strong>Why This Matters for Tokenization</strong>:
+- Modern tokenizers operate on UTF-8 bytes
+- This is why emoji can be expensive (4 bytes = multiple tokens)
+- SentencePiece can fall back to byte-level encoding for ANY character
+- The 30-year standardization effort enables today's multilingual LLMs</p>
+<p><strong>Fun Fact</strong>: The Unicode Consortium (the group that decides which emoji exist) receives thousands of proposals per year. They've rejected emoji for "hangover face 🤢→🤮", "sexting eggplant 🍆" (it exists for other reasons, officially it's just a vegetable), and many others. The consortium is a non-profit that shapes how billions of humans communicate!</p>
+<hr />
+<h3 id="special-tokens">Special Tokens</h3>
+<p><strong>Most tokenizers include special tokens</strong>:
+- <code>&lt;|endoftext|&gt;</code>: End of document
+- <code>&lt;|im_start|&gt;</code>, <code>&lt;|im_end|&gt;</code>: Message boundaries
+- <code>&lt;|pad|&gt;</code>: Padding token
+- <code>&lt;|unk|&gt;</code>: Unknown token (for untokenizable text)</p>
+<p><strong>These don't appear in output but</strong>:
+- Count toward context window
+- Used internally by model</p>
+<hr />
+<h2 id="token-math-why-it-matters">🔢 Token Math: Why It Matters</h2>
+<h3 id="api-costs">API Costs</h3>
+<p><strong>2025 Pricing</strong> (prices drop regularly - always check current rates!):</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Input (per 1M tokens)</th>
+<th>Output (per 1M tokens)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4o</td>
+<td>$2.50</td>
+<td>$10.00</td>
+</tr>
+<tr>
+<td>GPT-4-turbo</td>
+<td>$10.00</td>
+<td>$30.00</td>
+</tr>
+<tr>
+<td>Claude 3.5 Sonnet</td>
+<td>$3.00</td>
+<td>$15.00</td>
+</tr>
+<tr>
+<td>Claude 3 Opus</td>
+<td>$15.00</td>
+<td>$75.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Conversation</strong> (using GPT-4o):</p>
+<pre><code>System: &quot;You are a helpful assistant&quot; → 6 tokens
+User: &quot;Write a Python function to reverse a string&quot; → 9 tokens
+Assistant: [200 token response]
+
+Cost = (6 + 9) * $2.50/1M + 200 * $10/1M
+     = $0.0000375 + $0.002
+     = $0.002 per request (~12x cheaper than 2023!)
+</code></pre>
+<p><strong>At scale</strong>:
+- 1M requests/month = $2,000/month (GPT-4o)
+- Optimizing prompt from 100 → 50 tokens = 50% cost savings!</p>
+<p><strong>👉 Ready to optimize? <a href="../../examples/module_07/02_optimization.py">02_optimization.py</a> shows 6 strategies to cut costs by 30-50%!</strong></p>
+<hr />
+<h3 id="context-window-limits">Context Window Limits</h3>
+<p><strong>Claude 3.5 Sonnet</strong>: 200,000 token context window</p>
+<p><strong>What fits</strong>:
+- ~150,000 words of text
+- ~75,000 lines of code
+- Or: Entire codebase + conversation + RAG docs</p>
+<p><strong>But if you exceed</strong>:
+- Request fails
+- Must chunk/truncate
+- Lose context</p>
+<p><strong>Token counting is critical for</strong>:
+- RAG systems (how much context to include?)
+- Long conversations (when to summarize?)
+- Document processing (can this fit?)</p>
+<hr />
+<h2 id="token-optimization-strategies">Token Optimization Strategies</h2>
+<h3 id="strategy-1-shorter-prompts">Strategy 1: Shorter Prompts</h3>
+<p><strong>Before</strong> (15 tokens):</p>
+<pre><code>&quot;Could you please help me by writing a function that calculates&quot;
+</code></pre>
+<p><strong>After</strong> (7 tokens):</p>
+<pre><code>&quot;Write a function to calculate&quot;
+</code></pre>
+<p><strong>Savings</strong>: 53% fewer tokens</p>
+<p><strong>When to use</strong>: High-volume, simple tasks</p>
+<hr />
+<h3 id="strategy-2-remove-boilerplate">Strategy 2: Remove Boilerplate</h3>
+<p><strong>Before</strong> (25 tokens):</p>
+<pre><code>System: &quot;You are a helpful AI assistant created by Anthropic. You should always be polite and respectful.&quot;
+</code></pre>
+<p><strong>After</strong> (8 tokens):</p>
+<pre><code>System: &quot;You are a helpful assistant.&quot;
+</code></pre>
+<p><strong>Savings</strong>: 68% fewer tokens</p>
+<p><strong>When to use</strong>: Unless specific behavior needed, keep system prompts short</p>
+<hr />
+<h3 id="strategy-3-efficient-formatting">Strategy 3: Efficient Formatting</h3>
+<p><strong>Before</strong> (JSON with whitespace):</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;John&quot;,
+  &quot;age&quot;: 30,
+  &quot;city&quot;: &quot;New York&quot;
+}
+</code></pre>
+<p><strong>Tokens</strong>: ~20</p>
+<p><strong>After</strong> (minified):</p>
+<pre><code class="language-json">{&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:30,&quot;city&quot;:&quot;New York&quot;}
+</code></pre>
+<p><strong>Tokens</strong>: ~12</p>
+<p><strong>Savings</strong>: 40% fewer tokens</p>
+<hr />
+<h3 id="strategy-4-use-abbreviations-carefully">Strategy 4: Use Abbreviations (Carefully!)</h3>
+<p><strong>Before</strong>:</p>
+<pre><code>&quot;Analyze the following document and provide a summary&quot;
+</code></pre>
+<p><strong>After</strong>:</p>
+<pre><code>&quot;Analyze and summarize:&quot;
+</code></pre>
+<p><strong>But</strong>: Only if it doesn't hurt clarity!</p>
+<p><strong>Balance</strong>: Token savings vs model performance</p>
+<p><strong>👉 See all optimization strategies in action: <a href="../../examples/module_07/02_optimization.py">02_optimization.py</a> measures exact savings!</strong></p>
+<hr />
+<h3 id="strategy-5-batch-processing">Strategy 5: Batch Processing</h3>
+<p><strong>Instead of</strong>:</p>
+<pre><code>10 separate requests with same system prompt (repeated 10x)
+</code></pre>
+<p><strong>Do</strong>:</p>
+<pre><code>1 request with 10 items, 1 system prompt
+</code></pre>
+<p><strong>Savings</strong>: Massive for high system prompt overhead</p>
+<hr />
+<h2 id="token-counter-tools">Token Counter Tools</h2>
+<h3 id="using-tiktoken-openais-tokenizer">Using Tiktoken (OpenAI's tokenizer)</h3>
+<pre><code class="language-python">import tiktoken
+
+# For GPT-4
+encoding = tiktoken.encoding_for_model(&quot;gpt-4&quot;)
+
+text = &quot;Hello, world!&quot;
+tokens = encoding.encode(text)
+
+print(f&quot;Text: {text}&quot;)
+print(f&quot;Tokens: {tokens}&quot;)
+print(f&quot;Token count: {len(tokens)}&quot;)
+print(f&quot;Decoded: {[encoding.decode([t]) for t in tokens]}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Text: Hello, world!
+Tokens: [9906, 11, 1917, 0]
+Token count: 4
+Decoded: ['Hello', ',', ' world', '!']
+</code></pre>
+<hr />
+<h3 id="anthropic-token-counting">Anthropic Token Counting</h3>
+<p><strong>Option 1</strong>: Use API response</p>
+<pre><code class="language-python">response = client.messages.create(...)
+print(f&quot;Input tokens: {response.usage.input_tokens}&quot;)
+print(f&quot;Output tokens: {response.usage.output_tokens}&quot;)
+</code></pre>
+<p><strong>Option 2</strong>: Count before sending (approximate)</p>
+<pre><code class="language-python"># Rule of thumb: 1 token ≈ 4 characters for English
+estimated_tokens = len(text) / 4
+</code></pre>
+<hr />
+<h3 id="online-tools">Online Tools</h3>
+<p><strong>Tokenizer Visualizers</strong>:
+- <a href="https://platform.openai.com/tokenizer">OpenAI Tokenizer</a>
+- <a href="https://huggingface.co/docs/tokenizers">Hugging Face Tokenizers</a></p>
+<p><strong>Use these to</strong>:
+- Understand how your text is tokenized
+- Optimize prompts
+- Debug unexpected token counts</p>
+<hr />
+<h2 id="multilingual-tokenization">Multilingual Tokenization</h2>
+<h3 id="the-challenge">The Challenge</h3>
+<p><strong>English-centric training</strong> → inefficient non-English tokenization</p>
+<p><strong>Example</strong>:</p>
+<pre><code>&quot;Hello&quot; (English) → 1 token
+&quot;Привет&quot; (Russian) → 3 tokens (same meaning!)
+</code></pre>
+<p><strong>Impact</strong>:
+- Higher costs for non-English users
+- Worse performance (more tokens = more to process)
+- Unfair pricing (same content costs more)</p>
+<hr />
+<h3 id="solutions">Solutions</h3>
+<p><strong>1. Multilingual Tokenizers</strong>:
+- SentencePiece with multilingual training corpus
+- Models: mBERT, XLM-R, multilingual GPT models</p>
+<p><strong>2. Language-Specific Fine-tuning</strong>:
+- Train tokenizer on target language
+- Used in language-specific variants (e.g., CamemBERT for French)</p>
+<p><strong>3. Byte-Level Tokenization</strong>:
+- Fall back to byte-level encoding for rare scripts
+- Ensures all text is tokenizable</p>
+<hr />
+<h3 id="best-practices-for-multilingual">Best Practices for Multilingual</h3>
+<p><strong>If building multilingual app</strong>:
+1. Test token counts in all target languages
+2. Budget for 2-3x token usage for non-English
+3. Consider language-specific models for high-volume languages
+4. Use SentencePiece-based models (Llama, T5)</p>
+<p><strong>👉 Building multilingual apps? <a href="../../examples/module_07/03_multilingual.py">03_multilingual.py</a> compares 15+ languages!</strong></p>
+<hr />
+<h2 id="common-tokenization-gotchas">🐛 Common Tokenization Gotchas</h2>
+<h3 id="gotcha-1-whitespace-matters">Gotcha 1: Whitespace Matters</h3>
+<pre><code class="language-python">&quot;Hello world&quot; → 2 tokens
+&quot;Helloworld&quot; → 2 tokens (different split!)
+</code></pre>
+<p><strong>Lesson</strong>: Whitespace affects tokenization</p>
+<hr />
+<h3 id="gotcha-2-capitalization-matters">Gotcha 2: Capitalization Matters</h3>
+<pre><code class="language-python">&quot;Python&quot; → 1 token
+&quot;python&quot; → 1 token
+&quot;PYTHON&quot; → 2 tokens ([&quot;PY&quot;, &quot;THON&quot;])
+</code></pre>
+<p><strong>Lesson</strong>: Consistent casing can save tokens</p>
+<hr />
+<h3 id="gotcha-3-numbers">Gotcha 3: Numbers</h3>
+<pre><code class="language-python">&quot;123&quot; → 1 token
+&quot;12345&quot; → 1 token
+&quot;123456789&quot; → 2-3 tokens
+</code></pre>
+<p><strong>Numbers tokenized differently than text!</strong></p>
+<hr />
+<h3 id="gotcha-4-code-is-expensive">Gotcha 4: Code is Expensive</h3>
+<pre><code class="language-python"># 50 characters of English prose: ~12 tokens
+# 50 characters of Python code: ~25 tokens
+</code></pre>
+<p><strong>Lesson</strong>: Budget more for code generation tasks</p>
+<hr />
+<h3 id="gotcha-5-emoji">Gotcha 5: Emoji</h3>
+<pre><code class="language-python">&quot;😀&quot; → 1-2 tokens (depending on tokenizer)
+&quot;🏴󠁧󠁢󠁳󠁣󠁴󠁿&quot; → 7-8 tokens (flag: Scotland)
+</code></pre>
+<p><strong>Lesson</strong>: Emoji can be surprisingly expensive!</p>
+<p><strong>Did You Know?</strong> 🤓
+The flag emoji 🏴󠁧󠁢󠁳󠁣󠁴󠁿 (Scotland flag) can be 7-8 tokens because flags are actually composed of multiple Unicode characters called "Regional Indicator Symbols" that combine to form the flag. The simple smiley 😀 is usually 1-2 tokens, but complex emoji like family compositions 👨‍👩‍👧‍👦 can be 5+ tokens! If you're building a social media chatbot that handles lots of emoji, this can add up fast.</p>
+<hr />
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="rag-systems">RAG Systems</h3>
+<p><strong>Problem</strong>: How much context to include?</p>
+<p><strong>Solution</strong>: Token counting!</p>
+<pre><code class="language-python">def prepare_rag_context(query, docs, max_tokens=150000):
+    &quot;&quot;&quot;Include as many docs as fit in context window.&quot;&quot;&quot;
+    context_tokens = count_tokens(query)
+    included_docs = []
+
+    for doc in docs:
+        doc_tokens = count_tokens(doc)
+        if context_tokens + doc_tokens &lt; max_tokens:
+            included_docs.append(doc)
+            context_tokens += doc_tokens
+        else:
+            break
+
+    return included_docs
+</code></pre>
+<hr />
+<h3 id="conversation-summarization">Conversation Summarization</h3>
+<p><strong>Problem</strong>: Long conversations exceed context window</p>
+<p><strong>Solution</strong>: Summarize old messages when token limit approached</p>
+<pre><code class="language-python">def manage_conversation(messages, max_tokens=8000):
+    &quot;&quot;&quot;Summarize old messages to stay under limit.&quot;&quot;&quot;
+    total_tokens = sum(count_tokens(m) for m in messages)
+
+    if total_tokens &gt; max_tokens * 0.8:  # 80% threshold
+        # Summarize first half of conversation
+        old_messages = messages[:len(messages)//2]
+        summary = summarize(old_messages)  # Using LLM
+        messages = [summary] + messages[len(messages)//2:]
+
+    return messages
+</code></pre>
+<hr />
+<h3 id="cost-optimization">Cost Optimization</h3>
+<p><strong>Before</strong>:</p>
+<pre><code class="language-python"># Calling API without token awareness
+response = call_llm(long_prompt)  # ???  tokens
+</code></pre>
+<p><strong>After</strong>:</p>
+<pre><code class="language-python"># Count tokens first
+token_count = count_tokens(long_prompt)
+estimated_cost = token_count * COST_PER_TOKEN
+
+if estimated_cost &gt; budget:
+    # Optimize or truncate prompt
+    prompt = optimize_prompt(long_prompt, max_tokens=budget / COST_PER_TOKEN)
+
+response = call_llm(prompt)
+</code></pre>
+<hr />
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ol>
+<li><strong>Tokens ≠ words</strong>: Subword tokenization is the standard</li>
+<li><strong>BPE, WordPiece, SentencePiece</strong>: Different algorithms, similar goals</li>
+<li><strong>Code is expensive</strong>: ~3-4x tokens compared to prose</li>
+<li><strong>Multilingual is harder</strong>: Non-English uses more tokens</li>
+<li><strong>Count before calling</strong>: Avoid surprises in API costs</li>
+<li><strong>Optimize prompts</strong>: Shorter prompts = lower costs + faster</li>
+<li><strong>Context limits are real</strong>: Token counting prevents failures</li>
+<li><strong>Special tokens exist</strong>: Don't forget about system prompts and message boundaries</li>
+</ol>
+<p><strong>Did You Know?</strong> 🤓
+OpenAI's GPT-4 tokenizer has a vocabulary of ~100,000 tokens, but only uses ~50,000 of them frequently. The rest are for rare words, special characters, and multilingual support. This is why the tokenizer file is so large (several MB) - it's essentially a massive lookup table mapping text patterns to token IDs. Fun fact: The most common token in the GPT-4 tokenizer is " " (space + common word endings like "the", "and", "is"), which appears in almost every sentence!</p>
+<hr />
+<h2 id="did-you-know-the-context-window-arms-race">Did You Know? The Context Window Arms Race</h2>
+<p>In <strong>2023-2024</strong>, AI companies engaged in a fierce "context window arms race":</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Context Window</th>
+<th>Year</th>
+<th>Tokens in Human Terms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-3</td>
+<td>4,096 tokens</td>
+<td>2020</td>
+<td>~5 pages</td>
+</tr>
+<tr>
+<td>GPT-4</td>
+<td>8,192 → 32K tokens</td>
+<td>2023</td>
+<td>~40 pages</td>
+</tr>
+<tr>
+<td>Claude 2</td>
+<td>100K tokens</td>
+<td>2023</td>
+<td>~75,000 words</td>
+</tr>
+<tr>
+<td>GPT-4 Turbo</td>
+<td>128K tokens</td>
+<td>2023</td>
+<td>~300 pages</td>
+</tr>
+<tr>
+<td><strong>Claude 3</strong></td>
+<td><strong>200K tokens</strong></td>
+<td>2024</td>
+<td><strong>~500 pages</strong></td>
+</tr>
+<tr>
+<td>Gemini 1.5</td>
+<td>1M → 2M tokens</td>
+<td>2024</td>
+<td><strong>~3,000 pages!</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>But here's the secret</strong>: Context window expansion is as much about <strong>tokenization efficiency</strong> as it is about architecture!</p>
+<p><strong>The Math</strong>:
+- A 100K token window with inefficient tokenization = 50K words
+- A 100K token window with efficient tokenization = 75K words
+- <strong>50% more content for the same compute cost!</strong></p>
+<p><strong>How Companies Optimize</strong>:</p>
+<ol>
+<li><strong>Vocabulary Size Tuning</strong>: Larger vocab = fewer tokens per text = more context</li>
+<li>GPT-4: ~100K vocabulary</li>
+<li>Llama 2: 32K vocabulary</li>
+<li>
+<p>GPT-4 can fit more text in same token budget!</p>
+</li>
+<li>
+<p><strong>Training Data Selection</strong>: Tokenizers trained on clean, diverse data tokenize better</p>
+</li>
+<li>Models trained on web scrapes have Reddit usernames as tokens (wasteful!)</li>
+<li>
+<p>Curated training → efficient tokenization</p>
+</li>
+<li>
+<p><strong>Specialized Tokens</strong>: Code models add programming tokens</p>
+</li>
+<li><code>def</code>, <code>return</code>, <code>function</code> as single tokens</li>
+<li>Saves 30-40% tokens on code!</li>
+</ol>
+<p><strong>The Hidden Cost of Longer Context</strong>:</p>
+<p>More tokens = more memory = more compute = <strong>more $$$</strong></p>
+<p><strong>Anthropic's Claude 3 Opus</strong> (200K context):
+- Input: $15 per million tokens
+- At full context: $3 per conversation!
+- This is why context windows have tiers</p>
+<p><strong>The Future</strong>: Google's Gemini 1.5 demonstrated 10M token context windows in research. But the question isn't just "can we?" - it's "can we tokenize efficiently enough to make it affordable?"</p>
+<p><strong>Lesson</strong>: When evaluating models, don't just compare context windows - compare <strong>effective context</strong> (tokens × tokenization efficiency). A 100K model with great tokenization might beat a 200K model with poor tokenization!</p>
+<hr />
+<h2 id="common-misconceptions">🚫 Common Misconceptions</h2>
+<h3 id="myth-1-1-token-1-word">Myth 1: "1 token = 1 word"</h3>
+<p><strong>Reality</strong>: 1 token ≈ 0.75 words (English). Varies by language and content type.</p>
+<h3 id="myth-2-tokenization-is-just-splitting-on-spaces">Myth 2: "Tokenization is just splitting on spaces"</h3>
+<p><strong>Reality</strong>: Complex algorithm (BPE/WordPiece/SentencePiece) that learns from data.</p>
+<h3 id="myth-3-all-models-use-same-tokenizer">Myth 3: "All models use same tokenizer"</h3>
+<p><strong>Reality</strong>: Each model family has its own tokenizer. GPT ≠ Claude ≠ Llama.</p>
+<h3 id="myth-4-token-count-doesnt-matter-for-small-prompts">Myth 4: "Token count doesn't matter for small prompts"</h3>
+<p><strong>Reality</strong>: At scale, even small optimizations = big savings.</p>
+<h3 id="myth-5-tokenization-is-deterministic">Myth 5: "Tokenization is deterministic"</h3>
+<p><strong>Reality</strong>: Yes, but depends on the specific tokenizer version!</p>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1508.07909">"Neural Machine Translation of Rare Words with Subword Units"</a> (Sennrich et al., 2016) - BPE</li>
+<li><a href="https://arxiv.org/abs/1808.06226">"SentencePiece: A simple and language independent approach"</a> (Kudo &amp; Richardson, 2018)</li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li><a href="https://github.com/openai/tiktoken">Tiktoken</a> - OpenAI's fast tokenizer</li>
+<li><a href="https://github.com/huggingface/tokenizers">Hugging Face Tokenizers</a> - Fast, multilingual</li>
+<li><a href="https://github.com/google/sentencepiece">SentencePiece</a> - Google's tokenizer</li>
+</ul>
+<h3 id="interactive">Interactive</h3>
+<ul>
+<li><a href="https://platform.openai.com/tokenizer">OpenAI Tokenizer</a> - Visualize GPT tokenization</li>
+<li><a href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground">Hugging Face Tokenizer Playground</a></li>
+</ul>
+<hr />
+<h2 id="knowledge-check">Knowledge Check</h2>
+<p>Before moving to Module 8, you should be able to:</p>
+<ul>
+<li>[ ] Explain what a token is</li>
+<li>[ ] Describe how BPE tokenization works</li>
+<li>[ ] Calculate approximate token counts for text</li>
+<li>[ ] Understand why code uses more tokens than prose</li>
+<li>[ ] Optimize prompts for token efficiency</li>
+<li>[ ] Use tiktoken or similar tools to count tokens</li>
+<li>[ ] Explain why multilingual tokenization is challenging</li>
+<li>[ ] Apply token counting to real-world problems (RAG, conversations)</li>
+</ul>
+<hr />
+<h2 id="whats-next">What's Next</h2>
+<p><strong>Module 8</strong>: Text Generation &amp; Sampling Strategies
+- How LLMs generate text (autoregressive generation)
+- Temperature, top-p, top-k sampling
+- Controlling generation quality
+- Repetition penalties</p>
+<p><strong>You'll learn</strong>:
+- Why temperature=0.0 gives same output every time
+- How to make models more creative (or more focused)
+- Why some outputs are better than others</p>
+<hr />
+<p><strong>Remember</strong>: Tokens are the currency of LLMs. Understanding tokenization helps you optimize costs, stay within context limits, and build better AI systems.</p>
+<p><strong>Let's learn how to generate text! 🥋🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-24</em>
+<em>Version: 2.0 - Expanded with historical stories</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_08_text_generation.html">Module 8: Text Generation & Sampling Strategies</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

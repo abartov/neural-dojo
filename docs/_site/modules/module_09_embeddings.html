@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 9: Embeddings & Semantic Similarity - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_10_vector_spaces.html">Next: Module 10: Vector Spaces & Semantic Search →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 9: Embeddings & Semantic Similarity</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-9-embeddings-semantic-similarity">Module 9: Embeddings &amp; Semantic Similarity</h1>
+<h1 id="or-teaching-computers-that-cat-and-kitten-are-related">Or: Teaching Computers That 'Cat' and 'Kitten' Are Related</h1>
+<p><strong>Last Updated</strong>: 2025-11-21
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 2-3 hours
+<strong>Prerequisites</strong>: Module 6, Module 8</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand what embeddings are and why they're foundational to modern AI
+- Generate embeddings using OpenAI, Anthropic, and open-source models
+- Calculate semantic similarity between texts using cosine similarity
+- Apply embeddings to real-world problems: search, clustering, recommendations, classification
+- Understand the difference between sparse (TF-IDF) and dense (neural) embeddings
+- Measure embedding quality and choose the right model for your use case
+- Build practical applications using embeddings (semantic search, recommendation engine)</p>
+<hr />
+<h2 id="introduction-the-meaning-problem">Introduction: The Meaning Problem</h2>
+<h3 id="the-challenge-computers-dont-understand-meaning">The Challenge: Computers Don't Understand Meaning</h3>
+<p>Imagine you're building a search engine for your documentation. A user searches for:</p>
+<p><strong>Query</strong>: "How do I restart a failed service?"</p>
+<p>Your documentation contains:
+1. "Restarting a crashed daemon"
+2. "Service recovery procedures"
+3. "How to troubleshoot failed processes"</p>
+<p><strong>Problem</strong>: Traditional keyword search looks for exact word matches:
+- "restart" vs "restarting" → close, but not exact
+- "failed" vs "crashed" → completely different words!
+- "service" vs "daemon" vs "process" → synonyms, but different tokens</p>
+<p><strong>Result</strong>: The user misses relevant documentation because computers see text as strings, not meaning.</p>
+<h3 id="the-solution-embeddings">The Solution: Embeddings</h3>
+<p><strong>Embeddings</strong> are vectors (lists of numbers) that represent the <strong>meaning</strong> of text.</p>
+<pre><code>&quot;How do I restart a failed service?&quot;
+   ↓
+[0.23, -0.41, 0.87, ..., 0.15]  ← 1536 numbers (OpenAI)
+</code></pre>
+<p><strong>Key insight</strong>: Texts with similar meanings have similar embeddings!</p>
+<pre><code class="language-python"># Similar meanings = close vectors
+embedding(&quot;restart a service&quot;)    # [0.23, -0.41, 0.87, ...]
+embedding(&quot;reboot a daemon&quot;)      # [0.25, -0.39, 0.85, ...]  ← CLOSE!
+
+# Different meanings = distant vectors
+embedding(&quot;restart a service&quot;)    # [0.23, -0.41, 0.87, ...]
+embedding(&quot;cook pasta&quot;)           # [-0.71, 0.92, -0.13, ...] ← FAR!
+</code></pre>
+<p>This transforms the search problem from <strong>matching strings</strong> to <strong>measuring distance in meaning-space</strong>.</p>
+<hr />
+<h2 id="stop-time-to-practice">STOP: Time to Practice!</h2>
+<p><strong>You've learned the theory - now let's build with embeddings!</strong></p>
+<p>Embeddings are the foundation of modern AI applications. Theory alone won't give you intuition - you need to see how texts with similar meanings cluster together in vector space, and how dramatically better semantic search is compared to keyword matching.</p>
+<h3 id="practice-path-25-3-hours-total">Practice Path (~2.5-3 hours total)</h3>
+<p><strong>1. <a href="../../examples/module_09/01_embedding_basics.py">Embedding Basics</a></strong> - Generate and compare embeddings
+   - 📖 Concept: Creating embeddings and measuring cosine similarity
+   - ⏱️ Time: 60-75 minutes
+   - Goal: Build intuition for how meaning becomes math
+   - What you'll learn: Similar texts = similar vectors!</p>
+<p><strong>2. <a href="../../examples/module_09/02_semantic_applications.py">Semantic Applications</a></strong> - Build real-world systems
+   - 📖 Concept: Search, clustering, recommendations, classification
+   - ⏱️ Time: 75-90 minutes
+   - Goal: Apply embeddings to 5 different use cases
+   - What you'll learn: One technology, infinite applications!</p>
+<h3 id="deliverable-semantic-search-engine">Deliverable: Semantic Search Engine</h3>
+<p><strong>What</strong>: Build a production-ready semantic search system for one of your projects
+<strong>Time</strong>: 4-5 hours
+<strong>Portfolio Value</strong>: Demonstrates end-to-end AI system building skills</p>
+<p><strong>Requirements</strong>:
+1. Choose a data source from your projects:
+   - kaizen: Documentation search
+   - vibe: Course content recommendations
+   - contrarian: Financial news clustering
+   - Work: Infrastructure runbook search
+2. Implement complete system:
+   - Data ingestion and preprocessing
+   - Embedding generation (with caching!)
+   - Similarity search with ranking
+   - API endpoint or CLI interface
+   - Performance metrics (recall@k, latency)
+3. Compare 2+ embedding models:
+   - Measure quality (relevance) on test queries
+   - Measure cost and latency
+   - Document trade-offs
+4. Include examples:
+   - 5-10 example queries with results
+   - Show keyword search vs semantic search comparison
+5. Deploy or package for production use</p>
+<p><strong>Success Criteria</strong>:
+- System handles 100+ documents
+- Sub-second query latency
+- Embeddings cached/persisted efficiently
+- Measurable improvement over keyword search
+- Production-ready code (error handling, logging)</p>
+<p><strong>Real-World Impact</strong>: Semantic search is a fundamental capability in modern applications - this deliverable proves you can build it from scratch!</p>
+<hr />
+<h2 id="did-you-know">Did You Know?</h2>
+<p>The word "embedding" comes from mathematics: you're <strong>embedding</strong> a high-dimensional discrete space (words/texts) into a continuous vector space. It's like taking discrete cities and placing them on a continuous map where proximity represents similarity!</p>
+<hr />
+<h2 id="what-are-embeddings">📐 What Are Embeddings?</h2>
+<h3 id="definition">Definition</h3>
+<p>An <strong>embedding</strong> is a dense vector representation of data (usually text) that captures semantic meaning.</p>
+<p><strong>Properties</strong>:
+1. <strong>Fixed-length</strong>: Every text (short or long) becomes the same length vector
+2. <strong>Dense</strong>: Most values are non-zero (vs sparse representations like one-hot encoding)
+3. <strong>Learned</strong>: Trained on massive datasets to capture meaning
+4. <strong>Semantic</strong>: Similar meanings → similar vectors</p>
+<h3 id="dimensionality">Dimensionality</h3>
+<p>Embeddings are vectors in high-dimensional space:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Dimensions</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenAI text-embedding-3-small</strong></td>
+<td>1536</td>
+<td>General purpose, cost-effective</td>
+</tr>
+<tr>
+<td><strong>OpenAI text-embedding-3-large</strong></td>
+<td>3072</td>
+<td>Higher quality, more expensive</td>
+</tr>
+<tr>
+<td><strong>Anthropic (Voyage)</strong></td>
+<td>1024</td>
+<td>Optimized for retrieval</td>
+</tr>
+<tr>
+<td><strong>Sentence-BERT</strong></td>
+<td>384-768</td>
+<td>Open-source, local deployment</td>
+</tr>
+<tr>
+<td><strong>Word2Vec</strong></td>
+<td>100-300</td>
+<td>Historical, word-level only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why so many dimensions?</strong></p>
+<p>Think of each dimension as capturing one aspect of meaning:
+- Dimension 1: Formality (casual ↔ professional)
+- Dimension 2: Sentiment (negative ↔ positive)
+- Dimension 3: Technical (general ↔ specialized)
+- ...
+- Dimension 1536: [Some subtle semantic feature]</p>
+<p>With 1536 dimensions, you can capture incredibly nuanced meaning!</p>
+<p><strong>👉 See dimensionality in action: <a href="../../examples/module_09/01_embedding_basics.py">01_embedding_basics.py</a> generates and visualizes embeddings!</strong></p>
+<hr />
+<h2 id="how-embeddings-work">How Embeddings Work</h2>
+<h3 id="the-encoding-process">The Encoding Process</h3>
+<pre><code>Input Text → Tokenization → Neural Network → Embedding Vector
+</code></pre>
+<p><strong>Step-by-step</strong>:</p>
+<ol>
+<li>
+<p><strong>Tokenization</strong>: Text becomes tokens (Module 7!)
+   <code>"Machine learning" → [Machine, learning]</code></p>
+</li>
+<li>
+<p><strong>Neural Network</strong>: Tokens pass through transformer layers
+   <code>Tokens → Attention → Context → Pooling → Vector</code></p>
+</li>
+<li>
+<p><strong>Output</strong>: Fixed-length vector
+   <code>[0.23, -0.41, 0.87, 0.15, ..., -0.62]</code></p>
+</li>
+</ol>
+<h3 id="contrastive-learning-how-models-learn-embeddings">Contrastive Learning (How Models Learn Embeddings)</h3>
+<p>Embedding models are trained using <strong>contrastive learning</strong>:</p>
+<p><strong>Training objective</strong>: Similar texts should have close embeddings, different texts should have distant embeddings.</p>
+<p><strong>Example training pair</strong>:</p>
+<pre><code class="language-python"># Positive pair (similar meaning)
+text_1 = &quot;The cat sat on the mat&quot;
+text_2 = &quot;A cat is sitting on a mat&quot;
+# Goal: Make embeddings close
+
+# Negative pair (different meaning)
+text_1 = &quot;The cat sat on the mat&quot;
+text_3 = &quot;Python is a programming language&quot;
+# Goal: Make embeddings far apart
+</code></pre>
+<p><strong>Training process</strong>:
+1. Generate millions of (positive, negative) pairs from web data
+2. For each pair, compute embeddings
+3. Adjust neural network weights to:
+   - Minimize distance between positive pairs
+   - Maximize distance between negative pairs
+4. Repeat for billions of examples</p>
+<p><strong>Result</strong>: The model learns to encode meaning into vectors!</p>
+<hr />
+<h2 id="sparse-vs-dense-embeddings">🆚 Sparse vs Dense Embeddings</h2>
+<h3 id="sparse-embeddings-traditional">Sparse Embeddings (Traditional)</h3>
+<p><strong>TF-IDF (Term Frequency-Inverse Document Frequency)</strong>:</p>
+<pre><code class="language-python"># Vocabulary: [&quot;apple&quot;, &quot;banana&quot;, &quot;computer&quot;, &quot;fruit&quot;, ...]
+# 50,000 words → 50,000 dimensions
+
+doc_1 = &quot;I like apples&quot;
+embedding_sparse = [0, 0.87, 0, 0, ..., 0]  # Mostly zeros!
+#                    ^  ^apple
+#                    Most values are 0 (sparse)
+</code></pre>
+<p><strong>Characteristics</strong>:
+- Interpretable (each dimension = specific word)
+- Fast to compute
+- No semantic understanding (synonyms not captured)
+- High dimensionality (vocab size)
+- Sparse (mostly zeros)</p>
+<h3 id="dense-embeddings-neural">Dense Embeddings (Neural)</h3>
+<p><strong>Modern embeddings</strong>:</p>
+<pre><code class="language-python">doc_1 = &quot;I like apples&quot;
+embedding_dense = [0.23, -0.41, 0.87, ..., 0.15]  # All non-zero
+#                  ^     ^      ^         ^
+#                  Most values are non-zero (dense)
+</code></pre>
+<p><strong>Characteristics</strong>:
+- Semantic understanding (knows "apple" ≈ "fruit")
+- Lower dimensionality (1536 vs 50,000)
+- Better generalization
+- Less interpretable (what does dimension 42 mean?)
+- Requires neural network (slower to compute)</p>
+<h3 id="comparison-example">Comparison Example</h3>
+<pre><code class="language-python">query = &quot;How to fix a broken car?&quot;
+
+# Document 1: &quot;Repairing an automobile&quot;
+# Document 2: &quot;Python programming tutorial&quot;
+
+# TF-IDF (sparse):
+# - Matches &quot;fix&quot; and &quot;car&quot; literally
+# - Misses &quot;repair&quot; and &quot;automobile&quot; (synonyms!)
+# → Poor match score
+
+# Dense embeddings:
+# - Understands &quot;fix&quot; ≈ &quot;repair&quot;
+# - Understands &quot;car&quot; ≈ &quot;automobile&quot;
+# → Excellent match score!
+</code></pre>
+<p><strong>Modern systems use dense embeddings</strong> for semantic understanding.</p>
+<hr />
+<h2 id="generating-embeddings">🎨 Generating Embeddings</h2>
+<h3 id="option-1-openai-api-most-popular">Option 1: OpenAI API (Most Popular)</h3>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI(api_key=&quot;your-api-key&quot;)
+
+def get_embedding(text: str, model: str = &quot;text-embedding-3-small&quot;) -&gt; list[float]:
+    &quot;&quot;&quot;Generate embedding using OpenAI API.&quot;&quot;&quot;
+    text = text.replace(&quot;\n&quot;, &quot; &quot;)  # OpenAI recommends this
+
+    response = client.embeddings.create(
+        input=text,
+        model=model
+    )
+
+    return response.data[0].embedding
+
+# Example usage
+text = &quot;Machine learning transforms data into insights&quot;
+embedding = get_embedding(text)
+
+print(f&quot;Text: {text}&quot;)
+print(f&quot;Embedding dimensions: {len(embedding)}&quot;)
+print(f&quot;First 5 values: {embedding[:5]}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Text: Machine learning transforms data into insights
+Embedding dimensions: 1536
+First 5 values: [0.0234, -0.4123, 0.8765, 0.1543, -0.6234]
+</code></pre>
+<p><strong>OpenAI Models</strong>:
+- <code>text-embedding-3-small</code>: 1536 dims, $0.02 / 1M tokens
+- <code>text-embedding-3-large</code>: 3072 dims, $0.13 / 1M tokens
+- <code>text-embedding-ada-002</code>: Legacy, 1536 dims (deprecated)</p>
+<h3 id="option-2-anthropic-voyage-ai-integration">Option 2: Anthropic (Voyage AI Integration)</h3>
+<p>Anthropic partners with Voyage AI for embeddings:</p>
+<pre><code class="language-python">import voyageai
+
+client = voyageai.Client(api_key=&quot;your-voyage-api-key&quot;)
+
+def get_voyage_embedding(text: str, model: str = &quot;voyage-2&quot;) -&gt; list[float]:
+    &quot;&quot;&quot;Generate embedding using Voyage AI.&quot;&quot;&quot;
+    result = client.embed(
+        texts=[text],
+        model=model,
+        input_type=&quot;document&quot;  # or &quot;query&quot; for search queries
+    )
+
+    return result.embeddings[0]
+
+# Example usage
+embedding = get_voyage_embedding(&quot;Machine learning is transformative&quot;)
+print(f&quot;Embedding dimensions: {len(embedding)}&quot;)
+</code></pre>
+<p><strong>Voyage Models</strong>:
+- <code>voyage-2</code>: 1024 dims, optimized for retrieval
+- <code>voyage-large-2</code>: 1536 dims, higher quality</p>
+<h3 id="option-3-open-source-sentence-transformers">Option 3: Open-Source (Sentence Transformers)</h3>
+<p><strong>FREE</strong> and runs locally!</p>
+<pre><code class="language-python">from sentence_transformers import SentenceTransformer
+
+# Load model (downloads ~400MB on first run)
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def get_local_embedding(text: str) -&gt; list[float]:
+    &quot;&quot;&quot;Generate embedding using local model.&quot;&quot;&quot;
+    embedding = model.encode(text)
+    return embedding.tolist()
+
+# Example usage
+texts = [
+    &quot;Machine learning is a subset of AI&quot;,
+    &quot;Deep learning uses neural networks&quot;,
+    &quot;Pizza is a delicious food&quot;
+]
+
+embeddings = model.encode(texts)
+
+for text, emb in zip(texts, embeddings):
+    print(f&quot;{text[:30]}... → {len(emb)} dimensions&quot;)
+</code></pre>
+<p><strong>Popular Open-Source Models</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Dimensions</th>
+<th>Speed</th>
+<th>Quality</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>all-MiniLM-L6-v2</code></td>
+<td>384</td>
+<td>⚡⚡⚡ Fast</td>
+<td>Good</td>
+<td>General purpose</td>
+</tr>
+<tr>
+<td><code>all-mpnet-base-v2</code></td>
+<td>768</td>
+<td>⚡⚡ Medium</td>
+<td>Better</td>
+<td>Higher quality</td>
+</tr>
+<tr>
+<td><code>all-distilroberta-v1</code></td>
+<td>768</td>
+<td>⚡⚡ Medium</td>
+<td>Better</td>
+<td>Balanced</td>
+</tr>
+<tr>
+<td><code>paraphrase-multilingual</code></td>
+<td>768</td>
+<td>⚡ Slow</td>
+<td>Best</td>
+<td>50+ languages</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pros</strong>:
+- FREE (no API costs)
+- Fast (local inference)
+- Privacy (data stays local)
+- Offline capable</p>
+<p><strong>Cons</strong>:
+- Lower quality than OpenAI/Voyage
+- Requires GPU for best performance
+- Model download/storage</p>
+<hr />
+<h2 id="measuring-similarity-cosine-similarity">📏 Measuring Similarity: Cosine Similarity</h2>
+<p>Once you have embeddings, how do you measure how similar two texts are?</p>
+<h3 id="cosine-similarity-explained">Cosine Similarity Explained</h3>
+<p><strong>Intuition</strong>: Measure the angle between two vectors. Similar vectors point in similar directions!</p>
+<pre><code>      Vector A
+        ↗
+       /  ) θ (small angle)
+      /  ↗
+     / ↗ Vector B
+    /↗
+   ●────────────→
+</code></pre>
+<p><strong>Formula</strong>:</p>
+<pre><code>cosine_similarity(A, B) = (A · B) / (|A| × |B|)
+
+Where:
+- A · B = dot product (sum of element-wise multiplication)
+- |A| = magnitude (length) of vector A
+- |B| = magnitude (length) of vector B
+</code></pre>
+<p><strong>Implementation</strong>:</p>
+<pre><code class="language-python">import numpy as np
+
+def cosine_similarity(vec_a: list[float], vec_b: list[float]) -&gt; float:
+    &quot;&quot;&quot;Calculate cosine similarity between two vectors.&quot;&quot;&quot;
+    # Convert to numpy arrays
+    a = np.array(vec_a)
+    b = np.array(vec_b)
+
+    # Compute dot product
+    dot_product = np.dot(a, b)
+
+    # Compute magnitudes
+    magnitude_a = np.linalg.norm(a)
+    magnitude_b = np.linalg.norm(b)
+
+    # Compute cosine similarity
+    similarity = dot_product / (magnitude_a * magnitude_b)
+
+    return similarity
+
+# Example
+emb_1 = get_embedding(&quot;Machine learning is powerful&quot;)
+emb_2 = get_embedding(&quot;AI and ML are transformative&quot;)
+emb_3 = get_embedding(&quot;I love pizza&quot;)
+
+print(f&quot;ML vs AI: {cosine_similarity(emb_1, emb_2):.3f}&quot;)  # → 0.85 (high!)
+print(f&quot;ML vs Pizza: {cosine_similarity(emb_1, emb_3):.3f}&quot;)  # → 0.21 (low!)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>ML vs AI: 0.851 (very similar!)
+ML vs Pizza: 0.214 (not similar)
+</code></pre>
+<h3 id="similarity-score-interpretation">Similarity Score Interpretation</h3>
+<table>
+<thead>
+<tr>
+<th>Similarity</th>
+<th>Interpretation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.9 - 1.0</strong></td>
+<td>Nearly identical</td>
+<td>"Car" vs "Automobile"</td>
+</tr>
+<tr>
+<td><strong>0.7 - 0.9</strong></td>
+<td>Very similar</td>
+<td>"Dog" vs "Puppy"</td>
+</tr>
+<tr>
+<td><strong>0.5 - 0.7</strong></td>
+<td>Somewhat similar</td>
+<td>"Dog" vs "Cat"</td>
+</tr>
+<tr>
+<td><strong>0.3 - 0.5</strong></td>
+<td>Slightly similar</td>
+<td>"Dog" vs "Animal"</td>
+</tr>
+<tr>
+<td><strong>0.0 - 0.3</strong></td>
+<td>Not similar</td>
+<td>"Dog" vs "Pizza"</td>
+</tr>
+<tr>
+<td><strong>&lt; 0.0</strong></td>
+<td>Opposite</td>
+<td>Rare, but possible</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important</strong>: These ranges are approximate and depend on the embedding model!</p>
+<h3 id="why-cosine-similarity">Why Cosine Similarity?</h3>
+<p><strong>Why not Euclidean distance?</strong></p>
+<p>Cosine similarity measures <strong>direction</strong>, not magnitude:</p>
+<pre><code class="language-python">vec_1 = [1, 2, 3]
+vec_2 = [2, 4, 6]  # Same direction, different magnitude
+
+# Euclidean distance: LARGE (they're far apart in space)
+euclidean = np.linalg.norm(vec_1 - vec_2)  # → 3.74
+
+# Cosine similarity: IDENTICAL (same direction!)
+cosine = cosine_similarity(vec_1, vec_2)  # → 1.0
+</code></pre>
+<p>For text, <strong>direction matters more than magnitude</strong>. Two texts about the same topic (same direction) are similar even if one is more detailed (larger magnitude).</p>
+<p><strong>👉 Compare similarity measures: <a href="../../examples/module_09/01_embedding_basics.py">01_embedding_basics.py</a> shows cosine vs Euclidean!</strong></p>
+<hr />
+<h2 id="did-you-know_1">Did You Know?</h2>
+<p>Cosine similarity is used everywhere in recommender systems! When Netflix recommends movies, it's comparing the embedding of movies you've watched to embeddings of all other movies, then recommending the ones with highest cosine similarity!</p>
+<hr />
+<h2 id="use-cases-what-can-you-build">Use Cases: What Can You Build?</h2>
+<h3 id="1-semantic-search">1. Semantic Search</h3>
+<p><strong>Problem</strong>: Find relevant documents even when exact keywords don't match.</p>
+<p><strong>Solution</strong>:
+1. Generate embeddings for all documents (one-time)
+2. When user queries, generate query embedding
+3. Compute similarity between query and all documents
+4. Return top-K most similar documents</p>
+<pre><code class="language-python"># Precompute document embeddings (do once)
+documents = [
+    &quot;How to restart a service&quot;,
+    &quot;Service recovery procedures&quot;,
+    &quot;Troubleshooting failed processes&quot;,
+    &quot;Cooking pasta recipes&quot;,
+]
+
+doc_embeddings = [get_embedding(doc) for doc in documents]
+
+# User query
+query = &quot;fix a crashed daemon&quot;
+query_embedding = get_embedding(query)
+
+# Compute similarities
+similarities = [
+    cosine_similarity(query_embedding, doc_emb)
+    for doc_emb in doc_embeddings
+]
+
+# Rank results
+results = sorted(zip(documents, similarities), key=lambda x: x[1], reverse=True)
+
+for doc, sim in results[:3]:
+    print(f&quot;{sim:.3f} - {doc}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>0.872 - How to restart a service
+0.841 - Service recovery procedures
+0.798 - Troubleshooting failed processes
+0.134 - Cooking pasta recipes  ← Correctly ranked low!
+</code></pre>
+<h3 id="2-clustering-group-similar-items">2. Clustering (Group Similar Items)</h3>
+<p><strong>Problem</strong>: Automatically group similar documents/items.</p>
+<p><strong>Solution</strong>: Use k-means clustering on embeddings!</p>
+<pre><code class="language-python">from sklearn.cluster import KMeans
+import numpy as np
+
+# Documents
+documents = [
+    &quot;Python programming tutorial&quot;,
+    &quot;JavaScript web development&quot;,
+    &quot;Machine learning basics&quot;,
+    &quot;Deep learning with PyTorch&quot;,
+    &quot;React frontend framework&quot;,
+    &quot;AI and neural networks&quot;,
+]
+
+# Generate embeddings
+embeddings = np.array([get_embedding(doc) for doc in documents])
+
+# Cluster into 2 groups
+kmeans = KMeans(n_clusters=2, random_state=42)
+clusters = kmeans.fit_predict(embeddings)
+
+# Print clusters
+for cluster_id in range(2):
+    print(f&quot;\nCluster {cluster_id}:&quot;)
+    for doc, label in zip(documents, clusters):
+        if label == cluster_id:
+            print(f&quot;  - {doc}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Cluster 0:
+  - Python programming tutorial
+  - JavaScript web development
+  - React frontend framework
+
+Cluster 1:
+  - Machine learning basics
+  - Deep learning with PyTorch
+  - AI and neural networks
+</code></pre>
+<p><strong>Perfect clustering!</strong> Programming docs vs ML docs automatically separated.</p>
+<p><strong>👉 Build all 5 use cases: <a href="../../examples/module_09/02_semantic_applications.py">02_semantic_applications.py</a> implements search, clustering, recommendations, classification, and duplicates!</strong></p>
+<h3 id="3-recommendation-system">3. Recommendation System</h3>
+<p><strong>Problem</strong>: Recommend similar items to users.</p>
+<p><strong>Solution</strong>: Find items with embeddings similar to user's liked items!</p>
+<pre><code class="language-python"># User's favorite articles
+user_favorites = [
+    &quot;Introduction to neural networks&quot;,
+    &quot;Deep learning for beginners&quot;
+]
+
+# All available articles
+all_articles = [
+    &quot;Advanced neural network architectures&quot;,  # Should rank high
+    &quot;Cooking Italian cuisine&quot;,                # Should rank low
+    &quot;Machine learning fundamentals&quot;,          # Should rank high
+    &quot;Gardening tips and tricks&quot;,              # Should rank low
+]
+
+# Average user's favorite embeddings
+user_profile_embedding = np.mean(
+    [get_embedding(fav) for fav in user_favorites],
+    axis=0
+)
+
+# Score all articles
+scores = [
+    (article, cosine_similarity(user_profile_embedding, get_embedding(article)))
+    for article in all_articles
+]
+
+# Recommend top articles
+recommendations = sorted(scores, key=lambda x: x[1], reverse=True)
+
+print(&quot;Recommended for you:&quot;)
+for article, score in recommendations[:2]:
+    print(f&quot;{score:.3f} - {article}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Recommended for you:
+0.891 - Advanced neural network architectures
+0.847 - Machine learning fundamentals
+</code></pre>
+<h3 id="4-classification-zero-shot">4. Classification (Zero-Shot)</h3>
+<p><strong>Problem</strong>: Classify text without training a classifier!</p>
+<p><strong>Solution</strong>: Compare text embedding to category embeddings, pick closest.</p>
+<pre><code class="language-python"># Define categories
+categories = {
+    &quot;Technology&quot;: &quot;Computers, software, programming, AI, tech&quot;,
+    &quot;Sports&quot;: &quot;Football, basketball, athletics, competitions&quot;,
+    &quot;Cooking&quot;: &quot;Recipes, food, ingredients, culinary arts&quot;
+}
+
+# Generate category embeddings
+category_embeddings = {
+    name: get_embedding(description)
+    for name, description in categories.items()
+}
+
+# Classify a new text
+text_to_classify = &quot;Python is a popular programming language&quot;
+
+text_embedding = get_embedding(text_to_classify)
+
+# Find closest category
+scores = {
+    category: cosine_similarity(text_embedding, cat_emb)
+    for category, cat_emb in category_embeddings.items()
+}
+
+predicted_category = max(scores, key=scores.get)
+
+print(f&quot;Text: {text_to_classify}&quot;)
+print(f&quot;Predicted: {predicted_category}&quot;)
+print(f&quot;Scores: {scores}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Text: Python is a popular programming language
+Predicted: Technology
+Scores: {'Technology': 0.823, 'Sports': 0.142, 'Cooking': 0.098}
+</code></pre>
+<h3 id="5-duplicate-detection">5. Duplicate Detection</h3>
+<p><strong>Problem</strong>: Find duplicate or near-duplicate content.</p>
+<p><strong>Solution</strong>: High similarity → likely duplicates!</p>
+<pre><code class="language-python">def find_duplicates(documents: list[str], threshold: float = 0.95) -&gt; list:
+    &quot;&quot;&quot;Find near-duplicate documents.&quot;&quot;&quot;
+    embeddings = [get_embedding(doc) for doc in documents]
+    duplicates = []
+
+    for i in range(len(documents)):
+        for j in range(i + 1, len(documents)):
+            sim = cosine_similarity(embeddings[i], embeddings[j])
+            if sim &gt; threshold:
+                duplicates.append((documents[i], documents[j], sim))
+
+    return duplicates
+
+# Test
+docs = [
+    &quot;How to restart a server&quot;,
+    &quot;Restarting a server tutorial&quot;,  # Duplicate!
+    &quot;Cooking pasta recipes&quot;,
+    &quot;Server restart guide&quot;,          # Duplicate!
+]
+
+dupes = find_duplicates(docs, threshold=0.85)
+
+for doc1, doc2, sim in dupes:
+    print(f&quot;{sim:.3f} - '{doc1}' ≈ '{doc2}'&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>0.921 - 'How to restart a server' ≈ 'Restarting a server tutorial'
+0.897 - 'How to restart a server' ≈ 'Server restart guide'
+0.913 - 'Restarting a server tutorial' ≈ 'Server restart guide'
+</code></pre>
+<hr />
+<h2 id="common-pitfalls">️ Common Pitfalls</h2>
+<h3 id="pitfall-1-not-normalizing-text">Pitfall 1: Not Normalizing Text</h3>
+<p><strong>Problem</strong>: Embeddings can be sensitive to formatting.</p>
+<pre><code class="language-python"># These have different embeddings!
+emb_1 = get_embedding(&quot;HELLO WORLD&quot;)
+emb_2 = get_embedding(&quot;hello world&quot;)
+emb_3 = get_embedding(&quot;hello    world&quot;)  # Extra spaces
+
+# Similarity might not be 1.0!
+</code></pre>
+<p><strong>Solution</strong>: Normalize text before embedding:</p>
+<pre><code class="language-python">def normalize_text(text: str) -&gt; str:
+    &quot;&quot;&quot;Normalize text for consistent embeddings.&quot;&quot;&quot;
+    # Lowercase (optional - models handle case well)
+    # text = text.lower()
+
+    # Remove extra whitespace
+    text = &quot; &quot;.join(text.split())
+
+    # Remove newlines
+    text = text.replace(&quot;\n&quot;, &quot; &quot;)
+
+    return text
+</code></pre>
+<h3 id="pitfall-2-embedding-too-much-text">Pitfall 2: Embedding Too Much Text</h3>
+<p><strong>Problem</strong>: Models have token limits!</p>
+<pre><code class="language-python"># OpenAI: 8191 tokens max
+# Long document → truncated → information loss!
+
+long_doc = &quot;...&quot; * 10000  # 50,000 words
+embedding = get_embedding(long_doc)  # Silently truncated!
+</code></pre>
+<p><strong>Solution</strong>: Chunk long documents:</p>
+<pre><code class="language-python">def chunk_text(text: str, max_tokens: int = 500) -&gt; list[str]:
+    &quot;&quot;&quot;Split text into chunks.&quot;&quot;&quot;
+    # Simple chunking by sentences
+    sentences = text.split(&quot;. &quot;)
+    chunks = []
+    current_chunk = []
+    current_tokens = 0
+
+    for sentence in sentences:
+        tokens = len(sentence.split())  # Rough estimate
+        if current_tokens + tokens &gt; max_tokens:
+            chunks.append(&quot;. &quot;.join(current_chunk) + &quot;.&quot;)
+            current_chunk = [sentence]
+            current_tokens = tokens
+        else:
+            current_chunk.append(sentence)
+            current_tokens += tokens
+
+    if current_chunk:
+        chunks.append(&quot;. &quot;.join(current_chunk) + &quot;.&quot;)
+
+    return chunks
+
+# Embed each chunk separately
+chunks = chunk_text(long_document)
+chunk_embeddings = [get_embedding(chunk) for chunk in chunks]
+</code></pre>
+<h3 id="pitfall-3-comparing-embeddings-from-different-models">Pitfall 3: Comparing Embeddings from Different Models</h3>
+<p><strong>Problem</strong>: Embeddings from different models are incompatible!</p>
+<pre><code class="language-python"># DON'T DO THIS!
+emb_1 = get_embedding(&quot;text&quot;, model=&quot;text-embedding-3-small&quot;)  # 1536 dims
+emb_2 = get_voyage_embedding(&quot;text&quot;)  # 1024 dims
+
+similarity = cosine_similarity(emb_1, emb_2)  # ERROR or nonsense!
+</code></pre>
+<p><strong>Solution</strong>: Always use the same model for all embeddings in a system!</p>
+<h3 id="pitfall-4-not-caching-embeddings">Pitfall 4: Not Caching Embeddings</h3>
+<p><strong>Problem</strong>: Embedding APIs cost money and time!</p>
+<pre><code class="language-python"># BAD: Re-embed the same text repeatedly
+for query in user_queries:
+    doc_embeddings = [get_embedding(doc) for doc in documents]  # WASTEFUL!
+    # ... search logic
+</code></pre>
+<p><strong>Solution</strong>: Precompute and cache!</p>
+<pre><code class="language-python"># GOOD: Embed documents once
+doc_embeddings = {doc: get_embedding(doc) for doc in documents}
+
+# Then reuse
+for query in user_queries:
+    query_emb = get_embedding(query)
+    similarities = [
+        cosine_similarity(query_emb, doc_embeddings[doc])
+        for doc in documents
+    ]
+</code></pre>
+<h3 id="pitfall-5-ignoring-embedding-quality">Pitfall 5: Ignoring Embedding Quality</h3>
+<p><strong>Problem</strong>: Not all embedding models are equal!</p>
+<p><strong>Solution</strong>: Benchmark on your data!</p>
+<pre><code class="language-python">from sklearn.metrics import accuracy_score
+
+# Test different models
+models = [&quot;text-embedding-3-small&quot;, &quot;text-embedding-3-large&quot;]
+
+for model in models:
+    # Generate embeddings
+    embeddings = [get_embedding(text, model=model) for text in test_texts]
+
+    # Evaluate on your task (e.g., classification accuracy)
+    accuracy = evaluate_embeddings(embeddings, labels)
+
+    print(f&quot;{model}: {accuracy:.3f}&quot;)
+</code></pre>
+<hr />
+<h2 id="choosing-the-right-embedding-model">🏆 Choosing the Right Embedding Model</h2>
+<h3 id="decision-matrix">Decision Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cost-sensitive</strong></td>
+<td>OpenAI <code>text-embedding-3-small</code> or open-source</td>
+</tr>
+<tr>
+<td><strong>Quality-critical</strong></td>
+<td>OpenAI <code>text-embedding-3-large</code> or Voyage</td>
+</tr>
+<tr>
+<td><strong>Privacy-required</strong></td>
+<td>Open-source (Sentence Transformers)</td>
+</tr>
+<tr>
+<td><strong>Multilingual</strong></td>
+<td><code>paraphrase-multilingual</code> (open-source)</td>
+</tr>
+<tr>
+<td><strong>Low latency</strong></td>
+<td>Cache embeddings or use smaller models</td>
+</tr>
+<tr>
+<td><strong>Retrieval/search</strong></td>
+<td>Voyage <code>voyage-2</code> or OpenAI</td>
+</tr>
+<tr>
+<td><strong>General purpose</strong></td>
+<td>OpenAI <code>text-embedding-3-small</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="benchmarking">Benchmarking</h3>
+<p>Test on your specific use case:</p>
+<pre><code class="language-python">def benchmark_model(model_name: str, queries: list[str], documents: list[str], relevant: dict):
+    &quot;&quot;&quot;Benchmark a model on search task.&quot;&quot;&quot;
+    # Generate embeddings
+    query_embs = [get_embedding(q, model=model_name) for q in queries]
+    doc_embs = [get_embedding(d, model=model_name) for d in documents]
+
+    # Evaluate recall@k
+    hits = 0
+    for i, query in enumerate(queries):
+        # Find top-5 documents
+        similarities = [cosine_similarity(query_embs[i], doc_emb) for doc_emb in doc_embs]
+        top_k_indices = np.argsort(similarities)[-5:][::-1]
+
+        # Check if relevant doc is in top-5
+        if relevant[i] in top_k_indices:
+            hits += 1
+
+    recall_at_5 = hits / len(queries)
+    return recall_at_5
+
+# Test
+recall = benchmark_model(&quot;text-embedding-3-small&quot;, test_queries, test_docs, relevance_map)
+print(f&quot;Recall@5: {recall:.2%}&quot;)
+</code></pre>
+<hr />
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="application-1-kaizen-lean-devops-platform">Application 1: kaizen (Lean DevOps Platform)</h3>
+<p><strong>Current</strong>: Keyword-based RAG retrieval
+<strong>Enhancement</strong>: Semantic search with embeddings!</p>
+<pre><code class="language-python"># Embed all kaizen documentation
+docs = load_kaizen_docs()
+doc_embeddings = {doc[&quot;id&quot;]: get_embedding(doc[&quot;text&quot;]) for doc in docs}
+
+# User asks question
+user_question = &quot;How do I optimize deployment speed?&quot;
+
+# Find relevant docs
+question_emb = get_embedding(user_question)
+scores = [
+    (doc_id, cosine_similarity(question_emb, doc_embeddings[doc_id]))
+    for doc_id in doc_embeddings
+]
+
+# Get top 5 relevant docs
+top_docs = sorted(scores, key=lambda x: x[1], reverse=True)[:5]
+
+# Use in RAG prompt
+context = &quot;\n\n&quot;.join([docs[doc_id][&quot;text&quot;] for doc_id, _ in top_docs])
+answer = llm_query(f&quot;Context: {context}\n\nQuestion: {user_question}&quot;)
+</code></pre>
+<h3 id="application-2-vibe-teaching-platform">Application 2: vibe (Teaching Platform)</h3>
+<p><strong>Use case</strong>: Recommend similar learning materials</p>
+<pre><code class="language-python"># Student just completed a lesson
+completed_lesson = &quot;Introduction to Python functions&quot;
+lesson_emb = get_embedding(completed_lesson)
+
+# Find similar lessons
+all_lessons = get_all_lessons()
+recommendations = [
+    (lesson, cosine_similarity(lesson_emb, get_embedding(lesson)))
+    for lesson in all_lessons
+]
+
+# Recommend top 3
+recommended = sorted(recommendations, key=lambda x: x[1], reverse=True)[1:4]  # Skip self
+
+print(&quot;You might also like:&quot;)
+for lesson, score in recommended:
+    print(f&quot;- {lesson} (similarity: {score:.2f})&quot;)
+</code></pre>
+<h3 id="application-3-contrarian-stock-analysis">Application 3: contrarian (Stock Analysis)</h3>
+<p><strong>Use case</strong>: Cluster news articles by topic</p>
+<pre><code class="language-python"># Get today's financial news
+news_articles = fetch_financial_news()
+
+# Embed articles
+article_embeddings = [get_embedding(article[&quot;title&quot;] + &quot; &quot; + article[&quot;summary&quot;]) for article in news_articles]
+
+# Cluster
+kmeans = KMeans(n_clusters=5)
+clusters = kmeans.fit_predict(article_embeddings)
+
+# Group articles by cluster
+for cluster_id in range(5):
+    print(f&quot;\nTopic {cluster_id}:&quot;)
+    for article, label in zip(news_articles, clusters):
+        if label == cluster_id:
+            print(f&quot;  - {article['title']}&quot;)
+</code></pre>
+<h3 id="application-4-work-geospatial-cloud">Application 4: Work (Geospatial + Cloud)</h3>
+<p><strong>Use case</strong>: Semantic search across infrastructure documentation</p>
+<pre><code class="language-python"># Index all runbooks, docs, scripts
+infrastructure_docs = load_all_docs()
+doc_index = {
+    doc[&quot;path&quot;]: get_embedding(doc[&quot;content&quot;])
+    for doc in infrastructure_docs
+}
+
+# Engineer asks: &quot;How do I scale the database?&quot;
+query = &quot;How do I scale the database?&quot;
+query_emb = get_embedding(query)
+
+# Find relevant docs
+results = sorted(
+    [(path, cosine_similarity(query_emb, emb)) for path, emb in doc_index.items()],
+    key=lambda x: x[1],
+    reverse=True
+)[:5]
+
+print(&quot;Relevant documentation:&quot;)
+for path, score in results:
+    print(f&quot;{score:.3f} - {path}&quot;)
+</code></pre>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li><strong>Sentence-BERT</strong> (2019): <a href="https://arxiv.org/abs/1908.10084">Paper</a> - Introduced sentence embeddings</li>
+<li><strong>SimCSE</strong> (2021): <a href="https://arxiv.org/abs/2104.08821">Paper</a> - Contrastive learning for embeddings</li>
+<li><strong>E5</strong> (2022): <a href="https://arxiv.org/abs/2212.03533">Paper</a> - Text embeddings by weak supervision</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li><a href="https://platform.openai.com/docs/guides/embeddings">OpenAI Embeddings Guide</a></li>
+<li><a href="https://www.sbert.net/">Sentence Transformers Docs</a></li>
+<li><a href="https://docs.voyageai.com/">Voyage AI Docs</a></li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li><strong>MTEB Leaderboard</strong>: Compare embedding models on 56 tasks</li>
+<li><strong>txtai</strong>: Semantic search framework built on embeddings</li>
+<li><strong>Qdrant</strong>: Vector database for embeddings (Module 14!)</li>
+</ul>
+<hr />
+<h2 id="did-you-know-the-revolution-of-embeddings">Did You Know? The Revolution of Embeddings</h2>
+<h3 id="the-google-intern-who-changed-nlp-forever">The Google Intern Who Changed NLP Forever</h3>
+<p>In <strong>2013</strong>, a Czech researcher named <strong>Tomáš Mikolov</strong> at Google published Word2Vec - and accidentally revolutionized natural language processing.</p>
+<p>Mikolov wasn't trying to create embeddings. He was trying to build a faster language model for speech recognition. His trick: simplify the neural network architecture to just one hidden layer. This made training 100x faster.</p>
+<p><strong>The accident</strong>: When Mikolov examined the hidden layer weights, he noticed something bizarre. Words with similar meanings had similar weights. And even more shocking: <strong>you could do math on them</strong>.</p>
+<pre><code>vector(&quot;king&quot;) - vector(&quot;man&quot;) + vector(&quot;woman&quot;) ≈ vector(&quot;queen&quot;)
+</code></pre>
+<p>The paper "Efficient Estimation of Word Representations in Vector Space" has been cited over <strong>40,000 times</strong> - making it one of the most influential ML papers ever. Mikolov later moved to Facebook AI, then left to work on AI safety.</p>
+<p><strong>Fun fact</strong>: The famous king/queen example was discovered by accident when a researcher was debugging the model and tried random arithmetic operations!</p>
+<h3 id="the-linguistic-regularity-discovery">The "Linguistic Regularity" Discovery</h3>
+<p>After Word2Vec, researchers started finding increasingly bizarre patterns in embeddings:</p>
+<p><strong>Analogies that work</strong>:
+- <code>Paris - France + Italy = Rome</code> (capitals)
+- <code>walking - walked + swam = swimming</code> (tense)
+- <code>brother - man + woman = sister</code> (gender)
+- <code>good - better + worse = bad</code> (comparatives)</p>
+<p><strong>But also unexpected ones</strong>:
+- <code>sushi - Japan + Italy = pizza</code> (!)
+- <code>Microsoft - Windows + Apple = macOS</code> (!)
+- <code>Einstein - physicist + painter = Picasso</code> (!)</p>
+<p>Researchers published paper after paper exploring these "linguistic regularities." The embeddings had somehow learned <strong>conceptual relationships</strong> just from predicting context words!</p>
+<h3 id="the-billion-dollar-pivot-from-words-to-sentences">The Billion-Dollar Pivot: From Words to Sentences</h3>
+<p>Word2Vec had a fatal flaw: it only embedded <strong>single words</strong>. How do you embed "not good" (which means bad)?</p>
+<p><strong>2018</strong>: Google's BERT solved this by embedding entire sentences. But BERT was slow - generating one embedding required a full transformer forward pass.</p>
+<p><strong>2019</strong>: Nils Reimers (a German researcher) created <strong>Sentence-BERT</strong> while doing his PhD. His insight: train BERT to produce embeddings that are fast to compare. The paper was rejected from the main NeurIPS conference but accepted to EMNLP.</p>
+<p><strong>The impact</strong>:
+- Sentence-BERT made semantic search practical
+- Reimers founded Hugging Face's sentence-transformers library
+- Now used by: Google, Amazon, Microsoft, and virtually every AI startup
+- Downloads: 100M+ per month on Hugging Face</p>
+<p><strong>The lesson</strong>: A PhD student's "rejected" paper became the foundation of the entire embedding industry!</p>
+<h3 id="the-openai-pricing-shock">The OpenAI Pricing Shock</h3>
+<p>In <strong>December 2022</strong>, OpenAI released text-embedding-ada-002 - and shocked the industry with its pricing:</p>
+<p><strong>Before (text-embedding-ada-001)</strong>:
+- Price: $0.20 per 1,000 tokens
+- Quality: Good but not great</p>
+<p><strong>After (ada-002)</strong>:
+- Price: <strong>$0.0001</strong> per 1,000 tokens (2000x cheaper!)
+- Quality: Significantly better</p>
+<p><strong>What happened?</strong> OpenAI had achieved a massive efficiency breakthrough. They never disclosed the details, but the pricing made embeddings essentially free for most applications.</p>
+<p><strong>Industry reaction</strong>:
+- Startups pivoted overnight from open-source to OpenAI
+- Self-hosted embedding servers were abandoned
+- Cohere, Google, and others scrambled to match pricing
+- By 2024, all major providers offer embeddings at &lt;$0.0005 per 1K tokens</p>
+<h3 id="the-netflix-recommendation-engine">The Netflix Recommendation Engine</h3>
+<p>Here's a secret: <strong>Netflix doesn't use traditional collaborative filtering anymore</strong>. They use embeddings.</p>
+<p>Every movie on Netflix has an embedding. Every user has an embedding (based on their watch history). Recommendations are simply:</p>
+<pre><code class="language-python">user_embedding = average(embeddings of watched movies)
+recommendations = nearest_neighbors(user_embedding, all_movie_embeddings)
+</code></pre>
+<p><strong>The numbers</strong>:
+- Netflix generates <strong>$1B+ per year</strong> in value from their recommendation system
+- Embeddings replaced their old system in 2019
+- 80% of content watched comes from recommendations</p>
+<p><strong>Amazon, Spotify, TikTok</strong> - they all use similar embedding-based recommendation systems. The algorithm that powers your social media feed is essentially: <em>find content with embeddings similar to what you've engaged with.</em></p>
+<h3 id="the-benchmark-wars">The Benchmark Wars</h3>
+<p>In <strong>2022</strong>, the MTEB (Massive Text Embedding Benchmark) was released, ranking embedding models on 56 diverse tasks.</p>
+<p><strong>The competition got intense</strong>:
+- <strong>OpenAI</strong> released ada-002, claimed #1 spot
+- <strong>Cohere</strong> released embed-v3, challenged for #1
+- <strong>Voyage AI</strong> (startup) came out of nowhere with voyage-large
+- <strong>Open source</strong> (e5, gte, bge) caught up rapidly</p>
+<p><strong>Current state (2024)</strong>:
+- Best commercial: OpenAI text-embedding-3-large, Voyage AI voyage-large-2
+- Best open-source: e5-large-v2, bge-large-en-v1.5
+- Open source is now within 2-3% of commercial models!</p>
+<h3 id="the-surprising-economics">The Surprising Economics</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Cost per 1M tokens</th>
+<th>Quality (MTEB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenAI ada-002</strong></td>
+<td>$0.10</td>
+<td>61.0%</td>
+</tr>
+<tr>
+<td><strong>OpenAI text-embedding-3-large</strong></td>
+<td>$0.13</td>
+<td>64.6%</td>
+</tr>
+<tr>
+<td><strong>Voyage AI voyage-large-2</strong></td>
+<td>$0.12</td>
+<td>64.5%</td>
+</tr>
+<tr>
+<td><strong>Cohere embed-v3</strong></td>
+<td>$0.10</td>
+<td>64.5%</td>
+</tr>
+<tr>
+<td><strong>Open source (e5-large)</strong></td>
+<td>~$0.00*</td>
+<td>63.0%</td>
+</tr>
+</tbody>
+</table>
+<p>*Self-hosted cost depends on your infrastructure</p>
+<p><strong>The insight</strong>: For most applications, open-source embeddings are "good enough" and essentially free. Only pay for commercial when you need that extra 2-3% quality!</p>
+<hr />
+<h2 id="module-summary">Module Summary</h2>
+<p><strong>What you learned</strong>:
+- Embeddings are dense vectors representing text meaning
+- Generated using neural networks trained on massive datasets
+- Measured using cosine similarity (direction, not distance)
+- Applied to search, clustering, recommendations, classification, duplicates
+- OpenAI, Voyage, and open-source options available
+- Always use the same model for all embeddings in a system</p>
+<p><strong>Key formulas</strong>:</p>
+<pre><code>cosine_similarity(A, B) = (A · B) / (|A| × |B|)
+</code></pre>
+<p><strong>Key code patterns</strong>:</p>
+<pre><code class="language-python"># Generate embedding
+embedding = get_embedding(text)
+
+# Compare similarity
+similarity = cosine_similarity(emb_1, emb_2)
+
+# Search
+scores = [cosine_similarity(query_emb, doc_emb) for doc_emb in doc_embeddings]
+top_results = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)[:k]
+</code></pre>
+<hr />
+<h2 id="next-steps">️ Next Steps</h2>
+<p><strong>Next module</strong>: Module 10: Vector Spaces &amp; Semantic Search 🔮</p>
+<p>In Module 10, you'll experience the <strong>Heureka Moment</strong>: understanding embeddings as coordinates in semantic space, where mathematical operations work on <strong>meaning itself</strong>!</p>
+<p>You'll learn:
+- Visualizing embeddings in 2D/3D space
+- Vector arithmetic: <code>king - man + woman ≈ queen</code>
+- Building semantic search from scratch
+- Vector databases and indexing at scale
+- The geometry of meaning!</p>
+<p><strong>This is when everything clicks!</strong> 🔮</p>
+<hr />
+<p><strong>🥋 Neural Dojo - Master embeddings, unlock semantic understanding! 🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-21</em>
+<em>Module 9: Embeddings &amp; Semantic Similarity</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_10_vector_spaces.html">Module 10: Vector Spaces & Semantic Search</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

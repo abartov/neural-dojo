@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Introduction to Large Language Models - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_07_tokenization.html">Next: Module 7: Tokenization & Text Processing →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 6: Introduction to Large Language Models</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-6-introduction-to-large-language-models">Module 6: Introduction to Large Language Models</h1>
+<h1 id="or-whats-actually-happening-behind-the-curtain">Or: What's Actually Happening Behind the Curtain</h1>
+<p><strong>Last Updated</strong>: 2025-11-21
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 5-6 hours
+<strong>Prerequisites</strong>: Phase 1 complete</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand the transformer architecture at a high level
+- Know the major LLM families (GPT, Claude, Llama, Mistral)
+- Understand pre-training vs fine-tuning
+- Compare open-source vs proprietary models
+- Master context windows and their implications
+- Make your first direct API integration
+- Choose the right model for your use case</p>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>You've learned to <strong>USE</strong> AI effectively (Phase 1). Now it's time to understand <strong>HOW</strong> AI works.</p>
+<p><strong>Phase 2 shifts focus</strong>: From AI tools → AI fundamentals</p>
+<p><strong>Why this matters</strong>:
+- Better prompts when you understand model limitations
+- Smarter architecture decisions for your projects
+- Ability to choose the right model for the task
+- Foundation for building AI systems (Phase 3+)</p>
+<hr />
+<h2 id="what-are-large-language-models">What Are Large Language Models?</h2>
+<h3 id="the-simple-definition">The Simple Definition</h3>
+<p><strong>Large Language Model (LLM)</strong>: A neural network trained on massive amounts of text to predict the next word in a sequence.</p>
+<p>That's it. Everything else builds on this simple idea.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: &quot;The capital of France is&quot;
+LLM predicts: &quot;Paris&quot; (high probability)
+</code></pre>
+<h3 id="the-not-so-simple-reality">The Not-So-Simple Reality</h3>
+<p>LLMs are:
+- <strong>Large</strong>: Billions to trillions of parameters
+- <strong>Language</strong>: Trained on text from books, websites, code
+- <strong>Models</strong>: Mathematical functions that map inputs to outputs</p>
+<p><strong>Did You Know?</strong> 🤓
+GPT-3 has 175 billion parameters. If you printed each parameter as a single digit, the printout would stretch from New York to Los Angeles!</p>
+<hr />
+<h2 id="the-transformer-architecture">️ The Transformer Architecture</h2>
+<h3 id="before-transformers-2017">Before Transformers (2017)</h3>
+<p><strong>RNNs and LSTMs</strong>: Process text sequentially (word by word)</p>
+<p><strong>Problems</strong>:
+- Slow (can't parallelize)
+- Forget long-range context
+- Hard to train on long sequences</p>
+<p><strong>Example limitation</strong>:</p>
+<pre><code>&quot;The animal didn't cross the street because IT was too tired.&quot;
+</code></pre>
+<p>What does "IT" refer to? RNNs struggle with long-distance references.</p>
+<hr />
+<h3 id="the-transformer-revolution-2017">The Transformer Revolution (2017)</h3>
+<p><strong>Paper</strong>: "Attention Is All You Need" (Vaswani et al., 2017)</p>
+<p><strong>Key Insight</strong>: Use <strong>attention</strong> to process all words in parallel and capture long-range dependencies.</p>
+<p><strong>Attention Mechanism</strong>: "Which words should I pay attention to?"</p>
+<p><strong>Example</strong>:</p>
+<pre><code>&quot;The animal didn't cross the street because IT was too tired.&quot;
+
+IT attends to:
+- &quot;animal&quot; (high attention)
+- &quot;street&quot; (low attention)
+
+IT refers to → animal
+</code></pre>
+<hr />
+<h2 id="did-you-know-the-transformer-paper-was-almost-rejected">Did You Know? The Transformer Paper Was Almost Rejected</h2>
+<p><strong>The Story</strong>:</p>
+<p>In 2017, Google researchers submitted "Attention Is All You Need" to a top AI conference (NIPS, now NeurIPS).</p>
+<p><strong>The Reviews</strong>:
+- One reviewer gave it a <strong>borderline reject</strong> score
+- Concerns: "Too simple", "Not enough novelty"
+- The attention mechanism seemed "obvious" in hindsight
+- RNNs were still dominant, hard to believe they could be replaced</p>
+<p><strong>But One Reviewer Recognized Genius</strong>:
+- Noted the parallel processing advantage
+- Saw potential for scaling
+- Pushed for acceptance</p>
+<p><strong>The Impact</strong> (6 years later):
+- <strong>100,000+ citations</strong> (one of most cited ML papers ever)
+- Entire AI revolution built on transformers
+- RNNs nearly extinct for NLP
+- Created a $100B+ industry</p>
+<p><strong>The Irony</strong>:
+The title "Attention Is All You Need" was meant to be provocative. But it turned out to be <strong>literally true</strong> - attention really is all you need!</p>
+<p><strong>The Authors</strong>:
+The 8 authors went on to found companies worth billions:
+- <strong>Ashish Vaswani</strong>: Co-founded Essential AI ($50M+ funding)
+- <strong>Illia Polosukhin</strong>: Co-founded NEAR Protocol ($20B valuation)
+- <strong>Jakob Uszkoreit</strong>: Co-founded Inceptive ($100M+ funding)</p>
+<p><strong>Lesson</strong>: Revolutionary ideas often look "too simple" at first. The transformer seemed obvious only AFTER it was invented.</p>
+<hr />
+<h3 id="how-transformers-work-high-level">How Transformers Work (High Level)</h3>
+<p><strong>Input</strong>: Sequence of tokens (words/subwords)</p>
+<p><strong>Process</strong>:
+1. <strong>Embedding</strong>: Convert tokens to vectors
+2. <strong>Positional Encoding</strong>: Add position information (since we process in parallel)
+3. <strong>Self-Attention</strong>: Each token attends to all other tokens
+4. <strong>Feed-Forward</strong>: Process each token independently
+5. <strong>Repeat</strong>: Stack multiple layers (12-96+ layers)
+6. <strong>Output</strong>: Probability distribution over next token</p>
+<p><strong>Analogy</strong>: Reading a sentence
+- Your eyes can jump around (attention)
+- You understand words in context of whole sentence
+- You don't read strictly left-to-right
+- You build up understanding layer by layer</p>
+<hr />
+<h3 id="encoder-vs-decoder-vs-encoder-decoder">Encoder vs Decoder vs Encoder-Decoder</h3>
+<p><strong>Three Types of Transformers</strong>:</p>
+<p><strong>1. Encoder-Only</strong> (e.g., BERT)
+- Bidirectional (sees both past and future)
+- Good for: Classification, embeddings
+- Example use: "Is this email spam?"</p>
+<p><strong>2. Decoder-Only</strong> (e.g., GPT, Claude, Llama)
+- Unidirectional (only sees past)
+- Good for: Text generation, completion
+- Example use: "Complete this sentence..."
+- <strong>Most modern LLMs use this!</strong></p>
+<p><strong>3. Encoder-Decoder</strong> (e.g., T5, BART)
+- Encoder processes input, decoder generates output
+- Good for: Translation, summarization
+- Example use: "Translate English to French"</p>
+<p><strong>For this curriculum</strong>: We focus on <strong>decoder-only</strong> models (GPT, Claude, Llama) since they're used for most LLM applications.</p>
+<p><strong>Visualization</strong>:</p>
+<pre><code class="language-mermaid">graph TD
+    A[Input Text: The cat sat on the] --&gt; B[Tokenization]
+    B --&gt; C[Token Embeddings + Position Encoding]
+    C --&gt; D[Transformer Layer 1]
+    D --&gt; E[Self-Attention:&lt;br/&gt;Which tokens to focus on?]
+    E --&gt; F[Feed-Forward Network]
+    F --&gt; G[Transformer Layer 2-N&lt;br/&gt;Stack 12-96+ layers]
+    G --&gt; H[Output Layer:&lt;br/&gt;Probability Distribution]
+    H --&gt; I[Predicted Token: mat&lt;br/&gt;Probability: 0.73]
+
+    style A fill:#87CEEB
+    style I fill:#90EE90
+    style E fill:#FFD700
+</code></pre>
+<hr />
+<h2 id="the-llm-landscape-2024-2025">The LLM Landscape (2024-2025)</h2>
+<h3 id="proprietary-models">Proprietary Models</h3>
+<p><strong>1. OpenAI GPT Family</strong>
+- <strong>GPT-3.5</strong>: 175B parameters, cheap, fast
+- <strong>GPT-4</strong>: Largest (size unknown), multimodal, most capable
+- <strong>GPT-4 Turbo</strong>: Faster, cheaper GPT-4
+- <strong>GPT-4o</strong>: Optimized for speed and cost</p>
+<p><strong>Strengths</strong>:
+- Extremely capable
+- Best-in-class for many tasks
+- Extensive API ecosystem</p>
+<p><strong>Limitations</strong>:
+- Expensive at scale
+- API-only (no self-hosting)
+- Data privacy concerns</p>
+<hr />
+<p><strong>2. Anthropic Claude Family</strong>
+- <strong>Claude 3 Haiku</strong>: Fast, cheap, 200K context
+- <strong>Claude 3 Sonnet</strong>: Balanced performance and cost
+- <strong>Claude 3 Opus</strong>: Most capable
+- <strong>Claude 3.5 Sonnet</strong>: Current best performer (what you're using!)</p>
+<p><strong>Strengths</strong>:
+- Long context windows (200K tokens)
+- Strong reasoning and analysis
+- Excellent code generation
+- Constitutional AI (safer outputs)</p>
+<p><strong>Limitations</strong>:
+- API-only
+- Fewer integrations than OpenAI</p>
+<hr />
+<p><strong>3. Google Gemini</strong>
+- <strong>Gemini Nano</strong>: On-device
+- <strong>Gemini Pro</strong>: General purpose
+- <strong>Gemini Ultra</strong>: Most capable</p>
+<p><strong>Strengths</strong>:
+- Multimodal from ground up
+- Integrated with Google ecosystem
+- Long context (up to 1M tokens)</p>
+<p><strong>Limitations</strong>:
+- Newer, less proven
+- API access varies by region</p>
+<hr />
+<h3 id="open-source-models">Open-Source Models</h3>
+<p><strong>1. Meta Llama Family</strong>
+- <strong>Llama 2</strong>: 7B, 13B, 70B parameters
+- <strong>Llama 3</strong>: Improved performance, newer
+- <strong>Code Llama</strong>: Specialized for code</p>
+<p><strong>Strengths</strong>:
+- Fully open-source
+- Can self-host
+- Can fine-tune
+- Free (just compute costs)</p>
+<p><strong>Limitations</strong>:
+- Requires GPU infrastructure
+- Need ML expertise to deploy
+- Less capable than frontier models (but gap narrowing!)</p>
+<hr />
+<p><strong>2. Mistral AI</strong>
+- <strong>Mistral 7B</strong>: Efficient, competitive with Llama 13B
+- <strong>Mixtral 8x7B</strong>: Mixture of Experts (MoE), very efficient
+- <strong>Mistral Large</strong>: Closed-weight, API-only</p>
+<p><strong>Strengths</strong>:
+- Efficient (good performance per parameter)
+- Apache 2.0 license
+- European company (GDPR compliant)</p>
+<p><strong>Limitations</strong>:
+- Smaller models than GPT-4/Claude
+- Less ecosystem support</p>
+<hr />
+<p><strong>3. Others Worth Knowing</strong>
+- <strong>Falcon</strong> (TII): Strong open model
+- <strong>MPT</strong> (MosaicML): Commercial use friendly
+- <strong>Vicuna</strong> (LMSYS): Fine-tuned Llama for chat
+- <strong>WizardLM, Orca</strong>: Microsoft research models
+- <strong>Phi</strong> (Microsoft): Small but capable (3B parameters)</p>
+<hr />
+<h2 id="did-you-know-meta-released-llama-2-for-free-and-changed-everything">Did You Know? Meta Released Llama 2 for Free (and Changed Everything)</h2>
+<p><strong>The Story</strong> (July 2023):</p>
+<p>Meta dropped a bombshell: <strong>Llama 2</strong> - a competitive LLM family (7B, 13B, 70B) - completely open-source.</p>
+<p><strong>What Made It Special</strong>:
+- <strong>Free for commercial use</strong> (up to 700M users)
+- <strong>No API required</strong> - download and run locally
+- <strong>Competitive quality</strong> - 70B model rivals GPT-3.5
+- <strong>$20M training cost</strong> - Meta absorbed it</p>
+<p><strong>The Impact</strong>:</p>
+<p><strong>Before Llama 2</strong>:
+- Best models: OpenAI GPT, Google PaLM (API-only, expensive)
+- Open models: Weak (BLOOM, GPT-J) or restricted (LLaMA 1)
+- Barrier: Need $50M+ to train competitive model</p>
+<p><strong>After Llama 2</strong>:
+- Everyone can access frontier-class model
+- Explosion of fine-tunes (Code Llama, Llama-2-Chat, etc.)
+- Startups can self-host and customize
+- Researchers can experiment without API costs</p>
+<p><strong>The Numbers</strong> (First 6 Months):
+- <strong>30M+ downloads</strong> on Hugging Face
+- <strong>1000+ fine-tuned variants</strong> created
+- <strong>100+ research papers</strong> using Llama 2
+- Spawned entire ecosystem (Ollama, LMStudio, Jan, etc.)</p>
+<p><strong>Why Meta Did It</strong>:
+1. <strong>Talent recruitment</strong>: Show engineering prowess
+2. <strong>Ecosystem building</strong>: More Llama tools = more Meta AI adoption
+3. <strong>Competitive pressure</strong>: Counter OpenAI/Google dominance
+4. <strong>Research acceleration</strong>: Community improves Llama → Meta benefits</p>
+<p><strong>Llama 3</strong> (2024):
+- Even better: Matches GPT-4 on some tasks
+- Trained on 15T tokens (vs 2T for Llama 2)
+- Meta betting on open-source AI</p>
+<p><strong>Lesson</strong>: Open-source is competitive! You don't always need the latest GPT-4. Llama 3 70B is <strong>free</strong>, powerful, and you control it.</p>
+<hr />
+<h2 id="model-sizes-and-capabilities">📏 Model Sizes and Capabilities</h2>
+<h3 id="parameter-counts">Parameter Counts</h3>
+<p><strong>What are parameters?</strong> Weights in the neural network (like knobs to tune).</p>
+<p><strong>Size Categories</strong>:
+- <strong>Small</strong>: 1-7B parameters (can run on consumer GPU)
+- <strong>Medium</strong>: 7-20B parameters (needs beefy GPU)
+- <strong>Large</strong>: 20-70B parameters (multi-GPU required)
+- <strong>Extreme</strong>: 70B-1T+ parameters (datacenter clusters)</p>
+<p><strong>Example Sizes</strong>:
+- GPT-3.5: 175B
+- Llama 2: 7B, 13B, 70B
+- Claude 3.5 Sonnet: Unknown (estimated 200B+)
+- GPT-4: Unknown (rumored 1.7T)</p>
+<hr />
+<h3 id="does-size-matter">Does Size Matter?</h3>
+<p><strong>Yes, but with diminishing returns</strong>.</p>
+<p><strong>Scaling Laws</strong> (Kaplan et al., 2020):
+- 10x more parameters → ~2x better performance
+- 10x more training data → ~2x better performance
+- 10x more compute → ~2x better performance</p>
+<p><strong>But</strong>:
+- Efficiency matters: Mixtral 8x7B outperforms many 70B models
+- Specialized training beats raw size: Code Llama 7B &gt; Llama 70B for code
+- Longer context helps: Claude's 200K context vs GPT-4's 8K/32K</p>
+<p><strong>Rule of thumb</strong>:
+- Simple tasks: Smaller models fine
+- Complex reasoning: Larger models win
+- Domain-specific: Fine-tuned smaller &gt; generic larger</p>
+<hr />
+<h2 id="pre-training-vs-fine-tuning">🔄 Pre-training vs Fine-tuning</h2>
+<h3 id="pre-training-the-foundation">Pre-training: The Foundation</h3>
+<p><strong>What</strong>: Train on massive corpus of text to predict next word.</p>
+<p><strong>Data Scale</strong>:
+- GPT-3: 300B tokens
+- Llama 2: 2T tokens
+- Modern models: 10T+ tokens</p>
+<p><strong>Cost</strong>: Millions of dollars in compute</p>
+<p><strong>Result</strong>: Base model that understands language but isn't optimized for following instructions.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Prompt: &quot;What is the capital of France?&quot;
+Base model: &quot;What is the capital of Germany? What is the capital of Italy?&quot;
+(Continues the pattern, doesn't answer!)
+</code></pre>
+<hr />
+<h3 id="fine-tuning-the-specialization">Fine-tuning: The Specialization</h3>
+<p><strong>What</strong>: Further train on smaller, curated datasets for specific behaviors.</p>
+<p><strong>Types</strong>:</p>
+<p><strong>1. Instruction Fine-tuning</strong>
+- Teach model to follow instructions
+- Training data: (instruction, completion) pairs
+- Result: ChatGPT, Claude chat, etc.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Input: &quot;What is the capital of France?&quot;
+Instruction-tuned: &quot;The capital of France is Paris.&quot;
+(Actually answers!)
+</code></pre>
+<p><strong>2. RLHF (Reinforcement Learning from Human Feedback)</strong>
+- Train model to produce preferred outputs
+- Humans rank model outputs
+- Model learns to maximize human preference
+- Result: Safer, more helpful responses</p>
+<p><strong>3. Domain Fine-tuning</strong>
+- Specialize for specific domain (code, medical, legal)
+- Training data: Domain-specific texts
+- Result: Code Llama, Med-PaLM, etc.</p>
+<hr />
+<h3 id="when-to-fine-tune-vs-rag">When to Fine-tune vs RAG</h3>
+<p><strong>This is a CRUCIAL decision for AI systems!</strong></p>
+<p><strong>Use Fine-tuning When</strong>:
+- You want to change model behavior/style
+- You have lots of training data
+- Information is stable (not constantly updating)
+- You need fast inference (no retrieval overhead)</p>
+<p><strong>Example</strong>: Legal writing style, medical terminology</p>
+<p><strong>Use RAG When</strong>:
+- Information changes frequently
+- You need to cite sources
+- You have limited training data
+- You want to update knowledge without retraining</p>
+<p><strong>Example</strong>: Company knowledge base, current events</p>
+<p><strong>Use Both When</strong>:
+- Fine-tune for style/behavior
+- RAG for up-to-date facts</p>
+<p><strong>Example</strong>: Customer support (fine-tune for tone, RAG for product docs)</p>
+<hr />
+<h2 id="did-you-know-gpt-3s-training-cost-would-bankrupt-most-startups">Did You Know? GPT-3's Training Cost Would Bankrupt Most Startups</h2>
+<p><strong>The Economics of Pre-training</strong>:</p>
+<p>Training GPT-3 (175B parameters) from scratch in 2020:</p>
+<p><strong>Compute Cost</strong>:
+- <strong>$4.6 million</strong> in GPU costs (Lambda Labs estimate)
+- Used thousands of NVIDIA V100 GPUs
+- Ran for weeks continuously
+- 314 zettaFLOPs (10²¹ floating point operations!)</p>
+<p><strong>Energy Cost</strong>:
+- Consumed ~1,287 MWh of electricity
+- Equivalent to <strong>130 US homes for a year</strong>
+- Carbon footprint: ~550 tons CO₂</p>
+<p><strong>Total Training Cost</strong>: ~$5-12 million (estimates vary)</p>
+<p><strong>GPT-4's Training (estimated)</strong>:
+- Rumored cost: <strong>$50-100 million</strong>
+- 25,000+ A100 GPUs for 90-100 days
+- Energy: Entire small town's yearly consumption</p>
+<p><strong>Why This Matters</strong>:</p>
+<ol>
+<li><strong>Barrier to Entry</strong>: Only Google, Microsoft, Meta, Anthropic can afford frontier models</li>
+<li><strong>Open Source is Critical</strong>: Llama 2 (Meta) cost $20M to train, released for free</li>
+<li><strong>Fine-tuning is Cheap</strong>: $100-1000 to adapt existing model vs millions to train from scratch</li>
+<li><strong>API Makes Sense</strong>: $50/month API access vs $50M training cost!</li>
+</ol>
+<p><strong>The Trend</strong>:
+- Pre-training costs going UP (bigger models, more data)
+- But inference costs going DOWN (better optimization)
+- Result: Centralized training, distributed usage</p>
+<p><strong>Lesson</strong>: Don't train LLMs from scratch unless you're Google. Use existing models + fine-tuning/RAG!</p>
+<hr />
+<h2 id="did-you-know-the-race-to-build-the-best-llm">Did You Know? The Race to Build the Best LLM</h2>
+<h3 id="the-day-gpt-4-changed-everything-march-14-2023">The Day GPT-4 Changed Everything (March 14, 2023)</h3>
+<p>When OpenAI released GPT-4, the AI world held its breath. Sam Altman had been teasing it for months, but nobody expected what came next.</p>
+<p><strong>The reveal</strong>:
+- Passed the Bar Exam (top 10%)
+- Scored 1410 on the SAT (90th percentile)
+- Could analyze images and explain memes
+- Wrote working code from hand-drawn sketches</p>
+<p><strong>Industry reaction</strong>:
+- Google declared "Code Red" and rushed Bard's release
+- Microsoft integrated GPT-4 into Bing, Copilot, and Office
+- Anthropic accelerated Claude 2 development
+- Startups pivoted overnight from building LLMs to building ON LLMs</p>
+<p><strong>The secrecy</strong>: OpenAI refused to publish architecture details, citing "safety concerns." This sparked huge controversy—critics called it "closed-washing" an "open" AI company. We still don't know GPT-4's exact size (estimates range from 200B to 1.7T parameters using mixture-of-experts).</p>
+<h3 id="the-anthropic-origin-story-ai-safety-rebels">The Anthropic Origin Story: AI Safety Rebels</h3>
+<p><strong>Anthropic</strong> wasn't founded by outsiders—it was founded by <strong>OpenAI's own safety team</strong>.</p>
+<p>In <strong>late 2020</strong>, a group led by <strong>Dario Amodei</strong> (VP of Research) and his sister <strong>Daniela Amodei</strong> (VP of Safety) grew concerned about OpenAI's direction. They believed the company was prioritizing speed over safety.</p>
+<p><strong>January 2021</strong>: They left to found Anthropic with 8 other senior researchers.</p>
+<p><strong>Their thesis</strong>: What if you built an AI company where safety was THE priority, not an afterthought?</p>
+<p><strong>Constitutional AI</strong> was born—training models using AI feedback guided by explicit principles. Claude would critique its own outputs and refuse harmful requests, not because of keyword filters, but because it understood WHY they were harmful.</p>
+<p><strong>The funding</strong>:
+- 2021: $124M (Jaan Tallinn, ex-Skype founder)
+- 2022: $580M (Spark Capital, Google)
+- 2023: $2B from Google
+- 2024: $4B from Amazon
+- <strong>Total</strong>: $7B+ raised, valued at $15B+</p>
+<p><strong>The irony</strong>: The "safety-focused" lab created Claude, which many developers consider the best coding assistant. Turns out, making AI that carefully considers consequences also makes it better at careful coding.</p>
+<h3 id="the-chinese-ai-awakening-2023-2024">The Chinese AI Awakening (2023-2024)</h3>
+<p>While the West focused on GPT vs Claude, China quietly built serious competitors:</p>
+<p><strong>Baidu's ERNIE Bot</strong> (March 2023):
+- Disappointed at launch (pre-recorded demos!)
+- But improved rapidly over months
+- Now rivals GPT-3.5 on Chinese tasks</p>
+<p><strong>Alibaba's Qwen</strong> (September 2023):
+- Open-sourced Qwen-72B
+- Competitive with Llama 2 70B
+- Optimized for multilingual and coding</p>
+<p><strong>The restrictions</strong>: U.S. export controls blocked sales of NVIDIA A100/H100 to China. Response? China accelerated domestic chip development and got creative with cloud workarounds.</p>
+<p><strong>The numbers</strong>:
+- <strong>200+</strong> LLMs launched in China in 2023 alone
+- <strong>$15B+</strong> invested in Chinese AI in 2024
+- <strong>ByteDance, Tencent, Baidu</strong> all racing for #1</p>
+<h3 id="the-mistral-miracle-3-months-to-2-billion">The Mistral Miracle: 3 Months to $2 Billion</h3>
+<p>The most shocking AI story of 2023 wasn't from Silicon Valley—it was from <strong>Paris</strong>.</p>
+<p><strong>September 2023</strong>: Three ex-DeepMind and ex-Meta researchers (<strong>Arthur Mensch</strong>, <strong>Guillaume Lample</strong>, <strong>Timothée Lacroix</strong>) released Mistral 7B.</p>
+<p><strong>What made it special</strong>:
+- <strong>7 billion parameters</strong> (tiny by 2023 standards)
+- <strong>Outperformed Llama 2 13B</strong> (almost twice its size!)
+- <strong>Apache 2.0 license</strong> (truly open for commercial use)
+- Released via <strong>torrent link</strong> (not even a website at first!)</p>
+<p><strong>The timeline</strong>:
+- June 2023: Company founded
+- September 2023: Mistral 7B released
+- December 2023: Mixtral 8x7B released (mixture of experts)
+- <strong>December 2023</strong>: $415M raised at <strong>$2B valuation</strong>—just 6 months after founding!</p>
+<p><strong>The lesson</strong>: European AI isn't dead. Efficiency beats raw scale. And you can build a $2B company with a torrent link.</p>
+<h3 id="the-numbers-that-define-the-llm-era">The Numbers That Define the LLM Era</h3>
+<table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Value</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-3 training cost</td>
+<td><strong>$4.6M</strong></td>
+<td>2020</td>
+</tr>
+<tr>
+<td>GPT-4 training cost</td>
+<td><strong>$50-100M</strong> (est.)</td>
+<td>2023</td>
+</tr>
+<tr>
+<td>ChatGPT users (2 months)</td>
+<td><strong>100M</strong> (fastest ever)</td>
+<td>Jan 2023</td>
+</tr>
+<tr>
+<td>GitHub Copilot revenue</td>
+<td><strong>$100M+ ARR</strong></td>
+<td>2023</td>
+</tr>
+<tr>
+<td>OpenAI valuation</td>
+<td><strong>$86B</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td>Anthropic valuation</td>
+<td><strong>$15B</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td>Mistral valuation</td>
+<td><strong>$6B</strong></td>
+<td>2024</td>
+</tr>
+<tr>
+<td>Total VC in AI (2023)</td>
+<td><strong>$50B+</strong></td>
+<td>2023</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="context-windows">🪟 Context Windows</h2>
+<h3 id="what-is-a-context-window">What Is a Context Window?</h3>
+<p><strong>Context Window</strong>: Maximum number of tokens the model can process at once.</p>
+<p><strong>Includes</strong>:
+- Your prompt
+- System instructions
+- Conversation history
+- Retrieved documents (for RAG)
+- Model's response</p>
+<p><strong>Analogy</strong>: Short-term memory
+- Small window: Can only remember last few sentences
+- Large window: Can remember entire conversation and more</p>
+<hr />
+<h3 id="context-window-sizes-2024-2025">Context Window Sizes (2024-2025)</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Context Window</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-3.5</td>
+<td>16K tokens</td>
+<td>~12,000 words</td>
+</tr>
+<tr>
+<td>GPT-4</td>
+<td>8K / 32K / 128K</td>
+<td>Depends on variant</td>
+</tr>
+<tr>
+<td>Claude 3.5 Sonnet</td>
+<td>200K tokens</td>
+<td>~150,000 words!</td>
+</tr>
+<tr>
+<td>Gemini 1.5 Pro</td>
+<td>1M tokens</td>
+<td>Experimental</td>
+</tr>
+<tr>
+<td>Llama 2</td>
+<td>4K tokens</td>
+<td>Can extend with techniques</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Did You Know?</strong> 🤓
+Claude's 200K context window can fit the entire Harry Potter and the Philosopher's Stone book (77K words) with room to spare!</p>
+<hr />
+<h3 id="why-context-windows-matter">Why Context Windows Matter</h3>
+<p><strong>Small Context (4K-8K tokens)</strong>:
+- Limited conversation history
+- Can't process long documents
+- Need chunking and retrieval for RAG</p>
+<p><strong>Large Context (100K-200K tokens)</strong>:
+- Entire codebases
+- Long conversations
+- Multiple documents simultaneously
+- Less need for clever chunking</p>
+<p><strong>Trade-offs</strong>:
+- Larger contexts = slower inference
+- Larger contexts = more expensive
+- Larger contexts ≠ always better (models can "get lost")</p>
+<p><strong>Best Practice</strong>: Use only as much context as you need!</p>
+<p><strong>👉 Test context limits yourself! Run <a href="../../examples/module_06/02_context_windows.py">Example 02: Context Window Experiments</a> to see how models handle different context sizes.</strong></p>
+<hr />
+<h2 id="choosing-the-right-model">Choosing the Right Model</h2>
+<h3 id="decision-matrix">Decision Matrix</h3>
+<p><strong>For Production Applications</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Recommended Model</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple classification</td>
+<td>GPT-3.5 / Claude Haiku</td>
+<td>Fast, cheap, good enough</td>
+</tr>
+<tr>
+<td>Complex reasoning</td>
+<td>GPT-4 / Claude 3.5 Sonnet</td>
+<td>Best capabilities</td>
+</tr>
+<tr>
+<td>Long documents</td>
+<td>Claude 3.5 Sonnet</td>
+<td>200K context</td>
+</tr>
+<tr>
+<td>Code generation</td>
+<td>Claude / GPT-4</td>
+<td>Strong code capabilities</td>
+</tr>
+<tr>
+<td>High volume</td>
+<td>GPT-3.5 / Haiku / Mistral</td>
+<td>Cost per token</td>
+</tr>
+<tr>
+<td>Self-hosted</td>
+<td>Llama 2/3, Mistral</td>
+<td>Open-source</td>
+</tr>
+<tr>
+<td>Privacy-critical</td>
+<td>Llama 2/3 (self-hosted)</td>
+<td>No data leaves infrastructure</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="cost-considerations">Cost Considerations</h3>
+<p><strong>Pricing</strong> (2025 - prices drop regularly, check current rates!):</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Model</th>
+<th>Input (per 1M)</th>
+<th>Output (per 1M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenAI</td>
+<td>GPT-4o</td>
+<td>$2.50</td>
+<td>$10.00</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td>GPT-4-turbo</td>
+<td>$10.00</td>
+<td>$30.00</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td>GPT-3.5-turbo</td>
+<td>$0.50</td>
+<td>$1.50</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td>Claude Haiku</td>
+<td>$0.25</td>
+<td>$1.25</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td>Claude 3.5 Sonnet</td>
+<td>$3.00</td>
+<td>$15.00</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td>Claude 3 Opus</td>
+<td>$15.00</td>
+<td>$75.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Historical note</strong>: GPT-4 launched at $30-60/1M tokens (2023) → GPT-4o now $2.50-10/1M (2025) = <strong>12x cheaper!</strong></p>
+<p><strong>Self-hosted (Llama 2 70B)</strong>:
+- Hardware: ~$10K for GPU (one-time)
+- Or cloud: ~$1-2/hour for inference server
+- Pays off at high volume</p>
+<p><strong>Rule of thumb</strong>: OpenAI/Anthropic for &lt;1M tokens/month, self-host for higher volume.</p>
+<p><strong>👉 Calculate YOUR costs! Use <a href="../../examples/module_06/05_cost_calculator.py">Example 05: Cost Calculator</a> to estimate what your use case would cost on different providers.</strong></p>
+<hr />
+<h2 id="stop-time-to-practice">STOP: Time to Practice!</h2>
+<p>You've learned the landscape. Now <strong>code it</strong> to understand it.</p>
+<h3 id="practice-path">Practice Path</h3>
+<p><strong>1. <a href="../../examples/module_06/01_model_comparison.py">Model Comparison</a></strong> - Compare different LLMs
+   - 📖 Concept: Understanding model capabilities
+   - ⏱️ Time: 15-20 minutes
+   - Goal: See differences between GPT, Claude, and open models
+   - What you'll learn: Cost vs quality trade-offs</p>
+<p><strong>2. <a href="../../examples/module_06/02_context_windows.py">Context Window Experiments</a></strong> - Test context limits
+   - 📖 Concept: How much context can models handle?
+   - ⏱️ Time: 20-25 minutes
+   - Goal: See how models perform with different context sizes
+   - What you'll learn: When to use RAG vs long context</p>
+<p><strong>3. <a href="../../examples/module_06/03_api_integration.py">API Integration</a></strong> - Build your first LLM integration
+   - 📖 Concept: Production API usage
+   - ⏱️ Time: 25-30 minutes
+   - Goal: Working API client with error handling
+   - What you'll learn: Real-world API patterns</p>
+<p><strong>4. <a href="../../examples/module_06/04_prompt_testing.py">Prompt Testing Framework</a></strong> - Test prompts across models
+   - 📖 Concept: Model selection for your use case
+   - ⏱️ Time: 30-35 minutes
+   - Goal: A/B test prompts on different models
+   - What you'll learn: How to choose the right model</p>
+<p><strong>5. <a href="../../examples/module_06/05_cost_calculator.py">Cost Calculator</a></strong> - Estimate API costs
+   - 📖 Concept: Production cost estimation
+   - ⏱️ Time: 20-25 minutes
+   - Goal: Calculate costs for your use case
+   - What you'll learn: Budgeting for LLM APIs</p>
+<p><strong>Total Practice Time</strong>: ~2-2.5 hours</p>
+<h3 id="deliverable-multi-model-llm-gateway">Deliverable: Multi-Model LLM Gateway</h3>
+<p>After completing examples, build your <strong>portfolio project</strong>:</p>
+<p><strong><a href="../../examples/module_06/deliverable/">LLM Gateway Service</a></strong>
+- Route requests to best model based on task
+- Track costs across providers
+- Implement fallbacks (if Claude fails, try GPT-4)
+- Cache responses to save money
+- Log all interactions</p>
+<p><strong>Why this matters</strong>: This is a production pattern used by companies like Vercel AI SDK, LangChain, and LlamaIndex.</p>
+<p><strong>Time</strong>: 4-6 hours</p>
+<hr />
+<h2 id="your-first-api-integration">🔌 Your First API Integration</h2>
+<p><strong>👉 Before reading further, try <a href="../../examples/module_06/03_api_integration.py">Example 03: API Integration</a> to see this in action!</strong></p>
+<h3 id="setup-claude-example">Setup (Claude Example)</h3>
+<p><strong>1. Get API Key</strong>:</p>
+<pre><code class="language-bash"># Sign up at https://console.anthropic.com
+# Get API key from dashboard
+# Add to .env file
+echo &quot;ANTHROPIC_API_KEY=your_key_here&quot; &gt;&gt; .env
+</code></pre>
+<p><strong>2. Install SDK</strong>:</p>
+<pre><code class="language-bash">pip install anthropic python-dotenv
+</code></pre>
+<p><strong>3. Basic Call</strong>:</p>
+<pre><code class="language-python">import os
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = Anthropic(api_key=os.getenv(&quot;ANTHROPIC_API_KEY&quot;))
+
+response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,
+    max_tokens=1024,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Explain transformers in one sentence.&quot;}
+    ]
+)
+
+print(response.content[0].text)
+</code></pre>
+<hr />
+<h3 id="openai-equivalent">OpenAI Equivalent</h3>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv(&quot;OPENAI_API_KEY&quot;))
+
+response = client.chat.completions.create(
+    model=&quot;gpt-4&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Explain transformers in one sentence.&quot;}
+    ]
+)
+
+print(response.choices[0].message.content)
+</code></pre>
+<hr />
+<h3 id="key-parameters">Key Parameters</h3>
+<p><strong>model</strong>: Which LLM to use
+- Determines capabilities, cost, speed</p>
+<p><strong>messages</strong>: List of conversation turns
+- Each message has <code>role</code> ("user", "assistant", "system") and <code>content</code></p>
+<p><strong>max_tokens</strong>: Maximum length of response
+- Limits cost and generation length
+- 1 token ≈ 0.75 words (English)</p>
+<p><strong>temperature</strong>: Randomness of generation (Module 8!)
+- 0.0 = deterministic (same output every time)
+- 1.0 = creative (varied outputs)</p>
+<p><strong>system</strong>: System instructions (behavior control)
+- Sets persona, rules, constraints
+- Not all models support this</p>
+<hr />
+<h2 id="model-comparison-practical-guide">Model Comparison: Practical Guide</h2>
+<h3 id="benchmark-scores">Benchmark Scores</h3>
+<p><strong>Common Benchmarks</strong>:
+- <strong>MMLU</strong> (Massive Multitask Language Understanding): General knowledge
+- <strong>HumanEval</strong>: Code generation
+- <strong>GSM8K</strong>: Grade school math
+- <strong>HELM</strong>: Holistic evaluation</p>
+<p><strong>Current Leaders</strong> (as of late 2024):
+1. GPT-4
+2. Claude 3.5 Sonnet
+3. Gemini Ultra
+4. Claude 3 Opus</p>
+<p><strong>But</strong>: Benchmarks don't tell full story!</p>
+<hr />
+<h3 id="real-world-performance-factors">Real-World Performance Factors</h3>
+<p><strong>1. Latency</strong>:
+- GPT-3.5: ~1-2 seconds
+- GPT-4: ~5-10 seconds
+- Claude Sonnet: ~2-4 seconds</p>
+<p><strong>2. Reliability</strong>:
+- Does it fail gracefully?
+- Rate limits and downtime?
+- API stability?</p>
+<p><strong>3. Cost at Scale</strong>:
+- What's cost for 1M requests?
+- Caching available?
+- Batch processing discounts?</p>
+<p><strong>4. Features</strong>:
+- Function calling?
+- Vision capabilities?
+- Streaming?
+- JSON mode?</p>
+<p><strong>Pro Tip</strong>: Test multiple models with YOUR specific use case. Benchmarks are guides, not gospel.</p>
+<p><strong>👉 Ready to see this in action? Run <a href="../../examples/module_06/01_model_comparison.py">Example 01: Model Comparison</a> to compare GPT vs Claude vs Gemini on the SAME prompt!</strong></p>
+<hr />
+<h2 id="privacy-and-security-considerations">🔐 Privacy and Security Considerations</h2>
+<h3 id="data-usage-policies">Data Usage Policies</h3>
+<p><strong>OpenAI</strong>:
+- API data NOT used for training (by default)
+- Can opt into training for discounts
+- Data retained 30 days for abuse monitoring</p>
+<p><strong>Anthropic</strong>:
+- API data NOT used for training
+- Data retained briefly for trust &amp; safety</p>
+<p><strong>Self-hosted (Llama)</strong>:
+- Data never leaves your infrastructure
+- Full control and privacy
+- You're responsible for security</p>
+<p><strong>For Sensitive Data</strong>: Self-host or use dedicated instances!</p>
+<hr />
+<h3 id="api-key-security">API Key Security</h3>
+<p><strong>DO</strong>:
+- Store in <code>.env</code> files (never in code)
+- Use environment variables
+- Rotate keys regularly
+- Use different keys for dev/prod
+- Set spending limits</p>
+<p><strong>DON'T</strong>:
+- Commit keys to git
+- Share keys in Slack/email
+- Use same key everywhere
+- Expose keys in client-side code</p>
+<hr />
+<h2 id="key-insights">Key Insights</h2>
+<h3 id="1-llms-are-next-word-predictors">1. LLMs Are Next-Word Predictors</h3>
+<p>Everything they do (reasoning, coding, translation) emerges from predicting the next token.</p>
+<h3 id="2-transformers-enable-long-range-understanding">2. Transformers Enable Long-Range Understanding</h3>
+<p>Self-attention is why modern LLMs understand context better than older models.</p>
+<h3 id="3-size-isnt-everything">3. Size Isn't Everything</h3>
+<p>Efficient 7B models can outperform naive 70B models with right training.</p>
+<h3 id="4-context-windows-are-game-changers">4. Context Windows Are Game-Changers</h3>
+<p>200K context changes what's possible (entire codebases, long conversations).</p>
+<h3 id="5-choose-model-per-use-case">5. Choose Model Per Use Case</h3>
+<p>No "best" model - each excels at different tasks/constraints.</p>
+<h3 id="6-api-vs-self-hosted-trade-offs">6. API vs Self-hosted Trade-offs</h3>
+<ul>
+<li>API: Easy, scalable, maintained, but costly at volume</li>
+<li>Self-hosted: Complex, but full control and cheaper at scale</li>
+</ul>
+<h3 id="7-fine-tuning-vs-rag-is-critical-decision">7. Fine-tuning vs RAG Is Critical Decision</h3>
+<ul>
+<li>Fine-tuning: Behavior/style changes</li>
+<li>RAG: Dynamic knowledge</li>
+<li>Often use both!</li>
+</ul>
+<hr />
+<h2 id="common-misconceptions">🚫 Common Misconceptions</h2>
+<h3 id="myth-1-bigger-smarter">Myth 1: "Bigger = Smarter"</h3>
+<p><strong>Reality</strong>: 7B model with good data &gt; 70B with bad data. Efficiency matters.</p>
+<h3 id="myth-2-llms-know-facts">Myth 2: "LLMs Know Facts"</h3>
+<p><strong>Reality</strong>: LLMs are pattern matchers, not databases. They can confidently output wrong information.</p>
+<h3 id="myth-3-context-window-perfect-memory">Myth 3: "Context Window = Perfect Memory"</h3>
+<p><strong>Reality</strong>: Models can "get lost" in long contexts. Recent and early tokens attended to more than middle.</p>
+<h3 id="myth-4-open-source-worse">Myth 4: "Open Source = Worse"</h3>
+<p><strong>Reality</strong>: Gap narrowing fast. Llama 3 70B competes with GPT-3.5. For many tasks, open-source is good enough.</p>
+<h3 id="myth-5-one-model-for-everything">Myth 5: "One Model for Everything"</h3>
+<p><strong>Reality</strong>: Use fast/cheap models for simple tasks, expensive models for hard tasks. Route intelligently.</p>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="essential-papers">Essential Papers</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1706.03762">"Attention Is All You Need"</a> (Vaswani et al., 2017) - The transformer paper</li>
+<li><a href="https://arxiv.org/abs/2005.14165">"Language Models are Few-Shot Learners"</a> (Brown et al., 2020) - GPT-3</li>
+<li><a href="https://arxiv.org/abs/2203.02155">"Training language models to follow instructions"</a> (Ouyang et al., 2022) - InstructGPT/ChatGPT</li>
+<li><a href="https://arxiv.org/abs/2302.13971">"LLaMA: Open and Efficient Foundation Language Models"</a> (Touvron et al., 2023)</li>
+</ul>
+<h3 id="online-resources">Online Resources</h3>
+<ul>
+<li><a href="https://huggingface.co/models">Hugging Face Model Hub</a> - Explore open-source models</li>
+<li><a href="https://artificialanalysis.ai/">Artificial Analysis</a> - Model comparison and benchmarks</li>
+<li><a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard">LLM Leaderboard</a> - Open LLM rankings</li>
+<li><a href="https://docs.anthropic.com">Anthropic Claude Docs</a></li>
+<li><a href="https://platform.openai.com/docs">OpenAI Platform Docs</a></li>
+</ul>
+<h3 id="books">Books</h3>
+<ul>
+<li>"Hands-On Large Language Models" by Jay Alammar &amp; Maarten Grootendorst</li>
+<li>"Build a Large Language Model (From Scratch)" by Sebastian Raschka</li>
+</ul>
+<hr />
+<h2 id="knowledge-check">Knowledge Check</h2>
+<p>Before moving to Module 7, you should be able to:</p>
+<ul>
+<li>[ ] Explain how transformers differ from RNNs</li>
+<li>[ ] Name 3 proprietary and 3 open-source LLM families</li>
+<li>[ ] Understand the difference between pre-training and fine-tuning</li>
+<li>[ ] Explain when to use fine-tuning vs RAG</li>
+<li>[ ] Know context window sizes for major models</li>
+<li>[ ] Make API calls to Claude or OpenAI</li>
+<li>[ ] Choose appropriate model for a given use case</li>
+<li>[ ] Understand cost and privacy trade-offs</li>
+</ul>
+<hr />
+<h2 id="whats-next">What's Next</h2>
+<p><strong>Module 7</strong>: Tokenization &amp; Text Processing
+- How text becomes tokens
+- Different tokenization methods (BPE, WordPiece, SentencePiece)
+- Token counting and optimization
+- Why token limits matter</p>
+<p><strong>You'll learn why</strong>:
+- "Hello world" might be 2 tokens or 3, depending on tokenizer
+- Code is more "expensive" than English prose
+- Token limits affect your API costs</p>
+<hr />
+<p><strong>Remember</strong>: LLMs are incredibly powerful tools, but they're still just next-word predictors trained on massive datasets. Understanding this helps you use them effectively and avoid their pitfalls.</p>
+<p><strong>Let's understand how they process text! 🥋🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-21</em>
+<em>Version: 1.0</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_07_tokenization.html">Module 7: Tokenization & Text Processing</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

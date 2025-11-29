@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 6: Deep Learning Foundations - Weeks 25-31</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header style="background: linear-gradient(135deg, #059669, #10b981);">
+        <h1>Phase 6: Deep Learning Foundations</h1>
+        <div class="subtitle">Weeks 25-31</div>
+    </header>
+    <div class="content">
+<h2>Phase 6: Deep Learning Foundations</h2>
+<p><strong>Weeks 25-31</strong> | 7/7 complete</p>
+<div class="modules-grid">
+<div id="module-25">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 25: Python for Machine Learning</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 5-6 hours | <strong>Prerequisites:</strong> Phase 5 complete | <strong>Theory:</strong> <a href="../modules/module_25_python_for_ml.html">module_25_python_for_ml.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Master NumPy for numerical computing</li>
+<li>Learn pandas for data manipulation</li>
+<li>Understand matplotlib/seaborn for visualization</li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-26">Module 26: Neural Networks from Scratch</a></p>
+</div>
+</div>
+<div id="module-26">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 26: Neural Networks from Scratch</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 7-8 hours | <strong>Prerequisites:</strong> Module 25 | <strong>Theory:</strong> <a href="../modules/module_26_neural_networks_from_scratch.html">module_26_neural_networks_from_scratch.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Build a neural network without frameworks</li>
+<li>Understand forward propagation</li>
+<li>Implement backpropagation by hand</li>
+<li><em>... and 1 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-27">Module 27: PyTorch Fundamentals</a></p>
+</div>
+</div>
+<div id="module-27">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 27: PyTorch Fundamentals</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 6-7 hours | <strong>Prerequisites:</strong> Module 26 | <strong>Theory:</strong> <a href="../modules/module_27_pytorch_fundamentals.html">module_27_pytorch_fundamentals.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Master PyTorch tensors and operations</li>
+<li>Understand autograd (automatic differentiation)</li>
+<li>Build models with nn.Module</li>
+<li><em>... and 1 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-28">Module 28: Training Deep Networks</a></p>
+</div>
+</div>
+<div id="module-28">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 28: Training Deep Networks</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 7-8 hours | <strong>Prerequisites:</strong> Module 27 | <strong>Theory:</strong> <a href="../modules/module_28_training_deep_networks.html">module_28_training_deep_networks.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Master training techniques (BatchNorm, LayerNorm, Dropout)</li>
+<li>Understand optimization algorithms (SGD, Adam, AdamW)</li>
+<li>Implement learning rate scheduling (warmup, cosine, 1cycle)</li>
+<li><em>... and 3 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-29">Module 29: Convolutional Neural Networks (CNNs)</a></p>
+</div>
+</div>
+<div id="module-29">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 29: Convolutional Neural Networks (CNNs)</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 6-7 hours | <strong>Prerequisites:</strong> Module 28 | <strong>Theory:</strong> <a href="../modules/module_29_cnns.html">module_29_cnns.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Understand convolutional layers</li>
+<li>Learn CNN architectures (ResNet, EfficientNet)</li>
+<li>Build image classifiers</li>
+<li><em>... and 1 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-30">Module 30: Transformers & Attention Mechanisms</a></p>
+</div>
+</div>
+<div id="module-30">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 30: Transformers & Attention Mechanisms 🔮</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 8-9 hours | <strong>Prerequisites:</strong> Module 29 | <strong>Theory:</strong> <a href="../modules/module_30_transformers.html">module_30_transformers.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Master the transformer architecture</li>
+<li>Understand self-attention</li>
+<li>Implement multi-head attention</li>
+<li><em>... and 1 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-31">Module 31: Backpropagation Deep Dive</a></p>
+</div>
+</div>
+<div id="module-31">
+<div class="module-card" style="border-left: 4px solid #059669;">
+<h4>Module 31: Backpropagation Deep Dive</h4>
+<span class="status-badge" style="background: #059669;">🟢 Complete</span>
+<p class="module-details"><strong>Duration:</strong> 6-7 hours | <strong>Prerequisites:</strong> Module 30 | <strong>Theory:</strong> <a href="../modules/module_31_backpropagation.html">module_31_backpropagation.md</a></p>
+<p><strong>Objectives:</strong></p><ul>
+<li>Truly understand backpropagation</li>
+<li>Master the chain rule</li>
+<li>Implement custom autograd</li>
+<li><em>... and 1 more</em></li>
+</ul>
+<p class="next-link">→ <strong>Next:</strong> <a href="#module-32">Module 32: Fine-tuning Large Language Models</a></p>
+</div>
+</div>
+</div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

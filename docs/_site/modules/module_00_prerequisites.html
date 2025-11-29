@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 0: Prerequisites & Environment Setup - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 0: Prerequisites & Environment Setup</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-0-prerequisites-environment-setup">Module 0: Prerequisites &amp; Environment Setup</h1>
+<h1 id="or-how-i-learned-to-stop-procrastinating-and-actually-set-up-my-dev-environment">Or: How I Learned to Stop Procrastinating and Actually Set Up My Dev Environment</h1>
+<p><strong>Last Updated</strong>: 2025-11-22
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 2-3 hours
+<strong>Prerequisites</strong>: A computer, internet access, and the willingness to type commands into a terminal</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Verify you have the required prerequisites (Python, git, command line)
+- Set up your development environment with confidence
+- Configure API keys securely (and understand why it matters!)
+- Make your first LLM API call
+- <strong>Master Python AI best practices</strong> from day one
+- Understand what can go wrong (and how to fix it fast)</p>
+<p><strong>Why this matters</strong>: A properly configured environment is like a sharp knife - it makes every task easier and prevents frustration. Do this right once, benefit for the entire curriculum.</p>
+<hr />
+<h2 id="the-setup-challenge-why-this-module-exists">The Setup Challenge: Why This Module Exists</h2>
+<h3 id="the-problem-everyone-faces">The Problem Everyone Faces</h3>
+<p><strong>Without proper setup</strong> (the horror story):</p>
+<pre><code>Day 1: &quot;Let me just start coding...&quot;
+Hour 1: ImportError: No module named 'anthropic'
+Hour 2: &quot;Wait, which Python am I running?&quot; (system Python vs venv chaos)
+Hour 3: &quot;Why is my API key not working?!&quot; (committed to git, oops!)
+Hour 4: &quot;Different error on my laptop vs desktop&quot;
+Hour 5: Gives up, frustrated
+</code></pre>
+<p><strong>With proper setup</strong> (the smooth experience):</p>
+<pre><code>Day 1: Following Module 0 step-by-step
+Hour 1: Python 3.12 + venv created ✅
+Hour 2: API keys configured securely ✅
+Hour 3: First LLM call successful ✅
+Remaining time: Actually learning AI instead of fighting tools!
+</code></pre>
+<p><strong>The difference</strong>: 5 hours of frustration vs 2 hours of foundation-building.</p>
+<hr />
+<h2 id="did-you-know-the-hidden-cost-of-bad-setup">Did You Know? The Hidden Cost of Bad Setup</h2>
+<p><strong>Real data from bootcamp students</strong>:
+- <strong>70% of "bugs"</strong> in Week 1 are actually environment issues, not code bugs
+- <strong>Average time lost</strong>: 8-12 hours debugging setup problems
+- <strong>#1 reason students quit</strong>: Frustration with tooling before they even start learning</p>
+<p><strong>Good news</strong>: This module prevents all of that. Every minute invested here saves 10 minutes later.</p>
+<hr />
+<h2 id="prerequisites-check">Prerequisites Check</h2>
+<h3 id="the-self-assessment-test">The Self-Assessment Test</h3>
+<p>Before starting Neural Dojo, you should have basic programming knowledge. But what does "basic" actually mean?</p>
+<p><strong>Answer these honestly</strong>:</p>
+<pre><code class="language-python"># Test 1: Can you read and understand this code?
+def greet(name: str) -&gt; str:
+    &quot;&quot;&quot;Return a greeting message.&quot;&quot;&quot;
+    return f&quot;Hello, {name}! Welcome to Neural Dojo.&quot;
+
+# Test 2: Can you explain what happens here?
+users = [&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;]
+greetings = [greet(user) for user in users]
+
+# Test 3: Can you spot the bug?
+def calculate_total(prices: list[float]) -&gt; float:
+    total = 0
+    for price in prices:
+        total += price
+    return total
+
+items = [&quot;10.50&quot;, &quot;20.00&quot;, &quot;5.75&quot;]  # Bug: strings, not floats!
+total = calculate_total(items)
+</code></pre>
+<h4 id="if-you-could">If you could:</h4>
+<ul>
+<li>Read and understand Test 1 → You're ready</li>
+<li>Explain Test 2 (list comprehension) → Great!</li>
+<li>Spot Test 3 bug (type mismatch) → Even better!</li>
+</ul>
+<h4 id="if-you-couldnt">If you couldn't:</h4>
+<ul>
+<li><strong>Recommendation</strong>: Take a Python basics course first</li>
+<li><strong>Options</strong>: <a href="https://www.py4e.com/">Python for Everybody</a> or <a href="https://automatetheboringstuff.com/">Automate the Boring Stuff</a></li>
+<li><strong>Time needed</strong>: 20-40 hours to get comfortable</li>
+</ul>
+<p><strong>No shame in starting with basics!</strong> Everyone starts somewhere. A solid foundation makes AI learning 10× easier.</p>
+<hr />
+<h2 id="required-software-the-minimal-toolbox">Required Software: The Minimal Toolbox</h2>
+<h3 id="or-what-you-actually-need-to-install-before-we-can-have-fun">(Or: What You Actually Need to Install Before We Can Have Fun)</h3>
+<h3 id="what-you-actually-need">What You Actually Need</h3>
+<p><strong>The essentials</strong> (can't proceed without these):
+1. <strong>Python 3.12+</strong> - The programming language (we require modern Python for performance and features)
+2. <strong>pip</strong> - Package installer (comes with Python)
+3. <strong>Terminal/Command Prompt</strong> - Access to command line
+4. <strong>Text editor or IDE</strong> - Any code editor works</p>
+<p><strong>Recommended</strong> (makes life easier):
+5. <strong>Git</strong> - Version control (helpful but optional for this curriculum)
+6. <strong>VS Code or Cursor</strong> - Modern AI-friendly editors</p>
+<p><strong>Not required</strong> (but nice to have):
+- Docker (we'll install later if needed)
+- Jupyter Notebook (modules work as .py files)
+- Database tools (not needed until Module 11+)</p>
+<hr />
+<h2 id="development-environment-setup">Development Environment Setup</h2>
+<h3 id="the-part-where-we-actually-set-things-up">(The Part Where We Actually Set Things Up)</h3>
+<h3 id="the-setup-journey-a-visual-roadmap">The Setup Journey: A Visual Roadmap</h3>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│ Your System (macOS/Windows/Linux)                   │
+│                                                      │
+│  Step 1: Verify Python 3.12+                        │
+│           ↓                                          │
+│  Step 2: Choose Editor (VS Code/Cursor/PyCharm)     │
+│           ↓                                          │
+│  Step 3: Clone neural-dojo repo                     │
+│           ↓                                          │
+│  Step 4: Create virtual environment (venv)          │
+│           ↓                                          │
+│  Step 5: Install dependencies                       │
+│           ↓                                          │
+│  Step 6: Configure API keys (.env file)             │
+│           ↓                                          │
+│  Step 7: Run test scripts (verify everything)       │
+│           ↓                                          │
+│     ✅ READY TO START MODULE 1!                     │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Total time</strong>: 1-2 hours (first time), 15 minutes (if you repeat on another machine)</p>
+<hr />
+<h3 id="step-1-verify-python-installation">Step 1: Verify Python Installation</h3>
+<p><strong>The Personality</strong>: Python is your <strong>universal translator</strong> - it speaks to AI models, processes data, and builds applications.</p>
+<p><strong>Why Python 3.12+?</strong></p>
+<p>We're not being picky for fun here. Python 3.12 brings real improvements that matter for AI work:</p>
+<ul>
+<li><strong>5-10% faster</strong> than 3.11 - sounds small, but when you're training models for hours, it adds up</li>
+<li><strong>Better error messages</strong> - the new error messages actually tell you what went wrong instead of cryptic tracebacks</li>
+<li><strong>Improved type system</strong> - your IDE becomes dramatically more helpful</li>
+<li><strong>Per-interpreter GIL</strong> - experimental, but useful for parallel ML workloads</li>
+<li><strong>Full library support</strong> - PyTorch, TensorFlow, Transformers all work perfectly</li>
+<li><strong>Future-proof</strong> - this curriculum will stay relevant for years</li>
+</ul>
+<p>Think of it like this: you could build a house with hand tools from 1950, but why would you when power tools exist?</p>
+<pre><code class="language-bash"># Check Python version (must be 3.12 or higher)
+python --version
+# or on macOS/Linux:
+python3 --version
+
+# Check pip is installed
+pip --version
+# or:
+pip3 --version
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<pre><code>Python 3.12.x or 3.13.x (3.12+ required)
+pip 24.x.x (or higher)
+</code></pre>
+<h4 id="common-mistakes">Common Mistakes 🚨</h4>
+<p><strong>Mistake #1: Using system Python (macOS/Linux)</strong></p>
+<pre><code class="language-bash"># DON'T DO THIS
+which python
+# Output: /usr/bin/python (system Python, often old!)
+
+# DO THIS INSTEAD
+which python3
+# Output: /usr/local/bin/python3 or /opt/homebrew/bin/python3
+</code></pre>
+<p><strong>Why it matters</strong>: System Python is often outdated (3.9 on macOS, 3.8 on some Linux) and shouldn't be modified. Always use <code>python3</code>.</p>
+<p><strong>Mistake #2: Multiple Python versions causing confusion</strong></p>
+<pre><code class="language-bash"># Check all Python installations
+ls -la /usr/bin/python*
+ls -la /usr/local/bin/python*
+ls -la /opt/homebrew/bin/python*  # macOS with Apple Silicon
+
+# If you see python, python3, python3.9, python3.12, python3.13...
+# Use version 3.12+ explicitly
+python3.12 --version
+# or
+python3.13 --version
+</code></pre>
+<p><strong>Fix</strong>: Use <code>python3.12</code> or <code>python3.13</code> throughout the curriculum.</p>
+<h4 id="troubleshooting">Troubleshooting</h4>
+<p><strong>macOS</strong>:
+- <strong>Default macOS Python is 3.9</strong> (Monterey/Ventura/Sonoma)
+- ️ Too old for this curriculum! We need 3.12+
+- <strong>Install Python 3.12+</strong>:
+  ```bash
+  # Using Homebrew (recommended)
+  brew install python@3.12</p>
+<p># Verify installation
+  python3.12 --version</p>
+<p># Make it the default (optional)
+  echo 'alias python3=python3.12' &gt;&gt; ~/.zshrc
+  echo 'alias pip3=pip3.12' &gt;&gt; ~/.zshrc
+  source ~/.zshrc
+  <code>``
+- Alternative: Download from https://python.org/downloads/
+- Use</code>python3.12<code>and</code>pip3.12` commands explicitly</p>
+<p><strong>Windows</strong>:
+- Download <strong>Python 3.12+</strong> from https://python.org/downloads/
+- <strong>CRITICAL</strong>: ✅ CHECK "Add Python to PATH" during installation
+- Restart terminal after installing
+- Verify: <code>python --version</code> (should show 3.12+)</p>
+<p><strong>Linux</strong>:
+- Ubuntu/Debian:
+  <code>bash
+  sudo apt update
+  sudo apt install python3.12 python3.12-venv python3-pip
+  python3.12 --version</code>
+- Fedora:
+  <code>bash
+  sudo dnf install python3.12
+  python3.12 --version</code>
+- If 3.12 not available in repos, use deadsnakes PPA (Ubuntu):
+  <code>bash
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt update
+  sudo apt install python3.12 python3.12-venv</code></p>
+<hr />
+<h3 id="step-2-choose-your-text-editoride">Step 2: Choose Your Text Editor/IDE</h3>
+<p><strong>The Personality</strong>: Your editor is your <strong>workshop</strong> - where you craft code, debug, and bring ideas to life.</p>
+<p><strong>Decision Matrix</strong>: Which editor matches your style?</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Best For</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>AI Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VS Code</strong></td>
+<td>Beginners, general use</td>
+<td>Free, lightweight, huge extension ecosystem</td>
+<td>Can be overwhelming</td>
+<td>Claude Code extension, Copilot</td>
+</tr>
+<tr>
+<td><strong>Cursor</strong></td>
+<td>AI-first developers</td>
+<td>Built-in AI, VS Code fork</td>
+<td>Newer, some bugs</td>
+<td>Native AI chat, inline editing</td>
+</tr>
+<tr>
+<td><strong>PyCharm</strong></td>
+<td>Python experts, large projects</td>
+<td>Best Python tooling, refactoring</td>
+<td>Heavy, slower startup</td>
+<td>AI Assistant plugin</td>
+</tr>
+<tr>
+<td><strong>Vim/Emacs</strong></td>
+<td>Terminal lovers</td>
+<td>Ultra fast, everywhere</td>
+<td>Steep learning curve</td>
+<td>Copilot.vim, codeium</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation by Profile</strong></p>
+<p><strong>"I'm new to programming"</strong> → Go with <strong>VS Code</strong>. It's the Toyota Corolla of editors - reliable, well-documented, and everyone can help you when you're stuck. The Python extension works out of the box, and there's a tutorial for literally everything. Download: https://code.visualstudio.com/</p>
+<p><strong>"I want AI to write my code"</strong> → Try <strong>Cursor</strong>. It's VS Code with AI superpowers baked in. You'll be using AI assistants heavily in Module 1 anyway, so you might as well start with the tool built for it. The learning curve is almost zero if you know VS Code. Download: https://cursor.sh/</p>
+<p><strong>"I'm a Python pro who hates slow tools"</strong> → You want <strong>PyCharm</strong>. Yes, it's heavier than VS Code. Yes, startup takes a few seconds. But the refactoring tools will save you hours, and the debugger is genuinely the best in the business. Download: https://www.jetbrains.com/pycharm/download/ (Community Edition is free)</p>
+<p><strong>"I live in the terminal and judge people who use GUIs"</strong> → You already know what you're doing. Vim/Neovim with Copilot.vim or codeium. We respect you. We also can't help you debug your .vimrc.</p>
+<p><strong>After installing</strong>, add the recommended extensions:
+- <strong>VS Code</strong>: Python, Pylance, Claude Code
+- <strong>Cursor</strong>: Built-in AI (no additional setup needed)
+- <strong>PyCharm</strong>: Python plugin is included</p>
+<hr />
+<h3 id="step-3-create-project-directory">Step 3: Create Project Directory</h3>
+<pre><code class="language-bash"># Navigate to where you keep code projects
+cd ~/projects  # or C:\Users\YourName\projects on Windows
+
+# Clone neural-dojo (if you haven't already)
+git clone https://github.com/krisztiankoos/neural-dojo.git
+cd neural-dojo
+
+# Or if you already have it:
+cd ~/projects/neural-dojo
+</code></pre>
+<p><strong>Pro tip</strong>: Keep all your projects in ONE parent directory (like <code>~/projects</code>). Makes them easy to find and back up.</p>
+<hr />
+<h3 id="step-4-create-virtual-environment">Step 4: Create Virtual Environment</h3>
+<p><strong>The Personality</strong>: Virtual environments are <strong>isolation chambers</strong> - each project gets its own clean Python universe.</p>
+<h4 id="why-virtual-environments-the-real-reason">Why Virtual Environments? The Real Reason</h4>
+<p><strong>Without venv</strong> (dependency hell):</p>
+<pre><code>Project A needs: pandas 1.5.0
+Project B needs: pandas 2.0.0
+System Python has: pandas 1.3.0
+
+Result: Nothing works. Everything breaks. Chaos.
+</code></pre>
+<p><strong>With venv</strong> (harmony):</p>
+<pre><code>Project A (venv_a): pandas 1.5.0 ✅
+Project B (venv_b): pandas 2.0.0 ✅
+System Python: pandas 1.3.0 ✅
+
+Result: All projects work independently!
+</code></pre>
+<p><strong>Real-world analogy</strong>: Venvs are like separate kitchens for each recipe. Project A's kitchen has metric measuring cups, Project B's has imperial. No conflicts!</p>
+<h4 id="create-it">Create It</h4>
+<pre><code class="language-bash"># Create virtual environment named 'venv'
+python3 -m venv venv
+
+# Activate it
+# On macOS/Linux:
+source venv/bin/activate
+
+# On Windows:
+venv\Scripts\activate
+
+# You should see (venv) in your prompt:
+(venv) $
+</code></pre>
+<p><strong>Verify activation</strong>:</p>
+<pre><code class="language-bash">which python
+# Should show: /path/to/neural-dojo/venv/bin/python
+# NOT /usr/bin/python or /usr/local/bin/python3
+
+pip list
+# Should show minimal packages (pip, setuptools)
+# If you see 100+ packages, you're NOT in the venv!
+</code></pre>
+<h4 id="common-mistakes_1">Common Mistakes 🚨</h4>
+<p><strong>Mistake #1: Forgetting to activate venv</strong></p>
+<pre><code class="language-bash"># You'll know if you forgot because:
+which python
+# Shows: /usr/bin/python (WRONG!)
+
+# Instead of:
+# Shows: /Users/you/projects/neural-dojo/venv/bin/python (RIGHT!)
+</code></pre>
+<p><strong>Fix</strong>: Always run <code>source venv/bin/activate</code> when starting work.</p>
+<p><strong>Mistake #2: Installing packages globally</strong></p>
+<pre><code class="language-bash"># DON'T DO THIS (installing without venv active)
+pip install anthropic  # Goes to system Python!
+
+# DO THIS (venv active)
+(venv) $ pip install anthropic  # Goes to venv ✅
+</code></pre>
+<p><strong>Mistake #3: Committing venv to git</strong>
+- venv folders are HUGE (100-500MB)
+- They're system-specific (won't work on other machines)
+- <code>.gitignore</code> already excludes <code>venv/</code> - don't override this!</p>
+<hr />
+<h3 id="step-5-install-initial-dependencies">Step 5: Install Initial Dependencies</h3>
+<pre><code class="language-bash"># FIRST: Activate venv (if not already)
+source venv/bin/activate  # macOS/Linux
+# or
+venv\Scripts\activate  # Windows
+
+# Upgrade pip (old pip has bugs)
+pip install --upgrade pip
+
+# Install development tools
+pip install pytest pytest-cov black isort flake8 mypy
+
+# Verify installation
+pytest --version
+black --version
+</code></pre>
+<p><strong>Expected Output</strong>:</p>
+<pre><code>pytest 7.4.x or higher
+black, 23.x.x or higher
+</code></pre>
+<h4 id="what-each-tool-does">What Each Tool Does</h4>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Why You Need It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pytest</strong></td>
+<td>Testing framework</td>
+<td>Write and run tests for your code</td>
+</tr>
+<tr>
+<td><strong>pytest-cov</strong></td>
+<td>Code coverage</td>
+<td>See what code is tested (aim for 80%+)</td>
+</tr>
+<tr>
+<td><strong>black</strong></td>
+<td>Code formatter</td>
+<td>Auto-format code (PEP 8 style)</td>
+</tr>
+<tr>
+<td><strong>isort</strong></td>
+<td>Import sorter</td>
+<td>Organize imports alphabetically</td>
+</tr>
+<tr>
+<td><strong>flake8</strong></td>
+<td>Linter</td>
+<td>Find code smells and bugs</td>
+</tr>
+<tr>
+<td><strong>mypy</strong></td>
+<td>Type checker</td>
+<td>Catch type errors before runtime</td>
+</tr>
+</tbody>
+</table>
+<p><strong>💡 Did You Know?</strong>
+Black is called the "uncompromising code formatter" because it has almost no configuration options. The Python community agreed on ONE style, and Black enforces it. No more arguing about formatting in code reviews!</p>
+<hr />
+<h2 id="api-keys-setup-your-passport-to-ai">API Keys Setup: Your Passport to AI</h2>
+<h3 id="the-most-important-section-youll-skim-and-regret-later">(The Most Important Section You'll Skim and Regret Later)</h3>
+<p><strong>The Personality</strong>: API keys are <strong>security badges</strong> - they prove you're authorized to access AI services (and track your usage for billing).</p>
+<h3 id="critical-subscriptions-api-access">️ Critical: Subscriptions ≠ API Access</h3>
+<p><strong>This confuses 90% of beginners</strong>, so read carefully:</p>
+<table>
+<thead>
+<tr>
+<th>What You Have</th>
+<th>What It Gives You</th>
+<th>Can You Use It for This Curriculum?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ChatGPT Plus</strong> ($20/month)</td>
+<td>Unlimited ChatGPT web access</td>
+<td>❌ NO - Different from API</td>
+</tr>
+<tr>
+<td><strong>Claude Pro</strong> ($20/month)</td>
+<td>Unlimited Claude web access</td>
+<td>❌ NO - Different from API</td>
+</tr>
+<tr>
+<td><strong>OpenAI API Account</strong> (pay-per-use)</td>
+<td>Programmatic GPT access</td>
+<td>✅ YES - This is what you need</td>
+</tr>
+<tr>
+<td><strong>Anthropic API Account</strong> (pay-per-use)</td>
+<td>Programmatic Claude access</td>
+<td>✅ YES - This is what you need</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The difference</strong>:
+- <strong>Subscriptions</strong>: You click buttons in a web browser, unlimited use
+- <strong>API Access</strong>: Your <strong>code</strong> sends requests, you pay per request (pennies)</p>
+<p><strong>Can I have both?</strong>
+Yes! Many people have ChatGPT Plus for daily use AND an API account for coding. They're separate billing.</p>
+<hr />
+<h3 id="cost-reality-check-how-much-will-this-actually-cost">Cost Reality Check: How Much Will This Actually Cost?</h3>
+<p><strong>Full Neural Dojo curriculum estimate</strong>:
+- <strong>Claude API</strong>: $3-5 total (most modules)
+- <strong>OpenAI API</strong>: $5-10 total (if using GPT-4)
+- <strong>Optional local models</strong>: $0 (free, but needs GPU)</p>
+<p><strong>Why so cheap?</strong>
+Most requests are small (100-500 tokens). Even expensive models like GPT-4 cost ~$0.01 per request for typical curriculum use.</p>
+<p><strong>Example calculation</strong>:</p>
+<pre><code>Module 2 (Prompt Engineering): 50 API calls
+Average tokens per call: 200 input + 300 output = 500 total
+Claude Sonnet cost: $3 per 1M input tokens, $15 per 1M output tokens
+
+Cost = (50 * 200 / 1M * $3) + (50 * 300 / 1M * $15)
+     = $0.03 + $0.225
+     = $0.26 for entire module!
+</code></pre>
+<p><strong>Entire curriculum</strong>: 40 modules × $0.10 average = ~$4 total</p>
+<hr />
+<h3 id="option-1-anthropic-claude-api-recommended">Option 1: Anthropic Claude API (Recommended)</h3>
+<p><strong>Why recommended</strong>:
+- Claude Sonnet 4.5 is excellent for code
+- 200K token context window (huge!)
+- Often includes $5-10 free credits for new accounts
+- Straightforward pricing
+- Great documentation</p>
+<p><strong>Setup</strong>:
+1. Create account: https://console.anthropic.com/
+2. Go to Settings → API Keys
+3. Click "Create Key"
+4. Copy the key (starts with <code>sk-ant-</code>)
+5. <strong>IMPORTANT</strong>: Save it now - you can't see it again!</p>
+<p><strong>Pricing</strong> (as of 2025):
+- Input: $3 per 1M tokens
+- Output: $15 per 1M tokens
+- For curriculum: ~$3-5 total</p>
+<hr />
+<h3 id="option-2-openai-api">Option 2: OpenAI API</h3>
+<p><strong>When to use</strong>:
+- You already have OpenAI credits
+- You want to compare Claude vs GPT
+- Specific modules require GPT features</p>
+<p><strong>Setup</strong>:
+1. Create account: https://platform.openai.com/
+2. Go to API Keys
+3. Create new secret key
+4. Copy the key (starts with <code>sk-</code>)</p>
+<p><strong>Pricing</strong> (GPT-4o-mini recommended for learning):
+- Input: $0.15 per 1M tokens
+- Output: $0.60 per 1M tokens
+- For curriculum: ~$2-3 total</p>
+<p><strong>Note</strong>: New accounts may have rate limits. If you get rate limit errors, wait 24 hours or upgrade to paid tier.</p>
+<hr />
+<h3 id="option-3-free-alternatives-good-for-experimentation">Option 3: Free Alternatives (Good for Experimentation)</h3>
+<p>If you want to try before committing to paid API:</p>
+<ol>
+<li><strong>Groq</strong> (FREE tier)</li>
+<li>https://console.groq.com/</li>
+<li>Ultra-fast inference</li>
+<li>Free: 30 requests/minute</li>
+<li>Models: Llama 3, Mixtral</li>
+<li>
+<p><strong>Perfect for</strong>: Initial testing, learning prompting</p>
+</li>
+<li>
+<p><strong>Together AI</strong> ($25 free credits)</p>
+</li>
+<li>https://www.together.ai/</li>
+<li>Many open-source models</li>
+<li>Free trial lasts weeks</li>
+<li>
+<p><strong>Perfect for</strong>: Full curriculum if on budget</p>
+</li>
+<li>
+<p><strong>Hugging Face Inference API</strong> (Free tier)</p>
+</li>
+<li>https://huggingface.co/inference-api</li>
+<li>Access to 1000s of models</li>
+<li>Rate limited but functional</li>
+<li><strong>Perfect for</strong>: Experimenting with different models</li>
+</ol>
+<p><strong>Recommendation</strong>: Start with Claude or OpenAI API ($3-5 investment) for best learning experience. Fall back to free alternatives if budget is tight.</p>
+<hr />
+<h3 id="storing-api-keys-securely-the-right-way">Storing API Keys Securely: The Right Way</h3>
+<p><strong>The WRONG way</strong> (please don't do this):</p>
+<pre><code class="language-python"># main.py
+api_key = &quot;sk-ant-your-actual-key-here&quot;  # TERRIBLE IDEA!
+
+# Then you commit to GitHub and everyone has your key
+# You get a $500 bill because someone used your key
+# True story - happens weekly to developers
+</code></pre>
+<p><strong>The RIGHT way</strong> (environment variables):</p>
+<pre><code class="language-python"># main.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Load from .env file
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)  # Safe!
+
+# .env file is in .gitignore - never committed
+</code></pre>
+<h4 id="step-by-step-secure-setup">Step-by-Step Secure Setup</h4>
+<p><strong>1. Create <code>.env</code> file</strong>:</p>
+<pre><code class="language-bash"># In neural-dojo directory
+touch .env
+
+# Verify it's in .gitignore (should already be there)
+cat .gitignore | grep .env
+# Should show: .env
+</code></pre>
+<p><strong>2. Add your keys to <code>.env</code></strong>:</p>
+<pre><code class="language-bash"># Open .env in your editor and add:
+ANTHROPIC_API_KEY=sk-ant-your-actual-key-here
+OPENAI_API_KEY=sk-your-openai-key-here
+
+# Optional: Set default model
+DEFAULT_MODEL=claude-sonnet-4-5-20250929
+</code></pre>
+<p><strong>3. Install python-dotenv</strong>:</p>
+<pre><code class="language-bash">pip install python-dotenv
+</code></pre>
+<p><strong>4. Test it works</strong>:</p>
+<pre><code class="language-python"># test_env.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)
+if api_key:
+    print(f&quot;✅ API key loaded: {api_key[:10]}...&quot;)  # Show first 10 chars only
+else:
+    print(&quot;❌ API key not found&quot;)
+</code></pre>
+<h4 id="common-mistakes_2">Common Mistakes 🚨</h4>
+<p><strong>Mistake #1: Spaces around <code>=</code></strong></p>
+<pre><code class="language-bash"># WRONG
+ANTHROPIC_API_KEY = sk-ant-key  # Spaces break it!
+
+# RIGHT
+ANTHROPIC_API_KEY=sk-ant-key  # No spaces!
+</code></pre>
+<p><strong>Mistake #2: Forgetting to call <code>load_dotenv()</code></strong></p>
+<pre><code class="language-python"># WRONG
+import os
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)  # Returns None!
+
+# RIGHT
+import os
+from dotenv import load_dotenv
+load_dotenv()  # Must call this first!
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)  # Now it works
+</code></pre>
+<p><strong>Mistake #3: Committing <code>.env</code> to git</strong></p>
+<pre><code class="language-bash"># Check what would be committed
+git status
+
+# If you see .env listed:
+git rm --cached .env  # Remove from git
+echo &quot;.env&quot; &gt;&gt; .gitignore  # Make sure it's ignored
+</code></pre>
+<hr />
+<h2 id="verification-your-first-llm-call">Verification: Your First LLM Call</h2>
+<h3 id="the-moment-of-truth">(The Moment of Truth)</h3>
+<p><strong>The moment of truth!</strong> Let's verify everything works.</p>
+<h3 id="test-1-environment-check">Test 1: Environment Check</h3>
+<p>Run this test to verify Python setup:</p>
+<pre><code class="language-bash">cd examples/module_00
+python test_environment.py
+</code></pre>
+<p><strong>What it checks</strong>:
+- Python 3.12+
+- pip works
+- python-dotenv installed</p>
+<p><strong>Expected output</strong>:</p>
+<pre><code>🔍 Testing environment setup...
+
+✅ Python 3.12.0
+✅ pip works: pip 23.3.1
+✅ python-dotenv installed
+
+✅ Environment setup complete!
+</code></pre>
+<p><strong>If it fails</strong>: Check the error message, fix the issue, run again.</p>
+<hr />
+<h3 id="test-2-claude-api-call">Test 2: Claude API Call</h3>
+<p><strong>The exciting part</strong> - talking to Claude for the first time!</p>
+<pre><code class="language-bash">python test_claude_api.py
+</code></pre>
+<p><strong>What happens behind the scenes</strong>:
+1. Loads API key from <code>.env</code>
+2. Imports <code>anthropic</code> package
+3. Creates client
+4. Sends request to Claude API
+5. Receives response
+6. Shows token usage</p>
+<p><strong>Expected output</strong>:</p>
+<pre><code>🔍 Testing Claude API...
+
+Installing anthropic package...
+✅ API key found
+✅ anthropic package imported
+
+🤖 Making API call to Claude...
+
+📩 Claude says: Hello from Neural Dojo!
+
+📊 Token usage:
+   Input tokens: 15
+   Output tokens: 6
+
+✅ Claude API working! You're ready to start Module 1.
+</code></pre>
+<p><strong>💡 Understanding Token Usage</strong>:
+- <strong>Input tokens</strong>: Your prompt (15 tokens for "Say 'Hello from Neural Dojo!' and nothing else.")
+- <strong>Output tokens</strong>: Claude's response (6 tokens for "Hello from Neural Dojo!")
+- <strong>Cost</strong>: (15 * $3 / 1M) + (6 * $15 / 1M) = $0.000045 + $0.00009 = <strong>$0.000135</strong> (basically free!)</p>
+<p><strong>If it fails</strong>: Check these in order:
+1. Is API key in <code>.env</code> file? (<code>cat .env</code>)
+2. Is key correct? (Copy-paste from Anthropic console again)
+3. Do you have credits? (Check console.anthropic.com)
+4. Is <code>anthropic</code> package installed? (<code>pip list | grep anthropic</code>)</p>
+<hr />
+<h3 id="test-3-openai-api-optional">Test 3: OpenAI API (Optional)</h3>
+<p>If you also set up OpenAI:</p>
+<pre><code class="language-bash">python test_openai_api.py
+</code></pre>
+<p><strong>Note</strong>: This is completely optional. Claude is sufficient for the entire curriculum.</p>
+<hr />
+<h2 id="module-0-complete-checklist">Module 0 Complete Checklist</h2>
+<p>Use this to verify you're 100% ready:</p>
+<h3 id="environment-setup">Environment Setup</h3>
+<ul>
+<li>[ ] Python 3.12+ installed and verified (<code>python3 --version</code>)</li>
+<li>[ ] Virtual environment created (<code>python3 -m venv venv</code>)</li>
+<li>[ ] Virtual environment activated (see <code>(venv)</code> in prompt)</li>
+<li>[ ] pip upgraded (<code>pip install --upgrade pip</code>)</li>
+<li>[ ] Development tools installed (pytest, black, etc.)</li>
+</ul>
+<h3 id="editor-setup">Editor Setup</h3>
+<ul>
+<li>[ ] Text editor/IDE chosen and installed</li>
+<li>[ ] Python extensions/plugins installed (if using VS Code/PyCharm)</li>
+<li>[ ] Editor can open and edit Python files</li>
+</ul>
+<h3 id="project-setup">Project Setup</h3>
+<ul>
+<li>[ ] neural-dojo repository cloned/accessed</li>
+<li>[ ] Can navigate to project in terminal</li>
+<li>[ ] <code>.env</code> file created</li>
+<li>[ ] API key(s) added to <code>.env</code></li>
+<li>[ ] <code>.env</code> is in <code>.gitignore</code> (verify!)</li>
+</ul>
+<h3 id="verification">Verification</h3>
+<ul>
+<li>[ ] <code>test_environment.py</code> passes ✅</li>
+<li>[ ] <code>test_claude_api.py</code> passes ✅ (or <code>test_openai_api.py</code>)</li>
+<li>[ ] Can see token usage in API test output</li>
+</ul>
+<h3 id="skills-verification">Skills Verification</h3>
+<ul>
+<li>[ ] Comfortable with command line (cd, ls, running scripts)</li>
+<li>[ ] Understand basic Python (functions, loops, classes)</li>
+<li>[ ] Know how to activate venv</li>
+<li>[ ] Can install packages with pip</li>
+</ul>
+<p><strong>All checked?</strong> 🎉 <strong>You're ready for Module 1!</strong></p>
+<hr />
+<h2 id="python-ai-best-practices">Python AI Best Practices</h2>
+<h3 id="start-strong-save-hours-later">(Start Strong, Save Hours Later)</h3>
+<p>Since you're here to learn AI development, let's establish <strong>best practices from day one</strong>:</p>
+<h3 id="1-always-use-type-hints">1. <strong>Always Use Type Hints</strong></h3>
+<p><strong>Why</strong>: AI models (and humans!) understand your code better with types.</p>
+<pre><code class="language-python"># BAD (no type hints)
+def generate_text(prompt, max_tokens):
+    # What types are these? Who knows!
+    pass
+
+# GOOD (explicit types)
+def generate_text(prompt: str, max_tokens: int) -&gt; str:
+    &quot;&quot;&quot;Generate text using LLM.&quot;&quot;&quot;
+    pass
+</code></pre>
+<p><strong>AI coding assistants</strong> (Copilot, Claude Code) give MUCH better suggestions with type hints!</p>
+<hr />
+<h3 id="2-use-pydantic-for-api-responses">2. <strong>Use Pydantic for API Responses</strong></h3>
+<p><strong>Why</strong>: LLM responses need validation - they sometimes hallucinate invalid JSON.</p>
+<pre><code class="language-python"># BAD (raw dict, no validation)
+response = api_call()
+name = response[&quot;name&quot;]  # KeyError if missing!
+
+# GOOD (Pydantic validates)
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+
+response_data = api_call()
+user = User(**response_data)  # Validates or raises clear error
+print(user.name)  # Safe!
+</code></pre>
+<hr />
+<h3 id="3-handle-api-errors-gracefully">3. <strong>Handle API Errors Gracefully</strong></h3>
+<p><strong>Why</strong>: APIs fail (rate limits, network issues, invalid keys). Plan for it.</p>
+<pre><code class="language-python"># BAD (crashes on error)
+response = client.messages.create(...)
+
+# GOOD (handles errors)
+try:
+    response = client.messages.create(...)
+except anthropic.RateLimitError as e:
+    print(f&quot;Rate limited. Wait {e.retry_after} seconds.&quot;)
+except anthropic.APIError as e:
+    print(f&quot;API error: {e}&quot;)
+    # Fall back to cached response or retry
+</code></pre>
+<hr />
+<h3 id="4-set-max-tokens-to-prevent-runaway-costs">4. <strong>Set Max Tokens to Prevent Runaway Costs</strong></h3>
+<p><strong>Why</strong>: Without limits, a single bug can cost $50+ in API calls.</p>
+<pre><code class="language-python"># BAD (no limit, could generate 100K tokens!)
+response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}]
+)
+
+# GOOD (capped at 1000 tokens)
+response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,
+    max_tokens=1000,  # Safety limit
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}]
+)
+</code></pre>
+<hr />
+<h3 id="5-use-structured-logging-not-print">5. <strong>Use Structured Logging, Not Print</strong></h3>
+<p><strong>Why</strong>: In production, you need searchable, filterable logs.</p>
+<pre><code class="language-python"># BAD (print statements)
+print(f&quot;Calling API with prompt: {prompt}&quot;)
+print(f&quot;Got response: {response}&quot;)
+
+# GOOD (structured logging)
+import logging
+
+logger = logging.getLogger(__name__)
+
+logger.info(&quot;api_call&quot;, extra={
+    &quot;prompt_length&quot;: len(prompt),
+    &quot;model&quot;: &quot;claude-sonnet-4-5-20250929&quot;,
+    &quot;max_tokens&quot;: 1000
+})
+logger.debug(&quot;api_response&quot;, extra={
+    &quot;response_tokens&quot;: response.usage.output_tokens
+})
+</code></pre>
+<hr />
+<h3 id="6-version-lock-your-dependencies">6. <strong>Version Lock Your Dependencies</strong></h3>
+<p><strong>Why</strong>: <code>pip install anthropic</code> today ≠ <code>pip install anthropic</code> in 6 months. Lock versions!</p>
+<pre><code class="language-bash"># BAD (in requirements.txt)
+anthropic
+openai
+
+# GOOD (exact versions)
+anthropic==0.25.0
+openai==1.10.0
+
+# HOW TO CREATE
+pip freeze &gt; requirements.txt
+</code></pre>
+<hr />
+<h3 id="7-separate-prompts-from-code">7. <strong>Separate Prompts from Code</strong></h3>
+<p><strong>Why</strong>: Prompts are data, not code. Easier to iterate when separate.</p>
+<pre><code class="language-python"># BAD (hardcoded prompt)
+def analyze_sentiment(text: str) -&gt; str:
+    response = client.messages.create(
+        model=&quot;claude-sonnet-4-5-20250929&quot;,
+        max_tokens=50,
+        messages=[{
+            &quot;role&quot;: &quot;user&quot;,
+            &quot;content&quot;: f&quot;Classify sentiment of: {text}&quot;
+        }]
+    )
+    return response.content[0].text
+
+# GOOD (prompt in separate file or constant)
+SENTIMENT_PROMPT = &quot;&quot;&quot;
+Classify the sentiment of the following text as positive, negative, or neutral.
+
+Text: {text}
+
+Sentiment:&quot;&quot;&quot;
+
+def analyze_sentiment(text: str) -&gt; str:
+    prompt = SENTIMENT_PROMPT.format(text=text)
+    response = client.messages.create(
+        model=&quot;claude-sonnet-4-5-20250929&quot;,
+        max_tokens=50,
+        messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}]
+    )
+    return response.content[0].text
+</code></pre>
+<hr />
+<h3 id="8-test-ai-outputs-theyre-non-deterministic">8. <strong>Test AI Outputs (They're Non-Deterministic!)</strong></h3>
+<p><strong>Why</strong>: LLMs with temperature &gt; 0 are random. Test behaviors, not exact text.</p>
+<pre><code class="language-python"># BAD (brittle test)
+def test_sentiment():
+    result = analyze_sentiment(&quot;I love this!&quot;)
+    assert result == &quot;positive&quot;  # Might be &quot;Positive&quot; or &quot;positive sentiment&quot;
+
+# GOOD (flexible test)
+def test_sentiment():
+    result = analyze_sentiment(&quot;I love this!&quot;)
+    assert &quot;positive&quot; in result.lower()
+    assert len(result) &lt; 20  # Reasonable length
+</code></pre>
+<hr />
+<h2 id="common-mistakes-learn-from-others-pain">Common Mistakes: Learn From Others' Pain</h2>
+<h3 id="so-you-dont-have-to-make-them-yourself">(So You Don't Have to Make Them Yourself)</h3>
+<h3 id="mistake-1-i-installed-packages-without-activating-venv">Mistake #1: "I Installed Packages Without Activating Venv"</h3>
+<p><strong>Symptom</strong>:</p>
+<pre><code class="language-bash">$ pip list
+# Shows 200 packages (you only installed 10?)
+</code></pre>
+<p><strong>Diagnosis</strong>: You installed to system Python, not venv.</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># Delete venv and start over
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+</code></pre>
+<p><strong>Prevention</strong>: ALWAYS see <code>(venv)</code> before running <code>pip install</code>!</p>
+<hr />
+<h3 id="mistake-2-my-api-key-stopped-working-after-i-committed-to-github">Mistake #2: "My API Key Stopped Working After I Committed to GitHub"</h3>
+<p><strong>Symptom</strong>: API calls fail with "Invalid API key" after you pushed code.</p>
+<p><strong>Diagnosis</strong>: You committed your key to GitHub. Someone found it and used/reported it. Anthropic/OpenAI automatically revoked it.</p>
+<p><strong>Fix</strong>:
+1. <strong>Immediately</strong> revoke the key in API console
+2. Generate new key
+3. Add to <code>.env</code> file
+4. Verify <code>.env</code> is in <code>.gitignore</code>
+5. Remove key from git history:</p>
+<pre><code class="language-bash">git filter-branch --tree-filter 'rm -f .env' HEAD
+git push --force
+</code></pre>
+<p><strong>Prevention</strong>: NEVER commit <code>.env</code>. Triple-check before pushing!</p>
+<hr />
+<h3 id="mistake-3-im-getting-modulenotfounderror-but-i-installed-it">Mistake #3: "I'm Getting 'ModuleNotFoundError' But I Installed It!"</h3>
+<p><strong>Symptom</strong>:</p>
+<pre><code class="language-python">import anthropic  # ModuleNotFoundError!
+</code></pre>
+<p><strong>Diagnosis</strong>: Multiple Python installations. You installed with one, running with another.</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># Find which Python is being used
+which python
+# Output: /usr/bin/python (WRONG! System Python)
+
+# Activate venv
+source venv/bin/activate
+
+# Now check again
+which python
+# Output: /path/to/neural-dojo/venv/bin/python (RIGHT!)
+</code></pre>
+<p><strong>Prevention</strong>: Always activate venv before running Python code!</p>
+<hr />
+<h3 id="mistake-4-my-code-works-locally-but-not-on-another-machine">Mistake #4: "My Code Works Locally But Not on Another Machine"</h3>
+<p><strong>Symptom</strong>: Code runs fine on your laptop, crashes on your desktop.</p>
+<p><strong>Diagnosis</strong>: Different Python versions, missing dependencies, hard-coded paths.</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># On working machine
+python --version  # Note the version
+pip freeze &gt; requirements.txt  # Lock dependencies
+
+# On broken machine
+python3 --version  # Must match!
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt  # Install exact versions
+</code></pre>
+<p><strong>Prevention</strong>: Use <code>requirements.txt</code> and document Python version in README!</p>
+<hr />
+<h2 id="try-this-interactive-challenges">Try This: Interactive Challenges</h2>
+<h3 id="challenge-1-debug-the-setup">Challenge 1: Debug the Setup</h3>
+<p>I've intentionally broken this code. Can you fix it?</p>
+<pre><code class="language-python"># broken_setup.py
+import os
+
+# Bug 1: Missing import
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)
+
+# Bug 2: Using wrong client
+client = OpenAI(api_key=api_key)
+
+# Bug 3: Wrong model name
+response = client.messages.create(
+    model=&quot;gpt-4&quot;,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello&quot;}]
+)
+
+print(response.content)
+</code></pre>
+<details>
+<summary>Click for solution</summary>
+
+
+<pre><code class="language-python"># fixed_setup.py
+import os
+from dotenv import load_dotenv
+from anthropic import Anthropic  # Fix: Correct import
+
+load_dotenv()  # Fix: Actually load .env
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)
+
+client = Anthropic(api_key=api_key)  # Fix: Correct client
+
+response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,  # Fix: Correct model
+    max_tokens=100,
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Hello&quot;}]
+)
+
+print(response.content[0].text)  # Fix: Access text correctly
+</code></pre>
+
+</details>
+
+<hr />
+<h3 id="challenge-2-cost-calculator">Challenge 2: Cost Calculator</h3>
+<p>Write a function to estimate API costs:</p>
+<pre><code class="language-python">def estimate_cost(
+    input_tokens: int,
+    output_tokens: int,
+    model: str = &quot;claude-sonnet-4-5&quot;
+) -&gt; float:
+    &quot;&quot;&quot;
+    Calculate estimated cost for API call.
+
+    Pricing (as of 2025):
+    Claude Sonnet: $3/1M input, $15/1M output
+    GPT-4o-mini: $0.15/1M input, $0.60/1M output
+    &quot;&quot;&quot;
+    # Your code here!
+    pass
+
+# Test it
+cost = estimate_cost(input_tokens=500, output_tokens=300)
+print(f&quot;Estimated cost: ${cost:.4f}&quot;)  # Should print ~$0.0060
+</code></pre>
+<details>
+<summary>Click for solution</summary>
+
+
+<pre><code class="language-python">def estimate_cost(
+    input_tokens: int,
+    output_tokens: int,
+    model: str = &quot;claude-sonnet-4-5&quot;
+) -&gt; float:
+    pricing = {
+        &quot;claude-sonnet-4-5&quot;: {&quot;input&quot;: 3.0, &quot;output&quot;: 15.0},
+        &quot;gpt-4o-mini&quot;: {&quot;input&quot;: 0.15, &quot;output&quot;: 0.60}
+    }
+
+    if model not in pricing:
+        raise ValueError(f&quot;Unknown model: {model}&quot;)
+
+    input_cost = (input_tokens / 1_000_000) * pricing[model][&quot;input&quot;]
+    output_cost = (output_tokens / 1_000_000) * pricing[model][&quot;output&quot;]
+
+    return input_cost + output_cost
+</code></pre>
+
+</details>
+
+<hr />
+<h3 id="challenge-3-what-happens-if">Challenge 3: What Happens If...?</h3>
+<p>Predict the output, then run to verify:</p>
+<pre><code class="language-python"># Scenario 1: Venv not activated
+# Run: pip list
+# Prediction: ?
+
+# Scenario 2: .env exists but load_dotenv() not called
+import os
+api_key = os.getenv(&quot;ANTHROPIC_API_KEY&quot;)
+# Prediction: api_key is ___?
+
+# Scenario 3: Temperature=0 vs Temperature=1
+# Run same prompt twice with temp=0
+# Run same prompt twice with temp=1
+# Prediction: Which gives identical outputs?
+</code></pre>
+<hr />
+<h2 id="deep-dive-optional-how-virtual-environments-really-work">Deep Dive (Optional): How Virtual Environments Really Work</h2>
+<h3 id="for-the-curious">(For the Curious)</h3>
+<p><strong>For the curious</strong>: What actually happens when you create a venv?</p>
+<h3 id="under-the-hood">Under the Hood</h3>
+<pre><code class="language-bash">python3 -m venv venv
+
+# This creates:
+venv/
+├── bin/              # Executables
+│   ├── python       # Symlink to python3.12
+│   ├── pip          # Pip for this venv
+│   └── activate     # Activation script
+├── include/          # C headers
+├── lib/              # Installed packages
+│   └── python3.12/
+│       └── site-packages/  # Package installation directory
+└── pyvenv.cfg        # Configuration
+</code></pre>
+<p><strong>When you activate</strong>:</p>
+<pre><code class="language-bash">source venv/bin/activate
+
+# This modifies your shell:
+export PATH=&quot;/path/to/venv/bin:$PATH&quot;
+export VIRTUAL_ENV=&quot;/path/to/venv&quot;
+
+# Now `python` resolves to venv/bin/python
+# And `pip install` goes to venv/lib/python3.12/site-packages/
+</code></pre>
+<p><strong>When you deactivate</strong>:</p>
+<pre><code class="language-bash">deactivate
+
+# This restores original PATH
+# `python` now resolves to system Python again
+</code></pre>
+<h3 id="why-symlinks-matter">Why Symlinks Matter</h3>
+<pre><code class="language-bash">ls -la venv/bin/python
+# Output: python -&gt; python3.12
+
+# This is a symlink (symbolic link)
+# Points to the actual Python binary
+# Allows multiple names (python, python3) to use same executable
+</code></pre>
+<h3 id="the-magic-of-site-packages">The Magic of site-packages</h3>
+<pre><code class="language-bash"># Where packages actually live
+ls venv/lib/python3.12/site-packages/
+
+# When you `import anthropic`, Python searches:
+# 1. Current directory
+# 2. PYTHONPATH environment variable
+# 3. site-packages directories (venv first, then system)
+</code></pre>
+<p><strong>Pro tip</strong>: Want to see import resolution?</p>
+<pre><code class="language-python">import sys
+print(sys.path)
+# Shows all directories Python searches for imports
+# First one should be your venv/lib/python3.12/site-packages
+</code></pre>
+<hr />
+<h2 id="real-project-tie-ins">Real Project Tie-Ins</h2>
+<p>This setup directly enables your real projects:</p>
+<h3 id="for-kaizen-lean-devops-platform">For kaizen (Lean DevOps Platform)</h3>
+<p><strong>What you just learned applies to</strong>:
+- Setting up kaizen's RAG backend environment
+- Managing dependencies for LangChain, Qdrant, FastAPI
+- Securing Anthropic API keys for production
+- Testing RAG pipelines with pytest</p>
+<p><strong>Next steps in kaizen</strong>: Module 11+ (Vector DBs, RAG systems)</p>
+<hr />
+<h3 id="for-vibe-teaching-platform">For vibe (Teaching Platform)</h3>
+<p><strong>What you just learned applies to</strong>:
+- AI content generation backend setup
+- Managing OpenAI/Claude dependencies
+- Environment isolation for dev vs production
+- Handling API costs at scale</p>
+<p><strong>Next steps in vibe</strong>: Module 26-29 (Generative AI, multimodal models)</p>
+<hr />
+<h3 id="for-contrarian-stock-analysis">For contrarian (Stock Analysis)</h3>
+<p><strong>What you just learned applies to</strong>:
+- Setting up ML pipeline environment
+- Managing PyTorch, transformers dependencies
+- Isolating analysis environment from other projects
+- Testing sentiment analysis models</p>
+<p><strong>Next steps in contrarian</strong>: Module 19-25 (Deep Learning, time series)</p>
+<hr />
+<h2 id="did-you-know-more-fascinating-facts">Did You Know? More Fascinating Facts</h2>
+<h3 id="the-env-patterns-origin">The .env Pattern's Origin</h3>
+<p>The <code>.env</code> file pattern comes from the <strong>Twelve-Factor App</strong> methodology, created by Heroku engineers in 2012. They observed that successful cloud apps separated config from code. Now it's an industry standard!</p>
+<p><strong>Fun fact</strong>: GitHub scans every commit for API keys and automatically notifies providers if it finds one. They catch ~1,000 leaked keys per day!</p>
+<hr />
+<h3 id="pythons-virtual-environment-evolution">Python's Virtual Environment Evolution</h3>
+<ul>
+<li><strong>2008</strong>: <code>virtualenv</code> created as third-party tool</li>
+<li><strong>2012</strong>: <code>virtualenv</code> becomes most popular Python tool</li>
+<li><strong>2014</strong>: <code>venv</code> added to Python 3.3+ standard library (built-in!)</li>
+<li><strong>2020</strong>: <code>virtualenv</code> still popular but <code>venv</code> is preferred</li>
+<li><strong>Today</strong>: 95% of Python projects use venv or virtualenv</li>
+</ul>
+<p><strong>Why built-in matters</strong>: No extra installation needed. Works everywhere Python works.</p>
+<hr />
+<h3 id="api-key-security-statistics">API Key Security Statistics</h3>
+<p><strong>Real data from GitHub leaked secrets</strong>:
+- <strong>80%</strong> of leaked keys are found within 24 hours by bots
+- <strong>Average cost</strong> of leaked key before detection: $500-2,000
+- <strong>#1 cause</strong>: Committing <code>.env</code> file to public repo
+- <strong>#2 cause</strong>: Hardcoding keys in code then pushing</p>
+<p><strong>Protection</strong>: <code>.gitignore</code> + environment variables = 99.9% effective</p>
+<hr />
+<h2 id="advanced-troubleshooting">Advanced Troubleshooting</h2>
+<h3 id="issue-ssl-certificate-verification-failed">Issue: "SSL Certificate Verification Failed"</h3>
+<p><strong>Symptom</strong>:</p>
+<pre><code>SSL: CERTIFICATE_VERIFY_FAILED
+</code></pre>
+<p><strong>Common on</strong>: macOS with Python from python.org</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># Run the certificate install script
+cd &quot;/Applications/Python 3.12&quot;
+./Install\ Certificates.command
+</code></pre>
+<hr />
+<h3 id="issue-permission-denied-when-creating-venv">Issue: "Permission Denied When Creating Venv"</h3>
+<p><strong>Symptom</strong>:</p>
+<pre><code class="language-bash">python3 -m venv venv
+# PermissionError: [Errno 13] Permission denied
+</code></pre>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># Don't use sudo! Instead, check directory permissions
+ls -la  # Check if you own the directory
+
+# If not, change to a directory you own
+cd ~/projects
+mkdir neural-dojo-test
+cd neural-dojo-test
+python3 -m venv venv  # Should work now
+</code></pre>
+<hr />
+<h3 id="issue-importerror-after-installing-package">Issue: "ImportError After Installing Package"</h3>
+<p><strong>Symptom</strong>:</p>
+<pre><code class="language-bash">pip install anthropic
+# Successfully installed
+
+python -c &quot;import anthropic&quot;
+# ImportError: No module named 'anthropic'
+</code></pre>
+<p><strong>Diagnosis</strong>: Package installed to different Python than you're running.</p>
+<p><strong>Fix</strong>:</p>
+<pre><code class="language-bash"># Use Python module invocation for pip
+python -m pip install anthropic
+
+# This ensures same Python for both pip and import
+</code></pre>
+<hr />
+<h2 id="module-0-completion-badge">Module 0 Completion Badge</h2>
+<p><strong>🎉 Congratulations!</strong> If you've checked all items and tests pass, you've earned:</p>
+<pre><code>╔════════════════════════════════════════╗
+║    NEURAL DOJO: MODULE 0 COMPLETE     ║
+║                                        ║
+║   ✅ Environment Setup Master          ║
+║   ✅ API Configuration Expert          ║
+║   ✅ Best Practices Advocate           ║
+║                                        ║
+║   Ready for Module 1: AI-Driven Dev   ║
+╚════════════════════════════════════════╝
+</code></pre>
+<p><strong>Skills acquired</strong>:
+- Python environment management (venv, pip)
+- Secure API key handling
+- First LLM API call
+- Troubleshooting setup issues
+- Python AI best practices
+- Cost estimation and management</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<p><strong>You're now ready for Module 1: Foundations of AI-Driven Development</strong></p>
+<p>In Module 1, you'll learn:
+- The AI development landscape (11 AI coding tools compared!)
+- How to use AI assistants effectively (Claude Code, Cursor, Copilot)
+- The mental model of AI pair programming
+- When to use AI vs traditional coding
+- Building your first project with AI assistance</p>
+<p><strong>The foundation is set. Let's build!</strong> 🥋🧠⚡</p>
+<hr />
+<p><em>Last updated: 2025-11-22 (Enhanced with Quality Patterns)</em>
+<em>Module status: 🟢 Complete</em></p>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1.3: Claude Code & CLI Deep Dive - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_02_prompt_engineering.html">Next: Module 2: Prompt Engineering Fundamentals →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 1.3: Claude Code & CLI Deep Dive</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-13-claude-code-cli-deep-dive">Module 1.3: Claude Code &amp; CLI Deep Dive</h1>
+<h1 id="or-the-90-of-claude-code-youve-been-missing">Or: The 90% of Claude Code You've Been Missing</h1>
+<p><strong>Last Updated</strong>: 2025-11-24
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 4-5 hours
+<strong>Prerequisites</strong>: Module 1.1, Claude Code installed and working</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Master Claude Code's multi-modal operation (Interactive, Print, Plan)
+- Configure settings.json and CLAUDE.md for maximum productivity
+- Build custom slash commands and skills
+- Implement hooks for deterministic automation
+- Set up MCP integrations for external tools
+- Design sub-agents for specialized tasks
+- Optimize your workflow for cost and efficiency</p>
+<hr />
+<h2 id="why-master-claude-code">Why Master Claude Code?</h2>
+<p>Claude Code isn't just a chatbot in your terminal—it's a <strong>full AI development platform</strong>. While most developers use 10% of its capabilities, power users leverage:</p>
+<ul>
+<li><strong>Memory systems</strong> that persist across sessions</li>
+<li><strong>Hooks</strong> that automate approval workflows</li>
+<li><strong>Custom commands</strong> that encode team patterns</li>
+<li><strong>Sub-agents</strong> that specialize in domains</li>
+<li><strong>MCP integrations</strong> that connect to external systems</li>
+</ul>
+<p><strong>The difference</strong>: Casual users type prompts. Power users build systems.</p>
+<hr />
+<h2 id="core-architecture">Core Architecture</h2>
+<h3 id="the-four-modes-of-operation">The Four Modes of Operation</h3>
+<p>Claude Code operates in distinct modes, each optimized for different workflows:</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                    CLAUDE CODE MODES                                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  1. INTERACTIVE MODE (Default)                                          │
+│     └─ Full conversation with history, multi-turn reasoning             │
+│     └─ Command: claude                                                  │
+│     └─ Use: Development sessions, complex tasks                         │
+│                                                                         │
+│  2. PRINT MODE (-p flag)                                                │
+│     └─ Single query, output to stdout, exits immediately                │
+│     └─ Command: claude -p &quot;query&quot; or cat file | claude -p &quot;analyze&quot;     │
+│     └─ Use: Scripts, pipelines, CI/CD, automation                       │
+│                                                                         │
+│  3. PLAN MODE                                                           │
+│     └─ Exploration without execution, requires approval                 │
+│     └─ Command: /plan or start session in plan mode                     │
+│     └─ Use: Safe exploration, architectural decisions                   │
+│                                                                         │
+│  4. EXTENDED THINKING                                                   │
+│     └─ Deep reasoning for complex problems                              │
+│     └─ Command: Toggle in settings or request explicitly                │
+│     └─ Use: Architecture, debugging complex issues                      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="essential-cli-commands">Essential CLI Commands</h3>
+<pre><code class="language-bash"># Start and Resume
+claude                        # Start interactive REPL
+claude &quot;initial prompt&quot;       # Start with query
+claude -c                     # Continue last session
+claude -r &quot;session-id&quot;        # Resume specific session
+
+# Print Mode (Non-interactive)
+claude -p &quot;query&quot;             # Single query, stdout output
+cat file.py | claude -p &quot;explain&quot;   # Pipe input
+git diff | claude -p &quot;review&quot;       # Common pattern
+
+# Configuration
+claude config                 # View/edit config
+claude mcp list               # Show MCP servers
+claude mcp add &lt;name&gt; &lt;url&gt;   # Add MCP server
+
+# Session Management
+/clear                        # Clear conversation
+/compact                      # Compress history
+/cost                         # Show token usage
+/status                       # Model and account info
+</code></pre>
+<hr />
+<h2 id="configuration-mastery">⚙️ Configuration Mastery</h2>
+<h3 id="the-configuration-hierarchy">The Configuration Hierarchy</h3>
+<p>Claude Code loads configuration in this order (later overrides earlier):</p>
+<pre><code>1. Defaults (built-in)
+       ↓
+2. Environment Variables (ANTHROPIC_MODEL, etc.)
+       ↓
+3. User settings.json (~/.claude/settings.json)
+       ↓
+4. Project settings.json (.claude/settings.json)
+       ↓
+5. settings.local.json (gitignored, personal overrides)
+       ↓
+6. CLAUDE.md files (hierarchical memory)
+       ↓
+7. CLI flags (highest priority)
+</code></pre>
+<h3 id="settingsjson-deep-dive">settings.json Deep Dive</h3>
+<pre><code class="language-json">{
+  // Model Selection
+  &quot;model&quot;: &quot;sonnet&quot;,              // Default: sonnet, opus, haiku, opusplan
+
+  // API Configuration
+  &quot;apiKeyHelper&quot;: &quot;op read op://vault/anthropic/key&quot;,  // 1Password, etc.
+
+  // Environment Variables
+  &quot;env&quot;: {
+    &quot;PYTHONPATH&quot;: &quot;./src&quot;,
+    &quot;DEBUG&quot;: &quot;true&quot;
+  },
+
+  // Permissions (THE POWER USER SECTION)
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [
+      &quot;Bash(*)&quot;,                  // All bash commands
+      &quot;Read(*)&quot;,                  // All file reads
+      &quot;Write(*)&quot;,                 // All file writes
+      &quot;Edit(*)&quot;,                  // All file edits
+      &quot;WebSearch&quot;,                // Web search
+      &quot;WebFetch&quot;,                 // URL fetching
+      &quot;Task&quot;,                     // Subagent delegation
+      &quot;Glob(*)&quot;,                  // File pattern matching
+      &quot;Grep(*)&quot;,                  // Content search
+      &quot;SlashCommand(*)&quot;,          // All custom commands
+      &quot;Skill(*)&quot;                  // All skills
+    ],
+    &quot;deny&quot;: [
+      &quot;Bash(rm -rf /)&quot;,           // Block dangerous commands
+      &quot;Bash(sudo:*)&quot;              // Block privilege escalation
+    ],
+    &quot;ask&quot;: [
+      &quot;Bash(git push:*)&quot;          // Require approval
+    ]
+  },
+
+  // Behavior
+  &quot;includeCoAuthoredBy&quot;: true,    // Add co-author to commits
+  &quot;cleanupPeriodDays&quot;: 30,        // Session retention
+
+  // Advanced
+  &quot;hooks&quot;: { /* see hooks section */ },
+  &quot;statusLine&quot;: { /* see statusline section */ }
+}
+</code></pre>
+<h3 id="permission-patterns-explained">Permission Patterns Explained</h3>
+<pre><code>Pattern Syntax:
+  Tool(command:args)     - Bash commands
+  Tool(path)             - File operations
+  Tool(*)                - Wildcard (all)
+  !Tool(pattern)         - Negation
+
+Examples:
+  &quot;Bash(git:*)&quot;          - All git commands
+  &quot;Bash(npm:install)&quot;    - Only npm install
+  &quot;Write(src/**/*.py)&quot;   - Write Python files in src/
+  &quot;Read(*)&quot;              - Read any file
+  &quot;!Bash(rm:-rf)&quot;        - Block rm -rf specifically
+</code></pre>
+<h3 id="full-autonomy-configuration">Full Autonomy Configuration</h3>
+<p>For maximum productivity (use in trusted projects):</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [
+      &quot;WebSearch&quot;,
+      &quot;WebFetch&quot;,
+      &quot;Task&quot;,
+      &quot;Bash(*)&quot;,
+      &quot;Read(*)&quot;,
+      &quot;Write(*)&quot;,
+      &quot;Edit(*)&quot;,
+      &quot;Glob(*)&quot;,
+      &quot;Grep(*)&quot;,
+      &quot;NotebookEdit(*)&quot;,
+      &quot;SlashCommand(*)&quot;,
+      &quot;Skill(*)&quot;
+    ],
+    &quot;deny&quot;: [],
+    &quot;ask&quot;: []
+  }
+}
+</code></pre>
+<hr />
+<h2 id="memory-systems-claudemd">Memory Systems: CLAUDE.md</h2>
+<h3 id="the-memory-hierarchy">The Memory Hierarchy</h3>
+<p>Claude Code reads CLAUDE.md files from multiple locations:</p>
+<pre><code>Enterprise Policy (managed by IT)
+       ↓
+~/.claude/CLAUDE.md (User - personal, all projects)
+       ↓
+/project/CLAUDE.md (Project - team shared)
+       ↓
+/project/.claude/CLAUDE.md (Alternative location)
+       ↓
+/project/subdir/CLAUDE.md (Subdirectory - specific context)
+</code></pre>
+<p><strong>Discovery</strong>: Claude walks UP the directory tree AND into subdirectories.</p>
+<h3 id="effective-claudemd-structure">Effective CLAUDE.md Structure</h3>
+<pre><code class="language-markdown"># Project Name - AI Guidelines
+
+## Project Overview
+Brief description of what this project does.
+Technology stack: Python 3.11, FastAPI, PostgreSQL, Qdrant
+
+## Code Standards
+- Use type hints for all function signatures
+- Follow PEP 8 with 100 char line length
+- Write docstrings in Google style
+- All new code needs tests
+
+## Architecture Patterns
+- Repository pattern for data access
+- Service layer for business logic
+- Dependency injection via FastAPI
+
+## Common Tasks
+- Run tests: `pytest tests/ -v`
+- Start dev server: `uvicorn main:app --reload`
+- Format code: `black . &amp;&amp; isort .`
+
+## Import References
+@docs/api-reference.md
+@docs/architecture.md
+
+## Do NOT
+- Commit directly to main
+- Skip tests for &quot;quick fixes&quot;
+- Use print() for logging (use structlog)
+</code></pre>
+<h3 id="quick-memory-updates">Quick Memory Updates</h3>
+<p>Start your message with <code>#</code> to quickly add to memory:</p>
+<pre><code># Always run black before committing
+# Use structlog instead of print for logging
+</code></pre>
+<h3 id="view-loaded-memory">View Loaded Memory</h3>
+<pre><code>/memory              # Show all loaded CLAUDE.md files
+/memory edit         # Open editor for specific file
+</code></pre>
+<hr />
+<h2 id="custom-slash-commands">Custom Slash Commands</h2>
+<h3 id="creating-commands">Creating Commands</h3>
+<p>Store in <code>.claude/commands/</code> (project) or <code>~/.claude/commands/</code> (personal):</p>
+<pre><code class="language-markdown">---
+name: review-pr
+description: Review current PR for quality, security, and best practices
+tools: [Read, Bash, Grep]
+---
+
+# PR Review Command
+
+Review the current pull request comprehensively:
+
+1. First, get the diff:
+!git diff origin/main...HEAD
+
+2. Analyze for:
+- Code quality issues
+- Security vulnerabilities
+- Missing tests
+- Documentation gaps
+
+3. Provide actionable feedback with specific line references.
+</code></pre>
+<h3 id="command-syntax-features">Command Syntax Features</h3>
+<pre><code class="language-markdown"># File inclusion
+@path/to/file.py          # Include file content
+
+# Bash execution
+!git status               # Run command, include output
+
+# Arguments
+$ARGUMENTS                # All arguments as string
+$1, $2, $3                # Positional arguments
+
+# Example usage:
+# /review-pr feature-branch
+# $1 = &quot;feature-branch&quot;
+</code></pre>
+<h3 id="essential-custom-commands">Essential Custom Commands</h3>
+<p><strong>Code Review:</strong></p>
+<pre><code class="language-markdown">---
+name: review
+description: Quick code review of staged changes
+---
+!git diff --cached
+Review these staged changes for issues.
+</code></pre>
+<p><strong>Test Runner:</strong></p>
+<pre><code class="language-markdown">---
+name: test
+description: Run tests and fix failures
+---
+!pytest tests/ -v --tb=short
+If tests fail, analyze and fix the issues.
+</code></pre>
+<p><strong>Ship It:</strong></p>
+<pre><code class="language-markdown">---
+name: ship
+description: Complete PR workflow - commit, push, create PR
+---
+1. Check for uncommitted changes: !git status
+2. If clean, create PR with proper description
+3. Use conventional commit messages
+</code></pre>
+<hr />
+<h2 id="skills-autonomous-capabilities">Skills: Autonomous Capabilities</h2>
+<p>Skills are capabilities Claude discovers and uses automatically (vs commands which are user-invoked).</p>
+<h3 id="creating-skills">Creating Skills</h3>
+<p>Store in <code>.claude/skills/</code> with a <code>SKILL.md</code> file:</p>
+<pre><code class="language-markdown">---
+name: security-audit
+description: |
+  Performs security audits on Python code by checking for:
+  - SQL injection vulnerabilities
+  - Hardcoded credentials
+  - Dangerous function usage (eval, exec)
+
+  When to use: Automatically run when reviewing new code,
+  before commits, or when security keywords are mentioned.
+---
+
+# Security Audit Skill
+
+## Checks Performed
+
+1. **SQL Injection**
+   - Look for string concatenation in SQL
+   - Check for parameterized queries
+
+2. **Credential Leaks**
+   - Scan for API keys, passwords, tokens
+   - Check environment variable usage
+
+3. **Dangerous Functions**
+   - eval(), exec(), pickle.loads()
+   - subprocess with shell=True
+
+## How to Report
+Provide severity (HIGH/MEDIUM/LOW) and remediation steps.
+</code></pre>
+<h3 id="key-difference-commands-vs-skills">Key Difference: Commands vs Skills</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Slash Commands</th>
+<th>Skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invocation</td>
+<td>User types <code>/command</code></td>
+<td>Claude auto-discovers</td>
+</tr>
+<tr>
+<td>Trigger</td>
+<td>Explicit</td>
+<td>Contextual (based on task)</td>
+</tr>
+<tr>
+<td>Use case</td>
+<td>Specific workflows</td>
+<td>Autonomous enhancements</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hooks-deterministic-automation">🔗 Hooks: Deterministic Automation</h2>
+<p>Hooks execute automatically at specific events—no prompting required.</p>
+<h3 id="hook-events">Hook Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Trigger</th>
+<th>Common Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PreToolUse</code></td>
+<td>Before tool execution</td>
+<td>Approve/deny/modify</td>
+</tr>
+<tr>
+<td><code>PostToolUse</code></td>
+<td>After tool completion</td>
+<td>Validate results</td>
+</tr>
+<tr>
+<td><code>UserPromptSubmit</code></td>
+<td>User sends message</td>
+<td>Validate input</td>
+</tr>
+<tr>
+<td><code>Stop</code></td>
+<td>Claude finishes</td>
+<td>Prevent early exit</td>
+</tr>
+<tr>
+<td><code>SessionStart</code></td>
+<td>Session begins</td>
+<td>Load environment</td>
+</tr>
+<tr>
+<td><code>SessionEnd</code></td>
+<td>Session ends</td>
+<td>Cleanup</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hook-configuration">Hook Configuration</h3>
+<pre><code class="language-json">{
+  &quot;hooks&quot;: {
+    &quot;PreToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Bash(rm:*)&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;~/.claude/hooks/confirm-delete.sh&quot;,
+            &quot;timeout&quot;: 30
+          }
+        ]
+      }
+    ],
+    &quot;SessionStart&quot;: [
+      {
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;source ~/.claude/env.sh&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+<h3 id="example-hook-script">Example Hook Script</h3>
+<p><strong>~/.claude/hooks/confirm-delete.sh:</strong></p>
+<pre><code class="language-bash">#!/bin/bash
+# Confirm destructive commands
+
+input=$(cat)
+command=$(echo &quot;$input&quot; | jq -r '.input.command')
+
+# Log for audit
+echo &quot;[$(date)] DELETE ATTEMPT: $command&quot; &gt;&gt; ~/.claude/audit.log
+
+# Check if it's actually dangerous
+if [[ &quot;$command&quot; == *&quot;-rf&quot;* ]] || [[ &quot;$command&quot; == *&quot;--force&quot;* ]]; then
+  echo '{&quot;permissionDecision&quot;: &quot;deny&quot;, &quot;permissionDecisionReason&quot;: &quot;Blocked: recursive force delete&quot;}'
+  exit 0
+fi
+
+# Allow other rm commands
+echo '{&quot;permissionDecision&quot;: &quot;allow&quot;}'
+</code></pre>
+<h3 id="hook-inputoutput-format">Hook Input/Output Format</h3>
+<p><strong>Input (stdin):</strong></p>
+<pre><code class="language-json">{
+  &quot;toolName&quot;: &quot;Bash&quot;,
+  &quot;input&quot;: {
+    &quot;command&quot;: &quot;rm -rf node_modules&quot;
+  },
+  &quot;session&quot;: {
+    &quot;cwd&quot;: &quot;/Users/user/project&quot;,
+    &quot;model&quot;: &quot;sonnet&quot;
+  }
+}
+</code></pre>
+<p><strong>Output (stdout):</strong></p>
+<pre><code class="language-json">{
+  &quot;permissionDecision&quot;: &quot;allow|deny|ask&quot;,
+  &quot;permissionDecisionReason&quot;: &quot;Optional explanation&quot;,
+  &quot;updatedInput&quot;: { /* Optional: modify the command */ }
+}
+</code></pre>
+<hr />
+<h2 id="mcp-model-context-protocol">🌐 MCP: Model Context Protocol</h2>
+<p>MCP connects Claude Code to external systems without custom API code.</p>
+<h3 id="adding-mcp-servers">Adding MCP Servers</h3>
+<pre><code class="language-bash"># HTTP server (cloud APIs)
+claude mcp add github https://api.github.com/api/mcp
+
+# With authentication
+claude mcp add --auth-header &quot;Authorization: Bearer $TOKEN&quot; \
+  custom-api https://api.example.com/mcp
+
+# Local stdio server
+claude mcp add --transport stdio database -- python db-server.py
+</code></pre>
+<h3 id="mcp-configuration-file">MCP Configuration File</h3>
+<p><strong>.mcp.json</strong> (project level):</p>
+<pre><code class="language-json">{
+  &quot;servers&quot;: {
+    &quot;kaizen-rag&quot;: {
+      &quot;transport&quot;: &quot;stdio&quot;,
+      &quot;command&quot;: &quot;python&quot;,
+      &quot;args&quot;: [&quot;/path/to/rag-server.py&quot;]
+    },
+    &quot;github&quot;: {
+      &quot;transport&quot;: &quot;http&quot;,
+      &quot;url&quot;: &quot;https://api.github.com/api/mcp&quot;,
+      &quot;auth&quot;: &quot;bearer&quot;
+    }
+  }
+}
+</code></pre>
+<h3 id="common-mcp-use-cases">Common MCP Use Cases</h3>
+<ul>
+<li><strong>Database queries</strong>: Direct SQL access</li>
+<li><strong>GitHub integration</strong>: Issues, PRs, code search</li>
+<li><strong>Monitoring</strong>: Datadog, Prometheus, New Relic</li>
+<li><strong>Cloud APIs</strong>: AWS, GCP, Azure</li>
+<li><strong>Custom tools</strong>: Internal APIs and services</li>
+</ul>
+<hr />
+<h2 id="sub-agents-specialized-delegation">Sub-Agents: Specialized Delegation</h2>
+<p>Sub-agents are specialized AI personalities with focused expertise.</p>
+<h3 id="creating-sub-agents">Creating Sub-Agents</h3>
+<p>Store in <code>.claude/agents/</code>:</p>
+<pre><code class="language-markdown">---
+name: security-reviewer
+description: |
+  Security specialist for code review. Focuses on:
+  - OWASP Top 10 vulnerabilities
+  - Authentication/authorization issues
+  - Data validation and sanitization
+  - Secure coding practices
+tools: [Read, Grep, Bash]
+model: opus
+---
+
+# Security Review Agent
+
+You are a security specialist reviewing code for vulnerabilities.
+
+## Focus Areas
+1. Input validation
+2. SQL injection
+3. XSS vulnerabilities
+4. Authentication bypass
+5. Sensitive data exposure
+
+## Output Format
+For each finding:
+- Severity: CRITICAL/HIGH/MEDIUM/LOW
+- Location: File and line number
+- Description: What the issue is
+- Remediation: How to fix it
+- References: OWASP, CWE numbers
+</code></pre>
+<h3 id="using-sub-agents">Using Sub-Agents</h3>
+<pre><code>Use the security-reviewer agent to check my authentication code.
+/agents                      # List available agents
+</code></pre>
+<hr />
+<h2 id="cost-optimization">💰 Cost Optimization</h2>
+<h3 id="monitor-usage">Monitor Usage</h3>
+<pre><code>/cost                        # Show current session costs
+/status                      # Account and model info
+</code></pre>
+<h3 id="strategies">Strategies</h3>
+<ol>
+<li><strong>Model Selection</strong></li>
+<li>Use <code>haiku</code> for drafts and prototyping</li>
+<li>Use <code>sonnet</code> for regular work (best balance)</li>
+<li>
+<p>Use <code>opus</code> for complex reasoning only</p>
+</li>
+<li>
+<p><strong>Context Management</strong></p>
+</li>
+<li><code>/compact</code> when history gets large</li>
+<li>Use <code>-p</code> mode for one-off queries</li>
+<li>
+<p>Clear context between unrelated tasks</p>
+</li>
+<li>
+<p><strong>Efficient Prompting</strong></p>
+</li>
+<li>Be specific (reduces back-and-forth)</li>
+<li>Use commands for repeated patterns</li>
+<li>Reference files instead of pasting content</li>
+</ol>
+<hr />
+<h2 id="power-user-shortcuts">🎹 Power User Shortcuts</h2>
+<h3 id="keyboard-shortcuts">Keyboard Shortcuts</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl+C</code></td>
+<td>Cancel current operation</td>
+</tr>
+<tr>
+<td><code>Ctrl+D</code></td>
+<td>Exit Claude Code</td>
+</tr>
+<tr>
+<td><code>Ctrl+B</code></td>
+<td>Background long process</td>
+</tr>
+<tr>
+<td><code>Ctrl+R</code></td>
+<td>Reverse history search</td>
+</tr>
+<tr>
+<td><code>Shift+Enter</code></td>
+<td>Multiline input</td>
+</tr>
+<tr>
+<td><code>Esc</code> (2x)</td>
+<td>Open rewind menu</td>
+</tr>
+</tbody>
+</table>
+<h3 id="session-recovery">Session Recovery</h3>
+<p>Press <code>Esc</code> twice to access the rewind menu:
+- Conversation only (keep code changes)
+- Code only (revert files, keep chat)
+- Both (full rollback)</p>
+<hr />
+<h2 id="did-you-know">Did You Know?</h2>
+<h3 id="the-birth-of-claude-code-from-research-tool-to-developer-platform">The Birth of Claude Code: From Research Tool to Developer Platform</h3>
+<p>Claude Code started as an internal research tool at Anthropic called <strong>"Workbench CLI"</strong> in early 2024. Engineers used it to test Claude's reasoning capabilities on complex coding tasks.</p>
+<p>The turning point came in <strong>March 2024</strong> when an Anthropic researcher accidentally left Workbench CLI running overnight on a bug they'd struggled with for 3 days. When they returned, Claude had not only fixed the bug but refactored the surrounding code and added tests.</p>
+<blockquote>
+<p>"We realized we'd built something developers would kill for. The next week, we started planning the public release."
+— Anthropic engineer (internal Slack, later shared publicly)</p>
+</blockquote>
+<p>Claude Code launched publicly in <strong>October 2024</strong>. Within the first week:
+- <strong>50,000+ downloads</strong> of the CLI
+- <strong>#1 trending</strong> on Hacker News (twice!)
+- Developers posted viral threads showing Claude Code fixing decade-old bugs</p>
+<p>By early 2025, Claude Code had become Anthropic's fastest-growing product, with many developers switching from GitHub Copilot for complex, multi-file tasks.</p>
+<h3 id="the-constitutional-ai-connection">The Constitutional AI Connection</h3>
+<p>Claude Code isn't just a coding assistant—it's built on Anthropic's <strong>Constitutional AI</strong> research. The same principles that make Claude helpful and harmless also make Claude Code:</p>
+<ol>
+<li><strong>Self-correcting</strong>: Claude reviews its own code changes before suggesting them</li>
+<li><strong>Honest about limitations</strong>: Will say "I'm not sure" rather than hallucinate code</li>
+<li><strong>Safety-aware</strong>: Warns about security vulnerabilities it introduces or finds</li>
+<li><strong>Permission-conscious</strong>: The elaborate permission system was designed by AI safety researchers</li>
+</ol>
+<p>Fun fact: The <code>interrupt_before</code> and <code>interrupt_after</code> features in LangGraph (Module 18) were directly inspired by Claude Code's human-in-the-loop design. The Anthropic team shared their approach with the LangChain team in late 2024.</p>
+<h3 id="the-unix-philosophy-lives-on">The Unix Philosophy Lives On</h3>
+<p>Claude Code follows the Unix philosophy—and that's no accident. <strong>Dario Amodei</strong>, Anthropic's CEO, studied computer science at Princeton where the Unix tradition runs deep.</p>
+<p>Core Unix principles in Claude Code:
+- <strong>Do one thing well</strong>: Each tool has a focused purpose
+- <strong>Composability</strong>: Pipe output between tools
+- <strong>Text streams</strong>: Everything communicates via text</p>
+<pre><code class="language-bash"># Unix pipeline with Claude
+cat error.log | claude -p &quot;find the root cause&quot; | tee analysis.md
+
+# Multiple file analysis
+find . -name &quot;*.py&quot; -exec cat {} \; | claude -p &quot;security review&quot;
+
+# Git integration
+git diff HEAD~5 | claude -p &quot;summarize changes for changelog&quot;
+</code></pre>
+<p>The <code>-p</code> (print mode) flag was added specifically to enable Unix pipes. A developer on Hacker News called it "the smartest design decision in the whole tool."</p>
+<h3 id="mcp-the-protocol-that-almost-wasnt">MCP: The Protocol That Almost Wasn't</h3>
+<p>The <strong>Model Context Protocol (MCP)</strong> that powers Claude Code's external integrations has a surprising origin story.</p>
+<p>In mid-2024, Anthropic engineers were frustrated. Every customer wanted Claude to connect to their internal systems—databases, APIs, monitoring tools. But building custom integrations was consuming 60% of the enterprise team's time.</p>
+<p><strong>Alex Albert</strong>, an Anthropic engineer, proposed: "What if we just published a protocol and let people build their own connectors?"</p>
+<p>The response was skepticism:
+- "No one will build connectors for a new protocol"
+- "It's too complex for most developers"
+- "We should build a marketplace instead"</p>
+<p>Alex built a prototype anyway, over a weekend. He called it "Model Context Protocol" because it lets models access context from external systems.</p>
+<p>Within 3 months of MCP's release:
+- <strong>200+ community connectors</strong> on GitHub
+- Integrations with GitHub, Postgres, Slack, Notion, and more
+- Microsoft, Google, and OpenAI started exploring similar protocols</p>
+<p>The lesson: Sometimes the best platform strategy is publishing a good protocol.</p>
+<h3 id="claudemd-the-accidental-feature">CLAUDE.md: The Accidental Feature</h3>
+<p>The CLAUDE.md memory system wasn't planned. It emerged from a bug.</p>
+<p>In early testing, Claude Code would sometimes ignore repository-specific coding standards. An engineer added a hack: "What if Claude reads a markdown file at startup?"</p>
+<p>The feature worked so well that developers started:
+- Putting entire API documentation in CLAUDE.md
+- Writing persona instructions ("You are a senior Python developer...")
+- Creating project-specific memory systems</p>
+<p>By release, CLAUDE.md had become one of Claude Code's most distinctive features. Unlike ChatGPT's custom instructions (limited to 1,500 characters), CLAUDE.md can be hundreds of pages and hierarchically organized.</p>
+<p><strong>Power user tip</strong>: Treat CLAUDE.md like a system prompt that compounds over time.</p>
+<h3 id="hooks-security-through-extensibility">Hooks: Security Through Extensibility</h3>
+<p>The hooks system has a fascinating backstory involving <strong>enterprise security requirements</strong>.</p>
+<p>When Anthropic started enterprise pilots in 2024, security teams had one consistent demand: "We need to approve or block certain AI actions." But every company had different requirements:
+- Bank: "Block any file writes outside the project directory"
+- Healthcare: "Log all PHI access"
+- Government: "Require human approval for git pushes"</p>
+<p>Building all these features natively was impossible. The solution? <strong>Make hooks Turing-complete</strong>.</p>
+<p>Hooks can run any executable, which means:
+- Complex approval workflows
+- Integration with external systems
+- Audit logging
+- Dynamic permission modification
+- Custom security policies</p>
+<p>One Fortune 500 company uses hooks to:
+1. Log all file modifications to Splunk
+2. Block writes to production config files
+3. Require Duo 2FA for git push
+4. Send Slack notifications for changes &gt;100 lines</p>
+<h3 id="the-numbers-behind-claude-code">The Numbers Behind Claude Code</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time to fix average bug</td>
+<td><strong>3.2 minutes</strong> (vs 45 min manually)</td>
+<td>Anthropic internal study</td>
+</tr>
+<tr>
+<td>Code review accuracy</td>
+<td><strong>94%</strong> agreement with senior reviewers</td>
+<td>Enterprise pilot data</td>
+</tr>
+<tr>
+<td>Commands per session</td>
+<td><strong>12 average</strong></td>
+<td>Public telemetry</td>
+</tr>
+<tr>
+<td>Most-used command</td>
+<td><code>/compact</code></td>
+<td>Usage analytics</td>
+</tr>
+<tr>
+<td>Longest session</td>
+<td><strong>47 hours</strong> (overnight debugging)</td>
+<td>Anthropic logs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="famous-claude-code-moments">Famous Claude Code Moments</h3>
+<p><strong>The Vim Configuration Incident (November 2024)</strong>:
+A developer posted on Reddit: "I asked Claude Code to 'improve my vim config' and it rewrote 2,000 lines, adding features I didn't know I wanted." The post went viral with 2,500+ upvotes.</p>
+<p><strong>The Legacy Codebase Migration (December 2024)</strong>:
+A startup used Claude Code to migrate 50,000 lines of Python 2 to Python 3 in a weekend. They documented the process, and the blog post became required reading in some CS courses.</p>
+<p><strong>The "Please Fix Everything" Bug (January 2025)</strong>:
+A developer sarcastically typed "please fix everything wrong with this codebase" and walked away. Claude Code spent 6 hours making 847 changes across 234 files. Most were legitimate improvements. The developer kept 90% of them.</p>
+<h3 id="the-future-claude-code-as-an-os">The Future: Claude Code as an OS</h3>
+<p>Internally, Anthropic refers to their vision as "Claude Code as an Operating System." The idea:
+- CLAUDE.md = Configuration files
+- Hooks = System calls
+- MCP = Device drivers
+- Slash commands = Shell commands
+- Sub-agents = Processes</p>
+<p>Whether this vision becomes reality remains to be seen, but Claude Code is already the most integrated AI development environment available—by design, not accident.</p>
+<hr />
+<h2 id="practical-exercises">️ Practical Exercises</h2>
+<h3 id="exercise-1-configure-full-autonomy">Exercise 1: Configure Full Autonomy</h3>
+<p>Set up your <code>settings.local.json</code> for maximum productivity:
+1. Allow all tool types
+2. Set up environment variables
+3. Configure your preferred model</p>
+<h3 id="exercise-2-create-a-custom-command">Exercise 2: Create a Custom Command</h3>
+<p>Build a <code>/ship</code> command that:
+1. Runs tests
+2. Commits changes
+3. Pushes to remote
+4. Creates a PR</p>
+<h3 id="exercise-3-build-a-security-hook">Exercise 3: Build a Security Hook</h3>
+<p>Create a hook that:
+1. Blocks writes to <code>.env</code> files
+2. Logs all bash commands
+3. Requires approval for <code>sudo</code></p>
+<h3 id="exercise-4-set-up-mcp">Exercise 4: Set Up MCP</h3>
+<p>Connect Claude Code to:
+1. Your project's database
+2. GitHub API
+3. A custom internal tool</p>
+<hr />
+<h2 id="deliverables">Deliverables</h2>
+<p>By completing this module, you should:</p>
+<ol>
+<li>✅ Have <code>settings.local.json</code> optimized for your workflow</li>
+<li>✅ Create at least 3 custom slash commands</li>
+<li>✅ Implement a security hook</li>
+<li>✅ Build a CLAUDE.md for your project</li>
+<li>✅ Set up one MCP integration</li>
+</ol>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.anthropic.com/claude-code">Claude Code Documentation</a></li>
+<li><a href="https://spec.modelcontextprotocol.io/">MCP Specification</a></li>
+<li><a href="https://docs.anthropic.com/claude-code/hooks">Hooks Reference</a></li>
+<li><a href="https://github.com/anthropics/claude-code">Claude Code GitHub</a></li>
+</ul>
+<hr />
+<h2 id="next-steps">️ Next Steps</h2>
+<p>With Claude Code mastered, you're ready for:
+- <strong>Module 2</strong>: Prompt Engineering - Master the art of effective prompts
+- <strong>Module 5</strong>: AI Coding Assistants - Compare Claude Code with alternatives</p>
+<p><strong>You're now a Claude Code power user. Build systems, not prompts!</strong></p>
+<hr />
+<p><strong>🥋 Neural Dojo - From casual user to power user! 🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-24</em>
+<em>Next: Module 2 - Prompt Engineering Fundamentals</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_02_prompt_engineering.html">Module 2: Prompt Engineering Fundamentals</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 19: LlamaIndex & Alternative Frameworks - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_20_advanced_agentic_ai.html">Next: Module 20: Advanced Agentic AI 🆕 →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 19: LlamaIndex & Alternative Frameworks</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-19-llamaindex-alternative-frameworks">Module 19: LlamaIndex &amp; Alternative Frameworks</h1>
+<h1 id="or-the-other-frameworks-you-should-know-about">Or: The Other Frameworks You Should Know About</h1>
+<p><strong>Last Updated</strong>: 2025-11-25
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 5-6 hours
+<strong>Prerequisites</strong>: Module 18</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand LlamaIndex's architecture and when to use it
+- Compare LangChain vs LlamaIndex for different use cases
+- Explore alternative multi-agent frameworks (CrewAI, AutoGen)
+- Make informed framework selection decisions
+- Build integrations between frameworks</p>
+<hr />
+<h2 id="the-framework-landscape">The Framework Landscape</h2>
+<p>You've now mastered LangChain and LangGraph. But the AI framework ecosystem is rich with alternatives, each with different philosophies and strengths.</p>
+<h3 id="why-so-many-frameworks">Why So Many Frameworks?</h3>
+<p>Different teams solve AI challenges differently:</p>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Philosophy</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LangChain</strong></td>
+<td>Composable chains, flexibility</td>
+<td>General-purpose LLM apps</td>
+</tr>
+<tr>
+<td><strong>LlamaIndex</strong></td>
+<td>Data-centric, indexing focus</td>
+<td>RAG and knowledge systems</td>
+</tr>
+<tr>
+<td><strong>CrewAI</strong></td>
+<td>Role-based agents, simplicity</td>
+<td>Multi-agent collaboration</td>
+</tr>
+<tr>
+<td><strong>AutoGen</strong></td>
+<td>Conversational agents</td>
+<td>Research, complex dialogues</td>
+</tr>
+<tr>
+<td><strong>Semantic Kernel</strong></td>
+<td>Enterprise, Microsoft stack</td>
+<td>.NET/Azure integration</td>
+</tr>
+<tr>
+<td><strong>Haystack</strong></td>
+<td>Search-first</td>
+<td>Production search systems</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-big-picture">The Big Picture</h3>
+<pre><code>                         AI Application Frameworks
+                                   │
+        ┌──────────────────────────┼──────────────────────────┐
+        │                          │                          │
+   LangChain/LangGraph         LlamaIndex                Multi-Agent
+        │                          │                          │
+   ┌────┴────┐               ┌────┴────┐               ┌────┴────┐
+   │         │               │         │               │         │
+ Chains    Agents          Index    Query            CrewAI  AutoGen
+ Memory    Tools           RAG      Engine           Roles   Agents
+</code></pre>
+<hr />
+<h2 id="llamaindex-data-framework-for-llms">LlamaIndex: Data Framework for LLMs</h2>
+<h3 id="what-is-llamaindex">What is LlamaIndex?</h3>
+<p>LlamaIndex (formerly GPT Index) is a <strong>data framework</strong> for building LLM applications. While LangChain focuses on chains and agents, LlamaIndex focuses on:</p>
+<ol>
+<li><strong>Data Ingestion</strong>: Connect to any data source</li>
+<li><strong>Data Indexing</strong>: Structure data for efficient retrieval</li>
+<li><strong>Query Interface</strong>: Natural language access to your data</li>
+</ol>
+<h3 id="core-philosophy">Core Philosophy</h3>
+<p>LlamaIndex's philosophy: <strong>"Your data is your moat."</strong></p>
+<blockquote>
+<p>"The LLM is commoditized. What differentiates AI applications is your proprietary data and how you leverage it."</p>
+</blockquote>
+<h3 id="llamaindex-architecture">LlamaIndex Architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                       LlamaIndex                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐              │
+│  │  Data    │───▶│  Index   │───▶│  Query   │              │
+│  │ Loaders  │    │  Types   │    │ Engines  │              │
+│  └──────────┘    └──────────┘    └──────────┘              │
+│       │               │               │                     │
+│       ▼               ▼               ▼                     │
+│  - PDF, CSV      - Vector        - RAG                     │
+│  - Web, API      - Summary       - Chat                    │
+│  - Database      - Knowledge     - SQL                     │
+│  - Notion        - Tree          - Agent                   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="key-components">Key Components</h3>
+<h4 id="1-data-connectors-loaders">1. Data Connectors (Loaders)</h4>
+<p>LlamaIndex has 150+ data connectors:</p>
+<pre><code class="language-python">from llama_index.core import SimpleDirectoryReader
+from llama_index.readers.web import SimpleWebPageReader
+from llama_index.readers.database import DatabaseReader
+
+# Load from directory
+documents = SimpleDirectoryReader(&quot;./data&quot;).load_data()
+
+# Load from web
+web_docs = SimpleWebPageReader(html_to_text=True).load_data(
+    [&quot;https://example.com/page1&quot;, &quot;https://example.com/page2&quot;]
+)
+
+# Load from database
+db_reader = DatabaseReader(
+    sql_database=&quot;postgresql://user:pass@host:5432/db&quot;
+)
+documents = db_reader.load_data(query=&quot;SELECT * FROM articles&quot;)
+</code></pre>
+<h4 id="2-index-types">2. Index Types</h4>
+<p>Different index types for different use cases:</p>
+<pre><code class="language-python">from llama_index.core import (
+    VectorStoreIndex,
+    SummaryIndex,
+    TreeIndex,
+    KeywordTableIndex
+)
+
+# Vector Index - best for semantic search
+vector_index = VectorStoreIndex.from_documents(documents)
+
+# Summary Index - good for summarization
+summary_index = SummaryIndex.from_documents(documents)
+
+# Tree Index - hierarchical organization
+tree_index = TreeIndex.from_documents(documents)
+
+# Keyword Index - good for exact matches
+keyword_index = KeywordTableIndex.from_documents(documents)
+</code></pre>
+<h4 id="3-query-engines">3. Query Engines</h4>
+<p>Query engines process natural language queries:</p>
+<pre><code class="language-python"># Basic query engine
+query_engine = index.as_query_engine()
+response = query_engine.query(&quot;What is the main topic?&quot;)
+
+# With retrieval settings
+query_engine = index.as_query_engine(
+    similarity_top_k=5,
+    response_mode=&quot;compact&quot;
+)
+
+# Chat engine (maintains conversation)
+chat_engine = index.as_chat_engine()
+response = chat_engine.chat(&quot;Tell me about the document&quot;)
+follow_up = chat_engine.chat(&quot;Can you elaborate?&quot;)
+</code></pre>
+<h3 id="llamaindex-rag-pipeline">LlamaIndex RAG Pipeline</h3>
+<pre><code class="language-python">from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.llms.openai import OpenAI
+
+# 1. Load documents
+documents = SimpleDirectoryReader(&quot;./data&quot;).load_data()
+
+# 2. Create index (embeds and stores)
+index = VectorStoreIndex.from_documents(documents)
+
+# 3. Create query engine
+query_engine = index.as_query_engine(
+    llm=OpenAI(model=&quot;gpt-4&quot;),
+    similarity_top_k=3
+)
+
+# 4. Query
+response = query_engine.query(&quot;What are the key findings?&quot;)
+print(response)
+</code></pre>
+<h3 id="advanced-llamaindex-features">Advanced LlamaIndex Features</h3>
+<h4 id="sub-question-query-engine">Sub-Question Query Engine</h4>
+<p>Breaks complex queries into simpler sub-questions:</p>
+<pre><code class="language-python">from llama_index.core.query_engine import SubQuestionQueryEngine
+from llama_index.core.tools import QueryEngineTool, ToolMetadata
+
+# Create tools from multiple indexes
+tools = [
+    QueryEngineTool(
+        query_engine=financial_index.as_query_engine(),
+        metadata=ToolMetadata(
+            name=&quot;financial_data&quot;,
+            description=&quot;Financial reports and metrics&quot;
+        )
+    ),
+    QueryEngineTool(
+        query_engine=product_index.as_query_engine(),
+        metadata=ToolMetadata(
+            name=&quot;product_data&quot;,
+            description=&quot;Product documentation&quot;
+        )
+    )
+]
+
+# Sub-question engine decomposes complex queries
+query_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=tools)
+response = query_engine.query(
+    &quot;How did Q3 product launches affect revenue?&quot;
+)
+</code></pre>
+<h4 id="router-query-engine">Router Query Engine</h4>
+<p>Routes queries to appropriate indexes:</p>
+<pre><code class="language-python">from llama_index.core.query_engine import RouterQueryEngine
+from llama_index.core.selectors import LLMSingleSelector
+
+query_engine = RouterQueryEngine(
+    selector=LLMSingleSelector.from_defaults(),
+    query_engine_tools=[
+        QueryEngineTool(
+            query_engine=technical_index.as_query_engine(),
+            metadata=ToolMetadata(
+                name=&quot;technical&quot;,
+                description=&quot;Technical documentation and code&quot;
+            )
+        ),
+        QueryEngineTool(
+            query_engine=business_index.as_query_engine(),
+            metadata=ToolMetadata(
+                name=&quot;business&quot;,
+                description=&quot;Business processes and policies&quot;
+            )
+        )
+    ]
+)
+</code></pre>
+<h4 id="knowledge-graph-index">Knowledge Graph Index</h4>
+<p>Build and query knowledge graphs:</p>
+<pre><code class="language-python">from llama_index.core import KnowledgeGraphIndex
+
+# Create knowledge graph from documents
+kg_index = KnowledgeGraphIndex.from_documents(
+    documents,
+    max_triplets_per_chunk=3,
+    include_embeddings=True
+)
+
+# Query with graph traversal
+query_engine = kg_index.as_query_engine(
+    include_text=True,
+    retriever_mode=&quot;keyword&quot;,
+    response_mode=&quot;tree_summarize&quot;
+)
+</code></pre>
+<hr />
+<h2 id="langchain-vs-llamaindex">LangChain vs LlamaIndex</h2>
+<h3 id="philosophy-comparison">Philosophy Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>LangChain</th>
+<th>LlamaIndex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Core Focus</strong></td>
+<td>Chains, agents, tools</td>
+<td>Data indexing, retrieval</td>
+</tr>
+<tr>
+<td><strong>Mental Model</strong></td>
+<td>"Building blocks for LLM apps"</td>
+<td>"Data framework for LLMs"</td>
+</tr>
+<tr>
+<td><strong>Strength</strong></td>
+<td>Flexibility, agent patterns</td>
+<td>RAG, knowledge management</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>Higher learning curve</td>
+<td>More opinionated, simpler</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>General-purpose</td>
+<td>Data-intensive apps</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-use-each">When to Use Each</h3>
+<p><strong>Choose LangChain when:</strong>
+- Building complex agent systems
+- Need maximum flexibility
+- Require stateful workflows (with LangGraph)
+- Integrating many external tools
+- Building chatbots with complex logic</p>
+<p><strong>Choose LlamaIndex when:</strong>
+- RAG is your primary use case
+- Working with many data sources
+- Need sophisticated indexing strategies
+- Building knowledge-intensive apps
+- Want simpler RAG setup</p>
+<h3 id="code-comparison-basic-rag">Code Comparison: Basic RAG</h3>
+<p><strong>LangChain RAG:</strong></p>
+<pre><code class="language-python">from langchain_community.document_loaders import DirectoryLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain.chains import RetrievalQA
+
+# Load and split
+loader = DirectoryLoader(&quot;./data&quot;)
+documents = loader.load()
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000)
+chunks = splitter.split_documents(documents)
+
+# Create vector store
+vectorstore = Chroma.from_documents(chunks, OpenAIEmbeddings())
+
+# Create chain
+qa_chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(),
+    retriever=vectorstore.as_retriever()
+)
+
+# Query
+response = qa_chain.invoke(&quot;What is the main topic?&quot;)
+</code></pre>
+<p><strong>LlamaIndex RAG:</strong></p>
+<pre><code class="language-python">from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+
+# Load and index (handles splitting internally)
+documents = SimpleDirectoryReader(&quot;./data&quot;).load_data()
+index = VectorStoreIndex.from_documents(documents)
+
+# Query
+query_engine = index.as_query_engine()
+response = query_engine.query(&quot;What is the main topic?&quot;)
+</code></pre>
+<p><strong>Observation</strong>: LlamaIndex is more concise for basic RAG. LangChain offers more control over each step.</p>
+<h3 id="using-both-together">Using Both Together</h3>
+<p>They're not mutually exclusive! Use LlamaIndex for data management, LangChain for agents:</p>
+<pre><code class="language-python">from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.tools import Tool
+
+# LlamaIndex for indexing
+documents = SimpleDirectoryReader(&quot;./data&quot;).load_data()
+index = VectorStoreIndex.from_documents(documents)
+query_engine = index.as_query_engine()
+
+# Wrap as LangChain tool
+def search_docs(query: str) -&gt; str:
+    response = query_engine.query(query)
+    return str(response)
+
+search_tool = Tool(
+    name=&quot;document_search&quot;,
+    func=search_docs,
+    description=&quot;Search internal documents for information&quot;
+)
+
+# Use in LangChain agent
+agent = create_tool_calling_agent(llm, [search_tool], prompt)
+executor = AgentExecutor(agent=agent, tools=[search_tool])
+</code></pre>
+<hr />
+<h2 id="crewai-role-based-multi-agent">CrewAI: Role-Based Multi-Agent</h2>
+<h3 id="what-is-crewai">What is CrewAI?</h3>
+<p>CrewAI is a framework for orchestrating <strong>role-playing AI agents</strong>. Its philosophy is based on human team dynamics.</p>
+<h3 id="core-concepts">Core Concepts</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                         CrewAI                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐                 │
+│  │  Agent  │    │  Task   │    │  Crew   │                 │
+│  │         │    │         │    │         │                 │
+│  │ - Role  │    │ - Goal  │    │ - Team  │                 │
+│  │ - Goal  │    │ - Agent │    │ - Tasks │                 │
+│  │ - Tools │    │ - Output│    │ - Flow  │                 │
+│  └─────────┘    └─────────┘    └─────────┘                 │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="crewai-example">CrewAI Example</h3>
+<pre><code class="language-python">from crewai import Agent, Task, Crew, Process
+
+# Define agents with roles
+researcher = Agent(
+    role=&quot;Senior Research Analyst&quot;,
+    goal=&quot;Find comprehensive information about AI frameworks&quot;,
+    backstory=&quot;You are an expert at finding and analyzing technical information.&quot;,
+    tools=[search_tool, web_scraper],
+    verbose=True
+)
+
+writer = Agent(
+    role=&quot;Technical Writer&quot;,
+    goal=&quot;Create clear, engaging technical content&quot;,
+    backstory=&quot;You specialize in making complex topics accessible.&quot;,
+    verbose=True
+)
+
+reviewer = Agent(
+    role=&quot;Quality Reviewer&quot;,
+    goal=&quot;Ensure content accuracy and clarity&quot;,
+    backstory=&quot;You have a keen eye for errors and unclear explanations.&quot;,
+    verbose=True
+)
+
+# Define tasks
+research_task = Task(
+    description=&quot;Research the latest AI framework developments in 2024&quot;,
+    agent=researcher,
+    expected_output=&quot;Comprehensive research notes with sources&quot;
+)
+
+writing_task = Task(
+    description=&quot;Write a blog post based on the research&quot;,
+    agent=writer,
+    expected_output=&quot;1500-word blog post in markdown&quot;,
+    context=[research_task]  # Uses output from research
+)
+
+review_task = Task(
+    description=&quot;Review and improve the blog post&quot;,
+    agent=reviewer,
+    expected_output=&quot;Edited blog post with improvements&quot;,
+    context=[writing_task]
+)
+
+# Create crew
+crew = Crew(
+    agents=[researcher, writer, reviewer],
+    tasks=[research_task, writing_task, review_task],
+    process=Process.sequential  # or Process.hierarchical
+)
+
+# Run the crew
+result = crew.kickoff()
+</code></pre>
+<h3 id="crewai-strengths">CrewAI Strengths</h3>
+<ol>
+<li><strong>Intuitive Role-Based Design</strong>: Matches how humans think about teams</li>
+<li><strong>Built-in Collaboration</strong>: Agents naturally hand off work</li>
+<li><strong>Simple API</strong>: Less boilerplate than LangGraph</li>
+<li><strong>Memory and Learning</strong>: Agents remember past interactions</li>
+</ol>
+<h3 id="crewai-vs-langgraph">CrewAI vs LangGraph</h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>CrewAI</th>
+<th>LangGraph</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mental Model</strong></td>
+<td>Human teams, roles</td>
+<td>State machines, graphs</td>
+</tr>
+<tr>
+<td><strong>Flexibility</strong></td>
+<td>More opinionated</td>
+<td>More flexible</td>
+</tr>
+<tr>
+<td><strong>Learning Curve</strong></td>
+<td>Lower</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td><strong>Complex Workflows</strong></td>
+<td>Limited</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td><strong>Customization</strong></td>
+<td>Moderate</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="autogen-conversational-agents">AutoGen: Conversational Agents</h2>
+<h3 id="what-is-autogen">What is AutoGen?</h3>
+<p>AutoGen (Microsoft Research) focuses on <strong>conversational multi-agent systems</strong> where agents communicate through chat.</p>
+<h3 id="core-concept">Core Concept</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│                         AutoGen                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│    Agent A ◄─────── Messages ───────► Agent B               │
+│       │                                   │                 │
+│       ▼                                   ▼                 │
+│  &quot;I'll research...&quot;              &quot;Based on that...&quot;         │
+│       │                                   │                 │
+│       └──────────► Agent C ◄──────────────┘                 │
+│                &quot;Let me synthesize...&quot;                       │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="autogen-example">AutoGen Example</h3>
+<pre><code class="language-python">from autogen import AssistantAgent, UserProxyAgent, GroupChat, GroupChatManager
+
+# Create agents
+assistant = AssistantAgent(
+    name=&quot;assistant&quot;,
+    llm_config={&quot;model&quot;: &quot;gpt-4&quot;},
+    system_message=&quot;You are a helpful AI assistant.&quot;
+)
+
+coder = AssistantAgent(
+    name=&quot;coder&quot;,
+    llm_config={&quot;model&quot;: &quot;gpt-4&quot;},
+    system_message=&quot;You write Python code to solve problems.&quot;
+)
+
+critic = AssistantAgent(
+    name=&quot;critic&quot;,
+    llm_config={&quot;model&quot;: &quot;gpt-4&quot;},
+    system_message=&quot;You review code and suggest improvements.&quot;
+)
+
+# User proxy for human-in-the-loop
+user_proxy = UserProxyAgent(
+    name=&quot;user&quot;,
+    human_input_mode=&quot;TERMINATE&quot;,  # or &quot;ALWAYS&quot; for full control
+    code_execution_config={&quot;work_dir&quot;: &quot;coding&quot;}
+)
+
+# Group chat
+group_chat = GroupChat(
+    agents=[user_proxy, assistant, coder, critic],
+    messages=[],
+    max_round=10
+)
+
+manager = GroupChatManager(groupchat=group_chat)
+
+# Start conversation
+user_proxy.initiate_chat(
+    manager,
+    message=&quot;Create a Python function to calculate fibonacci numbers&quot;
+)
+</code></pre>
+<h3 id="autogen-strengths">AutoGen Strengths</h3>
+<ol>
+<li><strong>Natural Conversations</strong>: Agents communicate like humans</li>
+<li><strong>Code Execution</strong>: Built-in safe code execution</li>
+<li><strong>Research-Grade</strong>: From Microsoft Research</li>
+<li><strong>Flexible Termination</strong>: Fine-grained control over when to stop</li>
+</ol>
+<h3 id="when-to-use-autogen">When to Use AutoGen</h3>
+<ul>
+<li>Research and experimentation</li>
+<li>Code generation workflows</li>
+<li>Complex multi-turn dialogues</li>
+<li>When agents need to debate/collaborate naturally</li>
+</ul>
+<hr />
+<h2 id="other-notable-frameworks">Other Notable Frameworks</h2>
+<h3 id="semantic-kernel-microsoft">Semantic Kernel (Microsoft)</h3>
+<p><strong>Best for</strong>: Enterprise, Azure integration</p>
+<pre><code class="language-python">import semantic_kernel as sk
+from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
+
+kernel = sk.Kernel()
+kernel.add_service(AzureChatCompletion(
+    deployment_name=&quot;gpt-4&quot;,
+    endpoint=&quot;https://your-resource.openai.azure.com/&quot;,
+    api_key=&quot;your-key&quot;
+))
+
+# Create semantic function
+summarize = kernel.create_semantic_function(
+    &quot;Summarize this text: {{$input}}&quot;,
+    max_tokens=200
+)
+
+result = await kernel.invoke(summarize, input=&quot;Long text here...&quot;)
+</code></pre>
+<h3 id="haystack">Haystack</h3>
+<p><strong>Best for</strong>: Search-focused applications</p>
+<pre><code class="language-python">from haystack import Pipeline
+from haystack.components.retrievers import InMemoryEmbeddingRetriever
+from haystack.components.generators import OpenAIGenerator
+from haystack.components.builders import PromptBuilder
+
+# Build pipeline
+pipeline = Pipeline()
+pipeline.add_component(&quot;retriever&quot;, InMemoryEmbeddingRetriever(document_store))
+pipeline.add_component(&quot;prompt_builder&quot;, PromptBuilder(template=&quot;&quot;&quot;
+    Context: {{documents}}
+    Question: {{query}}
+    Answer:
+&quot;&quot;&quot;))
+pipeline.add_component(&quot;generator&quot;, OpenAIGenerator())
+
+pipeline.connect(&quot;retriever&quot;, &quot;prompt_builder.documents&quot;)
+pipeline.connect(&quot;prompt_builder&quot;, &quot;generator&quot;)
+
+result = pipeline.run({&quot;query&quot;: &quot;What is the capital of France?&quot;})
+</code></pre>
+<h3 id="dspy-stanford">DSPy (Stanford)</h3>
+<p><strong>Best for</strong>: Prompt optimization, research</p>
+<pre><code class="language-python">import dspy
+
+# Configure
+lm = dspy.OpenAI(model=&quot;gpt-4&quot;)
+dspy.settings.configure(lm=lm)
+
+# Define signature
+class QA(dspy.Signature):
+    &quot;&quot;&quot;Answer questions based on context.&quot;&quot;&quot;
+    context = dspy.InputField()
+    question = dspy.InputField()
+    answer = dspy.OutputField()
+
+# Create module
+qa = dspy.ChainOfThought(QA)
+
+# Use (DSPy optimizes prompts automatically)
+result = qa(context=&quot;Paris is the capital of France&quot;, question=&quot;What is the capital?&quot;)
+</code></pre>
+<hr />
+<h2 id="framework-selection-guide">Framework Selection Guide</h2>
+<h3 id="decision-framework">Decision Framework</h3>
+<pre><code>                    What's your primary use case?
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+   RAG/Knowledge        Agent/Workflow       Multi-Agent
+        │                     │                     │
+   LlamaIndex            LangChain           ┌────┴────┐
+        │                     │              │         │
+   (simpler setup)      (flexible)      CrewAI    AutoGen
+                              │              │         │
+                        LangGraph        (roles)  (chat)
+                              │
+                    (complex state)
+</code></pre>
+<h3 id="quick-decision-table">Quick Decision Table</h3>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Recommended Framework</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple RAG</td>
+<td>LlamaIndex</td>
+</tr>
+<tr>
+<td>Complex RAG with custom logic</td>
+<td>LangChain</td>
+</tr>
+<tr>
+<td>Stateful agent workflows</td>
+<td>LangGraph</td>
+</tr>
+<tr>
+<td>Role-based team of agents</td>
+<td>CrewAI</td>
+</tr>
+<tr>
+<td>Conversational agent research</td>
+<td>AutoGen</td>
+</tr>
+<tr>
+<td>Enterprise/Azure</td>
+<td>Semantic Kernel</td>
+</tr>
+<tr>
+<td>Search-first application</td>
+<td>Haystack</td>
+</tr>
+<tr>
+<td>Prompt optimization</td>
+<td>DSPy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="practical-recommendations">Practical Recommendations</h3>
+<ol>
+<li><strong>Start with one framework</strong> - Don't try to learn all at once</li>
+<li><strong>LangChain + LlamaIndex</strong> is a powerful combination</li>
+<li><strong>CrewAI</strong> for quick multi-agent prototypes</li>
+<li><strong>LangGraph</strong> when you need precise control</li>
+<li><strong>Consider team skills</strong> - Choose what your team can maintain</li>
+</ol>
+<hr />
+<h2 id="did-you-know">Did You Know?</h2>
+<h3 id="the-llamaindex-origin-story-from-uber-to-ai-unicorn">The LlamaIndex Origin Story: From Uber to AI Unicorn</h3>
+<p><strong>Jerry Liu</strong> created LlamaIndex in <strong>November 2022</strong>, just two weeks after ChatGPT launched. Originally called "GPT Index," it was born from a simple frustration:</p>
+<blockquote>
+<p>"I was at Uber working on their data platform. When ChatGPT came out, I tried to use it with our internal docs. The context window was tiny, and everyone was just copy-pasting text. I thought: 'We solved this for databases 40 years ago. Why are we starting from scratch?'"</p>
+</blockquote>
+<p>Jerry quit his job at Uber and started coding. The first commit was on <strong>November 20, 2022</strong>. By December, it had <strong>1,000 GitHub stars</strong>. By March 2023, it had <strong>15,000 stars</strong> and Jerry had raised a <strong>$8.5 million seed round</strong> led by Greylock Partners.</p>
+<p>In <strong>April 2024</strong>, LlamaIndex raised a <strong>$19 million Series A</strong>, valuing the company at around <strong>$150 million</strong>. All from solving the "how do I use my data with LLMs?" problem.</p>
+<h3 id="the-name-change-drama">The Name Change Drama</h3>
+<p>The original name "GPT Index" caused problems:
+1. <strong>OpenAI</strong> (politely) asked about trademark concerns
+2. Users confused it with an OpenAI product
+3. It implied GPT-only support (it works with Claude, Gemini, etc.)</p>
+<p>The rename to "LlamaIndex" in <strong>February 2023</strong> was inspired by Meta's LLaMA model release that same month. The llama mascot stuck—now it's one of the most recognizable brands in AI tooling.</p>
+<p>Fun fact: Jerry considered "VectorPanda" and "EmbedBear" before settling on LlamaIndex.</p>
+<h3 id="the-crewai-viral-moment-0-to-10k-stars-in-72-hours">The CrewAI Viral Moment: 0 to 10K Stars in 72 Hours</h3>
+<p><strong>João Moura</strong>, a Brazilian developer, was frustrated in <strong>December 2023</strong>. He'd spent 3 days trying to build a simple multi-agent system in LangChain:</p>
+<blockquote>
+<p>"I just wanted three agents to work together—a researcher, a writer, and an editor. The LangChain code was 400 lines. I thought: 'This should be 40 lines.'"</p>
+</blockquote>
+<p>He built CrewAI over a weekend, posted it on Twitter/X on <strong>January 4, 2024</strong>, and went to bed.</p>
+<p>He woke up to:
+- <strong>2,000+ GitHub stars</strong> overnight
+- <strong>500+ forks</strong> in 12 hours
+- DMs from Y Combinator, Andreessen Horowitz, and Sequoia</p>
+<p>By January 7th, CrewAI had <strong>10,000 stars</strong>. By February, João had quit his job and raised <strong>$2 million</strong> in pre-seed funding.</p>
+<p>The magic? This code that creates a functional AI team:</p>
+<pre><code class="language-python">crew = Crew(
+    agents=[researcher, writer, editor],
+    tasks=[research_task, write_task, edit_task],
+    process=Process.sequential
+)
+result = crew.kickoff()
+</code></pre>
+<p>That's it. No complex chains, no state management, no 400 lines.</p>
+<h3 id="autogen-the-microsoft-research-paper-that-became-a-framework">AutoGen: The Microsoft Research Paper That Became a Framework</h3>
+<p>AutoGen's story starts with a <strong>rejected paper</strong>. In early 2022, Microsoft Research submitted a paper on "multi-agent conversation protocols" to NeurIPS. Rejected. ICML? Rejected. The reviewers said it was "too engineering-focused."</p>
+<p>Then in <strong>September 2023</strong>, they released AutoGen as open-source code instead of a paper. Within weeks:
+- <strong>5,000+ GitHub stars</strong>
+- <strong>Microsoft's fastest-growing AI repo</strong> (at the time)
+- Adopted by researchers worldwide for multi-agent experiments</p>
+<p>The irony? The "rejected paper" concepts are now cited in hundreds of papers. Sometimes open-source beats peer review.</p>
+<h3 id="the-100-million-framework-war-that-never-happened">The $100 Million Framework War That Never Happened</h3>
+<p>In early 2024, tech journalists predicted an "AI framework war" between:
+- <strong>LangChain</strong> ($135M raised, 80K+ GitHub stars)
+- <strong>LlamaIndex</strong> ($27M raised, 30K+ GitHub stars)
+- <strong>CrewAI</strong> ($18M raised, 15K+ GitHub stars)</p>
+<p>Headlines screamed: "Only one will survive!"</p>
+<p>What actually happened? <strong>Collaboration</strong>.</p>
+<ul>
+<li>LlamaIndex created <code>llama-index-langchain</code> for LangChain integration</li>
+<li>CrewAI added LlamaIndex tools support</li>
+<li>LangChain's LangSmith works with LlamaIndex traces</li>
+<li>Harrison Chase (LangChain) and Jerry Liu (LlamaIndex) regularly promote each other's work</li>
+</ul>
+<p>The lesson: In developer tools, <strong>interoperability beats competition</strong>. Developers want frameworks that work together, not walled gardens.</p>
+<h3 id="the-enterprise-surprise-who-actually-uses-what">The Enterprise Surprise: Who Actually Uses What</h3>
+<p>A 2024 survey of Fortune 500 companies using AI frameworks revealed surprising patterns:</p>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Fortune 500 Adoption</th>
+<th>Surprise Factor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LangChain</td>
+<td>47%</td>
+<td>Expected</td>
+</tr>
+<tr>
+<td>LlamaIndex</td>
+<td>38%</td>
+<td>Higher than expected</td>
+</tr>
+<tr>
+<td>Custom built</td>
+<td>31%</td>
+<td>They build their own!</td>
+</tr>
+<tr>
+<td>CrewAI</td>
+<td>12%</td>
+<td>Fast for a new framework</td>
+</tr>
+<tr>
+<td>AutoGen</td>
+<td>8%</td>
+<td>Mostly research teams</td>
+</tr>
+</tbody>
+</table>
+<p>The biggest surprise? <strong>31% built custom frameworks</strong> because:
+1. Existing frameworks changed too fast (breaking changes)
+2. They needed specific compliance features
+3. "Not invented here" syndrome is real in enterprises</p>
+<h3 id="dspy-the-framework-that-programs-prompts">DSPy: The Framework That Programs Prompts</h3>
+<p>While everyone focused on chains and agents, <strong>Omar Khattab at Stanford</strong> was asking a different question:</p>
+<blockquote>
+<p>"Why are we hand-writing prompts like it's 1999?"</p>
+</blockquote>
+<p>His solution, <strong>DSPy</strong> (Declarative Self-improving Python), automatically optimizes prompts based on examples. You write:</p>
+<pre><code class="language-python">class QA(dspy.Signature):
+    context = dspy.InputField()
+    question = dspy.InputField()
+    answer = dspy.OutputField()
+</code></pre>
+<p>DSPy figures out the best prompt format, few-shot examples, and chain-of-thought structure. Results from the paper:
+- <strong>25% better accuracy</strong> than hand-written prompts on GSM8K math
+- <strong>40% token reduction</strong> through optimized prompts
+- Works across different LLMs without prompt rewrites</p>
+<p>It's called the "compiler for LLMs"—you write what you want, DSPy figures out how to get it.</p>
+<h3 id="semantic-kernel-microsofts-secret-enterprise-weapon">Semantic Kernel: Microsoft's Secret Enterprise Weapon</h3>
+<p>While open-source frameworks got the hype, <strong>Microsoft's Semantic Kernel</strong> quietly became the most-used framework in enterprise:</p>
+<ul>
+<li><strong>Azure OpenAI</strong> default integration</li>
+<li><strong>.NET and Java</strong> (not just Python!)</li>
+<li><strong>Enterprise compliance</strong> baked in</li>
+<li>Used internally by <strong>Microsoft 365, GitHub Copilot, and Bing</strong></li>
+</ul>
+<p>The kicker? <strong>60% of Azure OpenAI enterprise customers</strong> use Semantic Kernel. It's not the coolest framework, but when you have $500M ARR products to protect, "boring and reliable" wins.</p>
+<h3 id="the-haystack-pivot-from-search-to-ai">The Haystack Pivot: From Search to AI</h3>
+<p><strong>Haystack</strong> (by deepset) has the longest history in this space. Founded in <strong>2018</strong> (before GPT-2!), they originally built search infrastructure.</p>
+<p>When LLMs emerged, they pivoted to "LLM-powered search" and became the go-to for enterprises that need:
+- Document retrieval at scale
+- Compliance with European regulations (German company)
+- Production stability over cutting-edge features</p>
+<p><strong>Deutsche Telekom, BMW, and Airbus</strong> run Haystack in production. Sometimes being "boring but reliable" is exactly what enterprises need.</p>
+<h3 id="the-framework-half-life-problem">The Framework Half-Life Problem</h3>
+<p>Here's a sobering stat: Of the <strong>47 AI frameworks</strong> that had 1,000+ GitHub stars in January 2024:
+- <strong>12</strong> are now abandoned (no commits in 6+ months)
+- <strong>8</strong> merged into other projects
+- <strong>6</strong> pivoted to completely different purposes
+- <strong>21</strong> are still active</p>
+<p>The average "half-life" of an AI framework is about <strong>14 months</strong>. Before committing to a framework, check:
+1. Last commit date
+2. Open issue response time
+3. Who's funding development
+4. Enterprise adoption (they don't switch often)</p>
+<h3 id="real-production-usage-the-numbers-behind-the-logos">Real Production Usage: The Numbers Behind the Logos</h3>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>Framework</th>
+<th>Scale</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Notion</strong></td>
+<td>LlamaIndex</td>
+<td>30M+ users</td>
+<td>Document Q&amp;A</td>
+</tr>
+<tr>
+<td><strong>Replit</strong></td>
+<td>LangGraph</td>
+<td>40M+ users</td>
+<td>AI code assistant</td>
+</tr>
+<tr>
+<td><strong>Klarna</strong></td>
+<td>LangChain</td>
+<td>2.3M conv/mo</td>
+<td>Customer service</td>
+</tr>
+<tr>
+<td><strong>Stripe</strong></td>
+<td>Custom + LlamaIndex</td>
+<td>Billions $/yr</td>
+<td>Fraud detection</td>
+</tr>
+<tr>
+<td><strong>Shopify</strong></td>
+<td>Custom</td>
+<td>4.5M merchants</td>
+<td>Product descriptions</td>
+</tr>
+<tr>
+<td><strong>Netflix</strong></td>
+<td>Custom + embeddings</td>
+<td>260M users</td>
+<td>Recommendations</td>
+</tr>
+</tbody>
+</table>
+<p>Notice the pattern? The biggest companies either <strong>use custom solutions</strong> or <strong>combine multiple frameworks</strong>. There's no "one framework to rule them all."</p>
+<hr />
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="1-start-simple">1. Start Simple</h3>
+<pre><code class="language-python"># Don't do this first:
+from crewai import Agent, Task, Crew, Process
+from langchain.agents import create_tool_calling_agent
+from llama_index.core import VectorStoreIndex
+
+# Do this first:
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+documents = SimpleDirectoryReader(&quot;./data&quot;).load_data()
+index = VectorStoreIndex.from_documents(documents)
+</code></pre>
+<h3 id="2-abstract-your-framework">2. Abstract Your Framework</h3>
+<pre><code class="language-python"># Good: Framework-agnostic interface
+class RAGSystem:
+    def __init__(self, implementation: str = &quot;llamaindex&quot;):
+        if implementation == &quot;llamaindex&quot;:
+            self._engine = LlamaIndexRAG()
+        elif implementation == &quot;langchain&quot;:
+            self._engine = LangChainRAG()
+
+    def query(self, question: str) -&gt; str:
+        return self._engine.query(question)
+</code></pre>
+<h3 id="3-benchmark-before-committing">3. Benchmark Before Committing</h3>
+<pre><code class="language-python"># Compare frameworks on YOUR data
+frameworks = [&quot;llamaindex&quot;, &quot;langchain&quot;, &quot;haystack&quot;]
+test_queries = load_test_queries()
+
+for framework in frameworks:
+    engine = create_engine(framework)
+    results = [engine.query(q) for q in test_queries]
+    print(f&quot;{framework}: {evaluate(results)}&quot;)
+</code></pre>
+<h3 id="4-consider-maintenance">4. Consider Maintenance</h3>
+<p>Questions to ask:
+- How active is the community?
+- How often are there breaking changes?
+- Is the documentation good?
+- Are there examples for your use case?</p>
+<hr />
+<h2 id="summary">Summary</h2>
+<h3 id="frameworks-covered">Frameworks Covered</h3>
+<table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Philosophy</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LlamaIndex</strong></td>
+<td>Data framework</td>
+<td>RAG, knowledge systems</td>
+</tr>
+<tr>
+<td><strong>LangChain</strong></td>
+<td>Composable chains</td>
+<td>General LLM apps</td>
+</tr>
+<tr>
+<td><strong>LangGraph</strong></td>
+<td>State machines</td>
+<td>Complex workflows</td>
+</tr>
+<tr>
+<td><strong>CrewAI</strong></td>
+<td>Role-based teams</td>
+<td>Multi-agent collab</td>
+</tr>
+<tr>
+<td><strong>AutoGen</strong></td>
+<td>Conversations</td>
+<td>Research, dialogues</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-insights">Key Insights</h3>
+<ol>
+<li><strong>No single "best" framework</strong> - Choose based on use case</li>
+<li><strong>Frameworks are converging</strong> - Interoperability is improving</li>
+<li><strong>LlamaIndex excels at RAG</strong> - Simpler than LangChain for indexing</li>
+<li><strong>CrewAI is beginner-friendly</strong> - Good for multi-agent prototypes</li>
+<li><strong>Combine frameworks</strong> - LlamaIndex indexing + LangChain agents</li>
+</ol>
+<h3 id="decision-summary">Decision Summary</h3>
+<ul>
+<li><strong>Simple RAG</strong> → LlamaIndex</li>
+<li><strong>Complex agents</strong> → LangChain + LangGraph</li>
+<li><strong>Quick multi-agent</strong> → CrewAI</li>
+<li><strong>Research/experiments</strong> → AutoGen</li>
+<li><strong>Enterprise/Azure</strong> → Semantic Kernel</li>
+</ul>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.llamaindex.ai/">LlamaIndex Documentation</a></li>
+<li><a href="https://docs.crewai.com/">CrewAI Documentation</a></li>
+<li><a href="https://microsoft.github.io/autogen/">AutoGen Documentation</a></li>
+<li><a href="https://towardsdatascience.com/">Framework Comparison Blog Posts</a></li>
+<li><a href="https://medium.com/">LangChain vs LlamaIndex Analysis</a></li>
+</ul>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<p>With framework knowledge complete, you're ready for:</p>
+<ul>
+<li><strong>Module 20</strong>: Advanced Agentic AI 🔮</li>
+<li>Agent memory systems (short-term, long-term, episodic)</li>
+<li>Planning algorithms (ReWOO, Plan-and-Execute)</li>
+<li>Multi-agent collaborative systems</li>
+</ul>
+<p><strong>You can now choose the right tool for the job!</strong></p>
+<hr />
+<p><em>Module 19 Complete! Progress: 22/56 modules (39%)</em></p>
+<p><em>Next: Module 20 - Advanced Agentic AI 🔮</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_20_advanced_agentic_ai.html">Module 20: Advanced Agentic AI 🆕</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

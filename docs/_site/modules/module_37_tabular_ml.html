@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 37: Tabular ML & Gradient Boosting - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_38_time_series.html">Next: Module 38: Time Series & Forecasting 🆕 →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 37: Tabular ML & Gradient Boosting</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-37-tabular-ml-gradient-boosting">Module 37: Tabular ML &amp; Gradient Boosting</h1>
+<p><strong>Last Updated</strong>: 2025-11-27
+<strong>Status</strong>: 🟢 Complete
+<strong>Duration</strong>: 6-7 hours
+<strong>Prerequisites</strong>: Module 25 (Python for ML), Module 26 (Neural Networks basics)</p>
+<hr />
+<h2 id="learning-objectives">🎯 Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand why tabular ML dominates production systems
+- Master decision trees and ensemble methods
+- Implement gradient boosting from scratch conceptually
+- Use XGBoost, LightGBM, and CatBoost effectively
+- Know when to use trees vs neural networks
+- Tune hyperparameters systematically
+- Interpret models with feature importance and SHAP</p>
+<hr />
+<h2 id="why-tabular-ml-still-matters">📖 Why Tabular ML Still Matters</h2>
+<h3 id="the-uncomfortable-truth-about-deep-learning">The Uncomfortable Truth About Deep Learning</h3>
+<p>You've spent the last 12 modules learning deep learning, transformers, and LLMs. Here's a surprising fact:</p>
+<p><strong>~80% of production ML systems use tree-based models on tabular data.</strong></p>
+<pre><code>PRODUCTION ML REALITY
+=====================
+
+What gets the hype:          What runs in production:
+- GPT-4, Claude              - XGBoost fraud detection
+- Stable Diffusion           - LightGBM recommendation ranking
+- Self-driving cars          - Random Forest credit scoring
+- ChatGPT                    - Gradient Boosting churn prediction
+
+Deep Learning wins:          Tree-based models win:
+- Images                     - Tabular data (most business data!)
+- Text                       - Structured databases
+- Audio                      - Time series features
+- Video                      - Mixed feature types
+</code></pre>
+<p><strong>Did You Know?</strong> In Kaggle competitions on tabular data, gradient boosting methods (XGBoost, LightGBM, CatBoost) win approximately 70% of the time. Deep learning rarely beats them on structured data, despite years of research into "deep learning for tabular data."</p>
+<h3 id="why-trees-beat-neural-nets-on-tabular-data">Why Trees Beat Neural Nets on Tabular Data</h3>
+<pre><code class="language-python"># The fundamental difference
+
+# Neural Networks need:
+# 1. Lots of data (often millions of samples)
+# 2. Homogeneous features (all same type/scale)
+# 3. Spatial/temporal structure (images, sequences)
+# 4. Careful preprocessing and normalization
+# 5. GPU for efficient training
+
+# Tree-based models handle:
+# 1. Small to medium datasets (thousands to millions)
+# 2. Mixed feature types (categorical + numerical)
+# 3. Irregular feature relationships
+# 4. Missing values natively
+# 5. No normalization needed
+# 6. Fast training on CPU
+</code></pre>
+<p>The key insight: <strong>tabular data lacks the spatial/temporal structure that makes deep learning shine.</strong></p>
+<hr />
+<h2 id="decision-trees-the-foundation">🌳 Decision Trees: The Foundation</h2>
+<h3 id="how-decision-trees-work">How Decision Trees Work</h3>
+<p>A decision tree makes predictions by asking a series of yes/no questions:</p>
+<pre><code>                    Is age &gt; 30?
+                   /            \
+                 Yes             No
+                 /                \
+        Income &gt; 50K?         Student?
+        /          \          /       \
+      Yes          No       Yes        No
+       |            |         |          |
+    Approve     Deny      Approve     Deny
+</code></pre>
+<h3 id="the-math-information-gain">The Math: Information Gain</h3>
+<p>Trees split on features that maximize <strong>information gain</strong> (or minimize impurity):</p>
+<pre><code class="language-python">def gini_impurity(labels):
+    &quot;&quot;&quot;
+    Gini impurity: probability of misclassifying a random sample.
+
+    Gini = 1 - sum(p_i^2) for all classes i
+
+    Perfect purity: Gini = 0 (all same class)
+    Maximum impurity: Gini = 0.5 (binary, 50/50 split)
+    &quot;&quot;&quot;
+    if len(labels) == 0:
+        return 0
+
+    counts = {}
+    for label in labels:
+        counts[label] = counts.get(label, 0) + 1
+
+    total = len(labels)
+    gini = 1.0
+    for count in counts.values():
+        p = count / total
+        gini -= p ** 2
+
+    return gini
+
+
+def information_gain(parent, left_child, right_child):
+    &quot;&quot;&quot;
+    Information gain from a split.
+
+    IG = Gini(parent) - weighted_avg(Gini(children))
+    &quot;&quot;&quot;
+    parent_gini = gini_impurity(parent)
+
+    n = len(parent)
+    n_left = len(left_child)
+    n_right = len(right_child)
+
+    if n_left == 0 or n_right == 0:
+        return 0
+
+    weighted_child_gini = (
+        (n_left / n) * gini_impurity(left_child) +
+        (n_right / n) * gini_impurity(right_child)
+    )
+
+    return parent_gini - weighted_child_gini
+</code></pre>
+<h3 id="building-a-simple-decision-tree">Building a Simple Decision Tree</h3>
+<pre><code class="language-python">class DecisionTreeNode:
+    &quot;&quot;&quot;A node in the decision tree.&quot;&quot;&quot;
+
+    def __init__(self):
+        self.feature_index = None  # Which feature to split on
+        self.threshold = None      # Split threshold
+        self.left = None           # Left child (feature &lt;= threshold)
+        self.right = None          # Right child (feature &gt; threshold)
+        self.value = None          # Leaf prediction (if leaf node)
+        self.is_leaf = False
+
+
+def build_tree(X, y, max_depth=10, min_samples=2, depth=0):
+    &quot;&quot;&quot;
+    Recursively build a decision tree.
+
+    Args:
+        X: Feature matrix (n_samples, n_features)
+        y: Labels (n_samples,)
+        max_depth: Maximum tree depth
+        min_samples: Minimum samples to split
+        depth: Current depth
+
+    Returns:
+        DecisionTreeNode
+    &quot;&quot;&quot;
+    node = DecisionTreeNode()
+
+    # Stopping conditions
+    if (depth &gt;= max_depth or
+        len(y) &lt; min_samples or
+        len(set(y)) == 1):  # Pure node
+        node.is_leaf = True
+        node.value = most_common(y)
+        return node
+
+    # Find best split
+    best_gain = 0
+    best_feature = None
+    best_threshold = None
+
+    for feature_idx in range(X.shape[1]):
+        thresholds = sorted(set(X[:, feature_idx]))
+
+        for threshold in thresholds:
+            left_mask = X[:, feature_idx] &lt;= threshold
+            right_mask = ~left_mask
+
+            if sum(left_mask) == 0 or sum(right_mask) == 0:
+                continue
+
+            gain = information_gain(y, y[left_mask], y[right_mask])
+
+            if gain &gt; best_gain:
+                best_gain = gain
+                best_feature = feature_idx
+                best_threshold = threshold
+
+    # No good split found
+    if best_gain == 0:
+        node.is_leaf = True
+        node.value = most_common(y)
+        return node
+
+    # Create split
+    node.feature_index = best_feature
+    node.threshold = best_threshold
+
+    left_mask = X[:, best_feature] &lt;= best_threshold
+    node.left = build_tree(X[left_mask], y[left_mask],
+                          max_depth, min_samples, depth + 1)
+    node.right = build_tree(X[~left_mask], y[~left_mask],
+                           max_depth, min_samples, depth + 1)
+
+    return node
+</code></pre>
+<p><strong>Did You Know?</strong> The first decision tree algorithm (ID3) was created by Ross Quinlan in 1986. He later developed C4.5, which became one of the top 10 data mining algorithms ever. His work was done at the University of Sydney and his algorithms remain foundational to modern ML.</p>
+<hr />
+<h2 id="ensemble-methods-better-together">🌲 Ensemble Methods: Better Together</h2>
+<h3 id="the-wisdom-of-crowds">The Wisdom of Crowds</h3>
+<p>A single decision tree is prone to overfitting. The solution: <strong>combine many trees</strong>.</p>
+<pre><code>ENSEMBLE METHODS
+================
+
+Single Tree:         Ensemble:
+- High variance      - Lower variance
+- Overfits easily    - Generalizes better
+- Unstable           - More stable
+- Fast               - Still fast (parallelizable)
+
+Key insight: Diverse weak learners → strong learner
+</code></pre>
+<h3 id="bagging-vs-boosting">Bagging vs Boosting</h3>
+<p>Two main approaches to combining trees:</p>
+<pre><code>BAGGING (Bootstrap Aggregating)
+===============================
+
+1. Create B bootstrap samples (random sampling with replacement)
+2. Train one tree on each sample
+3. Average predictions (regression) or vote (classification)
+
+Example: Random Forest
+
+   Data → [Sample 1] → Tree 1 ─┐
+        → [Sample 2] → Tree 2 ─┼→ Average/Vote → Prediction
+        → [Sample 3] → Tree 3 ─┘
+
+Key: Trees are trained INDEPENDENTLY (parallelizable!)
+
+
+BOOSTING
+========
+
+1. Train first weak learner
+2. Focus on examples the first learner got wrong
+3. Train second learner on weighted data
+4. Repeat, combining learners
+
+Example: Gradient Boosting
+
+   Data → Tree 1 → Residual 1 → Tree 2 → Residual 2 → Tree 3 → ...
+                                                              ↓
+                                          Sum all trees → Prediction
+
+Key: Trees are trained SEQUENTIALLY (each corrects previous errors)
+</code></pre>
+<h3 id="random-forest-the-reliable-workhorse">Random Forest: The Reliable Workhorse</h3>
+<p>Random Forest adds extra randomness to bagging:</p>
+<pre><code class="language-python"># Random Forest = Bagging + Feature Randomness
+
+def random_forest_predict(X, trees, feature_subsets):
+    &quot;&quot;&quot;
+    Prediction with random forest.
+
+    Each tree:
+    1. Was trained on a bootstrap sample
+    2. Only considered a random subset of features at each split
+    &quot;&quot;&quot;
+    predictions = []
+
+    for tree, features in zip(trees, feature_subsets):
+        # Use only the features this tree was trained on
+        X_subset = X[:, features]
+        pred = tree.predict(X_subset)
+        predictions.append(pred)
+
+    # Majority vote for classification
+    return mode(predictions, axis=0)
+
+
+# Hyperparameters:
+# - n_estimators: Number of trees (more = better, diminishing returns)
+# - max_features: Features to consider at each split (sqrt(n) typical)
+# - max_depth: Tree depth (deeper = more complex)
+# - min_samples_split: Minimum samples to split a node
+</code></pre>
+<p><strong>Did You Know?</strong> Random Forest was invented by Leo Breiman at UC Berkeley in 2001. Breiman was a legendary statistician who also invented bagging and CART (Classification and Regression Trees). He famously criticized the statistics community for being too focused on simple models, arguing that prediction accuracy should matter more than interpretability.</p>
+<hr />
+<h2 id="gradient-boosting-the-competition-winner">🚀 Gradient Boosting: The Competition Winner</h2>
+<h3 id="the-key-insight">The Key Insight</h3>
+<p>Gradient boosting builds trees <strong>sequentially</strong>, where each tree corrects the errors (residuals) of the previous trees:</p>
+<pre><code>GRADIENT BOOSTING INTUITION
+===========================
+
+Initial prediction: Mean of all labels
+                    ↓
+Tree 1 predicts:    Residuals (errors) from initial prediction
+                    ↓
+Combined:           Initial + Tree 1
+                    ↓
+Tree 2 predicts:    Residuals from (Initial + Tree 1)
+                    ↓
+Combined:           Initial + Tree 1 + Tree 2
+                    ↓
+...continue...
+                    ↓
+Final:              Initial + Tree 1 + Tree 2 + ... + Tree N
+</code></pre>
+<h3 id="the-math-gradient-descent-on-functions">The Math: Gradient Descent on Functions</h3>
+<p>Gradient boosting is <strong>gradient descent in function space</strong>:</p>
+<pre><code class="language-python">def gradient_boosting_train(X, y, n_trees=100, learning_rate=0.1, max_depth=3):
+    &quot;&quot;&quot;
+    Train a gradient boosting model.
+
+    For regression with MSE loss:
+    - Gradient of MSE = 2(prediction - target) = 2 * residual
+    - So we fit trees to negative residuals
+    &quot;&quot;&quot;
+    # Initial prediction: mean of targets
+    initial_pred = np.mean(y)
+    predictions = np.full(len(y), initial_pred)
+
+    trees = []
+
+    for i in range(n_trees):
+        # Calculate residuals (negative gradient for MSE)
+        residuals = y - predictions
+
+        # Fit tree to residuals
+        tree = DecisionTreeRegressor(max_depth=max_depth)
+        tree.fit(X, residuals)
+        trees.append(tree)
+
+        # Update predictions with learning rate
+        predictions += learning_rate * tree.predict(X)
+
+    return initial_pred, trees, learning_rate
+
+
+def gradient_boosting_predict(X, initial_pred, trees, learning_rate):
+    &quot;&quot;&quot;
+    Make predictions with gradient boosting model.
+    &quot;&quot;&quot;
+    predictions = np.full(len(X), initial_pred)
+
+    for tree in trees:
+        predictions += learning_rate * tree.predict(X)
+
+    return predictions
+</code></pre>
+<h3 id="why-learning-rate-matters">Why Learning Rate Matters</h3>
+<pre><code>LEARNING RATE EFFECT
+====================
+
+High learning rate (0.3):
+- Fewer trees needed
+- Faster training
+- Risk of overfitting
+- Each tree has big impact
+
+Low learning rate (0.01):
+- More trees needed
+- Slower training
+- Better generalization
+- Each tree has small impact
+
+Rule of thumb: Lower learning rate + more trees = better results
+               (but more computation)
+</code></pre>
+<p><strong>Did You Know?</strong> The gradient boosting algorithm was developed by Jerome Friedman at Stanford in 2001. His paper "Greedy Function Approximation: A Gradient Boosting Machine" is one of the most cited ML papers ever. Friedman also created MARS (Multivariate Adaptive Regression Splines) and co-authored "The Elements of Statistical Learning," the bible of classical ML.</p>
+<hr />
+<h2 id="the-big-three-xgboost-lightgbm-catboost">⚡ The Big Three: XGBoost, LightGBM, CatBoost</h2>
+<h3 id="xgboost-the-kaggle-king">XGBoost: The Kaggle King</h3>
+<p>XGBoost (eXtreme Gradient Boosting) revolutionized gradient boosting in 2014:</p>
+<pre><code class="language-python">import xgboost as xgb
+
+# Create DMatrix (XGBoost's optimized data structure)
+dtrain = xgb.DMatrix(X_train, label=y_train)
+dtest = xgb.DMatrix(X_test, label=y_test)
+
+# Parameters
+params = {
+    'objective': 'binary:logistic',  # or 'reg:squarederror'
+    'eval_metric': 'auc',
+    'max_depth': 6,
+    'learning_rate': 0.1,
+    'subsample': 0.8,           # Row sampling
+    'colsample_bytree': 0.8,    # Column sampling
+    'reg_alpha': 0.1,           # L1 regularization
+    'reg_lambda': 1.0,          # L2 regularization
+    'tree_method': 'hist',      # Fast histogram-based
+}
+
+# Train with early stopping
+model = xgb.train(
+    params,
+    dtrain,
+    num_boost_round=1000,
+    evals=[(dtrain, 'train'), (dtest, 'test')],
+    early_stopping_rounds=50,
+    verbose_eval=100
+)
+
+# Predict
+predictions = model.predict(dtest)
+</code></pre>
+<p><strong>XGBoost Innovations:</strong>
+- Regularized objective (L1 + L2)
+- Second-order gradients (Newton's method)
+- Parallel tree construction
+- Sparsity-aware algorithm
+- Cache optimization</p>
+<h3 id="lightgbm-the-speed-demon">LightGBM: The Speed Demon</h3>
+<p>LightGBM (Microsoft, 2017) is faster than XGBoost on large datasets:</p>
+<pre><code class="language-python">import lightgbm as lgb
+
+# Create Dataset
+train_data = lgb.Dataset(X_train, label=y_train)
+test_data = lgb.Dataset(X_test, label=y_test, reference=train_data)
+
+# Parameters
+params = {
+    'objective': 'binary',
+    'metric': 'auc',
+    'boosting_type': 'gbdt',
+    'num_leaves': 31,           # Key param! Not max_depth
+    'learning_rate': 0.1,
+    'feature_fraction': 0.8,    # Column sampling
+    'bagging_fraction': 0.8,    # Row sampling
+    'bagging_freq': 5,
+    'verbose': -1
+}
+
+# Train
+model = lgb.train(
+    params,
+    train_data,
+    num_boost_round=1000,
+    valid_sets=[train_data, test_data],
+    callbacks=[lgb.early_stopping(50)]
+)
+
+# Predict
+predictions = model.predict(X_test)
+</code></pre>
+<p><strong>LightGBM Innovations:</strong>
+- <strong>Leaf-wise growth</strong> (vs XGBoost's level-wise)
+- <strong>Gradient-based One-Side Sampling (GOSS)</strong>: Focus on large gradients
+- <strong>Exclusive Feature Bundling (EFB)</strong>: Bundle sparse features
+- <strong>Histogram-based</strong>: Bin continuous features</p>
+<h3 id="catboost-the-categorical-champion">CatBoost: The Categorical Champion</h3>
+<p>CatBoost (Yandex, 2017) handles categorical features natively:</p>
+<pre><code class="language-python">from catboost import CatBoostClassifier, Pool
+
+# Specify categorical features
+cat_features = ['city', 'device_type', 'browser']
+
+# Create Pool (CatBoost's data structure)
+train_pool = Pool(X_train, y_train, cat_features=cat_features)
+test_pool = Pool(X_test, y_test, cat_features=cat_features)
+
+# Train
+model = CatBoostClassifier(
+    iterations=1000,
+    learning_rate=0.1,
+    depth=6,
+    l2_leaf_reg=3,
+    early_stopping_rounds=50,
+    verbose=100
+)
+
+model.fit(train_pool, eval_set=test_pool)
+
+# Predict
+predictions = model.predict_proba(X_test)[:, 1]
+</code></pre>
+<p><strong>CatBoost Innovations:</strong>
+- <strong>Ordered boosting</strong>: Prevents target leakage
+- <strong>Native categorical encoding</strong>: No one-hot needed
+- <strong>Symmetric trees</strong>: Faster inference
+- <strong>GPU support</strong>: Built-in</p>
+<h3 id="comparison-table">Comparison Table</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>XGBoost</th>
+<th>LightGBM</th>
+<th>CatBoost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Speed</td>
+<td>Fast</td>
+<td>Fastest</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Medium</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Categorical handling</td>
+<td>Manual</td>
+<td>Manual</td>
+<td>Native!</td>
+</tr>
+<tr>
+<td>GPU support</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes (best)</td>
+</tr>
+<tr>
+<td>Tree growth</td>
+<td>Level-wise</td>
+<td>Leaf-wise</td>
+<td>Symmetric</td>
+</tr>
+<tr>
+<td>Accuracy</td>
+<td>Excellent</td>
+<td>Excellent</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Ease of use</td>
+<td>Good</td>
+<td>Good</td>
+<td>Best</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Did You Know?</strong> XGBoost was created by Tianqi Chen as a research project at the University of Washington. It became so dominant that for several years, "XGBoost" was practically synonymous with "winning Kaggle competition." Chen later co-created Apache TVM and MXNet.</p>
+<hr />
+<h2 id="when-to-use-trees-vs-neural-networks">🎯 When to Use Trees vs Neural Networks</h2>
+<h3 id="decision-framework">Decision Framework</h3>
+<pre><code>USE TREE-BASED MODELS WHEN:
+===========================
+
+✅ Data is tabular (rows and columns)
+✅ Mix of categorical and numerical features
+✅ Dataset is small to medium (&lt; 1M rows)
+✅ Features have different scales
+✅ Missing values are present
+✅ Interpretability matters
+✅ Training time is constrained
+✅ No GPU available
+
+Examples:
+- Credit scoring
+- Fraud detection
+- Customer churn
+- Click-through rate prediction
+- Medical diagnosis
+- Insurance pricing
+
+
+USE NEURAL NETWORKS WHEN:
+=========================
+
+✅ Data has spatial structure (images)
+✅ Data has sequential structure (text, audio)
+✅ Very large datasets (millions+ samples)
+✅ Features are homogeneous
+✅ Transfer learning is applicable
+✅ End-to-end learning is beneficial
+✅ GPU is available
+
+Examples:
+- Image classification
+- Natural language processing
+- Speech recognition
+- Recommendation (with embeddings)
+- Game playing
+</code></pre>
+<h3 id="hybrid-approaches">Hybrid Approaches</h3>
+<p>Modern systems often combine both:</p>
+<pre><code class="language-python"># Example: Neural network embeddings + gradient boosting
+
+# 1. Use neural net to create embeddings for categorical features
+user_embedding = neural_net.encode(user_features)
+item_embedding = neural_net.encode(item_features)
+
+# 2. Concatenate with other features
+combined_features = np.concatenate([
+    user_embedding,
+    item_embedding,
+    numerical_features,
+    categorical_encoded
+], axis=1)
+
+# 3. Train gradient boosting on combined features
+model = lgb.train(params, combined_features, labels)
+</code></pre>
+<hr />
+<h2 id="hyperparameter-tuning">🔧 Hyperparameter Tuning</h2>
+<h3 id="the-most-important-parameters">The Most Important Parameters</h3>
+<pre><code class="language-python"># XGBoost/LightGBM key parameters
+
+CRITICAL_PARAMS = {
+    # Tree complexity
+    'max_depth': [3, 5, 7, 9],           # Deeper = more complex
+    'num_leaves': [15, 31, 63, 127],     # LightGBM: 2^depth - 1
+    'min_child_weight': [1, 3, 5, 10],   # Minimum samples in leaf
+
+    # Regularization
+    'learning_rate': [0.01, 0.05, 0.1],  # Lower = more trees needed
+    'reg_alpha': [0, 0.1, 1],            # L1 regularization
+    'reg_lambda': [0, 0.1, 1],           # L2 regularization
+
+    # Sampling (prevent overfitting)
+    'subsample': [0.6, 0.8, 1.0],        # Row sampling
+    'colsample_bytree': [0.6, 0.8, 1.0], # Column sampling
+
+    # Number of trees
+    'n_estimators': [100, 500, 1000],    # Use early stopping!
+}
+</code></pre>
+<h3 id="tuning-strategy">Tuning Strategy</h3>
+<pre><code class="language-python">from sklearn.model_selection import cross_val_score
+import optuna
+
+def objective(trial):
+    &quot;&quot;&quot;Optuna objective for hyperparameter tuning.&quot;&quot;&quot;
+
+    params = {
+        'objective': 'binary',
+        'metric': 'auc',
+        'verbosity': -1,
+
+        # Parameters to tune
+        'num_leaves': trial.suggest_int('num_leaves', 20, 150),
+        'max_depth': trial.suggest_int('max_depth', 3, 12),
+        'learning_rate': trial.suggest_float('learning_rate', 0.01, 0.3, log=True),
+        'feature_fraction': trial.suggest_float('feature_fraction', 0.5, 1.0),
+        'bagging_fraction': trial.suggest_float('bagging_fraction', 0.5, 1.0),
+        'bagging_freq': trial.suggest_int('bagging_freq', 1, 7),
+        'min_child_samples': trial.suggest_int('min_child_samples', 5, 100),
+        'reg_alpha': trial.suggest_float('reg_alpha', 1e-8, 10.0, log=True),
+        'reg_lambda': trial.suggest_float('reg_lambda', 1e-8, 10.0, log=True),
+    }
+
+    # Cross-validation
+    model = lgb.LGBMClassifier(**params, n_estimators=1000)
+
+    scores = cross_val_score(
+        model, X_train, y_train,
+        cv=5, scoring='roc_auc',
+        fit_params={'callbacks': [lgb.early_stopping(50)]}
+    )
+
+    return scores.mean()
+
+
+# Run optimization
+study = optuna.create_study(direction='maximize')
+study.optimize(objective, n_trials=100)
+
+print(f&quot;Best AUC: {study.best_value:.4f}&quot;)
+print(f&quot;Best params: {study.best_params}&quot;)
+</code></pre>
+<p><strong>Did You Know?</strong> Optuna was created by Preferred Networks, a Japanese AI startup. It uses sophisticated algorithms like Tree-structured Parzen Estimator (TPE) to explore hyperparameter space efficiently. The name comes from "optimize" + "tuna" (a fish that swims efficiently through water, like the algorithm through parameter space).</p>
+<hr />
+<h2 id="feature-importance-interpretability">📊 Feature Importance &amp; Interpretability</h2>
+<h3 id="built-in-feature-importance">Built-in Feature Importance</h3>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Train model
+model = lgb.LGBMClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Get feature importance
+importance = model.feature_importances_
+feature_names = X_train.columns
+
+# Plot
+plt.figure(figsize=(10, 8))
+sorted_idx = importance.argsort()
+plt.barh(range(len(sorted_idx)), importance[sorted_idx])
+plt.yticks(range(len(sorted_idx)), [feature_names[i] for i in sorted_idx])
+plt.xlabel('Feature Importance')
+plt.title('LightGBM Feature Importance')
+plt.tight_layout()
+plt.show()
+</code></pre>
+<h3 id="shap-values-the-gold-standard">SHAP Values: The Gold Standard</h3>
+<p>SHAP (SHapley Additive exPlanations) provides consistent, theoretically-grounded feature importance:</p>
+<pre><code class="language-python">import shap
+
+# Create explainer
+explainer = shap.TreeExplainer(model)
+
+# Calculate SHAP values
+shap_values = explainer.shap_values(X_test)
+
+# Summary plot
+shap.summary_plot(shap_values, X_test, feature_names=feature_names)
+
+# Force plot for single prediction
+shap.force_plot(
+    explainer.expected_value,
+    shap_values[0],
+    X_test.iloc[0],
+    feature_names=feature_names
+)
+
+# Dependence plot
+shap.dependence_plot('feature_name', shap_values, X_test)
+</code></pre>
+<p><strong>SHAP Interpretation:</strong>
+- Positive SHAP = pushes prediction higher
+- Negative SHAP = pushes prediction lower
+- Magnitude = importance for that prediction</p>
+<p><strong>Did You Know?</strong> SHAP values come from game theory! They were invented by Lloyd Shapley in 1953 to fairly distribute payouts among players in a cooperative game. Shapley won the Nobel Prize in Economics in 2012 for this work. Scott Lundberg adapted the concept for ML in 2017.</p>
+<hr />
+<h2 id="production-considerations">🏭 Production Considerations</h2>
+<h3 id="model-serving">Model Serving</h3>
+<pre><code class="language-python"># Save model
+model.save_model('model.lgb')
+
+# Load for serving
+model = lgb.Booster(model_file='model.lgb')
+
+# Fast prediction
+# LightGBM is already fast, but for latency-critical apps:
+
+# 1. Reduce number of trees (trade accuracy for speed)
+model = lgb.train(params, train_data, num_boost_round=100)  # vs 1000
+
+# 2. Use smaller max_depth
+params['max_depth'] = 4  # vs 8
+
+# 3. Batch predictions when possible
+predictions = model.predict(batch_of_inputs)  # Much faster than one-by-one
+</code></pre>
+<h3 id="monitoring-and-retraining">Monitoring and Retraining</h3>
+<pre><code class="language-python"># Monitor for data drift
+def check_feature_drift(new_data, baseline_stats):
+    &quot;&quot;&quot;Check if features have drifted from training distribution.&quot;&quot;&quot;
+    drift_detected = {}
+
+    for feature in new_data.columns:
+        new_mean = new_data[feature].mean()
+        baseline_mean = baseline_stats[feature]['mean']
+        baseline_std = baseline_stats[feature]['std']
+
+        # Z-score drift
+        z_score = abs(new_mean - baseline_mean) / baseline_std
+
+        if z_score &gt; 3:  # 3 standard deviations
+            drift_detected[feature] = z_score
+
+    return drift_detected
+
+
+# Retrain triggers:
+# 1. Performance degradation (monitor AUC, precision, recall)
+# 2. Significant feature drift
+# 3. Business rule changes
+# 4. Regular schedule (weekly, monthly)
+</code></pre>
+<hr />
+<h2 id="hands-on-exercises">🧪 Hands-On Exercises</h2>
+<h3 id="exercise-1-implement-gradient-boosting">Exercise 1: Implement Gradient Boosting</h3>
+<pre><code class="language-python"># TODO: Implement gradient boosting from scratch
+def gradient_boosting_from_scratch(X, y, n_trees=10, learning_rate=0.1):
+    &quot;&quot;&quot;
+    Implement gradient boosting for regression.
+
+    1. Initialize with mean
+    2. For each tree:
+       a. Calculate residuals
+       b. Fit tree to residuals
+       c. Update predictions
+    &quot;&quot;&quot;
+    pass
+</code></pre>
+<h3 id="exercise-2-compare-xgboost-lightgbm-catboost">Exercise 2: Compare XGBoost, LightGBM, CatBoost</h3>
+<pre><code class="language-python"># TODO: Compare the three libraries on a dataset
+def compare_boosting_libraries(X_train, y_train, X_test, y_test):
+    &quot;&quot;&quot;
+    Train all three and compare:
+    - Training time
+    - Prediction time
+    - AUC score
+    &quot;&quot;&quot;
+    pass
+</code></pre>
+<h3 id="exercise-3-hyperparameter-tuning">Exercise 3: Hyperparameter Tuning</h3>
+<pre><code class="language-python"># TODO: Use Optuna to tune LightGBM
+def tune_lightgbm(X, y, n_trials=50):
+    &quot;&quot;&quot;
+    Find optimal hyperparameters using Optuna.
+    Return best params and CV score.
+    &quot;&quot;&quot;
+    pass
+</code></pre>
+<hr />
+<h2 id="further-reading">📚 Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li>"XGBoost: A Scalable Tree Boosting System" (Chen &amp; Guestrin, 2016)</li>
+<li>"LightGBM: A Highly Efficient Gradient Boosting" (Ke et al., 2017)</li>
+<li>"CatBoost: unbiased boosting with categorical features" (Prokhorenkova et al., 2018)</li>
+<li>"A Unified Approach to Interpreting Model Predictions" (SHAP, Lundberg, 2017)</li>
+</ul>
+<h3 id="tutorials">Tutorials</h3>
+<ul>
+<li>XGBoost documentation: xgboost.readthedocs.io</li>
+<li>LightGBM documentation: lightgbm.readthedocs.io</li>
+<li>CatBoost documentation: catboost.ai</li>
+<li>SHAP: github.com/slundberg/shap</li>
+</ul>
+<hr />
+<h2 id="knowledge-check">✅ Knowledge Check</h2>
+<ol>
+<li>
+<p><strong>Why do tree-based models often beat neural networks on tabular data?</strong></p>
+</li>
+<li>
+<p><strong>What is the difference between bagging and boosting?</strong></p>
+</li>
+<li>
+<p><strong>How does gradient boosting use gradient descent?</strong></p>
+</li>
+<li>
+<p><strong>What makes LightGBM faster than XGBoost?</strong></p>
+</li>
+<li>
+<p><strong>When would you choose CatBoost over the other two?</strong></p>
+</li>
+<li>
+<p><strong>What are SHAP values and why are they useful?</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="key-takeaways">💡 Key Takeaways</h2>
+<ol>
+<li>
+<p><strong>Trees dominate tabular ML</strong> - Despite deep learning hype, ~80% of production ML uses tree-based models on structured data.</p>
+</li>
+<li>
+<p><strong>Ensembles beat single trees</strong> - Combining many weak learners creates strong predictions. Bagging reduces variance, boosting reduces bias.</p>
+</li>
+<li>
+<p><strong>Gradient boosting = gradient descent on functions</strong> - Each tree corrects the errors of previous trees by fitting residuals.</p>
+</li>
+<li>
+<p><strong>The Big Three are all excellent</strong> - XGBoost, LightGBM, CatBoost all achieve similar accuracy. Choose based on your needs (speed, categorical handling, etc.).</p>
+</li>
+<li>
+<p><strong>Interpretability is a feature</strong> - SHAP values let you explain predictions, which is crucial for business applications.</p>
+</li>
+</ol>
+<hr />
+<h2 id="next-steps">⏭️ Next Steps</h2>
+<p>You've mastered the workhorse of production ML! Next, learn how to prepare data for these models.</p>
+<p><strong>Up Next</strong>: Module 38 - Feature Engineering</p>
+<hr />
+<p><em>Module 37 Complete! You now understand tabular ML!</em></p>
+<p><em>"The best model is the one that ships to production." - Practical ML wisdom</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_38_time_series.html">Module 38: Time Series & Forecasting 🆕</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>
