@@ -1,0 +1,17 @@
+# Module 1.4: Agent-First IDEs
+# Requirements for the deliverable and examples
+
+# Core dependencies
+python-dotenv>=1.0.0
+rich>=13.0.0
+tabulate>=0.9.0
+
+# Data handling
+dataclasses-json>=0.6.0
+
+# Optional: API clients for IDE integrations
+# Note: Most IDE features are accessed through the IDEs themselves
+# These are for automation/scripting purposes
+
+# Time tracking
+humanize>=4.0.0

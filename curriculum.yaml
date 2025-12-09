@@ -1,0 +1,657 @@
+# Neural Dojo Curriculum Configuration
+# =====================================
+# This is the SINGLE SOURCE OF TRUTH for the curriculum structure.
+# Run `python scripts/generate_curriculum.py` to regenerate index files.
+#
+# Structure:
+#   - Phases contain modules
+#   - Modules are numbered sequentially within each phase (1, 2, 3...)
+#   - Global module IDs are auto-generated as P{phase}.{sequence}
+#   - Legacy modules (before refactor) keep their original IDs for compatibility
+
+version: "2.0.0"
+last_updated: "2025-12-09"
+title: "Neural Dojo: Master Curriculum"
+subtitle: "From Zero to AI Guru: Master AI, ML, LLMs, and AI-Driven Development"
+
+# Curriculum-wide settings
+settings:
+  total_weeks: "52-62"
+  total_hours: "230-310"
+
+phases:
+  # ==========================================================================
+  # PHASE 0: Prerequisites
+  # ==========================================================================
+  - id: 0
+    name: "Prerequisites & Environment Setup"
+    description: "Prepare your development environment before starting"
+    weeks: "0"
+    status: complete
+    modules:
+      - seq: 0
+        name: "Prerequisites & Environment Setup"
+        legacy_id: "00"  # Maps to module_00
+        hours: "2-3"
+        status: complete
+        prerequisites: []
+        objectives:
+          - "Verify prerequisites (Python 3.10+, command line basics)"
+          - "Set up development environment (venv, pip, IDE)"
+          - "Configure API keys for Claude and/or OpenAI"
+          - "Make your first LLM API call"
+        deliverables:
+          - "Python 3.10+ environment verified"
+          - "Virtual environment created and activated"
+          - ".env file with API key(s) configured"
+          - "All test scripts passing"
+
+  # ==========================================================================
+  # PHASE 1: AI-Native Development
+  # ==========================================================================
+  - id: 1
+    name: "AI-Native Development"
+    description: "Master using AI as your development partner"
+    weeks: "1-5"
+    status: in_progress
+    modules:
+      - seq: 1
+        name: "AI Coding Tools Landscape"
+        legacy_id: "01.1"  # Maps to module_01.1
+        hours: "4-5"
+        status: complete
+        prerequisites: []
+        objectives:
+          - "Understand the AI development landscape (2024-2025)"
+          - "Set up AI coding assistants (Claude Code, Cursor, GitHub Copilot)"
+          - "Learn the mental model of AI pair programming"
+          - "Master subscriptions vs API access distinction"
+
+      - seq: 2
+        name: "Local Models for AI Coding"
+        legacy_id: "01.2"  # Maps to module_01.2
+        hours: "3-4"
+        status: complete
+        prerequisites: ["1.1"]
+        objectives:
+          - "Install and run Ollama (local model management)"
+          - "Use local models with Aider and Continue.dev"
+          - "Implement hybrid approach (80% local, 20% API)"
+          - "Optimize costs ($0-5/month vs $50-150/month)"
+
+      - seq: 3
+        name: "Claude Code & CLI Deep Dive"
+        legacy_id: "01.3"  # Uses module_01.3 theory, module_01 examples
+        hours: "4-5"
+        status: complete
+        prerequisites: ["1.1"]
+        objectives:
+          - "Master Claude Code's multi-modal operation"
+          - "Configure settings.json and CLAUDE.md"
+          - "Build custom slash commands and skills"
+          - "Implement hooks for automation"
+
+      - seq: 4
+        name: "Agent-First IDEs"
+        legacy_id: "01.4"  # Maps to module_01.4
+        hours: "4-6"
+        status: in_progress
+        prerequisites: ["1.1"]
+        objectives:
+          - "Understand the evolution from autocomplete to agentic IDEs"
+          - "Master Google Antigravity's multi-agent architecture"
+          - "Use Windsurf's Cascade system with memory and Flows"
+          - "Configure Cline's open-source agent capabilities"
+          - "Compare Cursor's Composer mode for multi-file editing"
+
+      - seq: 5
+        name: "CLI AI Coding Agents"
+        legacy_id: "01.5"  # Maps to module_01.5
+        hours: "4-6"
+        status: in_progress
+        prerequisites: ["1.3", "1.4"]
+        objectives:
+          - "Master Claude Code's hooks, MCP servers, and slash commands"
+          - "Use Aider for git-native AI pair programming"
+          - "Explore Goose and other CLI agents"
+          - "Build automated CLI workflows and pipelines"
+          - "Know when to choose CLI vs IDE agents"
+
+      - seq: 6
+        name: "Prompt Engineering Fundamentals"
+        legacy_id: "02"  # Maps to module_02
+        hours: "5-6"
+        status: complete
+        heureka: true
+        prerequisites: ["1.1"]
+        objectives:
+          - "Master the art of prompt engineering"
+          - "Understand prompt structure (system, user, assistant)"
+          - "Learn few-shot learning and chain-of-thought"
+          - "Handle edge cases and failure modes"
+
+      - seq: 7
+        name: "AI-Powered Code Generation"
+        legacy_id: "03"  # Maps to module_03
+        hours: "4-5"
+        status: complete
+        prerequisites: ["1.6"]
+        objectives:
+          - "Generate code from natural language"
+          - "Refactor and debug with AI"
+          - "Write tests using AI"
+
+      - seq: 8
+        name: "AI-Assisted Debugging & Optimization"
+        legacy_id: "04"  # Maps to module_04
+        hours: "4-5"
+        status: complete
+        prerequisites: ["1.7"]
+        objectives:
+          - "Use AI to find and fix bugs"
+          - "Optimize performance with AI"
+          - "Understand AI's debugging strategies"
+
+      - seq: 9
+        name: "Building with AI Coding Assistants"
+        legacy_id: "05"  # Maps to module_05
+        hours: "5-6"
+        status: complete
+        prerequisites: ["1.8"]
+        objectives:
+          - "Master Claude Code, Copilot, Cursor workflows"
+          - "Build a complete project with AI assistance"
+          - "Develop your personal AI workflow"
+
+  # ==========================================================================
+  # PHASE 2: Generative AI Fundamentals
+  # ==========================================================================
+  - id: 2
+    name: "Generative AI Fundamentals"
+    description: "Deep understanding of LLMs and how they work"
+    weeks: "6-10"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Introduction to Large Language Models"
+        legacy_id: "06"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 1"]
+        objectives:
+          - "Understand transformer architecture at a high level"
+          - "Learn about GPT, Claude, Llama, and other LLMs"
+          - "Compare open-source vs proprietary models"
+          - "Understand context windows and limitations"
+
+      - seq: 2
+        name: "Tokenization & Text Processing"
+        legacy_id: "07"
+        hours: "4-5"
+        status: complete
+        prerequisites: ["2.1"]
+        objectives:
+          - "Understand how text becomes tokens"
+          - "Learn about BPE, WordPiece, SentencePiece"
+          - "Master token counting and optimization"
+
+      - seq: 3
+        name: "Text Generation & Sampling Strategies"
+        legacy_id: "08"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["2.2"]
+        objectives:
+          - "Understand autoregressive generation"
+          - "Master temperature, top-p, top-k sampling"
+          - "Learn about beam search and nucleus sampling"
+
+      - seq: 4
+        name: "Embeddings & Semantic Search"
+        legacy_id: "09"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["2.3"]
+        objectives:
+          - "Understand embedding vectors"
+          - "Learn similarity measures (cosine, dot product)"
+          - "Build basic semantic search"
+
+      - seq: 5
+        name: "Vector Space Visualization"
+        legacy_id: "10"
+        hours: "4-5"
+        status: complete
+        heureka: true
+        prerequisites: ["2.4"]
+        objectives:
+          - "Visualize embeddings in 2D/3D"
+          - "Understand dimensionality reduction (PCA, t-SNE, UMAP)"
+          - "Explore semantic relationships in vector space"
+
+  # ==========================================================================
+  # PHASE 3: Vector Search & RAG
+  # ==========================================================================
+  - id: 3
+    name: "Vector Search & RAG"
+    description: "Build production-ready retrieval-augmented generation systems"
+    weeks: "11-14"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Vector Databases Deep Dive"
+        legacy_id: "11"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["2.5"]
+        objectives:
+          - "Understand vector database architectures"
+          - "Master Qdrant, Pinecone, Weaviate, ChromaDB"
+          - "Learn indexing strategies (HNSW, IVF)"
+
+      - seq: 2
+        name: "Building RAG Systems"
+        legacy_id: "12"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["3.1"]
+        objectives:
+          - "Design end-to-end RAG pipelines"
+          - "Implement chunking strategies"
+          - "Handle document preprocessing"
+
+      - seq: 3
+        name: "Advanced RAG Patterns"
+        legacy_id: "13"
+        hours: "6-8"
+        status: complete
+        heureka: true
+        prerequisites: ["3.2"]
+        objectives:
+          - "Implement HyDE, query decomposition"
+          - "Build multi-hop retrieval"
+          - "Master reranking and filtering"
+
+      - seq: 4
+        name: "RAG Evaluation & Optimization"
+        legacy_id: "14"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["3.3"]
+        objectives:
+          - "Evaluate RAG with RAGAS metrics"
+          - "Optimize retrieval and generation"
+          - "Handle hallucination and accuracy"
+
+  # ==========================================================================
+  # PHASE 4: Frameworks & Agents
+  # ==========================================================================
+  - id: 4
+    name: "Frameworks & Agents"
+    description: "Master LLM frameworks and build autonomous agents"
+    weeks: "15-21"
+    status: complete
+    modules:
+      - seq: 1
+        name: "LangChain Fundamentals"
+        legacy_id: "15"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 3"]
+
+      - seq: 2
+        name: "LangChain Advanced"
+        legacy_id: "16"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["4.1"]
+
+      - seq: 3
+        name: "LangGraph for Agents"
+        legacy_id: "17"
+        hours: "6-8"
+        status: complete
+        heureka: true
+        prerequisites: ["4.2"]
+
+      - seq: 4
+        name: "LlamaIndex"
+        legacy_id: "18"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["4.2"]
+
+      - seq: 5
+        name: "Building AI Agents"
+        legacy_id: "19"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["4.3"]
+
+      - seq: 6
+        name: "Agent Memory & Planning"
+        legacy_id: "20"
+        hours: "5-6"
+        status: complete
+        heureka: true
+        prerequisites: ["4.5"]
+
+      - seq: 7
+        name: "Multi-Agent Systems"
+        legacy_id: "21"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["4.6"]
+
+  # ==========================================================================
+  # PHASE 5: Multimodal AI
+  # ==========================================================================
+  - id: 5
+    name: "Multimodal AI"
+    description: "Work with audio, vision, and video AI"
+    weeks: "22-24"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Voice & Audio AI"
+        legacy_id: "22"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 4"]
+
+      - seq: 2
+        name: "Vision AI"
+        legacy_id: "23"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["5.1"]
+
+      - seq: 3
+        name: "Video AI"
+        legacy_id: "24"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["5.2"]
+
+  # ==========================================================================
+  # PHASE 6: Deep Learning Foundations
+  # ==========================================================================
+  - id: 6
+    name: "Deep Learning Foundations"
+    description: "Understand the math and code behind neural networks"
+    weeks: "25-31"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Neural Network Fundamentals"
+        legacy_id: "25"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 5"]
+
+      - seq: 2
+        name: "PyTorch Fundamentals"
+        legacy_id: "26"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["6.1"]
+
+      - seq: 3
+        name: "Training Neural Networks"
+        legacy_id: "27"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["6.2"]
+
+      - seq: 4
+        name: "CNNs & Computer Vision"
+        legacy_id: "28"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["6.3"]
+
+      - seq: 5
+        name: "RNNs & Sequence Models"
+        legacy_id: "29"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["6.4"]
+
+      - seq: 6
+        name: "Backpropagation Deep Dive"
+        legacy_id: "30"
+        hours: "5-6"
+        status: complete
+        heureka: true
+        prerequisites: ["6.5"]
+
+      - seq: 7
+        name: "Transformers from Scratch"
+        legacy_id: "31"
+        hours: "8-10"
+        status: complete
+        prerequisites: ["6.6"]
+
+  # ==========================================================================
+  # PHASE 7: Advanced Generative AI
+  # ==========================================================================
+  - id: 7
+    name: "Advanced Generative AI"
+    description: "Fine-tuning, diffusion models, and RLHF"
+    weeks: "32-36"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Fine-tuning LLMs"
+        legacy_id: "32"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["Phase 6"]
+
+      - seq: 2
+        name: "LoRA & Parameter-Efficient Fine-tuning"
+        legacy_id: "33"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["7.1"]
+
+      - seq: 3
+        name: "Diffusion Models"
+        legacy_id: "34"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["7.2"]
+
+      - seq: 4
+        name: "RLHF & Alignment"
+        legacy_id: "35"
+        hours: "6-8"
+        status: complete
+        heureka: true
+        prerequisites: ["7.3"]
+
+      - seq: 5
+        name: "Advanced Generation Techniques"
+        legacy_id: "36"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["7.4"]
+
+  # ==========================================================================
+  # PHASE 8: Classical ML
+  # ==========================================================================
+  - id: 8
+    name: "Classical ML"
+    description: "Master the ML techniques that still power 80% of production systems"
+    weeks: "37-39"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Scikit-learn & Classical ML"
+        legacy_id: "37"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 7"]
+
+      - seq: 2
+        name: "XGBoost & Gradient Boosting"
+        legacy_id: "38"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["8.1"]
+
+      - seq: 3
+        name: "Time Series Forecasting"
+        legacy_id: "39"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["8.2"]
+
+  # ==========================================================================
+  # PHASE 9: AI Safety & Evaluation
+  # ==========================================================================
+  - id: 9
+    name: "AI Safety & Evaluation"
+    description: "Responsible AI development and systematic evaluation"
+    weeks: "40-42"
+    status: complete
+    modules:
+      - seq: 1
+        name: "LLM Evaluation"
+        legacy_id: "40"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 8"]
+
+      - seq: 2
+        name: "AI Red Teaming"
+        legacy_id: "41"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["9.1"]
+
+      - seq: 3
+        name: "AI Safety & Alignment"
+        legacy_id: "42"
+        hours: "5-6"
+        status: complete
+        heureka: true
+        prerequisites: ["9.2"]
+
+  # ==========================================================================
+  # PHASE 10: DevOps & MLOps
+  # ==========================================================================
+  - id: 10
+    name: "DevOps & MLOps"
+    description: "Deploy and operate ML systems in production"
+    weeks: "43-52"
+    status: complete
+    modules:
+      - seq: 1
+        name: "ML DevOps Foundations"
+        legacy_id: "43"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 9"]
+
+      - seq: 2
+        name: "Docker for ML"
+        legacy_id: "44"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.1"]
+
+      - seq: 3
+        name: "CI/CD for ML"
+        legacy_id: "45"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.2"]
+
+      - seq: 4
+        name: "Kubernetes for ML"
+        legacy_id: "46"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["10.3"]
+
+      - seq: 5
+        name: "Advanced Kubernetes"
+        legacy_id: "47"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["10.4"]
+
+      - seq: 6
+        name: "Experiment Tracking"
+        legacy_id: "48"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.5"]
+
+      - seq: 7
+        name: "Data Pipelines"
+        legacy_id: "49"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.6"]
+
+      - seq: 8
+        name: "ML Pipelines"
+        legacy_id: "50"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["10.7"]
+
+      - seq: 9
+        name: "Model Serving"
+        legacy_id: "51"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.8"]
+
+      - seq: 10
+        name: "ML Monitoring"
+        legacy_id: "52"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["10.9"]
+
+  # ==========================================================================
+  # PHASE 11: AI for Infrastructure
+  # ==========================================================================
+  - id: 11
+    name: "AI for Infrastructure"
+    description: "Apply AI to real-world infrastructure problems"
+    weeks: "53-54"
+    status: complete
+    modules:
+      - seq: 1
+        name: "Cloud AI Services"
+        legacy_id: "53"
+        hours: "5-6"
+        status: complete
+        prerequisites: ["Phase 10"]
+
+      - seq: 2
+        name: "AIOps"
+        legacy_id: "54"
+        hours: "6-8"
+        status: complete
+        prerequisites: ["11.1"]
+
+  # ==========================================================================
+  # PHASE 12: History of AI/ML
+  # ==========================================================================
+  - id: 12
+    name: "History of AI/ML"
+    description: "Understand where we came from to know where we're going"
+    weeks: "55"
+    status: complete
+    modules:
+      - seq: 1
+        name: "History of AI & Machine Learning"
+        legacy_id: "55"
+        hours: "4-5"
+        status: complete
+        prerequisites: ["Phase 11"]

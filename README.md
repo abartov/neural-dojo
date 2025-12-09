@@ -3,9 +3,9 @@
 **From Zero to AI Guru: Master AI, ML, LLMs, and AI-Driven Development**
 
 <!-- GENERATED_BADGES_START -->
-[![Progress](https://img.shields.io/badge/Progress-100%25-brightgreen)]()
-[![Modules](https://img.shields.io/badge/Modules-55%2F55-blue)]()
-[![Status](https://img.shields.io/badge/Status-COMPLETE-success)]()
+[![Progress](https://img.shields.io/badge/Progress-96%25-brightgreen)]()
+[![Modules](https://img.shields.io/badge/Modules-58%2F60-blue)]()
+[![Status](https://img.shields.io/badge/Status-Active-success)]()
 <!-- GENERATED_BADGES_END -->
 
 ---
@@ -22,13 +22,13 @@ Transform from AI novice to **AI Guru** capable of:
 
 ## Curriculum
 
-**55 modules** across **12 phases** • **100% COMPLETE** 🎉
+**60 modules** across **13 phases** • **96% Complete**
 
 <!-- GENERATED_PROGRESS_START -->
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Module 0: Prerequisites | 🟢 Complete | 1/1 |
-| Phase 1: AI-Native Development | 🟢 Complete | 7/7 |
+| Phase 0: Prerequisites | 🟢 Complete | 1/1 |
+| Phase 1: AI-Native Development | 🟡 In Progress | 5/7 |
 | Phase 2: Generative AI Fundamentals | 🟢 Complete | 5/5 |
 | Phase 3: Vector Search & RAG | 🟢 Complete | 4/4 |
 | Phase 4: Frameworks & Agents | 🟢 Complete | 7/7 |
@@ -39,8 +39,8 @@ Transform from AI novice to **AI Guru** capable of:
 | Phase 9: AI Safety & Evaluation | 🟢 Complete | 3/3 |
 | Phase 10: DevOps & MLOps | 🟢 Complete | 10/10 |
 | Phase 11: AI for Infrastructure | 🟢 Complete | 2/2 |
-| Phase 12: History of AI/ML | 🟢 Complete | 1/1 |
-| **TOTAL** | **🟢 COMPLETE** | **55/55** |
+| Phase 12: History of AI/ML | 🟢 Complete | 3/3 |
+| **TOTAL** | **🟡 Active** | **58/60** |
 <!-- GENERATED_PROGRESS_END -->
 
 **Full curriculum details**: [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md)
@@ -76,16 +76,21 @@ pip install -r requirements.txt
 
 ```
 neural-dojo/
-├── docs/curriculum/           # Curriculum materials
-│   ├── MASTER_CURRICULUM.md   # Source of truth
-│   ├── MODULE_INDEX.md        # Generated index with navigation
-│   └── notes/                 # Theory documents
+├── curriculum.yaml            # Single source of truth for curriculum
+├── docs/curriculum/           # Generated curriculum materials
+│   ├── MASTER_CURRICULUM.md   # Generated from curriculum.yaml
+│   ├── MODULE_INDEX.md        # Generated navigation index
+│   └── notes/                 # Theory documents per module
 ├── examples/                  # Working code examples per module
 │   ├── module_01/
+│   ├── module_01.4/
 │   ├── module_02/
 │   └── ...
-├── tools/docs_generator/      # Documentation generator
-└── README.md                  # This file (partially generated)
+├── scripts/
+│   ├── generate_curriculum.py # Curriculum generator
+│   └── curriculum_manager.py  # Curriculum utilities
+├── tools/docs_generator/      # HTML documentation generator
+└── README.md                  # This file
 ```
 
 ---
@@ -94,22 +99,53 @@ neural-dojo/
 
 | Document | Description |
 |----------|-------------|
-| [MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md) | Complete curriculum (source of truth) |
+| [curriculum.yaml](curriculum.yaml) | Single source of truth (edit this to add modules) |
+| [MASTER_CURRICULUM.md](docs/curriculum/MASTER_CURRICULUM.md) | Generated curriculum overview |
 | [MODULE_INDEX.md](docs/curriculum/MODULE_INDEX.md) | Module navigation with links |
 | [START_HERE_TOMORROW.md](docs/curriculum/START_HERE_TOMORROW.md) | Session handoff |
 
 ---
 
-## Regenerate Documentation
+## Curriculum Management
+
+### Regenerate Curriculum Files
+
+```bash
+python scripts/generate_curriculum.py generate
+```
+
+This generates:
+- `MASTER_CURRICULUM.md` from curriculum.yaml
+- `MODULE_INDEX.md` with navigation links
+
+### Validate Curriculum
+
+```bash
+python scripts/generate_curriculum.py validate
+```
+
+Checks for missing theory files, example directories, and deliverables.
+
+### View Status
+
+```bash
+python scripts/generate_curriculum.py status
+```
+
+### Add a New Module
+
+1. Edit `curriculum.yaml` and add your module to the appropriate phase
+2. Run `python scripts/generate_curriculum.py generate` to update index files
+3. Create theory doc in `docs/curriculum/notes/`
+4. Create examples in `examples/module_X.Y/`
+
+### Generate HTML Documentation
 
 ```bash
 python -m tools.docs_generator --all
 ```
 
-This generates:
-- `MODULE_INDEX.md` from MASTER_CURRICULUM.md
-- HTML documentation in `docs/_site/`
-- Updates README.md progress section
+Generates HTML documentation in `docs/_site/`
 
 ---
 
