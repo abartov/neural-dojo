@@ -24,6 +24,8 @@ By the end of this module, you will:
 
 ### From Autocomplete to Autonomy
 
+Think of the evolution of AI coding tools like the evolution of transportation. Autocomplete was like a bicycle—you still do all the pedaling, but it makes you faster. Chat-based AI was like a motorcycle—more power, but you're still steering every turn. Agent-first IDEs are like having a chauffeur: you tell them where you want to go, and they handle the driving while you focus on what matters.
+
 **The Evolution of AI Coding Tools:**
 
 ```
@@ -77,6 +79,8 @@ You delegate → Agents execute → You review artifacts
 ## Google Antigravity
 
 ### Overview
+
+Think of Google Antigravity like a mission control center for code. While traditional IDEs give you a single pilot's seat, Antigravity lets you command a fleet of AI agents—each tackling a different part of your codebase simultaneously. It's the difference between being a solo pilot and being a squadron commander.
 
 Released November 18, 2025 alongside Gemini 3, Google Antigravity represents Google's bet on agent-first development.
 
@@ -268,6 +272,8 @@ Cascade is Windsurf's agentic engine:
 ## Cline (Open Source)
 
 ### Overview
+
+Think of Cline like choosing to cook at home versus eating at a restaurant. The restaurant (proprietary IDEs) handles everything for you—convenient but you're locked into their menu and prices. Cooking at home (Cline) gives you complete control over ingredients (models), recipes (prompts), and costs (API usage). More work to set up, but infinitely more flexible.
 
 Cline is the **open-source alternative** to proprietary agent IDEs. It runs as a VS Code extension, giving you agent capabilities without switching editors.
 
@@ -466,7 +472,11 @@ Budget constrained?
 
 ## Hands-On Exercises
 
+The best way to understand agent-first IDEs is to use them for a real task. These exercises take you through progressively more complex scenarios—starting with parallel agents, moving to local models, and finishing with browser automation.
+
 ### Exercise 1: Antigravity Multi-Agent
+
+Think of this exercise like being a project manager who can clone themselves. Instead of sequentially asking one developer to do three tasks, you're assigning three developers to work simultaneously.
 
 ```
 Task: Use Antigravity to build a simple task manager app

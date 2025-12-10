@@ -8,6 +8,23 @@
 
 ---
 
+## The Photograph That Changed Everything
+
+**San Francisco. September 25, 2023. 2:14 PM.**
+
+OpenAI researcher Gabriel Goh uploaded an image to their internal GPT-4V test server. It wasn't a standard benchmark—it was a photograph of his grandmother's handwritten Hungarian recipe card, stained with decades of cooking oil, the cursive faded and cramped.
+
+"Translate this and tell me what she's making," he typed.
+
+The model responded: "This appears to be a Hungarian recipe for chicken paprikás. The handwriting notes 'nagymama titkos receptje' (grandmother's secret recipe) at the top. I notice she's crossed out '2 tablespoons' and written '3' instead—perhaps she learned over time that more paprika is better..."
+
+Goh sat back, stunned. The model hadn't just read the text—it had understood the *context*, noticed the correction, even inferred what it meant. This wasn't optical character recognition. This was comprehension.
+
+> "That's the moment I knew we'd crossed a threshold. The model wasn't just seeing and reading separately—it was *understanding* the image the way a human would, noticing the small details that tell a story."
+> — Gabriel Goh, OpenAI Research Scientist
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -131,6 +148,10 @@ The patch approach works because:
 The naming convention: ViT-{Size}/{Patch Size}
 - B = Base, L = Large, H = Huge, G = Giant
 - /16 means 16x16 patches, /14 means 14x14 patches (more patches = more compute)
+
+> **💡 Did You Know?**
+>
+> The Vision Transformer paper was initially rejected from multiple conferences. Reviewers argued that "an image is fundamentally different from text—you can't just use the same architecture." The Google Brain team persisted, and when the results came in, the evidence was undeniable: with enough data (14 million images), ViT matched CNNs. With massive data (300 million images), it crushed them. Today, ViT variants power nearly every major vision-language model, from CLIP to GPT-4V.
 
 ---
 
@@ -415,6 +436,10 @@ Image → CLIP ViT-L/14 → Linear Projection → Vicuna/Llama-2
 | Claude 3 | Detailed analysis, safety-critical | API-only |
 | Gemini | Video, long context | Regional availability |
 | LLaVA | Local deployment, customization | Lower quality than closed models |
+
+> **💡 Did You Know?**
+>
+> The race to build GPT-4V was shrouded in secrecy. OpenAI trained multiple vision-language architectures in parallel, including one approach that was "shockingly simple"—just concatenating image tokens with text tokens in the transformer. Rumor has it that this simple approach outperformed more complex architectures. Meanwhile, Google rushed Gemini to market after GPT-4V's announcement, leading to an embarrassing demo where edited video made the model appear faster than it was. The multimodal AI race has become one of the most competitive in tech history.
 
 ---
 

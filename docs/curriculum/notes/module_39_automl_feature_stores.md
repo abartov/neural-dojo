@@ -6,6 +6,33 @@
 
 ---
 
+## The Intern Who Beat the Team
+
+**Seattle. August 12, 2020. 10:15 AM.**
+
+Sarah Chen was three weeks into her data science internship when she made the senior engineers uncomfortable.
+
+The team had spent six months building a churn prediction model. Feature engineering alone took three engineers two months. Hyperparameter tuning consumed another month. The final model achieved 0.847 AUC—a number the team celebrated with champagne.
+
+Sarah asked a naive question: "Could I try AutoGluon on the same data?"
+
+The senior engineers exchanged knowing glances. "Sure, but don't expect it to beat a model built by experienced engineers."
+
+Four hours later, Sarah walked into the standup meeting. Her AutoGluon model achieved 0.863 AUC—almost two percentage points higher than the hand-crafted solution. The room went silent.
+
+"How is that possible?" asked the team lead.
+
+"It tried 15 different algorithms, ensembled the top 7, and did multi-layer stacking," Sarah replied, reading from AutoGluon's leaderboard. "It also found a feature interaction our model missed."
+
+The team's six months of work had been outperformed by an intern with four hours and an AutoML library.
+
+> "AutoML doesn't make data scientists obsolete—it makes their time more valuable. Now you can spend six months on problems that actually need human creativity."
+> — Nick Erickson, Lead Developer of AutoGluon, NeurIPS Workshop 2020
+
+This module teaches you how to use AutoML tools effectively—and why they're not magic, but a powerful force multiplier for any ML practitioner.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -231,6 +258,12 @@ ALGORITHM SELECTION STRATEGIES:
 
 ### Hyperparameter Optimization
 
+Think of hyperparameter optimization like tuning a guitar. Each hyperparameter is a string that affects the sound. Turn the learning rate too high and you get noise; too low and you barely hear anything. The problem? A neural network has dozens of "strings," and they all interact with each other.
+
+Traditional approach: try every combination. With 10 hyperparameters and 5 values each, that's 5^10 = 9.7 million combinations. Even at 1 minute per trial, that's 18 years.
+
+Smart approach: use Bayesian optimization, which learns from each trial. "High learning rate made things worse? Let's try lower values." It finds good configurations in 50-100 trials instead of millions.
+
 ```
 HYPERPARAMETER SEARCH SPACE:
 ────────────────────────────
@@ -384,6 +417,12 @@ Transform: year, month, weekday, cum_sum, diff
 ### What is a Feature Store?
 
 Think of a feature store as a "data warehouse for ML features" - a centralized repository where teams can share, discover, and reuse features.
+
+Imagine a restaurant where every chef prepares their own spice blends. Chef A makes curry powder. Chef B makes the same curry powder differently. Chef C needs curry powder but doesn't know it already exists, so they make a third version. Different dishes taste inconsistent, ingredients are wasted, and no one knows which recipe is "official."
+
+Now imagine a central spice cabinet with standardized, labeled blends. Every chef uses the same curry powder. New chefs can see what's available. If the curry powder recipe improves, all dishes improve automatically.
+
+That's what a feature store does for ML features—centralizes, standardizes, and shares them across teams.
 
 ```
 WITHOUT FEATURE STORE:

@@ -10,6 +10,25 @@
 
 ---
 
+## The Paper That Changed Everything
+
+**Mountain View, California. June 12, 2017. 2:34 AM.**
+
+Ashish Vaswani and his Google Brain colleagues huddled around a laptop in a cramped conference room. They had been training their experimental model for days, and the results were finally in.
+
+"That can't be right," Jakob Uszkoreit muttered, staring at the screen.
+
+They had just achieved state-of-the-art performance on machine translation—beating every existing system. But that wasn't what shocked them. It was what they had *removed* to get there.
+
+No recurrent connections. No convolutions. Just attention. "Attention is all you need," Vaswani typed as the paper's title, half-joking. But he wasn't joking.
+
+> "We expected attention to be helpful alongside RNNs, not to replace them entirely. When we removed the recurrence and the model got *better*, we knew we had found something fundamental."
+> — Ashish Vaswani, Transformer co-inventor
+
+That paper, with its eight co-authors and deceptively simple title, would go on to become the most cited paper in AI history. Every modern language model—GPT-4, Claude, Gemini, LLaMA—is a direct descendant of what they built that night.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -108,6 +127,8 @@ In June 2017, eight researchers at Google published a paper that would reshape A
 > **Did You Know?** The transformer paper has been cited over 130,000 times — more than almost any computer science paper ever written. The eight authors (Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin) are now scattered across Google, Google DeepMind, and various AI startups. Noam Shazeer later co-founded Character.AI and then returned to Google. The paper's title was intentionally provocative — they were claiming that attention alone, without any recurrence, could match or beat RNN/LSTM models.
 
 The key insight was radical: **throw away recurrence entirely**. Don't process sequences one step at a time. Instead, let every token look at every other token simultaneously and *learn* which connections matter.
+
+Think of the difference like reading a book. An RNN is like reading with a tiny flashlight that only illuminates one word at a time—you have to remember what you read before. A transformer is like turning on all the lights at once and seeing the entire page, instantly noticing which words relate to each other. This parallel vision is what makes transformers so powerful.
 
 This is the attention mechanism.
 
@@ -216,6 +237,8 @@ Attention(Q, K, V) = softmax(Q @ K.T / √d_k) @ V
 ```
 
 This single formula is the heart of modern AI.
+
+Think of this formula like a spotlight operator at a concert. The Query is what you're trying to illuminate. The Keys are labels on different performers. The dot product tells you how relevant each performer is to what you're looking for. Softmax makes sure your spotlight energy (attention) is distributed as probabilities. And Values are what you actually see when you shine the light there—the content you get back.
 
 ### Worked Example with Numbers
 

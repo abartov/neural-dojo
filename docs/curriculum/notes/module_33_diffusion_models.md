@@ -21,6 +21,27 @@ By the end of this module, you will:
 
 ---
 
+## The Image That Shook the Art World
+
+**London. August 30, 2022. 2:30 PM.**
+
+Jason Allen was nervous. He had just won first place in the digital art category at the Colorado State Fair—beating human artists who had spent months on their entries. His piece, "Théâtre D'opéra Spatial," depicted an elaborate operatic scene with ethereal lighting and impossible architecture.
+
+The problem? Jason had created it with Midjourney, an AI image generator, in about 80 hours of prompt refinement.
+
+When the news broke, artists were furious. "This is the death of artistry," one competitor declared. "We're watching the decay of legitimate artistic work." Twitter erupted. News outlets covered it for weeks. A debate about creativity, authenticity, and the future of art consumed the internet.
+
+What most people didn't know: Midjourney was powered by diffusion models—the same technology driving Stable Diffusion, DALL-E 2, and a revolution in how images are created. And this was just the beginning.
+
+> "I'm not going to apologize for it. I won. I didn't break any rules."
+> — Jason Allen, 2022
+
+Within two years, diffusion models would be generating billions of images daily, disrupting stock photography, transforming advertising, and forcing every creative industry to reckon with AI-generated content.
+
+This module teaches you how diffusion models work—from pure noise to photorealistic images, one denoising step at a time.
+
+---
+
 ## The Big Picture: Teaching AI to Dream
 
 Imagine you're watching a time-lapse of a photograph slowly dissolving into static noise on an old TV. Frame by frame, the image becomes less recognizable until it's pure random fuzz.

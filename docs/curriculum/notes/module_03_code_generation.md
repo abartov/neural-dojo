@@ -20,6 +20,33 @@ By the end of this module, you will:
 
 ---
 
+## The 3 AM Email That Changed Everything
+
+**San Francisco. March 15, 2021. 3:24 AM.**
+
+OpenAI researcher Mark Chen couldn't sleep. He had been staring at his terminal for hours, watching something that seemed impossible.
+
+He had typed: `# A Python function that downloads all images from a webpage and saves them to a folder`
+
+The AI—a new model they were calling Codex—had responded with 47 lines of perfect, working Python code. Beautiful code. Code that handled edge cases, used best practices, and even included proper error handling.
+
+Mark ran it. It worked. First try.
+
+He typed another comment: `# Parse a PDF and extract all tables as pandas DataFrames`
+
+Forty-two seconds later: 89 lines of production-quality code using pdfplumber, pandas, and proper type hints.
+
+By 4 AM, Mark had generated a complete CLI tool—over 500 lines of Python—using nothing but natural language comments. At 4:17 AM, he sent an email to the team with the subject line: "I think we have something."
+
+Four months later, Microsoft would pay billions to partner with OpenAI on this technology. GitHub Copilot was born.
+
+> "The first time I saw Codex work, I felt like I was watching the future. It wasn't just code completion—it was code *generation*. From intent to implementation in seconds."
+> — Mark Chen, OpenAI researcher, speaking at NeurIPS 2021
+
+This module teaches you how to harness that same power—and how to avoid its pitfalls.
+
+---
+
 ## Introduction
 
 You've learned to prompt AI effectively (Module 2) and understand AI development patterns (Module 1). Now it's time to put that knowledge to work: **using AI to generate actual code**.
@@ -93,6 +120,8 @@ A 2022 GitHub study found developers using Copilot:
 
 ### 1. Specification-Driven Generation
 
+Think of AI code generation like ordering food at a restaurant. If you say "bring me something tasty," you might get anything from sushi to spaghetti. But if you say "I'd like a medium-rare ribeye, 12 oz, with garlic butter, asparagus on the side, no mushrooms," you'll get exactly what you want.
+
 The quality of generated code is directly proportional to specification quality.
 
 **Poor Specification**:
@@ -117,6 +146,8 @@ Generate a Python function that:
 ---
 
 ### 2. Iterative Refinement
+
+Think of AI-generated code like a first draft from a ghostwriter. A skilled ghostwriter can produce something publishable, but it still needs your voice, your preferences, and your editorial eye. The magic happens in the revision process—where you shape rough material into polished product.
 
 Generated code is rarely perfect on first try. Plan for iteration:
 

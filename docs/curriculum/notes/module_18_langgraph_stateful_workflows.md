@@ -8,6 +8,25 @@
 
 ---
 
+## The 47 Documents That Disappeared
+
+**San Francisco. August 7, 2024. 4:23 PM.**
+
+Marcus, a senior engineer at a fintech startup, watched his monitoring dashboard with growing dread. Their AI loan processor had been running perfectly for three hours—collecting documents, verifying identities, running compliance checks. The customer had uploaded 47 different documents. Then the credit bureau API timed out.
+
+He refreshed the dashboard. Everything was gone. All 47 documents, all verification results, all compliance checks—the entire session had vanished. The customer would have to start over from scratch.
+
+Marcus's phone buzzed. It was customer support: "The customer is furious. She's been working on this for four hours. Can we recover her session?"
+
+The answer was no. Their agent framework had no concept of "where it left off." Every step lived in memory, and when the API call failed, the exception handler crashed the entire workflow.
+
+That night, Marcus discovered LangGraph. By the next morning, he had a prototype that saved state after every single step. When he simulated an API failure at step 23, the workflow simply resumed from step 22. Nothing was lost.
+
+> "LangGraph wasn't just an upgrade—it was the difference between a demo and a product. Our customers stopped losing their work, and we stopped losing customers."
+> — Marcus Chen, presenting at AI Engineering Summit 2024
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -33,6 +52,8 @@ In Module 17, you mastered Chain-of-Thought and ReAct patterns. But what happens
 This is where **LangGraph** shines.
 
 ### The Limitation of Linear Chains
+
+Think of LangChain's linear chains like a highway with no exits. Once you start, you can only go forward. If you miss something, you have to drive to the end and start over from the beginning. LangGraph is more like a city street grid—you can loop back, take detours, wait at intersections for a green light (human approval), and recover from wrong turns without restarting your journey.
 
 LangChain chains are powerful but fundamentally **linear** or **tree-like**:
 
@@ -108,6 +129,8 @@ When the LangGraph team heard this, they made **checkpointing** a first-class fe
 ---
 
 ## The Graph Mental Model
+
+Think of a graph like a subway map. Each station (node) is a distinct stop where something happens. The tracks (edges) connect stations and determine where you can go next. Some stations have multiple tracks leading to different destinations (conditional routing). And unlike a highway, you can ride the loop line and come back to where you started (cycles).
 
 ### Graphs 101 (Quick Refresher)
 
@@ -267,6 +290,10 @@ result = app.invoke({"messages": ["Hello"], "current_step": "start"})
 ```
 
 ---
+
+> **💡 Did You Know?**
+>
+> LangGraph's design was heavily influenced by finite state machines (FSMs), a concept from computer science that dates back to the 1950s. FSMs power everything from traffic lights to video game AI to TCP/IP networking. Harrison Chase and the LangChain team realized that LLM workflows are fundamentally state machines—the agent is always in some "state" (researching, waiting for approval, generating output), and transitions between states depend on conditions. By borrowing FSM concepts and adding cycle support, they created a framework that felt familiar to systems engineers while being tailored for AI workflows.
 
 ## Building Your First LangGraph Workflow
 

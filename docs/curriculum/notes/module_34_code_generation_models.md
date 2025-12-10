@@ -7,6 +7,29 @@
 
 ---
 
+## The Night Coding Changed Forever
+
+**San Francisco. June 29, 2021. 11:47 PM.**
+
+Nat Friedman, CEO of GitHub, was about to send the email that would divide the programming world.
+
+He'd been testing an internal tool for six months—one that watched you code and suggested the next line before you typed it. Not autocomplete. Not snippets. Full, intelligent code that understood what you were trying to build.
+
+The tool was GitHub Copilot, powered by OpenAI's Codex model.
+
+"Press tab to accept," the interface whispered, offering a perfectly formed function that would have taken him five minutes to write. He pressed tab. The code was correct.
+
+The next morning, developers worldwide woke up to the announcement. Reactions split into three camps: the amazed ("This is the future!"), the terrified ("This is the end of coding!"), and the skeptical ("It probably just memorizes Stack Overflow").
+
+The skeptics were the most wrong. Copilot wasn't memorizing—it was reasoning about code. The model had ingested 54 million repositories and learned something no one expected: the *logic* of programming itself.
+
+> "When we first evaluated Codex on HumanEval, I expected maybe 10% accuracy. We got 28%. With sampling and selection, 70%. That's when I knew this wasn't just autocomplete—this was a fundamental shift in how humans and machines would write code together."
+> — Mark Chen, OpenAI Research Lead, speaking at NeurIPS 2021
+
+Within two years, 46% of code on GitHub would be AI-assisted. The era of the AI coding assistant had begun.
+
+---
+
 ## 🎯 Learning Objectives
 
 By the end of this module, you will:
@@ -35,7 +58,11 @@ By 2024, studies showed that developers using AI coding assistants were completi
 
 ### Why Code Needs Special Treatment
 
-Code isn't just text with different vocabulary. It has unique properties that general language models struggle with:
+Code isn't just text with different vocabulary. It has unique properties that general language models struggle with.
+
+Think of the difference between writing an email and writing sheet music. Both use symbols on a page, but sheet music has rigid rules: every note must be on a line or space, timing must be mathematically precise, and a single wrong symbol creates cacophony instead of harmony. Code is like sheet music for computers. Natural language tolerates sloppiness; code does not.
+
+If prose is jazz—improvisation, feeling, artistic interpretation—then code is classical music performance: every note exactly as written, or the whole thing falls apart.
 
 **1. Strict Syntax**
 ```python
@@ -121,6 +148,12 @@ Modern code models share common architectural patterns:
 ## 📚 Fill-in-the-Middle (FIM): The Key Innovation
 
 ### Why Completion Isn't Enough
+
+Here's the problem with standard language models: they write like a typewriter—only forward, never back.
+
+Imagine writing a letter where you can only add words at the end. You can't insert something in the middle, can't revise an earlier paragraph, can't fill in a blank you left for later. That's how GPT-style models work: they see everything before the cursor and nothing after.
+
+But real programming isn't like that. You often need to insert code *between* existing lines. You have context on both sides—the function signature above, the return statement below—and you need to fill the gap.
 
 Traditional language models generate left-to-right. They're great at continuing text:
 
@@ -307,6 +340,10 @@ CodeLlama Base (7B/13B/34B)
 ## 📊 Evaluating Code Generation
 
 ### HumanEval: The Standard Benchmark
+
+Think of HumanEval like the SAT for code models—a standardized test that everyone takes, so you can compare scores fairly. Just as the SAT has reading, writing, and math sections, HumanEval has 164 programming problems that test a model's ability to write working code.
+
+But here's the catch: just like how SAT prep courses can boost scores without improving actual intelligence, models can be "taught to the test." This is why researchers developed harder benchmarks like SWE-bench—the equivalent of testing whether you can actually succeed in college, not just pass the entrance exam.
 
 HumanEval consists of 164 hand-written Python programming problems:
 
@@ -1044,6 +1081,22 @@ CodeLlama's 100K context window wasn't magic—it came from a clever RoPE (Rotar
 4. **How does speculative decoding speed up code generation?**
 
 5. **What makes SWE-bench harder than HumanEval?**
+
+---
+
+## Key Takeaways
+
+After working through this module, here's what you should remember:
+
+1. **Code models aren't just text models with different data.** They require specialized tokenizers (to handle indentation efficiently), longer context windows (for whole-file understanding), and training objectives like FIM that text models don't need.
+
+2. **Fill-in-the-Middle (FIM) is the key innovation.** It lets models use context from both before AND after the cursor. This is what makes real IDE autocomplete possible—you're usually inserting code, not appending it.
+
+3. **The 50% rule matters.** Training with 50% FIM examples and 50% standard left-to-right gives you both capabilities without sacrificing either. More FIM isn't better—it's worse.
+
+4. **Pass@k is the right metric, but k matters.** Pass@1 measures practical utility (will the first suggestion work?). Pass@100 measures model capability (can the model solve this at all?). Both are useful for different purposes.
+
+5. **SWE-bench is the frontier.** HumanEval tests isolated functions. SWE-bench tests real software engineering: understanding codebases, finding bugs, writing patches. This is where models go from "code completer" to "AI engineer."
 
 ---
 

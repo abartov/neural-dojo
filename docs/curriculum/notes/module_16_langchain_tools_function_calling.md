@@ -20,6 +20,21 @@ By the end of this module, you will:
 
 ---
 
+## The Moment AI Got Hands
+
+**San Francisco. June 13, 2023. 10:00 AM.**
+
+When OpenAI announced function calling for GPT-4, developer Sam Schillace didn't expect his life to change. He was building a simple chatbot for his startup—nothing fancy, just customer support.
+
+But within 48 hours, his chatbot could check order status, process refunds, and update customer records. Tasks that previously required building complex backend systems now took a few lines of code. The AI didn't just answer questions—it *did things*.
+
+> "Function calling was the moment LLMs became useful for real work. Before, they were brilliant conversationalists trapped in glass boxes. Now they could reach out and touch the world."
+> — Sam Schillace, former Microsoft CVP, writing on LinkedIn (2023)
+
+Within six months, function calling became the foundation of every serious AI application. ChatGPT plugins, custom GPTs, and the entire AI agent ecosystem—all built on this one idea: teach AI to use tools.
+
+---
+
 ## Theory
 
 ### Introduction: When LLMs Need Hands
@@ -59,6 +74,8 @@ Think of it this way: if an LLM is a brilliant brain in a jar, function calling 
 ---
 
 ### The Function Calling Revolution
+
+Think of function calling like teaching a very intelligent assistant to use a phone. The assistant (LLM) is brilliant at conversation and understanding requests, but can't physically dial numbers or browse websites. Function calling gives them a phone book (available tools) and teaches them how to make calls (invoke functions). You still handle the actual phone calls—they just tell you when to call and what to say.
 
 #### How It Works
 

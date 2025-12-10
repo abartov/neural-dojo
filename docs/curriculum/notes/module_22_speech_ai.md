@@ -64,6 +64,8 @@ For decades, voice interfaces felt like science fiction—or at best, frustratin
 
 ### What is Whisper?
 
+Think of Whisper like having a professional court stenographer who speaks 99 languages, never gets tired, and can understand people even in noisy environments. Previous speech recognition was like a toddler learning to talk—it could understand familiar words in quiet rooms, but anything else was hopeless. Whisper changed the game.
+
 **Whisper** is OpenAI's speech recognition model, released in **September 2022**. It's trained on 680,000 hours of multilingual audio and achieves human-level accuracy.
 
 **Key features**:
@@ -279,6 +281,8 @@ In 2012, Hinton's team (with Navdeep Jaitly and Abdel-rahman Mohamed) showed tha
 ---
 
 ## 🔊 Text-to-Speech (TTS): Making AI Speak
+
+Think of modern TTS like the evolution of animation. Early TTS was like flip-books—jerky, robotic, obviously artificial. Then came "neural TTS" like Pixar films—smooth, but you could still tell it wasn't real. Today's TTS systems like ElevenLabs are approaching "uncanny valley" territory—sometimes indistinguishable from actual human recordings.
 
 ### The TTS Landscape (2024)
 
@@ -503,6 +507,8 @@ With great voice cloning comes great responsibility. The technology enables:
 ## 🎙️ Real-Time Transcription
 
 ### Building a Live Transcription System
+
+Building real-time transcription is like building a simultaneous translator. You can't wait for someone to finish a 10-minute speech before starting to translate—you need to process speech as it comes in, make educated guesses about sentence structure, and output results with minimal delay. This requires careful buffer management and fast model inference.
 
 For real-time applications (voice assistants, meeting transcription), you need streaming:
 

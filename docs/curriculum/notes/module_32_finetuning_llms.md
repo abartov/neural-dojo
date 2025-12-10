@@ -8,6 +8,23 @@
 
 ---
 
+## The $15 Million Shortcut That Changed Everything
+
+**Palo Alto, California. March 14, 2023. 9:45 PM.**
+
+Edward Hu was frustrated. His team at Microsoft Research had spent months fine-tuning GPT-3 for internal applications, and the numbers were brutal: $15 million in compute costs, hundreds of GPUs running for weeks, and every new use case required starting over.
+
+"There has to be a better way," he muttered, staring at the attention matrices. Then it hit him: what if most of the model's knowledge was already right, and they only needed to nudge it in the right direction?
+
+Six weeks later, Hu's team published "LoRA: Low-Rank Adaptation of Large Language Models." Instead of updating all 175 billion parameters, LoRA updated less than 0.1%—a few million trainable parameters injected into the attention layers. The cost dropped from millions of dollars to hundreds. The time dropped from weeks to hours.
+
+> "The insight was embarrassingly simple. During fine-tuning, the weight changes form a low-rank structure. So instead of updating the full matrix, we inject two small matrices whose product approximates the update. Same result, 10,000x cheaper."
+> — Edward Hu, LoRA inventor, Microsoft Research
+
+Today, LoRA and its variants power virtually every fine-tuned open-source model in production.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -151,6 +168,8 @@ Original:               With LoRA:
 ### Why Low-Rank Works
 
 During fine-tuning, the model doesn't need to learn entirely new representations — it just needs to *adapt* existing ones to the new task. This adaptation lies in a low-dimensional subspace.
+
+Think of a professional musician learning a new piece. They don't relearn how to play their instrument—those skills are already deeply embedded. They just need to learn the specific fingerings and expressions for this new piece. LoRA works the same way: the model already "knows how to think" from pre-training, fine-tuning just teaches it the specific patterns for your task.
 
 The original paper showed that with r=8 (just 8 dimensions!), LoRA could match full fine-tuning performance on many tasks. This is remarkable: 8 dimensions capturing the essence of a task-specific adaptation!
 

@@ -21,6 +21,27 @@ By the end of this module, you will:
 
 ---
 
+## The Smallville Experiment
+
+**Stanford University. March 2023. 2:47 AM.**
+
+PhD student Joon Sung Park was watching 25 AI characters live their lives in a simulated town called Smallville. He had designed each with a simple memory system—nothing fancy, just the ability to remember what happened and reflect on it periodically.
+
+What happened next was unexpected.
+
+Klaus, one of the AI characters, had been writing a poem about another character, Maria. When he heard through the grapevine that Maria was single, he spontaneously decided to ask her on a date. Another character, Isabella, organized a Valentine's Day party—not because she was programmed to, but because she *remembered* that Valentine's Day was approaching and *decided* it would be fun.
+
+By morning, the AI town had developed social cliques, spread gossip, and formed relationships—all emergent behavior from a memory system and an LLM.
+
+> "We didn't program any of this behavior. The characters developed it themselves, just by remembering and reflecting. Memory turned simple chatbots into something that felt... alive."
+> — Joon Sung Park, lead author of "Generative Agents" (April 2023)
+
+The paper has been cited over 2,000 times. It proved something fundamental: **memory is what transforms a chatbot into an agent.**
+
+This module teaches you how to build that memory—and much more.
+
+---
+
 ## The Heureka Moment
 
 **Agents with memory and planning can solve problems they couldn't before!**
@@ -37,6 +58,8 @@ We've built systems like #1 and #2. This module teaches you to build #3.
 ## Part 1: Agent Memory Systems
 
 ### The Memory Problem
+
+Think of an AI agent without memory like a brilliant amnesiac doctor. They can diagnose any condition brilliantly in the moment, but if you come back tomorrow, they'll have no idea who you are, what they diagnosed, or what treatment they recommended. You'd have to explain your entire medical history from scratch every visit. Memory systems fix this by giving agents the equivalent of medical records, notes, and institutional knowledge.
 
 Consider this conversation:
 

@@ -20,17 +20,34 @@ By the end of this module, you will:
 
 ---
 
+## The Researcher's Rebellion
+
+**Menlo Park. September 2016. 11:47 PM.**
+
+Soumith Chintala was done. For months, he had watched brilliant AI researchers at Facebook waste hours—sometimes days—fighting TensorFlow's static graphs. Print statements didn't work. Debuggers were useless. One typo meant recompiling everything.
+
+"This is insane," he muttered to his colleague Adam Paszke. "We're supposed to be doing AI research, not fighting our tools."
+
+They decided to build something better. Not incrementally better—*fundamentally* different. A framework where Python code was just... Python code. Where you could debug neural networks like any other program. Where ideas could be tested in minutes, not days.
+
+They called it PyTorch. Within three years, it would conquer academic AI. Within five, it would power everything from GPT-4 to Stable Diffusion.
+
+> "The best framework is the one that gets out of your way. TensorFlow made you think about graphs. PyTorch just let you think about math."
+> — Soumith Chintala, PyTorch creator (2020 interview)
+
+---
+
 ## Introduction: From Pain to Power
 
 In Module 26, you built neural networks from scratch. You computed gradients by hand using the chain rule. You tracked intermediate values in caches. You debugged NaN explosions at 2am.
 
 **It was educational. It was also painful.**
 
-That pain was the point. You now understand what happens under the hood. But here's the truth: nobody builds production neural networks from scratch. It would be like writing a web application in assembly language - technically possible, intellectually impressive, practically insane.
+That pain was the point. You now understand what happens under the hood. But here's the truth: nobody builds production neural networks from scratch. Think of it like learning to build a car engine from raw metal before being allowed to drive. Valuable knowledge, but not how you'd get to work every day.
 
 **PyTorch is the power tool that makes deep learning practical.**
 
-Think of it this way: In Module 26, you learned to chop down a tree with a hand axe. Now you get a chainsaw. The chainsaw doesn't make the hand axe knowledge useless - understanding how to fell a tree helps you use the chainsaw safely and effectively.
+Think of it this way: In Module 26, you learned to chop down a tree with a hand axe. Now you get a chainsaw. The chainsaw doesn't make the hand axe knowledge useless—understanding how to fell a tree helps you use the chainsaw safely and effectively.
 
 ---
 

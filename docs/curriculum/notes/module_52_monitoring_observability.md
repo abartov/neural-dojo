@@ -6,6 +6,25 @@
 
 ---
 
+## The $569 Million Mistake Nobody Saw Coming
+
+**San Francisco, California. October 2021. 3:14 PM.**
+
+The dashboard showed green. Uptime: 99.99%. Latency: 45ms average. Error rate: 0.001%. By every traditional metric, Zillow's home-buying algorithm was performing flawlessly.
+
+But deep in the numbers, something was wrong.
+
+The model had been trained on years of housing market data. It learned patterns: location, square footage, bedrooms, school districts. It made predictions, and Zillow bought houses based on those predictions. Thousands of them.
+
+Then COVID-19 rewired the housing market. Remote work changed where people wanted to live. Urban flight reversed suburban decline. Interest rates dropped, then spiked. The patterns the model had learned no longer applied—but nobody told the model. It kept predicting. Zillow kept buying.
+
+By the time someone noticed, Zillow had accumulated $569 million in losses. The entire iBuying division was shut down. 2,000 employees lost their jobs. And the model? It never crashed. It never threw an error. It just quietly, confidently, catastrophically, got things wrong.
+
+> "We had dashboards for everything except the one thing that mattered: whether the model was still learning the right thing."
+> — An anonymous Zillow engineer, post-mortem interview, 2022
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -19,6 +38,8 @@ By the end of this module, you will:
 ---
 
 ## Why ML Monitoring Matters
+
+Think of ML monitoring like a pilot's instrument panel versus a car dashboard. A car dashboard tells you speed, fuel, and engine temperature—if something breaks, you'll hear it or feel it. A pilot's panel monitors dozens of hidden systems because at 35,000 feet, you can't just "pull over" when something feels wrong. ML models are like aircraft: they can be producing subtly wrong results while all surface metrics look fine. By the time you notice something's wrong, you might already be in a nosedive. You need instruments that monitor what the human eye can't see.
 
 Traditional software monitoring tracks uptime and latency. ML systems need more: they can fail silently while appearing healthy. A model can return predictions with low latency and high uptime, yet produce increasingly wrong results as the world changes.
 
@@ -78,6 +99,8 @@ Binary: works/broken             Gradual degradation
 ---
 
 ## Types of Drift
+
+Think of drift like changing road conditions for a self-driving car. Data drift is when the road surface changes—maybe you trained on dry asphalt, but now it's rainy and covered with leaves. Concept drift is when the traffic laws change—same roads, same cars, but red now means go. Both require your model to adapt, but detecting them requires watching different signals. Miss them, and your model drives confidently off a cliff.
 
 ### Data Drift (Covariate Shift)
 
@@ -250,6 +273,10 @@ def js_divergence(
 
 ## Model Performance Monitoring
 
+Think of model performance monitoring like tracking a patient's vital signs in an ICU—it's literally a matter of life and death for your ML system. You don't just check temperature once—you monitor it continuously, set alarms for dangerous ranges, and look at trends over time. A fever that spikes briefly is different from one that rises slowly over days. Similarly, model accuracy that drops suddenly (bug? bad deployment?) needs different treatment than accuracy that erodes gradually (drift). The metrics below are your model's vital signs—know what's normal, what's dangerous, and what trends to watch.
+
+> **💡 Did You Know?** Netflix monitors over 200 different metrics for their recommendation models. Their "A/B testing at scale" system evaluates model changes against millions of users simultaneously, catching performance degradation before it affects the broader user base. They estimate that their recommendation system drives 80% of what users watch—making monitoring not just important, but existential to their business.
+
 ### Key Metrics to Track
 
 ```
@@ -343,6 +370,8 @@ class SlidingWindowMonitor:
 
 ## Model Explainability
 
+Think of model explainability like a doctor explaining a diagnosis. Saying "you have diabetes" isn't helpful—you need to know *why*: "Your blood sugar is 250, your A1C is 9.5, and you have family history." SHAP and LIME do the same for model predictions. Instead of "loan denied," they tell you "denied because income-to-debt ratio is 0.7 (pushed prediction negative by 0.3), credit score is 580 (pushed negative by 0.2), and account age is 6 months (pushed negative by 0.1)." Now you can act: pay down debt, wait for better credit history, or appeal the decision.
+
 ### SHAP (SHapley Additive exPlanations)
 
 SHAP values explain how much each feature contributed to a prediction.
@@ -430,6 +459,10 @@ def explain_prediction_lime(model, X_train, X_sample, feature_names):
 ---
 
 ## Alerting and Observability
+
+Think of alerting like a smoke detector in your house. You don't want it to alarm every time you cook toast (alert fatigue), but you absolutely need it to wake you up during a real fire. The art of ML alerting is calibrating your "smoke detectors" to catch real problems without crying wolf. Too sensitive? Your team ignores alerts and misses the real fire. Not sensitive enough? You're Zillow, discovering you've lost half a billion dollars. Set thresholds based on business impact, not arbitrary statistics.
+
+> **💡 Did You Know?** Google's SRE team (Site Reliability Engineering) pioneered the concept of "error budgets" for alerting. Instead of trying to achieve 100% uptime (impossible), they set acceptable error rates (e.g., 99.9% availability = 8.76 hours downtime/year). As long as you stay within your "budget," you don't alert. This philosophy has been adopted by ML teams for model performance—allowing natural variance while alerting on true degradation.
 
 ### Prometheus Metrics
 
@@ -547,6 +580,10 @@ groups:
 ---
 
 ## Model Governance
+
+Think of model governance like the FDA approval process for medications. Before a drug reaches patients, it needs documentation of what it's for, who should (and shouldn't) take it, potential side effects, and ongoing monitoring requirements. Model governance is the same for AI: every model needs a "label" explaining its intended use, known limitations, and potential harms. In regulated industries like healthcare and finance, this isn't optional—it's the law. Even in unregulated domains, good governance saves you from deploying a "medication" that turns out to be poison.
+
+> **💡 Did You Know?** The EU AI Act, which went into effect in 2024, requires "high-risk" AI systems (used in hiring, credit scoring, healthcare, etc.) to maintain detailed documentation, undergo third-party audits, and implement continuous monitoring. Companies face fines up to €35 million or 7% of global revenue for non-compliance. Model governance went from "nice to have" to "mandatory" overnight.
 
 ### Model Card
 
@@ -807,6 +844,342 @@ MONITORING_WINDOWS = {
 ### Escalation:
 - Warning: ML team Slack channel
 - Critical: PagerDuty on-call
+```
+
+---
+
+## Hands-On Exercises
+
+### Exercise 1: Build a Drift Detector
+
+Create a complete drift detection system that monitors a model in production.
+
+**Your task**: Implement a drift monitor that:
+1. Accepts baseline (training) data
+2. Monitors incoming production data
+3. Calculates PSI for each feature
+4. Triggers alerts when drift exceeds thresholds
+
+```python
+class ProductionDriftMonitor:
+    """
+    Monitor production data for drift against training baseline.
+    """
+
+    def __init__(self, baseline_data: pd.DataFrame, alert_threshold: float = 0.1):
+        """
+        Initialize with baseline (training) data.
+
+        Args:
+            baseline_data: DataFrame with training features
+            alert_threshold: PSI threshold for alerts
+        """
+        self.baseline_data = baseline_data
+        self.alert_threshold = alert_threshold
+        self.feature_names = baseline_data.columns.tolist()
+        self.drift_history = []
+
+    def calculate_psi(self, feature: str, production_data: pd.DataFrame) -> float:
+        """Calculate PSI for a single feature."""
+        # YOUR CODE HERE
+        pass
+
+    def check_drift(self, production_data: pd.DataFrame) -> dict:
+        """
+        Check all features for drift.
+
+        Returns dict with:
+        - feature_psi: PSI for each feature
+        - drifted_features: list of features exceeding threshold
+        - alert_level: 'none', 'warning', or 'critical'
+        """
+        # YOUR CODE HERE
+        pass
+
+    def generate_report(self) -> str:
+        """Generate a human-readable drift report."""
+        # YOUR CODE HERE
+        pass
+
+# Test your implementation
+baseline = pd.DataFrame({
+    'age': np.random.normal(35, 10, 10000),
+    'income': np.random.normal(60000, 20000, 10000),
+    'credit_score': np.random.normal(700, 50, 10000)
+})
+
+# Simulate drift: production data is different
+production = pd.DataFrame({
+    'age': np.random.normal(40, 12, 1000),  # Shifted mean
+    'income': np.random.normal(60000, 25000, 1000),  # Increased variance
+    'credit_score': np.random.normal(680, 60, 1000)  # Shifted and spread
+})
+
+monitor = ProductionDriftMonitor(baseline, alert_threshold=0.1)
+results = monitor.check_drift(production)
+print(monitor.generate_report())
+```
+
+### Exercise 2: Create an ML Monitoring Dashboard
+
+Build a Grafana-compatible monitoring system using Prometheus metrics.
+
+**Your task**: Create a `ModelMonitor` class that:
+1. Exports prediction latency histograms
+2. Tracks prediction counts by model version
+3. Monitors rolling accuracy
+4. Alerts on performance degradation
+
+```python
+from prometheus_client import Counter, Histogram, Gauge, start_http_server
+from datetime import datetime
+
+class ModelMonitor:
+    """
+    Production ML model monitor with Prometheus metrics.
+    """
+
+    def __init__(self, model_name: str, model_version: str, port: int = 8000):
+        # Define your metrics here
+        # YOUR CODE HERE
+        pass
+
+    def record_prediction(
+        self,
+        input_features: dict,
+        prediction: float,
+        latency_ms: float
+    ):
+        """Record a single prediction."""
+        # YOUR CODE HERE
+        pass
+
+    def record_ground_truth(self, prediction_id: str, actual: float):
+        """Record ground truth when it becomes available."""
+        # YOUR CODE HERE
+        pass
+
+    def get_rolling_accuracy(self, window_size: int = 1000) -> float:
+        """Calculate accuracy over recent predictions."""
+        # YOUR CODE HERE
+        pass
+
+    def check_alerts(self) -> list:
+        """Check if any alert conditions are met."""
+        # YOUR CODE HERE
+        pass
+
+# Test your implementation
+monitor = ModelMonitor("fraud_detector", "v2.1.0", port=8000)
+
+# Simulate predictions
+for i in range(100):
+    latency = np.random.exponential(50)
+    monitor.record_prediction(
+        input_features={'amount': 100 * i, 'merchant': 'test'},
+        prediction=np.random.random(),
+        latency_ms=latency
+    )
+
+# Check for alerts
+alerts = monitor.check_alerts()
+for alert in alerts:
+    print(f"ALERT: {alert}")
+```
+
+### Exercise 3: Implement Model Explainability
+
+Build a prediction explainer that works with any scikit-learn compatible model.
+
+**Your task**: Create a `PredictionExplainer` class that:
+1. Accepts any trained model
+2. Generates SHAP explanations for predictions
+3. Produces human-readable explanations
+4. Identifies the top contributing features
+
+```python
+import shap
+
+class PredictionExplainer:
+    """
+    Explain individual predictions using SHAP.
+    """
+
+    def __init__(self, model, feature_names: list, background_data: np.ndarray):
+        """
+        Initialize explainer.
+
+        Args:
+            model: Trained model with predict() method
+            feature_names: List of feature names
+            background_data: Sample of training data for SHAP baseline
+        """
+        # YOUR CODE HERE
+        pass
+
+    def explain_prediction(
+        self,
+        instance: np.ndarray,
+        top_n: int = 5
+    ) -> dict:
+        """
+        Explain a single prediction.
+
+        Returns:
+        - prediction: Model output
+        - base_value: Expected value (average prediction)
+        - top_features: Top N contributing features with SHAP values
+        - explanation: Human-readable string
+        """
+        # YOUR CODE HERE
+        pass
+
+    def generate_text_explanation(
+        self,
+        feature_contributions: dict,
+        prediction: float
+    ) -> str:
+        """Generate natural language explanation."""
+        # YOUR CODE HERE
+        pass
+
+# Test your implementation
+from sklearn.ensemble import RandomForestClassifier
+
+# Train a simple model
+X_train = np.random.randn(1000, 5)
+y_train = (X_train.sum(axis=1) > 0).astype(int)
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Create explainer
+explainer = PredictionExplainer(
+    model,
+    feature_names=['f1', 'f2', 'f3', 'f4', 'f5'],
+    background_data=X_train[:100]
+)
+
+# Explain a prediction
+instance = np.array([[0.5, -1.2, 0.3, 0.8, -0.5]])
+explanation = explainer.explain_prediction(instance)
+print(explanation['explanation'])
+```
+
+### Exercise 4: Build a Model Governance System
+
+Create a complete model registry with governance features.
+
+**Your task**: Implement a `ModelRegistry` that:
+1. Tracks model versions and metadata
+2. Enforces approval workflows
+3. Maintains audit logs
+4. Validates models before deployment
+
+```python
+from dataclasses import dataclass
+from enum import Enum
+
+class ModelStatus(Enum):
+    DRAFT = "draft"
+    PENDING_REVIEW = "pending_review"
+    APPROVED = "approved"
+    DEPLOYED = "deployed"
+    DEPRECATED = "deprecated"
+
+@dataclass
+class ModelVersion:
+    name: str
+    version: str
+    status: ModelStatus
+    metrics: dict
+    created_by: str
+    created_at: datetime
+    approved_by: str = None
+    approved_at: datetime = None
+
+class ModelRegistry:
+    """
+    Model registry with governance controls.
+    """
+
+    def __init__(self, required_metrics: list, approval_required: bool = True):
+        """
+        Initialize registry.
+
+        Args:
+            required_metrics: Metrics that must be provided
+            approval_required: Whether approval is needed before deployment
+        """
+        # YOUR CODE HERE
+        pass
+
+    def register_model(
+        self,
+        name: str,
+        version: str,
+        model_artifact: any,
+        metrics: dict,
+        created_by: str
+    ) -> ModelVersion:
+        """Register a new model version."""
+        # YOUR CODE HERE
+        pass
+
+    def submit_for_review(self, name: str, version: str) -> bool:
+        """Submit model for approval review."""
+        # YOUR CODE HERE
+        pass
+
+    def approve_model(
+        self,
+        name: str,
+        version: str,
+        approved_by: str,
+        comments: str = ""
+    ) -> bool:
+        """Approve a model for deployment."""
+        # YOUR CODE HERE
+        pass
+
+    def deploy_model(self, name: str, version: str) -> bool:
+        """Deploy an approved model."""
+        # YOUR CODE HERE
+        pass
+
+    def get_audit_log(self, name: str = None) -> list:
+        """Get audit trail for models."""
+        # YOUR CODE HERE
+        pass
+
+# Test your implementation
+registry = ModelRegistry(
+    required_metrics=['accuracy', 'precision', 'recall'],
+    approval_required=True
+)
+
+# Register model
+version = registry.register_model(
+    name="fraud_detector",
+    version="v1.0.0",
+    model_artifact=model,
+    metrics={'accuracy': 0.95, 'precision': 0.92, 'recall': 0.88},
+    created_by="data_scientist@company.com"
+)
+
+# Try to deploy (should fail - not approved)
+try:
+    registry.deploy_model("fraud_detector", "v1.0.0")
+except ValueError as e:
+    print(f"Expected error: {e}")
+
+# Get approval and deploy
+registry.submit_for_review("fraud_detector", "v1.0.0")
+registry.approve_model("fraud_detector", "v1.0.0", "ml_lead@company.com")
+registry.deploy_model("fraud_detector", "v1.0.0")
+
+# View audit log
+for event in registry.get_audit_log("fraud_detector"):
+    print(event)
 ```
 
 ---

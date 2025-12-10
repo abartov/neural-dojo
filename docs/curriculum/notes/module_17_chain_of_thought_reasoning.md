@@ -22,6 +22,25 @@ By the end of this module, you will:
 
 ---
 
+## The Six Words That Changed AI
+
+**Tokyo. January 2022. 3:15 AM.**
+
+Jason Wei stared at his screen, exhausted but excited. He had just run the same math problem through Google's PaLM model with one tiny change: instead of asking for the answer directly, he added six words to the prompt.
+
+"Let's think step by step."
+
+The model that had been getting 17% accuracy on grade-school math problems suddenly jumped to 79%. Not from better training data. Not from a bigger model. Just six words.
+
+Wei had stumbled onto something profound: LLMs aren't bad at reasoning—they're bad at *showing their work*. Force them to externalize their thinking, and accuracy explodes.
+
+> "We found that simply prompting the model to 'think step by step' before answering can triple performance on some reasoning tasks. It's one of the simplest and most effective techniques we've discovered."
+> — Jason Wei, Google Research (Chain-of-Thought paper, 2022)
+
+This discovery—Chain-of-Thought prompting—became one of the most cited papers in AI. It's now built into every major AI assistant.
+
+---
+
 ## The Heureka Moment
 
 Here's the insight that will change how you build AI systems:
@@ -74,6 +93,8 @@ Why does this work? Because when the model generates intermediate steps, each st
 
 Large Language Models are fundamentally next-token predictors. They're trained to answer: "Given this context, what token comes next?"
 
+Think of an LLM like a brilliant improvisational actor who has read every book ever written. Ask them to play a mathematician, and they'll deliver a convincing performance—the mannerisms, the vocabulary, the confident delivery. But ask them to actually *prove* a theorem, and the performance falls apart. The actor was trained to *look like* they're doing math, not to actually do it.
+
 This creates a fundamental tension:
 
 ```
@@ -103,6 +124,8 @@ This creates a fundamental tension:
 ```
 
 Chain-of-Thought prompting solves this by making the intermediate steps part of the output. The model must generate reasoning tokens BEFORE answer tokens, forcing it to "do the work."
+
+Think of it like the difference between asking someone "What's 347 × 28?" and asking them to "Show your work." When you have to write down each step—347 × 8 = 2,776, then 347 × 20 = 6,940, then 2,776 + 6,940 = 9,716—you can't skip the actual computation. The written steps ARE the computation.
 
 ---
 
@@ -248,6 +271,8 @@ Few-shot CoT is more powerful than zero-shot because:
 3. **Domain Adaptation**: Examples can encode domain knowledge
 4. **Error Prevention**: Examples show what NOT to do
 
+Think of few-shot CoT like training a new employee by showing them how you handle similar problems. You don't just say "figure it out"—you walk them through example cases: "When a customer asks about refunds, first check their purchase date, then verify the item condition, then calculate the refund amount." After seeing a few examples, they understand not just WHAT to do, but HOW you want them to think about the problem.
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │            ZERO-SHOT vs FEW-SHOT COT                            │
@@ -277,6 +302,8 @@ Few-shot CoT is more powerful than zero-shot because:
 ### ReAct: Reasoning and Acting
 
 ReAct (Reason + Act) combines chain-of-thought reasoning with the ability to take actions (use tools). This is the foundation of modern AI agents.
+
+Think of ReAct like a detective solving a case. A bad detective just thinks about the crime from their desk—they might come up with theories, but they never verify them. A good detective alternates between thinking ("The suspect had motive, but do they have an alibi?") and investigating ("Let me check the security footage for that night"). ReAct gives AI this same investigative loop: think about what you know, act to learn more, observe the results, repeat.
 
 #### The ReAct Pattern
 
@@ -412,6 +439,8 @@ def react_loop(question: str, tools: dict, max_iterations: int = 10):
 ### Self-Consistency
 
 Self-consistency is a powerful technique that improves CoT reliability by sampling multiple reasoning paths and selecting the most common answer.
+
+Think of it like asking five experts to independently solve the same problem. If four of them get "42" and one gets "47," you're probably safe trusting "42." The outlier likely made an arithmetic error or misread something. Self-consistency applies this same wisdom-of-crowds principle to AI reasoning.
 
 #### The Insight
 
@@ -674,6 +703,76 @@ print(f"Total items: {total_items}")
 
 The model generates code, which is then executed for the actual answer. This eliminates arithmetic errors!
 
+Think of PAL like giving a student a calculator during a word problem test. They still need to understand the problem—what to multiply, what to add, in what order—but the actual number-crunching is outsourced to a tool that won't make silly mistakes. The LLM's job becomes translating human language into precise computational steps, which it's actually quite good at.
+
+#### 4. Structured Chain-of-Thought
+
+Sometimes you want even more control over the reasoning format. Structured CoT uses XML tags, JSON, or specific markers to organize reasoning:
+
+```python
+structured_cot_prompt = """
+Analyze this problem using structured reasoning.
+
+Problem: "Should we expand our product line to include organic options?"
+
+<analysis>
+<context>
+- Current market: mainstream products
+- Competitor landscape: 3 of 5 competitors have organic lines
+- Customer feedback: 23% of surveys mention organic preferences
+</context>
+
+<factors>
+<factor name="market_demand" importance="high">
+Growing organic food market (12% YoY growth)
+</factor>
+<factor name="cost" importance="medium">
+Organic ingredients cost 40% more on average
+</factor>
+<factor name="brand_alignment" importance="high">
+Company mission includes sustainability focus
+</factor>
+</factors>
+
+<reasoning>
+Step 1: Market demand is strong (12% growth) and customer surveys show interest (23%)
+Step 2: Cost increase (40%) can be offset by premium pricing (organic products command 30-50% premiums)
+Step 3: Brand alignment is strong - this fits our sustainability mission
+Step 4: Competitive pressure - 3/5 competitors already offer organic
+</reasoning>
+
+<conclusion>
+Recommendation: YES, expand to organic options
+Confidence: 78%
+Key risk: Supply chain complexity for organic certification
+</conclusion>
+</analysis>
+"""
+```
+
+This approach is particularly powerful for:
+- **Auditable decisions**: Each step is clearly labeled and can be reviewed
+- **Multi-criteria analysis**: Structure forces consideration of all factors
+- **Integration with systems**: Structured output can be parsed programmatically
+- **Consistent quality**: The template ensures nothing is forgotten
+
+#### 5. Chain-of-Verification (CoVe)
+
+A technique where the model generates an initial response, then generates verification questions, answers them, and revises if needed:
+
+```
+Initial Answer: "The capital of Australia is Sydney."
+
+Verification Questions:
+1. Is Sydney the largest city in Australia? → Yes
+2. Is the largest city always the capital? → No (e.g., New York vs DC)
+3. What is the purpose-built capital of Australia? → Canberra
+
+Revised Answer: "The capital of Australia is Canberra, not Sydney. While Sydney is the largest city, Canberra was purpose-built as the capital in 1913."
+```
+
+CoVe is especially effective for factual claims where the model might confuse similar concepts. It's like the model fact-checking its own homework.
+
 ---
 
 ### Practical Guidelines
@@ -721,6 +820,512 @@ The model generates code, which is then executed for the actual answer. This eli
 - Ask model to "be careful" (causes overthinking)
 - Use CoT for simple tasks (wastes tokens)
 - Trust complex arithmetic without tools
+
+---
+
+## Hands-On Practice
+
+### Exercise 1: Zero-Shot CoT Comparison
+
+Compare model performance with and without Chain-of-Thought prompting on reasoning tasks.
+
+```python
+"""
+Exercise 1: Zero-Shot CoT Comparison
+
+This exercise demonstrates the dramatic difference CoT makes
+on multi-step reasoning problems.
+"""
+
+from openai import OpenAI
+
+client = OpenAI()
+
+def test_cot_vs_direct(problem: str) -> dict:
+    """Compare direct prompting vs CoT on the same problem."""
+
+    # Direct prompting (no CoT)
+    direct_prompt = f"""
+{problem}
+
+Answer with just the final number.
+"""
+
+    # CoT prompting
+    cot_prompt = f"""
+{problem}
+
+Let's think step by step.
+"""
+
+    # Get direct answer
+    direct_response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": direct_prompt}],
+        temperature=0
+    )
+
+    # Get CoT answer
+    cot_response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": cot_prompt}],
+        temperature=0
+    )
+
+    return {
+        "problem": problem,
+        "direct_answer": direct_response.choices[0].message.content,
+        "cot_answer": cot_response.choices[0].message.content
+    }
+
+# Test problems of increasing difficulty
+test_problems = [
+    "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+
+    "If you have 3 quarters, 4 dimes, and 2 nickels, how much money do you have in cents?",
+
+    "A bat and a ball cost $1.10 together. The bat costs $1.00 more than the ball. How much does the ball cost?",
+
+    "Three friends split a restaurant bill. The total was $45, plus 20% tip. They each paid equally. One friend paid with a $20 bill. How much change did they receive?",
+]
+
+# Run comparisons
+for problem in test_problems:
+    result = test_cot_vs_direct(problem)
+    print(f"Problem: {result['problem'][:50]}...")
+    print(f"Direct: {result['direct_answer'][:50]}")
+    print(f"CoT: {result['cot_answer'][:100]}")
+    print("-" * 50)
+```
+
+**What to observe:**
+- The "bat and ball" problem is a classic cognitive bias trap (many humans get it wrong too!)
+- CoT helps catch the "all but 9 die" trick question
+- Complex multi-step problems show the biggest improvement
+
+### Exercise 2: Building a ReAct Agent
+
+Implement a simple ReAct agent that can use tools to answer questions.
+
+```python
+"""
+Exercise 2: ReAct Agent Implementation
+
+Build a reasoning agent that interleaves thinking and action.
+"""
+
+import re
+import json
+from typing import Callable
+
+# Define some simple tools
+def search(query: str) -> str:
+    """Simulate a search tool."""
+    # In production, this would call a real search API
+    knowledge_base = {
+        "python creator": "Guido van Rossum created Python in 1991.",
+        "eiffel tower height": "The Eiffel Tower is 330 meters tall.",
+        "moon distance": "The Moon is about 384,400 km from Earth.",
+        "speed of light": "The speed of light is 299,792,458 meters per second.",
+    }
+
+    for key, value in knowledge_base.items():
+        if key in query.lower():
+            return value
+    return "No relevant information found."
+
+def calculate(expression: str) -> str:
+    """Safely evaluate a mathematical expression."""
+    try:
+        # Only allow safe math operations
+        allowed_chars = set("0123456789+-*/.(). ")
+        if all(c in allowed_chars for c in expression):
+            result = eval(expression)
+            return str(result)
+        return "Invalid expression"
+    except Exception as e:
+        return f"Calculation error: {e}"
+
+def lookup(entity: str) -> str:
+    """Look up facts about an entity."""
+    facts = {
+        "France": "Country in Western Europe. Population: 67 million. Capital: Paris.",
+        "Python": "High-level programming language. Created by Guido van Rossum in 1991.",
+        "Einstein": "Physicist who developed theory of relativity. Nobel Prize 1921.",
+    }
+    return facts.get(entity, f"No facts found for '{entity}'")
+
+
+class ReActAgent:
+    """A simple ReAct reasoning agent."""
+
+    def __init__(self, llm_client, tools: dict[str, Callable]):
+        self.llm = llm_client
+        self.tools = tools
+
+    def parse_response(self, response: str) -> tuple[str, str, str]:
+        """Parse thought, action, and action input from response."""
+        thought_match = re.search(r"Thought:\s*(.+?)(?=Action:|$)", response, re.DOTALL)
+        action_match = re.search(r"Action:\s*(\w+)\s*\((.+?)\)", response)
+
+        thought = thought_match.group(1).strip() if thought_match else ""
+
+        if action_match:
+            action_name = action_match.group(1)
+            action_input = action_match.group(2).strip('"\'')
+            return thought, action_name, action_input
+
+        # Check for final answer
+        final_match = re.search(r"Final Answer:\s*(.+)", response, re.DOTALL)
+        if final_match:
+            return thought, "FINAL", final_match.group(1).strip()
+
+        return thought, None, None
+
+    def run(self, question: str, max_iterations: int = 5) -> str:
+        """Execute the ReAct loop."""
+
+        system_prompt = """You are an assistant that uses tools to answer questions.
+
+Available tools:
+- search(query): Search for information
+- calculate(expression): Do math calculations
+- lookup(entity): Get facts about an entity
+
+Always use this format:
+
+Thought: [your reasoning]
+Action: tool_name("argument")
+
+After getting an observation, continue with another Thought/Action or give Final Answer:
+
+Thought: [your reasoning]
+Final Answer: [your answer]
+"""
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"Question: {question}"}
+        ]
+
+        for i in range(max_iterations):
+            # Get model response
+            response = self.llm.chat.completions.create(
+                model="gpt-4",
+                messages=messages,
+                temperature=0
+            )
+
+            assistant_message = response.choices[0].message.content
+            messages.append({"role": "assistant", "content": assistant_message})
+
+            # Parse the response
+            thought, action_name, action_input = self.parse_response(assistant_message)
+
+            print(f"[Step {i+1}]")
+            print(f"Thought: {thought}")
+
+            if action_name == "FINAL":
+                print(f"Final Answer: {action_input}")
+                return action_input
+
+            if action_name and action_name in self.tools:
+                # Execute the tool
+                observation = self.tools[action_name](action_input)
+                print(f"Action: {action_name}({action_input})")
+                print(f"Observation: {observation}")
+
+                # Add observation to messages
+                messages.append({
+                    "role": "user",
+                    "content": f"Observation: {observation}"
+                })
+            else:
+                print(f"Unknown action: {action_name}")
+                break
+
+        return "Max iterations reached without final answer"
+
+
+# Test the agent
+if __name__ == "__main__":
+    from openai import OpenAI
+    client = OpenAI()
+
+    agent = ReActAgent(
+        llm_client=client,
+        tools={
+            "search": search,
+            "calculate": calculate,
+            "lookup": lookup
+        }
+    )
+
+    # Test questions
+    questions = [
+        "How tall is the Eiffel Tower in feet?",
+        "Who created Python and in what year?",
+        "If France's population is 67 million and each person produces 2kg of waste daily, how much total waste is produced per year in million kg?",
+    ]
+
+    for q in questions:
+        print(f"\n{'='*60}")
+        print(f"Question: {q}")
+        print('='*60)
+        answer = agent.run(q)
+        print(f"\n→ Answer: {answer}\n")
+```
+
+### Exercise 3: Self-Consistency Implementation
+
+Build a self-consistency wrapper that improves reliability through multiple samples.
+
+```python
+"""
+Exercise 3: Self-Consistency for Robust Reasoning
+
+Sample multiple reasoning paths and vote on the most common answer.
+"""
+
+from collections import Counter
+import re
+
+def extract_numeric_answer(response: str) -> str:
+    """Extract the final numeric answer from a CoT response."""
+    # Look for patterns like "the answer is X" or "= X" at the end
+    patterns = [
+        r"(?:answer|result|total).*?(\d+\.?\d*)",
+        r"=\s*(\d+\.?\d*)\s*$",
+        r"(\d+\.?\d*)\s*(?:is the answer|total|result)",
+    ]
+
+    for pattern in patterns:
+        matches = re.findall(pattern, response.lower())
+        if matches:
+            return matches[-1]  # Return last match
+
+    # Fallback: find any numbers and return the last one
+    numbers = re.findall(r'\d+\.?\d*', response)
+    return numbers[-1] if numbers else None
+
+
+def self_consistent_answer(
+    question: str,
+    llm_client,
+    num_samples: int = 5,
+    temperature: float = 0.7
+) -> dict:
+    """Get a robust answer using self-consistency."""
+
+    prompt = f"""
+{question}
+
+Let's work through this step by step.
+"""
+
+    answers = []
+    reasoning_paths = []
+
+    for i in range(num_samples):
+        response = llm_client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature
+        )
+
+        reasoning = response.choices[0].message.content
+        answer = extract_numeric_answer(reasoning)
+
+        answers.append(answer)
+        reasoning_paths.append(reasoning)
+
+        print(f"Sample {i+1}: Answer = {answer}")
+
+    # Vote on the most common answer
+    answer_counts = Counter(answers)
+    most_common = answer_counts.most_common(1)[0]
+
+    return {
+        "answer": most_common[0],
+        "confidence": most_common[1] / num_samples,
+        "all_answers": answers,
+        "vote_distribution": dict(answer_counts),
+        "reasoning_paths": reasoning_paths
+    }
+
+
+# Test self-consistency
+if __name__ == "__main__":
+    from openai import OpenAI
+    client = OpenAI()
+
+    # A problem where models sometimes make errors
+    problem = """
+    A store had 125 apples. They sold 47 in the morning and 38 in the afternoon.
+    A delivery of 60 apples arrived. Then they sold 29 more before closing.
+    How many apples did they have at the end of the day?
+    """
+
+    result = self_consistent_answer(problem, client, num_samples=5)
+
+    print(f"\n{'='*60}")
+    print(f"Final Answer: {result['answer']}")
+    print(f"Confidence: {result['confidence']*100:.0f}%")
+    print(f"Vote Distribution: {result['vote_distribution']}")
+```
+
+### Exercise 4: Building a Few-Shot CoT Prompt Library
+
+Create reusable CoT prompt templates for different reasoning domains.
+
+```python
+"""
+Exercise 4: Few-Shot CoT Prompt Library
+
+Build a library of domain-specific CoT prompts for consistent results.
+"""
+
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class CoTPromptTemplate:
+    """A template for few-shot CoT prompting."""
+    name: str
+    domain: str
+    description: str
+    examples: list[dict[str, str]]  # List of {"question": ..., "reasoning": ..., "answer": ...}
+    instructions: str
+
+    def build_prompt(self, question: str, max_examples: int = 2) -> str:
+        """Build a complete prompt with examples and the new question."""
+
+        # Start with instructions
+        prompt_parts = [self.instructions, ""]
+
+        # Add examples
+        for i, example in enumerate(self.examples[:max_examples]):
+            prompt_parts.append(f"Example {i+1}:")
+            prompt_parts.append(f"Q: {example['question']}")
+            prompt_parts.append(f"A: {example['reasoning']}")
+            prompt_parts.append(f"Therefore, the answer is: {example['answer']}")
+            prompt_parts.append("")
+
+        # Add the new question
+        prompt_parts.append("Now solve this problem:")
+        prompt_parts.append(f"Q: {question}")
+        prompt_parts.append("A: Let's think step by step.")
+
+        return "\n".join(prompt_parts)
+
+
+# Create a library of prompts
+COT_LIBRARY = {
+    "math_word_problem": CoTPromptTemplate(
+        name="Math Word Problems",
+        domain="mathematics",
+        description="Multi-step arithmetic word problems",
+        instructions="Solve the following math problems step by step. Show your work clearly.",
+        examples=[
+            {
+                "question": "A bakery makes 45 loaves of bread. They sell 23 in the morning and make 30 more. How many do they have?",
+                "reasoning": "Let's work through this:\n1. Start with 45 loaves\n2. After selling 23: 45 - 23 = 22 loaves\n3. After making 30 more: 22 + 30 = 52 loaves",
+                "answer": "52 loaves"
+            },
+            {
+                "question": "A movie theater has 8 rows with 12 seats each. If 67 seats are taken, how many are empty?",
+                "reasoning": "Let's calculate:\n1. Total seats: 8 × 12 = 96 seats\n2. Empty seats: 96 - 67 = 29 seats",
+                "answer": "29 empty seats"
+            }
+        ]
+    ),
+
+    "logical_deduction": CoTPromptTemplate(
+        name="Logical Deduction",
+        domain="logic",
+        description="Problems requiring logical reasoning and deduction",
+        instructions="Analyze the following logical problems. State your premises and derive conclusions step by step.",
+        examples=[
+            {
+                "question": "All mammals are warm-blooded. All dogs are mammals. Is a golden retriever warm-blooded?",
+                "reasoning": "Let's analyze:\n1. Premise 1: All mammals are warm-blooded\n2. Premise 2: All dogs are mammals\n3. A golden retriever is a type of dog\n4. Therefore, a golden retriever is a mammal (from premise 2)\n5. Therefore, a golden retriever is warm-blooded (from premise 1)",
+                "answer": "Yes, a golden retriever is warm-blooded"
+            }
+        ]
+    ),
+
+    "code_debugging": CoTPromptTemplate(
+        name="Code Debugging",
+        domain="programming",
+        description="Analyzing and fixing code issues",
+        instructions="Debug the following code by analyzing it step by step. Identify the issue and explain the fix.",
+        examples=[
+            {
+                "question": "Why does this code print wrong results? `for i in range(10): total += i`",
+                "reasoning": "Let's trace through:\n1. The loop iterates i from 0 to 9\n2. Each iteration adds i to 'total'\n3. BUG: 'total' is never initialized!\n4. Python will raise NameError: 'total' is not defined\n5. Fix: Add `total = 0` before the loop",
+                "answer": "The bug is that 'total' is not initialized. Add `total = 0` before the loop."
+            }
+        ]
+    ),
+
+    "causal_reasoning": CoTPromptTemplate(
+        name="Causal Reasoning",
+        domain="causality",
+        description="Analyzing cause and effect relationships",
+        instructions="Analyze the causal relationships in the following scenarios. Consider multiple factors and their interactions.",
+        examples=[
+            {
+                "question": "Sales increased after a new advertising campaign launched. Does this prove the campaign caused higher sales?",
+                "reasoning": "Let's analyze causation vs correlation:\n1. Observed: Sales increased after campaign launch\n2. This shows correlation (events happened together)\n3. But other factors could explain it:\n   - Seasonal shopping patterns\n   - Economic conditions improving\n   - Competitor going out of business\n   - New product features released simultaneously\n4. To prove causation, we would need:\n   - Control group (no advertising)\n   - Or A/B testing\n   - Or other causal inference methods",
+                "answer": "No, correlation doesn't prove causation. Other factors could explain the increase. A controlled experiment would be needed to establish causality."
+            }
+        ]
+    )
+}
+
+
+def solve_with_template(
+    question: str,
+    template_name: str,
+    llm_client,
+    temperature: float = 0
+) -> str:
+    """Solve a problem using a specific CoT template."""
+
+    if template_name not in COT_LIBRARY:
+        raise ValueError(f"Unknown template: {template_name}. Available: {list(COT_LIBRARY.keys())}")
+
+    template = COT_LIBRARY[template_name]
+    prompt = template.build_prompt(question)
+
+    response = llm_client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=temperature
+    )
+
+    return response.choices[0].message.content
+
+
+# Example usage
+if __name__ == "__main__":
+    from openai import OpenAI
+    client = OpenAI()
+
+    # Use the math template
+    math_problem = "A train leaves at 2:00 PM traveling at 60 mph. Another train leaves from the same station at 3:00 PM traveling at 80 mph. At what time will the second train catch up to the first?"
+
+    print("=== Math Problem ===")
+    print(f"Q: {math_problem}")
+    print(f"\nA: {solve_with_template(math_problem, 'math_word_problem', client)}")
+
+    # Use the logic template
+    logic_problem = "If it rains, the ground is wet. The ground is wet. Can we conclude it rained?"
+
+    print("\n=== Logic Problem ===")
+    print(f"Q: {logic_problem}")
+    print(f"\nA: {solve_with_template(logic_problem, 'logical_deduction', client)}")
+```
 
 ---
 

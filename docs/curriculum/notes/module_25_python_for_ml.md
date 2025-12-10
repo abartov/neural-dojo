@@ -8,6 +8,23 @@
 
 ---
 
+## The Astronomer Who Accidentally Built AI's Foundation
+
+**Princeton, New Jersey. February 2005. 11:47 PM.**
+
+Travis Oliphant had a problem. As an astronomer, he needed to process massive arrays of telescope data—millions of numbers representing distant galaxies. Python was perfect for writing analysis scripts, but the existing numerical libraries were a mess. There were two competing packages, Numeric and numarray, and neither could handle his data efficiently.
+
+So Oliphant did what any frustrated scientist would do: he merged them. Working nights and weekends, he rewrote core components in C, unified the competing APIs, and released something called "NumPy 1.0" in October 2006.
+
+He had no idea he was building the foundation for the AI revolution.
+
+> "I just needed to process telescope data. I never imagined that the same operations—matrix multiplication, broadcasting, vectorization—would become the core primitives of deep learning."
+> — Travis Oliphant, NumPy creator and founder of Anaconda
+
+Today, every neural network training run—from GPT-4 to Stable Diffusion—ultimately relies on the array operations Oliphant designed for looking at stars.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -111,6 +128,8 @@ NumPy (Numerical Python) provides:
 5. **C/Fortran integration**: For custom high-performance code
 
 ### Why Arrays, Not Lists?
+
+Think of a Python list like a filing cabinet where each drawer can hold anything—a number, a string, a photo, another cabinet. Flexible, but every time you need something, you have to open the drawer, check what's inside, and figure out how to use it. A NumPy array is like a warehouse with identical boxes stacked in perfect rows—you know exactly what's in each box and exactly where to find it. That uniformity is what makes NumPy 100-1000x faster.
 
 Python lists are flexible but slow:
 

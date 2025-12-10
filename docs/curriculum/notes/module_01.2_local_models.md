@@ -8,6 +8,27 @@
 
 ---
 
+## The $600/Year Mistake That Changed Everything
+
+**Austin, Texas. March 15, 2024. 8:43 PM.**
+
+Marcus stared at his credit card statement in disbelief. Three hundred and twelve dollars. In a single month. All from OpenAI.
+
+He'd been working on a side project—a code analysis tool—and had been iterating rapidly with GPT-4. Every experiment, every prompt tweak, every debugging session had added up. The tokens had accumulated silently while he was in the flow of coding.
+
+"There has to be another way," he muttered, opening a new browser tab.
+
+That night, Marcus discovered Ollama. By midnight, he had DeepSeek Coder running on his MacBook. The responses were slower, sure, but the quality was surprisingly good. And the cost? Zero. He ran the same prompts that had cost him fifty dollars the day before—completely free.
+
+Two months later, Marcus's approach had evolved. He used local models for 80% of his work: code completion, test generation, documentation, routine refactoring. For the hard problems—complex architecture decisions, tricky bugs—he'd spend a few dollars on Claude. His monthly API bill dropped from $300 to $15.
+
+> "Local models aren't a replacement for GPT-4 or Claude. They're more like a capable junior developer who handles the routine work so your expensive senior developer can focus on what matters. Once you think about it that way, the hybrid approach becomes obvious."
+> — Marcus Chen, at PyCon 2025
+
+That $600/year in savings? It funded Marcus's new GPU, which made his local models even faster. The cycle of value continued.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -90,6 +111,8 @@ Plus:
 ### What Are Local Models?
 
 **The Personality**: Local models are **self-sufficient coding assistants** - they live on your machine, not in the cloud.
+
+Think of local models like having a reference library in your home versus using the public library downtown. The public library (API models) has more books, expert librarians, and the latest publications—but you have to drive there, pay parking, and work within their hours. Your home library (local models) has fewer books, but it's always available, completely private, and costs nothing after the initial purchase.
 
 **Three types of AI model deployment**:
 
@@ -212,6 +235,8 @@ Plus:
 | **Setup** | 30min-2hrs | 5 minutes | 🏆 API |
 
 **Verdict**: **Use both!** Local for most work, API for complex tasks.
+
+Think of the hybrid approach like a restaurant kitchen. You don't fly in a Michelin-starred chef (expensive API model) to chop onions and wash dishes—that's what your reliable prep cooks (local models) are for. But when it's time to create the signature dish that brings customers back, you want the master chef's expertise. The kitchen runs best when everyone works together, each handling what they do best.
 
 ---
 
@@ -478,11 +503,17 @@ Then Apple released the **M1 chip** in November 2020. Everything changed.
 
 **The Personality**: Ollama is your **model manager** - like Docker for AI models.
 
+Think of Ollama like a video game console for AI models. Just like how a PlayStation lets you download, manage, and play games without worrying about hardware compatibility or installation headaches, Ollama handles all the complexity of running AI models. You just say "I want this model," and Ollama figures out the memory management, optimization, and APIs automatically.
+
 **What it does**:
 - Downloads and manages models
 - Runs models locally
 - Provides simple API
 - Works with coding tools (Aider, Continue.dev)
+
+> **💡 Did You Know?**
+>
+> Ollama was created by Jeffrey Morgan and Michael Chiang in 2023. They were frustrated that running local AI models required deep knowledge of CUDA drivers, quantization formats, and memory optimization. Their goal was simple: make local models as easy as `docker run`. Within a year, Ollama had over 500,000 users and became the de facto standard for running local models. The name "Ollama" is a playful take on "llama" (Meta's model family) combined with the idea of models being "portable" (O-llama, like a friendly llama you can carry around).
 
 ---
 

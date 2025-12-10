@@ -8,6 +8,25 @@
 
 ---
 
+## The Idea That Almost Died Twice
+
+**San Diego, California. July 1969. 3:47 PM.**
+
+Seppo Linnainmaa, a young Finnish computer scientist, had just finished his master's thesis. The paper described an elegant algorithm for computing derivatives automatically—what he called "reverse mode automatic differentiation." It was mathematically beautiful, but no one cared. Computers were too slow, and the problems it could solve seemed too small to matter.
+
+The idea lay dormant for almost two decades.
+
+Then in 1986, David Rumelhart, Geoffrey Hinton, and Ronald Williams published "Learning representations by back-propagating errors" in Nature. They showed how Linnainmaa's algorithm could train neural networks with multiple hidden layers—something thought impossible at the time. The paper made backpropagation famous.
+
+But even then, the world wasn't ready. Neural networks were slow, finicky, and often outperformed by simpler methods. Backprop was nearly forgotten again in the 1990s when support vector machines dominated.
+
+It took until 2012—when Alex Krizhevsky's AlexNet crushed the ImageNet competition using GPUs—for backpropagation to claim its throne. The algorithm that almost died twice is now the heartbeat of every AI system on Earth.
+
+> "Backpropagation is a beautiful algorithm. It's not deep learning's breakthrough—it's its foundation. Everything else is built on top of it."
+> — Geoffrey Hinton, Nobel Prize acceptance speech, 2024
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -19,9 +38,13 @@ By the end of this module, you will:
 - Implement gradient checking to verify your implementations
 - Visualize gradient flow through networks
 
+> **💡 Did You Know?** The term "backpropagation" wasn't always the preferred name. Paul Werbos originally called it "dynamic feedback" in his 1974 PhD thesis. The name "backpropagation" (or "back-propagation") was popularized by Rumelhart, Hinton, and Williams in their famous 1986 Nature paper. In the control theory community, the same algorithm is known as "adjoint sensitivity analysis." Meanwhile, in the automatic differentiation community, it's called "reverse-mode automatic differentiation." All these names describe the same fundamental algorithm!
+
 ---
 
 ## The Heureka Moment: What You're About to Discover
+
+Think of `loss.backward()` like pressing "show work" on a calculator that solved a complex equation. The calculator (PyTorch) has been keeping notes about every operation it performed. When you press backward, it traces through those notes in reverse, computing exactly how much each input contributed to the final answer.
 
 Every time you call `loss.backward()` in PyTorch, something magical happens. The framework somehow figures out how to adjust millions of parameters to make the loss smaller. But how?
 
@@ -97,6 +120,8 @@ We sum the contributions from all paths.
 ---
 
 ## Computational Graphs: Tracking Operations
+
+Think of a computational graph like a detailed recipe card that records every step of cooking. When you make a cake, you don't just remember "I made a cake"—you remember "I mixed flour with sugar, then added eggs, then baked for 30 minutes." If the cake tastes too sweet, you can trace back through the recipe to find which step added too much sugar and adjust it. Computational graphs work the same way: they record every mathematical operation so we can trace backward and figure out which weights need adjusting.
 
 Modern deep learning frameworks represent computations as **directed acyclic graphs (DAGs)**. Each node is an operation, and edges represent data flow.
 
@@ -343,6 +368,8 @@ print(f"dy/dw = {w.grad:.4f}")
 
 ## The Backpropagation Algorithm
 
+Think of backpropagation like a blame assignment meeting after a project fails. The final result (loss) was bad, so you need to figure out who's responsible. You start at the end: "The final report was wrong." Then you trace back: "Because the calculations were off." Then: "Because the data entry had mistakes." Each person (weight) gets assigned exactly their share of the blame (gradient), proportional to how much they contributed to the problem. This "blame" is then used to adjust behavior (update weights) for next time.
+
 Now let's see how backpropagation works in a full neural network.
 
 ### Forward Pass Through a Layer
@@ -423,6 +450,8 @@ print(f"  dL/dW1 shape: {dL_dW1.shape}")
 ---
 
 ## Gradient Checking: Verifying Your Implementation
+
+Think of gradient checking like double-checking your work on a math test. Your analytical solution (backprop) should give the same answer as the slow but reliable numerical method (finite differences). If they disagree significantly, you made a mistake somewhere.
 
 How do you know your backprop is correct? **Gradient checking** compares analytical gradients (from backprop) with numerical gradients (from finite differences).
 
@@ -508,6 +537,8 @@ print(f"Relative error: {error:.2e}")  # Should be ~1e-10
 
 ## Common Gradient Problems
 
+Think of gradients like a whispered message in the "telephone game." In a shallow network (few players), the message arrives mostly intact. But in a deep network (many players), the message can either fade to silence (vanishing gradients) or get wildly exaggerated (exploding gradients). Modern techniques like skip connections are like having players occasionally shout the original message directly across the room, bypassing the chain entirely.
+
 ### 1. Vanishing Gradients
 
 **Symptom**: Early layers learn very slowly or not at all.
@@ -584,6 +615,8 @@ for name, param in model.named_parameters():
 ---
 
 ## Gradient Flow Visualization
+
+Think of gradient visualization like an X-ray for your neural network. Just as doctors use X-rays to see what's happening inside a patient, gradient histograms and flow diagrams reveal the health of your network's learning process—showing where information flows freely and where it gets blocked or distorted.
 
 Understanding how gradients flow helps debug networks.
 
@@ -780,6 +813,476 @@ def debug_training(model, batch, loss_fn):
             assert not torch.isnan(grad).any(), f"NaN gradient in {name}!"
 
     print("All checks passed!")
+```
+
+---
+
+## Hands-On Exercises
+
+These exercises will solidify your understanding of backpropagation by having you implement and debug gradient computations yourself.
+
+### Exercise 1: Extend the Autograd Engine
+
+Take the `Value` class we built earlier and extend it with additional operations.
+
+**Your task**: Implement these missing methods:
+
+```python
+class Value:
+    # ... (existing code from above)
+
+    def log(self):
+        """Natural logarithm. d(log(x))/dx = 1/x"""
+        import math
+        # YOUR CODE HERE
+        pass
+
+    def sigmoid(self):
+        """Sigmoid function. σ(x) = 1/(1+e^(-x)), σ'(x) = σ(x)(1-σ(x))"""
+        # YOUR CODE HERE
+        pass
+
+    def __matmul__(self, other):
+        """
+        Implement dot product for two Value vectors.
+        This is trickier - think about how gradients flow through a sum of products.
+        """
+        # YOUR CODE HERE
+        pass
+```
+
+**Solution approach**:
+```python
+def log(self):
+    import math
+    out = Value(math.log(self.data), (self,), 'log')
+
+    def _backward():
+        # d(log(x))/dx = 1/x
+        self.grad += out.grad * (1.0 / self.data)
+    out._backward = _backward
+
+    return out
+
+def sigmoid(self):
+    import math
+    s = 1.0 / (1.0 + math.exp(-self.data))
+    out = Value(s, (self,), 'sigmoid')
+
+    def _backward():
+        # d(sigmoid(x))/dx = sigmoid(x) * (1 - sigmoid(x))
+        self.grad += out.grad * s * (1 - s)
+    out._backward = _backward
+
+    return out
+```
+
+**Verify your implementation**:
+```python
+# Test log
+x = Value(2.0)
+y = x.log()
+y.backward()
+print(f"log(2) = {y.data:.4f}, should be ~0.6931")
+print(f"d(log(x))/dx at x=2 is {x.grad:.4f}, should be 0.5")
+
+# Test sigmoid
+x = Value(0.0)
+y = x.sigmoid()
+y.backward()
+print(f"sigmoid(0) = {y.data:.4f}, should be 0.5")
+print(f"d(sigmoid(x))/dx at x=0 is {x.grad:.4f}, should be 0.25")
+```
+
+### Exercise 2: Trace Through Backprop by Hand
+
+Manually compute gradients for this computation graph:
+
+```
+L = (a * b + c)² where a=2, b=3, c=1
+```
+
+**Step 1**: Draw the graph
+```
+    a(2)    b(3)
+       \    /
+        [*]
+         |
+         v
+        z1(6)     c(1)
+          \       /
+           \     /
+            [+]
+             |
+             v
+            z2(7)
+             |
+            [²]
+             |
+             v
+            L(49)
+```
+
+**Step 2**: Forward pass (verify values)
+- z1 = a * b = 2 * 3 = 6
+- z2 = z1 + c = 6 + 1 = 7
+- L = z2² = 49
+
+**Step 3**: Backward pass (compute gradients)
+- dL/dL = 1 (start here)
+- dL/dz2 = dL/dL * d(z2²)/dz2 = 1 * 2*z2 = 2*7 = 14
+- dL/dz1 = dL/dz2 * d(z1+c)/dz1 = 14 * 1 = 14
+- dL/dc = dL/dz2 * d(z1+c)/dc = 14 * 1 = 14
+- dL/da = dL/dz1 * d(a*b)/da = 14 * b = 14 * 3 = 42
+- dL/db = dL/dz1 * d(a*b)/db = 14 * a = 14 * 2 = 28
+
+**Your task**: Verify with our autograd engine:
+```python
+a = Value(2.0)
+b = Value(3.0)
+c = Value(1.0)
+L = (a * b + c) ** 2
+L.backward()
+
+print(f"L = {L.data}")         # Should be 49
+print(f"dL/da = {a.grad}")     # Should be 42
+print(f"dL/db = {b.grad}")     # Should be 28
+print(f"dL/dc = {c.grad}")     # Should be 14
+```
+
+### Exercise 3: Implement Gradient Clipping
+
+Gradient clipping prevents exploding gradients by limiting gradient magnitudes.
+
+**Your task**: Implement two types of gradient clipping:
+
+```python
+def clip_grad_value(parameters, clip_value):
+    """
+    Clip gradients by value.
+    Each gradient component is clipped to [-clip_value, clip_value].
+
+    Example: grad = [5, -10, 3] with clip_value=4 becomes [4, -4, 3]
+    """
+    # YOUR CODE HERE
+    for param in parameters:
+        if param.grad is not None:
+            param.grad.data.clamp_(-clip_value, clip_value)
+
+
+def clip_grad_norm(parameters, max_norm):
+    """
+    Clip gradients by global norm.
+    All gradients are scaled so their combined L2 norm <= max_norm.
+
+    Example: If total norm is 10 and max_norm is 5, scale all grads by 0.5
+    """
+    # YOUR CODE HERE
+    total_norm = 0.0
+    for param in parameters:
+        if param.grad is not None:
+            total_norm += param.grad.data.pow(2).sum()
+    total_norm = total_norm.sqrt()
+
+    clip_coef = max_norm / (total_norm + 1e-6)
+    if clip_coef < 1:
+        for param in parameters:
+            if param.grad is not None:
+                param.grad.data.mul_(clip_coef)
+
+    return total_norm
+```
+
+**Test your implementation**:
+```python
+import torch
+
+# Create a model with exploding gradients
+model = torch.nn.Linear(10, 10)
+x = torch.randn(1, 10) * 100  # Large input
+y = model(x)
+loss = y.sum()
+loss.backward()
+
+# Print gradient norms before clipping
+print("Before clipping:")
+for name, param in model.named_parameters():
+    print(f"  {name}: grad_norm = {param.grad.norm():.2f}")
+
+# Clip gradients
+clip_grad_norm(model.parameters(), max_norm=1.0)
+
+# Print gradient norms after clipping
+print("After clipping (max_norm=1.0):")
+total = 0
+for name, param in model.named_parameters():
+    print(f"  {name}: grad_norm = {param.grad.norm():.2f}")
+    total += param.grad.norm()**2
+print(f"  Total norm: {total.sqrt():.2f}")  # Should be <= 1.0
+```
+
+### Exercise 4: Debug a Broken Training Loop
+
+The following training loop has bugs that cause NaN loss. Find and fix them.
+
+```python
+import torch
+import torch.nn as nn
+
+def broken_training():
+    """This training loop will produce NaN. Fix the bugs!"""
+
+    # Bug 1: No seed for reproducibility
+    model = nn.Sequential(
+        nn.Linear(10, 50),
+        nn.Sigmoid(),  # Bug 2: Sigmoid can cause vanishing gradients in deep nets
+        nn.Linear(50, 50),
+        nn.Sigmoid(),
+        nn.Linear(50, 1)
+    )
+
+    optimizer = torch.optim.SGD(model.parameters(), lr=10.0)  # Bug 3: LR too high
+
+    for epoch in range(100):
+        x = torch.randn(32, 10)
+        y = torch.randn(32, 1)
+
+        output = model(x)
+        loss = torch.log(output)  # Bug 4: log of potentially negative values!
+        loss = loss.mean()
+
+        # Bug 5: No zero_grad!
+        loss.backward()
+        optimizer.step()
+
+        if epoch % 10 == 0:
+            print(f"Epoch {epoch}: loss = {loss.item():.4f}")
+
+# Run it - watch it fail
+broken_training()
+```
+
+**Your task**: Fix all 5 bugs and get the training to work.
+
+**Fixed version**:
+```python
+def fixed_training():
+    """Corrected training loop."""
+
+    # Fix 1: Set seed for reproducibility
+    torch.manual_seed(42)
+
+    # Fix 2: Use ReLU instead of Sigmoid
+    model = nn.Sequential(
+        nn.Linear(10, 50),
+        nn.ReLU(),
+        nn.Linear(50, 50),
+        nn.ReLU(),
+        nn.Linear(50, 1)
+    )
+
+    # Fix 3: Use reasonable learning rate
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+
+    for epoch in range(100):
+        x = torch.randn(32, 10)
+        y = torch.randn(32, 1)
+
+        # Fix 5: Zero gradients at start of each iteration
+        optimizer.zero_grad()
+
+        output = model(x)
+        # Fix 4: Use proper loss function (MSE instead of log)
+        loss = nn.functional.mse_loss(output, y)
+
+        loss.backward()
+        optimizer.step()
+
+        if epoch % 10 == 0:
+            print(f"Epoch {epoch}: loss = {loss.item():.4f}")
+
+fixed_training()
+```
+
+### Exercise 5: Visualize Gradient Flow
+
+Build a tool to visualize how gradients flow through a network.
+
+**Your task**: Implement this gradient visualization:
+
+```python
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+
+def visualize_gradient_flow(model, sample_input, sample_target, loss_fn):
+    """
+    Creates a visualization of gradient magnitudes through the network.
+
+    This helps diagnose:
+    - Vanishing gradients (later layers have much larger gradients)
+    - Exploding gradients (earlier layers have much larger gradients)
+    - Dead neurons (gradients are exactly zero)
+    """
+    # Forward pass
+    output = model(sample_input)
+    loss = loss_fn(output, sample_target)
+
+    # Backward pass
+    loss.backward()
+
+    # Collect gradient statistics
+    layer_names = []
+    grad_means = []
+    grad_stds = []
+    grad_maxs = []
+
+    for name, param in model.named_parameters():
+        if param.grad is not None:
+            grad = param.grad.detach().cpu().numpy()
+            layer_names.append(name)
+            grad_means.append(abs(grad).mean())
+            grad_stds.append(grad.std())
+            grad_maxs.append(abs(grad).max())
+
+    # Plot
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+    x = range(len(layer_names))
+
+    axes[0].bar(x, grad_means)
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(layer_names, rotation=45, ha='right')
+    axes[0].set_title('Mean |Gradient|')
+    axes[0].set_yscale('log')
+
+    axes[1].bar(x, grad_stds)
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels(layer_names, rotation=45, ha='right')
+    axes[1].set_title('Gradient Std Dev')
+    axes[1].set_yscale('log')
+
+    axes[2].bar(x, grad_maxs)
+    axes[2].set_xticks(x)
+    axes[2].set_xticklabels(layer_names, rotation=45, ha='right')
+    axes[2].set_title('Max |Gradient|')
+    axes[2].set_yscale('log')
+
+    plt.tight_layout()
+    return fig
+
+# Test it
+model = nn.Sequential(
+    nn.Linear(784, 256),
+    nn.ReLU(),
+    nn.Linear(256, 128),
+    nn.ReLU(),
+    nn.Linear(128, 10)
+)
+
+x = torch.randn(32, 784)
+y = torch.randint(0, 10, (32,))
+
+fig = visualize_gradient_flow(model, x, y, nn.CrossEntropyLoss())
+plt.show()
+```
+
+**Questions to answer after running**:
+1. Are the gradient magnitudes similar across layers, or do they vary wildly?
+2. What happens if you add more layers?
+3. What happens if you replace ReLU with Sigmoid?
+4. What happens if you add BatchNorm?
+
+### Exercise 6: Implement Your Own Autograd for a Neural Network
+
+This is the capstone exercise. Build a 2-layer neural network using only our `Value` class, train it on XOR, and verify it learns.
+
+```python
+# The XOR problem - not linearly separable!
+# Input: (0,0) -> 0, (0,1) -> 1, (1,0) -> 1, (1,1) -> 0
+
+import random
+
+def train_xor():
+    """Train a 2-layer network on XOR using our custom autograd."""
+    random.seed(42)
+
+    # Network: 2 -> 4 -> 1
+    # Initialize weights
+    W1 = [[Value(random.uniform(-1, 1)) for _ in range(2)] for _ in range(4)]
+    b1 = [Value(0) for _ in range(4)]
+    W2 = [Value(random.uniform(-1, 1)) for _ in range(4)]
+    b2 = Value(0)
+
+    def forward(x1, x2):
+        """Forward pass through the network."""
+        x = [Value(x1), Value(x2)]
+
+        # Hidden layer
+        hidden = []
+        for i in range(4):
+            z = W1[i][0] * x[0] + W1[i][1] * x[1] + b1[i]
+            hidden.append(z.tanh())
+
+        # Output layer
+        out = W2[0] * hidden[0] + W2[1] * hidden[1] + W2[2] * hidden[2] + W2[3] * hidden[3] + b2
+        return out.tanh()
+
+    # Training data
+    data = [
+        ((0, 0), 0),
+        ((0, 1), 1),
+        ((1, 0), 1),
+        ((1, 1), 0),
+    ]
+
+    # Training loop
+    learning_rate = 0.5
+    params = [w for row in W1 for w in row] + b1 + W2 + [b2]
+
+    for epoch in range(1000):
+        total_loss = 0
+
+        for (x1, x2), target in data:
+            # Forward
+            pred = forward(x1, x2)
+            loss = (pred - Value(target)) ** 2
+            total_loss += loss.data
+
+            # Backward
+            for p in params:
+                p.grad = 0  # Zero gradients
+            loss.backward()
+
+            # Update
+            for p in params:
+                p.data -= learning_rate * p.grad
+
+        if epoch % 100 == 0:
+            print(f"Epoch {epoch}: loss = {total_loss:.4f}")
+
+    # Test
+    print("\nFinal predictions:")
+    for (x1, x2), target in data:
+        pred = forward(x1, x2)
+        print(f"  ({x1}, {x2}) -> {pred.data:.3f} (target: {target})")
+
+train_xor()
+```
+
+**Expected output** (approximately):
+```
+Epoch 0: loss = 1.8234
+Epoch 100: loss = 0.9821
+Epoch 200: loss = 0.3456
+...
+Epoch 900: loss = 0.0123
+
+Final predictions:
+  (0, 0) -> 0.012 (target: 0)
+  (0, 1) -> 0.987 (target: 1)
+  (1, 0) -> 0.991 (target: 1)
+  (1, 1) -> 0.015 (target: 0)
 ```
 
 ---

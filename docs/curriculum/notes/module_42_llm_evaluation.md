@@ -7,6 +7,25 @@
 
 ---
 
+## The Benchmark That Fooled Everyone
+
+**San Francisco, California. March 14, 2023. 11:45 AM.**
+
+Maya, a research engineer at a major AI lab, stared at her screen in disbelief. Their new model had just scored 94% on MMLU—the best result ever recorded. The team erupted in celebration. Champagne bottles appeared. Someone started drafting the press release.
+
+But something nagged at her.
+
+"Run the contamination check," she said, interrupting the festivities.
+
+Two hours later, the celebration was over. The model had seen 12% of the MMLU questions during training. The "breakthrough" was memorization, not intelligence. When they tested on truly novel questions, performance dropped to 78%—good, but not record-breaking.
+
+Maya's discovery would spark a reckoning across the industry. How many benchmark victories were real? How many models had simply memorized the test? The evaluation crisis had begun.
+
+> "Evaluating an LLM is like grading a student who has photographic memory, can access the internet during the exam, and might have written some of the questions."
+> — Maya Chen (fictional composite), reflecting on LLM evaluation, 2023
+
+---
+
 ## 🎯 Learning Objectives
 
 By the end of this module, you will:
@@ -23,6 +42,8 @@ By the end of this module, you will:
 ## 📖 The Evaluation Problem: Why It's So Hard
 
 ### The Fundamental Challenge
+
+Think of evaluating an LLM like judging a chef competition where contestants can cook anything from any cuisine, the judges have different taste preferences, and the chef might have secretly practiced on the exact dishes being judged. Traditional ML evaluation is like grading a math test—clear right answers. LLM evaluation is like judging art—subjective, multidimensional, and dependent on context.
 
 Evaluating language models is one of the hardest problems in AI. Unlike image classification where we can measure accuracy on labeled images, LLMs:
 
@@ -93,6 +114,8 @@ Level 5: REAL-WORLD VALUE
 ---
 
 ## 📊 Standard Benchmarks: The LLM Report Card
+
+Think of LLM benchmarks like standardized tests for college admissions. Just as the SAT tests math, reading, and writing, LLM benchmarks test knowledge (MMLU), coding (HumanEval), truthfulness (TruthfulQA), common sense (HellaSwag), and reasoning (GSM8K). And just like SAT scores, benchmark scores are useful but incomplete—a student with a perfect SAT might still struggle in college, and a model with perfect benchmarks might still fail in production. The test measures what's testable, not everything that matters.
 
 ### The Big Five Benchmarks
 
@@ -475,6 +498,8 @@ print(results["results"]["mmlu"]["acc"])  # Accuracy on MMLU
 
 ### HELM (Stanford)
 
+Think of HELM like a comprehensive medical checkup rather than just checking your temperature. While benchmarks like MMLU only test one dimension (knowledge), HELM checks seven vital signs: accuracy, calibration, robustness, fairness, bias, toxicity, and efficiency. A model might ace the "knowledge" test but fail the "fairness" checkup. HELM forces you to look at the whole picture, not just the headline metric.
+
 Holistic Evaluation of Language Models:
 
 ```
@@ -561,6 +586,8 @@ Notable tasks:
 ---
 
 ## 🤖 LLM-as-Judge: Using AI to Evaluate AI
+
+Think of LLM-as-Judge like using experienced teachers to grade student essays instead of hiring thousands of temporary workers. The "teacher" (a strong LLM like GPT-4 or Claude) has learned what good writing looks like through extensive training. It can evaluate thousands of essays quickly and consistently. The catch? The teacher has biases—it might prefer essays that match its own style. That's why we need to carefully design prompts, randomize response order, and periodically validate against human judgment.
 
 ### The Scaling Problem
 
@@ -704,6 +731,8 @@ Used for: Rapid model comparison without
 ---
 
 ## 👥 Human Evaluation: The Gold Standard
+
+Think of human evaluation like clinical drug trials. Automated tests (benchmarks) are like lab tests on cells—necessary but not sufficient. Eventually, you need real humans to tell you if the "treatment" (your model) actually helps them. But just like clinical trials, human evaluation is expensive, slow, and requires careful experimental design to avoid bias. That's why we use benchmarks and LLM-as-Judge for rapid iteration, then validate important decisions with human studies—just as pharma companies use lab tests before human trials.
 
 ### When You Need Human Evaluation
 

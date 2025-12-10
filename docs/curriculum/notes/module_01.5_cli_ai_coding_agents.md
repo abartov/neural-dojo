@@ -26,6 +26,8 @@ While agent-first IDEs like Windsurf and Cursor wrap AI capabilities in polished
 
 **Why CLI matters:**
 
+Think of CLI AI agents like having a skilled assistant who can follow you anywhere in your house. IDE-based agents are like assistants who only work in your living room—fantastic when you're there, but useless when you need to fix something in the basement (a remote server), the garage (a container), or the attic (a legacy system). CLI agents go wherever your terminal goes.
+
 Think about how you actually work. You're SSH'd into a server fixing a production issue. You're running tests in one terminal, watching logs in another. You're inside a tmux session with six panes. An IDE can't follow you there—but a CLI agent can.
 
 CLI agents are also inherently composable. They read stdin, write stdout, and respect the Unix philosophy. You can pipe code through them, script them, chain them together. They become part of your automation toolkit, not a separate application you switch to.
@@ -41,6 +43,10 @@ There's been a quiet revolution in terminal tooling. Modern terminals like Warp,
 ### Claude Code: Anthropic's Official CLI
 
 **What it is:** Claude Code is Anthropic's official command-line tool for interacting with Claude. It's designed as an "agentic" coding assistant that can read files, edit code, run commands, and manage complex multi-step tasks—all from your terminal.
+
+> **💡 Did You Know?**
+>
+> Claude Code was released by Anthropic in February 2025, marking the company's first official coding tool. Unlike third-party integrations, Claude Code is built by the same team that builds Claude itself, giving it deep access to Claude's capabilities. The tool is open-source (Apache 2.0 license), which means you can inspect exactly how it works, contribute improvements, or fork it for custom use cases. Anthropic designed it with enterprise security in mind—Claude Code never stores your code on Anthropic's servers beyond what's needed for the API call, and all MCP server connections stay local to your machine.
 
 **Architecture:**
 
@@ -93,6 +99,8 @@ Hook types:
 - **UserPromptSubmit**: When user sends a message
 
 **2. MCP (Model Context Protocol) Servers**
+
+Think of MCP servers like giving Claude Code a toolbelt. Without MCP, Claude can read files and run commands—like a worker with just their hands. With MCP, you're adding specialized tools: a database wrench, a GitHub screwdriver, a Kubernetes hammer. Each MCP server is a new tool that makes Claude capable of handling a new type of task.
 
 MCP extends Claude Code's capabilities by connecting it to external services. Instead of just reading files, Claude can query databases, call APIs, or interact with any custom service.
 
@@ -182,6 +190,8 @@ This is a FastAPI backend serving React frontend.
 **Key Features:**
 
 **1. Git-First Workflow**
+
+Think of Aider's git integration like having a meticulous lab notebook keeper. Scientists don't just do experiments—they document every step so they can reproduce results or understand what went wrong. Aider automatically records every code change in git, creating a detailed history you can traverse, undo, or learn from.
 
 Every change Aider makes is automatically committed:
 
@@ -382,6 +392,8 @@ Deep integration with AWS services and IAM.
 ---
 
 ## 🏗️ Building CLI Workflows
+
+Think of CLI workflow automation like building with LEGO bricks. Each CLI agent (Claude Code, Aider, Goose) is a specialized brick. Individually, they're useful. But when you snap them together in a pipeline—test runner → error analyzer → code fixer → committer—you create something far more powerful than any single tool.
 
 ### Scripting with Claude Code
 

@@ -6,6 +6,27 @@
 
 ---
 
+## The Black Friday Meltdown
+
+**Seattle. November 24, 2023. 6:02 AM.**
+
+The recommendation engine at ShopSmart was supposed to handle Black Friday traffic. It didn't.
+
+At 6:00 AM sharp, traffic spiked 40x. The single ML inference server—running on a beefy EC2 instance—handled the first 60 seconds heroically. By 6:02, response times hit 30 seconds. By 6:05, the server crashed entirely.
+
+Elena Martinez, the DevOps lead, scrambled to spin up more instances manually. By the time each new server was configured and running, the backlog had grown worse. Every minute of downtime cost the company an estimated $180,000 in lost sales.
+
+The post-mortem was brutal: "We had one server. When it died, everything died with it."
+
+The solution? Kubernetes. The following year, ShopSmart ran their recommendation engine on a Kubernetes cluster that automatically scaled from 3 pods to 47 pods during the Black Friday rush—and back down to 3 when traffic subsided. No manual intervention. No downtime. The entire infrastructure bill? 40% lower than the year before.
+
+> "Kubernetes isn't about containers. It's about never getting paged at 6 AM on Black Friday again."
+> — Elena Martinez, speaking at KubeCon 2024
+
+This module teaches you how to run ML workloads on Kubernetes—so your models can scale with demand, recover from failures, and let you sleep through Black Friday.
+
+---
+
 ## 🎯 Learning Objectives
 
 By the end of this module, you will:
@@ -21,6 +42,10 @@ By the end of this module, you will:
 ## 📖 Why Kubernetes for ML?
 
 ### The Scaling Challenge
+
+Think of your ML model like a restaurant. When it's just you cooking for friends, a home kitchen works fine. But when you need to serve 10,000 customers per hour, you need a commercial kitchen: standardized stations, multiple cooks, a system for handling rush hour, and the ability to bring in extra staff when needed.
+
+Kubernetes is that commercial kitchen for ML models. It handles the orchestration—scheduling workloads, scaling up and down, recovering from failures, and managing resources—so you can focus on the food (your model).
 
 Your ML model works great on your laptop. Now you need to:
 - Serve 10,000 requests per second
@@ -135,6 +160,16 @@ KUBERNETES CLUSTER ARCHITECTURE
 
 ### Key Concepts
 
+Think of Kubernetes concepts like a shipping company:
+
+- **Pod** = A shipping container (holds your cargo/application)
+- **Deployment** = The fleet manager (ensures the right number of containers are running)
+- **Service** = The loading dock (a stable address where trucks can pick up cargo)
+- **ConfigMap** = The shipping manifest (what's inside, where it's going)
+- **Secret** = The locked safe (valuable cargo that needs protection)
+- **PersistentVolume** = The warehouse (storage that exists even when containers move)
+- **Namespace** = Different wings of the warehouse (isolation between teams)
+
 ```yaml
 # Pod: Smallest deployable unit (one or more containers)
 # Deployment: Manages replica sets and rolling updates
@@ -164,9 +199,13 @@ Namespace (isolation boundary)
 
 ## 📦 Core Kubernetes Objects
 
+Understanding Kubernetes objects is like learning the vocabulary of a new language. Each object type has a specific purpose, and they compose together to build sophisticated systems. Let's walk through each one, starting with the simplest and building up to more complex abstractions.
+
 ### Pod
 
-The smallest deployable unit. Usually one container, but can be multiple.
+The smallest deployable unit in Kubernetes—and the most fundamental concept to understand. A Pod is a wrapper around one or more containers that share networking and storage. Usually you'll run one container per Pod, but there are cases (like sidecars for logging or service meshes) where multiple containers make sense.
+
+Think of a Pod like an apartment unit in a building. The apartment (Pod) has its own address and utilities, and the people living inside (containers) share the kitchen and bathroom. They can talk to each other easily, but communicating with people in other apartments requires going through the building's hallways (the cluster network).
 
 ```yaml
 # pod.yaml - Basic ML inference pod
@@ -203,7 +242,9 @@ spec:
 
 ### Deployment
 
-Manages pods with replicas, rolling updates, and rollbacks.
+A Deployment is Kubernetes' way of managing the lifecycle of your Pods. Rather than creating Pods directly (which would be fragile—if a Pod dies, it's gone), you create a Deployment that declares "I want 3 copies of this Pod running at all times." The Deployment controller watches over your Pods like a shepherd watching sheep: if one wanders off (crashes), the shepherd fetches it back (restarts the Pod).
+
+Deployments also handle updates gracefully. When you push a new version of your model, the Deployment can roll it out gradually—starting new Pods with the new version while keeping old ones running, then terminating old Pods only after new ones are healthy. If something goes wrong, you can roll back with a single command.
 
 ```yaml
 # deployment.yaml - ML inference deployment
@@ -256,7 +297,11 @@ spec:
 
 ### Service
 
-Stable network endpoint that load-balances across pods.
+Here's a problem: Pods come and go. They get new IP addresses when they restart. If your application needs to talk to your ML inference service, how does it find it?
+
+Enter the Service. A Service provides a stable network endpoint—a fixed IP address and DNS name—that routes traffic to healthy Pods matching a selector. Think of it like a phone number that forwards to whoever is on call. The doctors rotate, but the number stays the same.
+
+Services also handle load balancing. When you have 10 replicas of your inference server, the Service distributes requests across all of them automatically. No need to implement client-side load balancing or maintain a list of server IPs.
 
 ```yaml
 # service.yaml - Expose deployment
@@ -441,6 +486,10 @@ spec:
 
 ### Resource Requests vs Limits
 
+Think of requests and limits like renting an apartment. The request is your base rent—the space you're guaranteed even when the building is full. The limit is the maximum space you can expand into if your neighbors aren't using theirs.
+
+If you set a request of 1GB memory, Kubernetes guarantees you that 1GB. If you set a limit of 2GB, you can burst up to 2GB when available—but if you try to use more than your limit, you get evicted (OOMKilled).
+
 ```
 REQUESTS VS LIMITS
 ==================
@@ -517,9 +566,13 @@ spec:
 
 ## 📈 Autoscaling for ML
 
+Autoscaling is where Kubernetes really shines for ML workloads. Instead of guessing how many inference servers you'll need or paying for peak capacity 24/7, you let Kubernetes adjust resources based on actual demand.
+
+Think of autoscaling like a concert venue that can magically add or remove seats. For a Tuesday night jazz performance, you might only need 100 seats. For a Saturday rock concert, you need 10,000. Instead of building a permanent 10,000-seat venue (expensive, mostly empty), you have a venue that expands and contracts based on ticket sales.
+
 ### Horizontal Pod Autoscaler (HPA)
 
-Scale replicas based on metrics.
+The Horizontal Pod Autoscaler watches metrics (CPU, memory, or custom metrics like queue length) and adjusts the number of Pod replicas accordingly. When CPU usage exceeds your target, HPA spins up more Pods. When it drops, HPA terminates excess Pods. This is "horizontal" scaling—adding more instances of the same thing, like hiring more workers rather than buying a faster machine.
 
 ```yaml
 # hpa.yaml - Scale based on CPU

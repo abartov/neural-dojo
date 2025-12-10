@@ -43,6 +43,8 @@ Red teaming is a critical security practice used to:
 
 ### The Military Origins
 
+Think of red teaming like a vaccine for your AI system. Just as vaccines expose your immune system to weakened pathogens so it can build defenses, red teaming exposes your AI to simulated attacks so you can build stronger safeguards. You're intentionally getting sick (finding vulnerabilities) in a controlled way, so you won't get sick (suffer real attacks) in production.
+
 Red teaming originated in military strategy - a "red team" plays the adversary to test defenses. In cybersecurity, red teams simulate attackers to find vulnerabilities. For AI, red teaming involves systematically trying to make AI systems fail, behave unsafely, or reveal sensitive information.
 
 ```
@@ -228,6 +230,8 @@ EMOTIONAL_ATTACKS = [
 **Did You Know?** The term "prompt injection" was coined by Simon Willison in September 2022, just 10 months after ChatGPT's release. He drew the parallel to SQL injection, noting that both involve untrusted input being interpreted as commands. Unlike SQL injection which has well-understood defenses, prompt injection remains an unsolved problem in AI security.
 
 ### Indirect Prompt Injection
+
+Think of indirect prompt injection like a Trojan horse. Instead of attacking the gates directly (direct prompt injection), you hide your soldiers inside a gift (innocent-looking data) that gets willingly brought inside the walls. The AI trusts the data it's processing—a document, an email, a webpage—not realizing that hidden instructions are waiting to take control.
 
 Indirect prompt injection is more insidious - the attack comes through data the AI processes, not from the user directly:
 
@@ -493,6 +497,8 @@ JAILBREAK_CATEGORIES = {
 ## 🖼️ Adversarial Examples
 
 ### Beyond Text: Fooling AI Systems
+
+Think of adversarial examples like optical illusions for AI. Just as a checkerboard illusion can trick the human brain into seeing squares of different colors that are actually identical, adversarial examples exploit the "perceptual quirks" of neural networks—tiny, invisible changes that completely change what the AI sees.
 
 Adversarial examples are inputs designed to fool AI systems while appearing normal to humans:
 

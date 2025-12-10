@@ -60,9 +60,13 @@ The truth is:
 
 ### The Two Approaches to Customizing LLMs
 
+Think of the difference between RAG and fine-tuning like the difference between giving someone a reference book versus teaching them a new skill. With RAG, you hand the model a reference book at question time—it can look up facts but hasn't fundamentally changed. With fine-tuning, you're enrolling the model in a training course—it emerges with new capabilities baked into its "brain."
+
 When you want an LLM to work better for your specific use case, you have two fundamental approaches:
 
 #### 1. **Retrieval-Augmented Generation (RAG)**
+
+Think of RAG like an open-book exam. The student (LLM) hasn't memorized everything, but they can look up answers in their notes (retrieved documents) during the test. This works great when the information is factual and might change.
 
 RAG works by providing relevant context at inference time:
 
@@ -89,6 +93,8 @@ Answer:
 ```
 
 #### 2. **Fine-tuning**
+
+Think of fine-tuning like training a chef in a specific cuisine. After culinary school (pre-training), the chef knows how to cook generally. Fine-tuning is like apprenticing them at a sushi restaurant—they emerge with specialized skills permanently embedded, not just a recipe book to reference.
 
 Fine-tuning modifies the model's weights to change its behavior:
 
