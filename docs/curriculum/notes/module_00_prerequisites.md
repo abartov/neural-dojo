@@ -1,16 +1,15 @@
 # Module 0: Prerequisites & Environment Setup
-# Or: How I Learned to Stop Procrastinating and Actually Set Up My Dev Environment
 
+---
 **Last Updated**: 2025-11-22
 **Status**: Complete
 **Reading Time**: 2-3 hours
 **Prerequisites**: A computer, internet access, and the willingness to type commands into a terminal
-
 ---
 
-## The 8-Hour Nightmare That Inspired This Module
+San Francisco. January 15, 2024. 11:32 PM. Alex Chen, a developer at a San Francisco startup, stared at his terminal, exhausted and confused. He was supposed to be learning prompt engineering—his company had given him two weeks to prototype an AI feature. Instead, he'd spent the last eight hours debugging why his Python installation couldn't find the `anthropic` module. "Which Python is this even using?" he muttered, watching his third attempt fail with yet another cryptic error message.
 
-**San Francisco. January 15, 2024. 11:32 PM.**
+## The 8-Hour Nightmare That Inspired This Module
 
 Alex was supposed to be learning prompt engineering. Instead, he'd spent the last eight hours debugging why his Python installation couldn't find the `anthropic` module. He'd installed it. At least, he thought he had.
 
@@ -80,6 +79,8 @@ Remaining time: Actually learning AI instead of fighting tools!
 - **#1 reason students quit**: Frustration with tooling before they even start learning
 
 **Good news**: This module prevents all of that. Every minute invested here saves 10 minutes later.
+
+> **Did You Know?** The term "dependency hell" was coined in the late 1990s to describe the nightmare of managing software libraries. In 2019, a study by researchers at the University of Zurich found that **23% of all build failures** in open-source projects were caused by dependency issues—not actual code bugs. Python's virtual environment system, while sometimes confusing for beginners, has reduced this problem significantly. Before venvs became standard, teams would spend an average of 4-6 hours per developer per month resolving environment conflicts. That's nearly a full workday lost to tooling problems!
 
 ---
 
@@ -568,6 +569,8 @@ Cost = (50 * 200 / 1M * $3) + (50 * 300 / 1M * $15)
 - For curriculum: ~$2-3 total
 
 **Note**: New accounts may have rate limits. If you get rate limit errors, wait 24 hours or upgrade to paid tier.
+
+> **Did You Know?** OpenAI's API pricing has dropped dramatically over time. When GPT-3 launched in 2020, it cost $0.06 per 1,000 tokens—making a single conversation cost several dollars. By 2023, GPT-3.5-turbo had dropped to $0.002 per 1,000 tokens—a **30x reduction**. Today's GPT-4o-mini is even cheaper at $0.00015 per 1,000 input tokens. This exponential cost reduction follows a pattern similar to Moore's Law for computing. Researchers at Stanford estimated that the cost of AI inference is dropping approximately **70% per year**. What costs $10 today will cost $3 next year and less than $1 the year after. This is why now is the perfect time to learn AI development—the economics are becoming accessible to everyone.
 
 ---
 
@@ -1270,9 +1273,9 @@ pip install -r requirements.txt  # Install exact versions
 
 ---
 
-## Try This: Interactive Challenges
+## Hands-On Exercises
 
-### Challenge 1: Debug the Setup
+### Exercise 1: Debug the Setup
 
 I've intentionally broken this code. Can you fix it?
 
@@ -1321,7 +1324,7 @@ print(response.content[0].text)  # Fix: Access text correctly
 
 ---
 
-### Challenge 2: Cost Calculator
+### Exercise 2: Cost Calculator
 
 Write a function to estimate API costs:
 
@@ -1372,7 +1375,7 @@ def estimate_cost(
 
 ---
 
-### Challenge 3: What Happens If...?
+### Exercise 3: What Happens If...?
 
 Predict the output, then run to verify:
 
@@ -1515,6 +1518,8 @@ The `.env` file pattern comes from the **Twelve-Factor App** methodology, create
 
 **Fun fact**: GitHub scans every commit for API keys and automatically notifies providers if it finds one. They catch ~1,000 leaked keys per day!
 
+> **Did You Know?** The Twelve-Factor App methodology was written by Adam Wiggins and other Heroku engineers after observing patterns across thousands of deployed applications. Factor number three—"Config: Store config in the environment"—specifically recommends using environment variables because they're language-agnostic, can't be accidentally committed to version control, and are easy to change between deployments. The methodology has been adopted by companies like Netflix, Spotify, and Airbnb for their microservices architectures. When you create a `.env` file, you're following the same practices that power applications serving billions of users.
+
 ---
 
 ### Python's Virtual Environment Evolution
@@ -1538,6 +1543,8 @@ The `.env` file pattern comes from the **Twelve-Factor App** methodology, create
 - **#2 cause**: Hardcoding keys in code then pushing
 
 **Protection**: `.gitignore` + environment variables = 99.9% effective
+
+> **Did You Know?** In 2023, GitGuardian detected over **12.8 million hardcoded secrets** in public GitHub commits—a 28% increase from the previous year. The most commonly exposed secrets were API keys, followed by database credentials and private encryption keys. One infamous case involved a developer at Uber who accidentally committed AWS credentials to a public repository in 2016, leading to a data breach affecting 57 million users. The incident cost Uber $148 million in settlements and led to stricter security practices across the industry. Today, tools like GitHub's secret scanning, GitGuardian, and pre-commit hooks can catch most leaks before they happen—but only if you use them.
 
 ---
 
@@ -1629,6 +1636,9 @@ python -m pip install anthropic
 - Troubleshooting setup issues
 - Python AI best practices
 - Cost estimation and management
+- Understanding token economics
+- Debugging common setup problems
+- Following industry-standard security practices
 
 ---
 
@@ -1642,6 +1652,8 @@ In Module 1, you'll learn:
 - The mental model of AI pair programming
 - When to use AI vs traditional coding
 - Building your first project with AI assistance
+
+The environment you've just configured is your launchpad. Every AI application you build—from simple chatbots to sophisticated RAG systems—will rely on these fundamentals. The time you invested here will pay dividends throughout the entire curriculum and beyond.
 
 **The foundation is set. Let's build!** 🥋🧠⚡
 

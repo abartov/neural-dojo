@@ -1,12 +1,15 @@
 # Module 4: AI-Assisted Debugging & Optimization
-# Or: When Stack Overflow Isn't Enough
 
+---
 **Last Updated**: 2025-11-22
 **Status**: Complete
 **Reading Time**: 4-5 hours
 **Prerequisites**: Modules 1-3
-
 ---
+
+San Francisco. March 15, 2024. 2:47 AM. Sarah Chen, a senior developer at a fintech startup, stared at her terminal through exhausted eyes. Their payment processing system had been down for three hours. Users couldn't complete transactions. The CEO was texting her every fifteen minutes. The error logs showed nothing useful—just cryptic stack traces pointing to code that had worked perfectly for eighteen months.
+
+"Why now?" she muttered, scrolling through the same fifty lines of code for the twentieth time. Then she tried something different. She copied the entire error context into Claude and asked: "What could cause this code to suddenly fail when nothing changed?" The AI's response pointed to a subtle timezone handling issue that had been dormant until daylight saving time kicked in that very night. Forty-five minutes later, the system was back online. A bug that could have taken days to find was solved in under an hour—not because AI was magic, but because Sarah knew how to use it as a debugging partner.
 
 ## Learning Objectives
 
@@ -1171,6 +1174,8 @@ Include:
 
 ---
 
+> **Did You Know?** The concept of "rubber duck debugging" was popularized by the 1999 book "The Pragmatic Programmer" by Andrew Hunt and David Thomas. The technique involves explaining your code line-by-line to a rubber duck (or any inanimate object), which often helps developers spot bugs by forcing them to articulate their assumptions. Studies at Cambridge University found that developers who practiced explaining their code out loud found bugs 37% faster than those who silently stared at their screens. AI assistants work on a similar principle—except the "rubber duck" can actually respond with intelligent suggestions. The act of structuring your problem for AI often reveals the answer before AI even responds.
+
 ## Best Practices
 
 ### 1. Minimal Reproduction
@@ -1900,13 +1905,13 @@ In Module 5, we'll expand from debugging individual functions to building entire
 
 ---
 
-## STOP: Time to Practice!
+## Hands-On Exercises: Time to Practice!
 
 **You've learned the theory - now let's debug some real code!**
 
-Debugging is a skill you develop through practice. The examples below take you from simple syntax errors to complex performance optimization and systematic debugging patterns.
+Debugging is a skill you develop through practice. The exercises below take you from simple syntax errors to complex performance optimization and systematic debugging patterns.
 
-### Practice Path
+### Exercise Path
 
 **1. [Syntax & Type Debugging](../../examples/module_04/01_syntax_debugging.py)** - Start with the basics
    - 📖 Concept: AI-assisted syntax error resolution

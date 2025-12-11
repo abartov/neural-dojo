@@ -1,17 +1,13 @@
 # Module 34: Code Generation Models
 
+---
 **Last Updated**: 2025-11-27
 **Status**: 🟢 Complete
 **Duration**: 6-7 hours
 **Prerequisites**: Module 33 (Diffusion Models)
-
 ---
 
-## The Night Coding Changed Forever
-
-**San Francisco. June 29, 2021. 11:47 PM.**
-
-Nat Friedman, CEO of GitHub, was about to send the email that would divide the programming world.
+San Francisco. June 29, 2021. 11:47 PM. Nat Friedman, CEO of GitHub, was about to send the email that would divide the programming world.
 
 He'd been testing an internal tool for six months—one that watched you code and suggested the next line before you typed it. Not autocomplete. Not snippets. Full, intelligent code that understood what you were trying to build.
 
@@ -39,6 +35,48 @@ By the end of this module, you will:
 - Evaluate code generation with HumanEval, MBPP, and SWE-bench
 - Build practical code generation and completion systems
 - Understand how AI coding assistants (Copilot, Cursor, Claude Code) work
+
+---
+
+## The History of AI Code Generation: From Rule-Based to Neural
+
+Before we dive into modern code models, understanding the journey matters. Code generation didn't start with neural networks—it started with compilers.
+
+### The Pre-Neural Era (1950s-2015)
+
+**1950s-1960s: Compilers as Code Generators**
+
+The first "AI" that wrote code was the compiler. Grace Hopper's A-0 System (1952) took high-level mathematical notation and generated machine code. This seems mundane now, but at the time, the idea that a machine could write code was revolutionary.
+
+**1990s-2000s: IDE Autocomplete**
+
+Intelligent autocomplete in IDEs like Visual Studio and Eclipse represented the next leap. These systems used hand-crafted rules: parse the code, understand the types, suggest method names. IntelliSense (1996) could complete `string.` to suggest `.length`, `.toLowerCase()`, etc.
+
+But these systems had a ceiling. They couldn't generate new code—only suggest existing symbols.
+
+**2010-2015: Statistical Models**
+
+Researchers began treating code as "natural language for machines." Hindle et al.'s 2012 paper "On the Naturalness of Software" showed that code, like English, follows predictable patterns. N-gram models could predict the next token in code with surprising accuracy.
+
+> **Did You Know?** The "naturalness" paper found that code is actually MORE predictable than natural language. Software has an average cross-entropy of about 3.5 bits per token, while English prose averages about 7.5 bits. Why? Code has strict syntax, consistent naming conventions, and less ambiguity. This finding opened the door to treating code generation as a language modeling problem.
+
+### The Neural Revolution (2016-Present)
+
+**2016-2019: Sequence-to-Sequence Models**
+
+Early neural code models used LSTM/GRU architectures. They could generate short functions but struggled with anything longer than 10-20 lines. Memory bottleneck was the killer—these models forgot the beginning of long sequences.
+
+**2020: GPT-3 Writes Code**
+
+When GPT-3 launched, researchers were surprised: despite training primarily on text, it could write reasonable code. This was an emergent capability—no one explicitly trained for it. The model had seen enough code in its web crawl to learn programming patterns.
+
+**2021: The Codex Moment**
+
+OpenAI fine-tuned GPT-3 on 54 million GitHub repositories. The result was Codex, and the improvement was dramatic. Where GPT-3 solved 0% of HumanEval on the first try, Codex solved 28.8%. With sampling, 70.2%. GitHub Copilot launched, and AI-assisted coding went mainstream.
+
+**2023-2024: Open Models Catch Up**
+
+Meta's CodeLlama, BigCode's StarCoder, and DeepSeek Coder showed that open-source models could match or exceed proprietary ones. The democratization of code AI had begun.
 
 ---
 
@@ -147,6 +185,10 @@ Modern code models share common architectural patterns:
 
 ## 📚 Fill-in-the-Middle (FIM): The Key Innovation
 
+Fill-in-the-Middle is arguably the most important innovation in code models since the transformer architecture itself. Without FIM, code models can only append text at the end of a file. With FIM, they can insert code anywhere—which is how developers actually write code.
+
+Understanding FIM deeply is essential for anyone building code generation systems. It affects prompt construction, training data preparation, and inference strategies. A code model without FIM is like a text editor without an insert cursor—technically functional but missing the most important capability.
+
 ### Why Completion Isn't Enough
 
 Here's the problem with standard language models: they write like a typewriter—only forward, never back.
@@ -252,6 +294,12 @@ def apply_fim_transform(code: str, fim_rate: float = 0.5) -> str:
 
 ## 🏆 The Code Model Landscape
 
+The landscape of code models has evolved rapidly since 2020, with new architectures, training techniques, and specialized models emerging every few months. Understanding this landscape helps you choose the right model for your use case and anticipate where the field is heading.
+
+What's remarkable about this evolution is how quickly open-source models have caught up to proprietary ones. In 2021, Codex was years ahead of anything publicly available. By 2024, open models like DeepSeek Coder and StarCoder2 match or exceed proprietary models on most benchmarks. This democratization has transformed code generation from an exclusive capability to a commodity that any developer can leverage.
+
+The key lesson from this history: model architecture matters less than you think. Training data quality, tokenizer design, and context length matter more. The models that win aren't necessarily the biggest—they're the ones trained most thoughtfully on the best data.
+
 ### Evolution of Code Models
 
 ```
@@ -319,6 +367,32 @@ Timeline of Major Code Models:
 | StarCoder2-15B | 15B | 16K | 46.3% | Yes | Yes |
 | Codestral-22B | 22B | 32K | 57.1% | Partial | Yes |
 
+### Choosing the Right Model for Your Use Case
+
+The "best" code model depends entirely on your constraints and requirements. Here's a decision framework:
+
+**For IDE Autocomplete (latency-critical):**
+- **Priority**: Speed over accuracy. Developers won't wait 500ms for a suggestion.
+- **Choice**: DeepSeek Coder 1.3B or StarCoder2-3B (run locally)
+- **Why**: p95 latency under 100ms on consumer hardware, good enough suggestions
+
+**For Code Review/Analysis (accuracy-critical):**
+- **Priority**: Correctness over speed. Better to be right than fast.
+- **Choice**: GPT-4 or Claude 3.5 Sonnet via API
+- **Why**: Highest reasoning capability, better at understanding code semantics
+
+**For Enterprise Deployment (privacy-critical):**
+- **Priority**: Data stays on-premise. Can't send proprietary code to third parties.
+- **Choice**: CodeLlama-34B or DeepSeek Coder 33B (self-hosted)
+- **Why**: Open weights, can run on your infrastructure
+
+**For Startup Budget (cost-critical):**
+- **Priority**: Minimize API costs while maintaining quality.
+- **Choice**: Hybrid approach—small local model for autocomplete, API for complex tasks
+- **Why**: 90% of completions are routine; save API calls for what matters
+
+> **Did You Know?** Cursor's approach—using a hierarchy of models—has become the industry standard. They use a fast, small model for keystroke-level predictions, a medium model for line completions, and route complex multi-file edits to Claude or GPT-4. This "model routing" strategy reduces API costs by 80% while maintaining quality on difficult tasks.
+
 ### Specialized Variants
 
 **CodeLlama Family:**
@@ -338,6 +412,10 @@ CodeLlama Base (7B/13B/34B)
 ---
 
 ## 📊 Evaluating Code Generation
+
+Evaluating code generation models is fundamentally harder than evaluating text models. With text, you can measure fluency, coherence, and relevance through metrics like perplexity and human preference ratings. With code, there is an objective truth: does it run? Does it produce the correct output? Does it handle edge cases?
+
+This binary nature of code correctness has shaped how we evaluate code models. The field has converged on benchmark suites that execute generated code against test cases, providing ground truth that text evaluation can only dream of.
 
 ### HumanEval: The Standard Benchmark
 
@@ -424,15 +502,24 @@ SWE-bench uses real GitHub issues from popular projects:
 ```
 
 **Why SWE-bench Matters:**
+
+SWE-bench represents a fundamental shift in how we think about code generation evaluation. Unlike HumanEval, which tests whether a model can implement a well-specified function in isolation, SWE-bench tests whether a model can operate as a software engineer. The model must navigate a real codebase with hundreds of files, understand interconnected systems, diagnose a bug from an issue description, and produce a patch that fixes the problem without breaking anything else.
+
+The difficulty gap is enormous:
 - Tests real software engineering (not isolated functions)
-- Requires understanding large codebases
-- Current models score ~15-25% (much harder!)
+- Requires understanding large codebases (not just the current file)
+- Demands reasoning about side effects and dependencies
+- Current models score ~15-25% (compared to 60%+ on HumanEval)
 
 **Did You Know?** When SWE-bench was released in 2023 by Princeton researchers, the best models solved only 1.3% of issues. By late 2024, agentic systems combining Claude with search and tool use reached ~49% on the full benchmark. The key insight? Code generation alone isn't enough—models need to search, read, understand, and iteratively refine. Carlos Jimenez, the lead author, designed SWE-bench specifically to resist "benchmark gaming" by using real issues that were created after model training cutoffs.
 
 ---
 
 ## 🛠️ Building Code Generation Systems
+
+Building production code generation systems requires thinking beyond the model itself. The model is just one component—you also need context gathering, prompt construction, post-processing, and evaluation. Each component introduces its own challenges and opportunities for improvement.
+
+The systems that work best treat code generation as an engineering problem, not a magic API call. They invest in infrastructure: caching for latency, fallbacks for reliability, monitoring for quality. They iterate continuously, using developer feedback to improve prompts and model selection.
 
 ### Basic Code Completion
 
@@ -553,6 +640,12 @@ class RepoContextBuilder:
 ---
 
 ## 💻 How AI Coding Assistants Work
+
+Understanding how commercial AI coding assistants work helps you build better systems and use existing tools more effectively. Each major tool takes a different architectural approach, reflecting different priorities: speed versus accuracy, privacy versus capability, simplicity versus power.
+
+The evolution of these tools mirrors the evolution of the field itself. Early tools focused on simple autocomplete—predict the next few tokens. Modern tools integrate search, planning, and multi-step reasoning. Future tools will likely blur the line between "assistant" and "developer," handling entire features from specification to deployment.
+
+What separates great coding assistants from mediocre ones isn't just the model—it's the entire system around the model. Context gathering, prompt engineering, result filtering, and user experience all matter as much as model capability. The best teams in this space have learned that a smaller model with better context beats a larger model with poor context every time.
 
 ### GitHub Copilot Architecture
 
@@ -682,6 +775,12 @@ Claude Code (which you're using!) takes an agentic approach:
 ---
 
 ## 🔍 Advanced Techniques
+
+The techniques in this section represent the cutting edge of code generation research. They address practical challenges that arise when deploying code models at scale: latency requirements, syntax correctness, and type safety. Understanding these techniques is essential for building production-quality systems.
+
+These aren't just academic exercises. Every major AI coding assistant uses some version of these techniques. GitHub Copilot uses speculative decoding for real-time suggestions. Cursor uses constrained generation to ensure syntactically valid completions. Type-aware generation is emerging as a key differentiator for IDE integrations.
+
+The common thread? Working with the structure of code, not against it. Code isn't just text—it has grammar, types, and semantics. Models that leverage this structure outperform models that treat code as arbitrary token sequences.
 
 ### Speculative Decoding for Speed
 
@@ -823,7 +922,76 @@ def type_guided_completion(
 
 ---
 
+## Production War Stories: When Code Generation Goes Wrong
+
+Learning from failures teaches more than studying successes. Here are real stories from production code generation deployments.
+
+### The $50,000 AWS Bill
+
+**Seattle. November 2023.** A startup deployed an AI coding assistant for their engineering team. The assistant was helpful—too helpful. When a junior developer asked it to "write a script to process all our S3 logs," the AI generated perfectly working code.
+
+The problem? The code didn't paginate. It tried to load all 47 million log files into memory simultaneously, spun up 200 Lambda functions in parallel, and transferred 3 TB of data in 45 minutes.
+
+**The damage:**
+- $52,000 AWS bill for data transfer and Lambda invocations
+- Production S3 bucket rate-limited (affecting real users)
+- 12 hours to identify and stop the runaway process
+
+**What went wrong?** The AI wrote code that worked on small test data. No one reviewed it before production. The AI had no understanding of scale, cost, or resource limits.
+
+**The fix:** Mandatory code review for all AI-generated code touching production resources. Added cost estimation prompts: "This code will process X items. Estimated cost: $Y. Proceed?"
+
+### The Security Nightmare
+
+**London. March 2024.** A fintech company used AI code generation for rapid prototyping. A developer asked the AI to "create an API endpoint for user password reset."
+
+The AI generated code that worked. It also:
+- Logged the password reset token to application logs
+- Used HTTP instead of HTTPS for the reset link
+- Didn't rate-limit the endpoint
+- Stored tokens in plain text in the database
+
+The code passed automated tests (which tested functionality, not security). It went to production. Three weeks later, a security researcher found the vulnerability during a bounty program.
+
+**The aftermath:**
+- Emergency security patch deployed
+- 10,000 users required to reset passwords
+- £50,000 bug bounty payout
+- Regulatory notification to ICO
+
+**What went wrong?** AI models learn from public code, which is often insecure. They reproduce common patterns, not best practices. Security testing wasn't part of the deployment process.
+
+**The fix:** Security-focused prompt templates. Mandatory security review for auth-related code. Integration with SAST tools before merge.
+
+### The Success Story: Stripe's Approach
+
+Not all stories are cautionary. Stripe's internal coding assistant shows how to do it right.
+
+**Their approach:**
+1. **Custom training**: Fine-tuned on internal code, learning Stripe's patterns and conventions
+2. **Context-aware**: Understands Stripe's APIs, internal libraries, and security requirements
+3. **Guardrails**: Hard blocks on generating code that touches sensitive systems without review flags
+4. **Feedback loop**: Engineers rate suggestions, improving the model continuously
+5. **Audit trail**: Every AI-generated code block is logged for compliance
+
+**Results:**
+- 45% faster PR velocity for routine code
+- 0 security incidents attributed to AI code (vs industry average of 2-3 per year for similar-sized teams)
+- 92% developer satisfaction
+
+The difference? Stripe treated AI code generation as an engineering system, not a magic tool. They built infrastructure around it.
+
+> **Did You Know?** Google's internal study found that AI-generated code has a 40% higher defect rate than human-written code when used without review. But with proper review processes, the defect rate drops to equal or below human baselines. The AI isn't the problem—the deployment process is.
+
+---
+
 ## 🎯 Practical Applications
+
+The techniques described in this module aren't just theoretical—they power real systems that developers use every day. This section provides concrete implementations for three common use cases: automated code review, test generation, and documentation generation.
+
+Each implementation follows production best practices: error handling, input validation, and graceful degradation. These aren't toy examples—they're starting points for real systems you can deploy.
+
+The common pattern across all these applications is the same: take unstructured input (code, requirements), add relevant context, construct a thoughtful prompt, call the model, and post-process the results. The magic is in the details—how you gather context, what you include in prompts, and how you validate outputs.
 
 ### 1. Code Review Bot
 
@@ -969,6 +1137,44 @@ Function with docstring:
 
 ---
 
+## Understanding Code Model Limitations
+
+Before diving into hands-on exercises, it's crucial to understand where code models fail. This knowledge will help you design systems that work around these limitations rather than stumbling into them.
+
+### Limitation 1: Context Window Boundaries
+
+Code models see a fixed window of context. When your cursor is in the middle of a large file, the model may not see imports at the top or helper functions at the bottom. This leads to suggestions that use undefined variables or incorrect APIs.
+
+**Mitigation**: Use context ranking algorithms to include the most relevant parts of the file, even if they're far from the cursor. Prioritize: (1) current function/class, (2) imports, (3) related functions, (4) file header.
+
+### Limitation 2: Project-Wide Understanding
+
+Models see individual files, not entire projects. They don't know your custom UserService exists, don't understand your architecture patterns, and can't infer your naming conventions unless you show them examples.
+
+**Mitigation**: Include examples of similar code from your project in the context. Use retrieval to find and inject relevant snippets. Some systems fine-tune on organization-specific code.
+
+### Limitation 3: Temporal Knowledge Cutoffs
+
+Models have training cutoffs. They don't know about APIs released after their training date, recent security vulnerabilities, or new best practices. A model trained in 2023 might suggest deprecated React patterns or insecure Node.js APIs.
+
+**Mitigation**: Include documentation snippets in context. Use retrieval-augmented generation with up-to-date documentation. Regularly update to newer model versions.
+
+### Limitation 4: Determinism Challenges
+
+The same prompt doesn't always give the same output. Temperature, sampling randomness, and subtle context changes all affect results. This makes debugging and testing difficult—a bug you can't reproduce is a bug you can't fix.
+
+**Mitigation**: Use temperature=0 for deterministic outputs in production. Implement output caching where appropriate. Build robust evaluation suites that test behavior across variations.
+
+### Limitation 5: Subtly Wrong Code
+
+The most dangerous failures are subtle ones—code that looks right, passes basic tests, but has hidden bugs. Off-by-one errors, incorrect edge case handling, security vulnerabilities, and race conditions are common.
+
+**Mitigation**: Never deploy AI-generated code without review. Use extensive test suites including edge cases. Run static analysis and security scanning. Implement the principle of least privilege for generated code.
+
+> **Did You Know?** A 2024 study by Microsoft Research found that developers accepted AI suggestions 26% of the time, but 12% of accepted suggestions were later modified or removed within the same session. More concerning: subtle bugs in AI-generated code took 2.4x longer to diagnose than bugs in human-written code because developers assumed the AI had considered cases it hadn't.
+
+---
+
 ## 🧪 Hands-On Exercises
 
 ### Exercise 1: Build a Simple Code Completer
@@ -1040,6 +1246,82 @@ class CodeSearchEngine:
 
 ---
 
+## The Economics of Code Generation
+
+Understanding the business side of code AI helps you make informed decisions.
+
+### Cost Breakdown
+
+**API-based Solutions:**
+
+| Provider | Model | Cost per 1M tokens (input/output) | Typical Monthly Cost (10-dev team) |
+|----------|-------|-----------------------------------|-----------------------------------|
+| OpenAI | GPT-4 Turbo | $10 / $30 | $500-2,000 |
+| Anthropic | Claude 3.5 Sonnet | $3 / $15 | $200-800 |
+| Google | Gemini 1.5 Pro | $3.50 / $10.50 | $250-900 |
+
+**Self-hosted Solutions:**
+
+| Setup | Hardware | Monthly Cost | Break-even |
+|-------|----------|--------------|------------|
+| Single A100 | Cloud rental | $2,000 | 20+ developers |
+| 4x A10G | Cloud rental | $1,200 | 15+ developers |
+| RTX 4090 (local) | One-time $1,600 | ~$50 (power) | 2-3 months |
+
+### ROI Calculation
+
+A typical developer costs $150,000/year fully loaded (~$75/hour). If AI tools save 20% of coding time:
+
+- **Annual savings per developer**: $30,000
+- **AI tool cost**: $20/month × 12 = $240/year (Copilot) or ~$2,000/year (heavy API usage)
+- **ROI**: 12-125× return on investment
+
+Even conservative estimates show AI coding tools pay for themselves quickly—assuming they're used effectively.
+
+### The Hidden Cost: Technical Debt
+
+Here's what the ROI calculations miss: AI can generate code faster than humans can review it. Teams that adopt AI without adjusting their review processes often find:
+
+- Code review queues grow 3-4×
+- Technical debt accumulates faster
+- Architecture coherence degrades
+- Debugging AI-generated code takes longer than writing from scratch
+
+The most successful teams counterintuitively slow down their AI usage until their review processes catch up.
+
+---
+
+## The Future of Code Generation
+
+Where is this field heading? Here are the trends shaping 2025 and beyond.
+
+### Trend 1: From Completion to Agent
+
+Current tools suggest code; future tools will write entire features. The shift from "autocomplete" to "agentic coding" is already underway:
+
+- **2021**: Complete the next line
+- **2023**: Complete the next function
+- **2024**: Complete multi-file changes with test coverage
+- **2025+**: "Implement this feature from spec" with PR-ready code
+
+### Trend 2: Specialized Domain Models
+
+General code models are being complemented by domain-specific ones:
+- **Security-focused models**: Trained to avoid vulnerabilities
+- **Performance-optimized models**: Know algorithmic complexity, suggest efficient patterns
+- **Framework-specific models**: Deep knowledge of React, Django, Kubernetes
+
+### Trend 3: Real-Time Collaboration
+
+Multi-model systems where AI "teammates" work alongside humans:
+- One model writes tests while another implements features
+- AI-AI code review before human review
+- Automatic refactoring suggestions as code evolves
+
+> **Did You Know?** Anthropic's internal research suggests that by 2027, more than 80% of production code will be AI-generated or AI-modified. But the role of human developers shifts, not disappears—from "writing code" to "specifying intent" and "reviewing output." The skills that matter change: architectural thinking, security intuition, and AI prompt engineering become more valuable than syntax knowledge.
+
+---
+
 ## 📚 Further Reading
 
 ### Papers
@@ -1072,15 +1354,74 @@ CodeLlama's 100K context window wasn't magic—it came from a clever RoPE (Rotar
 
 ## ✅ Knowledge Check
 
+Test your understanding of the material covered in this module. These questions cover the key concepts, from basic understanding to deeper comprehension of the tradeoffs involved in building code generation systems.
+
 1. **What is FIM and why is it important for code completion?**
+
+Fill-in-the-Middle allows models to see context both before and after the cursor position. This matters because developers typically insert code in the middle of existing code, not just at the end. Without FIM, a model suggesting code inside a function cannot see the return statement below the cursor, leading to suggestions that don't match the intended behavior.
 
 2. **Explain the difference between pass@1 and pass@100 metrics.**
 
+Pass@1 measures how often the first generated sample is correct—this reflects real-world utility since developers see one suggestion at a time. Pass@100 measures whether any of 100 generated samples is correct—this reflects model capability (what it could theoretically do with enough tries). A model might have pass@100 of 90% but pass@1 of only 30%, indicating it can solve problems but not reliably on the first try.
+
 3. **Why do code models need longer context windows than text models?**
+
+Code has long-range dependencies: a function might reference a class defined hundreds of lines earlier, use constants defined at file start, or call methods from imported modules. Understanding code requires seeing this broader context. Additionally, developers often work on multiple related files, and repository-level context is becoming increasingly important for accurate suggestions.
 
 4. **How does speculative decoding speed up code generation?**
 
+Speculative decoding uses a small, fast draft model to propose multiple tokens ahead, then verifies them in batch with the larger, more accurate target model. Since verification can be batched (all tokens checked in one forward pass), this is much faster than generating each token individually. The speedup comes from the high acceptance rate—most draft tokens are correct, and rejections only require falling back to the target model's distribution.
+
 5. **What makes SWE-bench harder than HumanEval?**
+
+HumanEval tests isolated function implementation with clear specifications. SWE-bench requires understanding entire codebases, locating relevant files from vague issue descriptions, reasoning about side effects across modules, and producing patches that don't break existing functionality. The gap represents the difference between "can generate code" and "can do software engineering."
+
+---
+
+## Interview Prep: What You'll Be Asked
+
+Code generation questions appear in ML engineering and AI product interviews. Here's what to expect.
+
+### Common Interview Questions
+
+**Q: "Explain FIM to a non-technical stakeholder."**
+
+**Strong Answer**: "Imagine you're writing a letter and you've written the greeting and the closing, but you need to fill in the middle. Traditional AI can only write forward—it starts at the beginning and goes to the end. FIM (Fill-in-the-Middle) training teaches the AI to look at what comes BEFORE and AFTER the cursor, then fill in the gap. This is essential for code completion because programmers often need to insert code in the middle of existing functions, not just append at the end."
+
+**Q: "Why can't you just use GPT-4 for everything instead of specialized code models?"**
+
+**Strong Answer**: "You can, and GPT-4 is excellent at code. But specialized models have advantages: (1) Tokenizer efficiency—code tokenizers use fewer tokens per line, giving more effective context. (2) FIM support—general models often lack this. (3) Cost—a 7B code model can run locally for free. (4) Latency—smaller models are faster, critical for real-time autocomplete. (5) Privacy—you can run code models on-premise. The tradeoff is capability: GPT-4 handles more complex reasoning and cross-domain tasks."
+
+**Q: "How would you evaluate if a code generation model is production-ready?"**
+
+**Strong Answer**: "I'd use multiple evaluation dimensions:
+1. **Functional correctness**: HumanEval pass@1 for quick sanity, pass@10 for capability ceiling
+2. **Real-world applicability**: SWE-bench to test actual software engineering tasks
+3. **Domain fit**: Custom benchmark on your codebase—does it know your APIs?
+4. **Security**: Run generated code through SAST tools, check for common vulnerabilities
+5. **Latency**: p50/p95 response times under production load
+6. **Developer acceptance**: A/B test suggestion acceptance rate
+I'd want HumanEval pass@1 > 40%, latency p95 < 200ms, and > 20% suggestion acceptance before production."
+
+**Q: "A developer says AI code suggestions are 'always wrong.' How would you investigate?"**
+
+**Strong Answer**: "I'd investigate systematically:
+1. **Sample their rejections**: Look at 20-30 declined suggestions. What's the pattern?
+2. **Context quality**: Are they working in files/languages well-represented in training?
+3. **Prompt construction**: Is the system capturing enough context?
+4. **Expectation mismatch**: Do they expect complete solutions when the model gives snippets?
+5. **Temperature/sampling**: Is the model too creative (high temp) or too boring (low temp)?
+6. **FIM usage**: Is the suffix being used? Missing suffix loses crucial context.
+Usually the issue is one of: wrong context, wrong model size for the task, or expectation mismatch."
+
+### Red Flags in Interviews
+
+Avoid these mistakes:
+- Saying "more data is always better" (data quality matters more)
+- Not mentioning security concerns with generated code
+- Focusing only on HumanEval (it's necessary but not sufficient)
+- Ignoring latency requirements for real-time completion
+- Not discussing human-in-the-loop review processes
 
 ---
 
@@ -1097,6 +1438,63 @@ After working through this module, here's what you should remember:
 4. **Pass@k is the right metric, but k matters.** Pass@1 measures practical utility (will the first suggestion work?). Pass@100 measures model capability (can the model solve this at all?). Both are useful for different purposes.
 
 5. **SWE-bench is the frontier.** HumanEval tests isolated functions. SWE-bench tests real software engineering: understanding codebases, finding bugs, writing patches. This is where models go from "code completer" to "AI engineer."
+
+6. **Security is a first-class concern.** AI models reproduce patterns from training data, which includes insecure code. Never deploy AI-generated code touching authentication, authorization, or sensitive data without expert security review. The convenience isn't worth the risk.
+
+7. **The best teams use AI strategically.** Not everything should be AI-generated. Use AI for boilerplate, routine implementations, and initial drafts. Save human expertise for architecture decisions, complex algorithms, and security-critical code. The 80/20 rule applies: AI handles 80% of routine work so humans can focus on the 20% that matters most.
+
+---
+
+## Common Mistakes and How to Avoid Them
+
+### Mistake 1: Trusting Without Verification
+
+```python
+# WRONG - Accept AI suggestion blindly
+def get_user_data(user_id):
+    # AI generated this - looks fine
+    return db.query(f"SELECT * FROM users WHERE id = {user_id}")  # SQL INJECTION!
+
+# RIGHT - Review and fix
+def get_user_data(user_id: int) -> dict:
+    # AI suggestion fixed with parameterized query
+    return db.query("SELECT * FROM users WHERE id = ?", (user_id,))
+```
+
+**Consequence**: Security vulnerabilities in production.
+
+### Mistake 2: Ignoring Context Limits
+
+```python
+# WRONG - Assume AI sees everything
+# The AI doesn't know your custom UserService exists
+user = create_user(data)  # AI suggests generic implementation
+
+# RIGHT - Provide context in prompts
+# "Using our UserService from services/user.py, create a user"
+user = user_service.create(data)  # AI now suggests correct pattern
+```
+
+**Consequence**: Code that works but doesn't fit your architecture.
+
+### Mistake 3: Over-relying on Auto-generated Tests
+
+```python
+# AI-generated test - looks comprehensive
+def test_calculate_discount():
+    assert calculate_discount(100, 10) == 90
+    assert calculate_discount(200, 20) == 160
+    # Missing: edge cases, invalid inputs, floating point precision
+
+# Better - Add edge cases manually
+def test_calculate_discount_edge_cases():
+    assert calculate_discount(0, 50) == 0  # Zero base
+    assert calculate_discount(100, 0) == 100  # No discount
+    with pytest.raises(ValueError):
+        calculate_discount(-100, 10)  # Invalid input
+```
+
+**Consequence**: False confidence in code correctness.
 
 ---
 
