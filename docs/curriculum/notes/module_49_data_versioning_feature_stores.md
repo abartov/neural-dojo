@@ -1027,6 +1027,22 @@ Start with DVC. When that's second nature, add Great Expectations. When feature 
 
 ---
 
+## Interview Preparation
+
+**Q: Why can't you just use Git for machine learning data?**
+
+Git stores complete file copies for every version. A 10GB dataset with 100 versions would need 1TB of storage. Git also has no concept of cloud storage backends or large file handling. DVC solves this by storing pointers in Git while keeping actual data in S3, GCS, or Azure Blob Storage. It's designed from the ground up for large binary files common in ML.
+
+**Q: How would you handle training-serving skew in production?**
+
+Training-serving skew occurs when features computed during training differ from production. The solution is a feature store like Feast that provides a single source of truth. Features are computed once, stored centrally, and served consistently to both training pipelines and online serving. This eliminates the "recompute features differently" anti-pattern.
+
+**Q: What's your approach to data validation in ML pipelines?**
+
+Use Great Expectations to define explicit contracts about your data. Run validation at every pipeline stage: after ingestion, after transformation, and before model training. Critical validations include: no null values in required columns, values within expected ranges, distributions matching historical data, and schema matching expectations. Integrate these as gates in CI/CD — failing validation stops the pipeline.
+
+---
+
 ## ✅ Knowledge Check
 
 1. **What problem does DVC solve that Git doesn't?**

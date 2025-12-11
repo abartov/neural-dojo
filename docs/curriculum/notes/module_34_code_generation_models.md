@@ -1498,6 +1498,248 @@ def test_calculate_discount_edge_cases():
 
 ---
 
+## Production War Stories
+
+### The $500K Copilot Dependency
+
+A fintech startup adopted GitHub Copilot across their 30-person engineering team. Productivity soared initially — developers reported 40% faster feature delivery. But six months later, problems emerged:
+
+1. **Code review time doubled**: AI-generated code often looked correct but had subtle bugs. Reviewers had to scrutinize every suggestion.
+2. **Debugging became harder**: Developers couldn't explain code they didn't write. "The AI did this" became a common (unhelpful) phrase.
+3. **Security vulnerabilities**: 3 critical SQL injection bugs shipped to production, all from accepted AI suggestions.
+
+**Lesson learned**: They implemented mandatory code provenance tracking and required developers to explain any AI-generated code in PR descriptions. Productivity returned, but with proper guardrails.
+
+### The Hallucinated API Disaster
+
+A team building an AWS integration accepted Copilot's suggestion for a boto3 call. The code looked perfect — proper error handling, pagination, the works. Problem: the API method `list_instances_with_tags()` doesn't exist. The AI hallucinated a plausible-sounding method name.
+
+The bug made it through code review (everyone trusted the AI knew AWS) and caused the deployment pipeline to fail at 2 AM on release day.
+
+**Lesson learned**: Always verify API method signatures against official documentation. AI models are trained on code, not API reality.
+
+---
+
+## Economics of Code Generation
+
+### Cost Analysis: Build vs Buy vs AI-Assist
+
+| Approach | Cost per 1000 LOC | Time | Quality |
+|----------|-------------------|------|---------|
+| Senior Developer (solo) | $500-800 | 40 hrs | High |
+| Junior + AI Copilot | $200-350 | 30 hrs | Medium-High |
+| AI Generation + Review | $100-200 | 15 hrs | Medium |
+| Pure AI (no review) | $20-50 | 2 hrs | Low-Risky |
+
+### ROI Calculation for Enterprise
+
+For a 100-developer organization:
+
+```
+Monthly Copilot Cost: 100 × $19 = $1,900
+Monthly Time Saved: 100 × 8 hrs × $75/hr = $60,000
+Net Monthly Benefit: $58,100
+Annual ROI: 3,057%
+```
+
+**Caveats**: This assumes proper training, security review processes, and mature code review practices. Without guardrails, the "savings" can turn into security incident costs ($200K-2M average per data breach).
+
+### When NOT to Use AI Code Generation
+
+1. **Security-critical code**: Crypto, auth, payment processing
+2. **Safety-critical systems**: Medical devices, aviation, automotive
+3. **Legally-sensitive code**: GDPR compliance, financial regulations
+4. **Novel algorithms**: AI can't create what it hasn't seen
+5. **Performance-critical paths**: AI often generates "correct but slow" code
+
+---
+
+## Interview Preparation
+
+**Q: How do code generation models like Copilot work?**
+
+They're large language models trained on billions of lines of code from public repositories. Given a context (file content, comments, function signatures), they predict the most likely next tokens. The model doesn't "understand" code — it's pattern matching at massive scale. That's why suggestions can look correct but contain subtle bugs.
+
+**Q: What's the difference between Copilot, CodeLlama, and Cursor?**
+
+Copilot uses OpenAI Codex (GPT-based), integrated into VS Code/JetBrains. CodeLlama is Meta's open-source model, available for local deployment. Cursor is an AI-first IDE that wraps multiple models with advanced features like codebase-wide context. Choice depends on: privacy requirements (CodeLlama for on-prem), features (Cursor for full IDE), and cost (Copilot for balanced).
+
+**Q: How would you integrate code generation into a secure development workflow?**
+
+Key safeguards: (1) Pre-commit hooks scanning for known vulnerability patterns, (2) Mandatory security review for AI-generated code touching auth/data, (3) Code provenance tracking — tag which code came from AI, (4) Regular dependency audits since AI often suggests outdated packages, (5) Context isolation — don't let AI see secrets in environment.
+
+**Q: What are the limitations of current code generation models?**
+
+Major limitations: (1) Hallucination of non-existent APIs/methods, (2) Context window limits (can't see entire codebase), (3) Training data cutoff (doesn't know latest framework versions), (4) No understanding of business logic or requirements, (5) Can't verify correctness of its own output. Models predict plausible code, not correct code.
+
+**Q: System Design — Build an AI coding assistant for enterprise**
+
+Key components: (1) Local model serving for data privacy (CodeLlama on-prem), (2) Codebase indexing for context retrieval (RAG over internal code), (3) Security scanning pipeline before suggestions shown, (4) User feedback loop to improve suggestions, (5) Audit logging for compliance. Architecture: VS Code extension → API Gateway → Model serving → Vector DB for codebase → Security scanner → Logging.
+
+---
+
+## Debugging and Troubleshooting
+
+### "AI Suggestions Are Irrelevant"
+
+**Symptoms**: Copilot suggests code that doesn't fit your project's patterns.
+
+**Root Causes and Fixes**:
+
+1. **Missing context**: Open related files in tabs — models use open files as context
+2. **Poor comments**: Add descriptive comments above the function you're writing
+3. **Inconsistent naming**: Follow your project's naming conventions consistently
+4. **Wrong file type**: Ensure file extension matches the language you're using
+
+```python
+# Instead of this (vague)
+def process():
+    pass
+
+# Write this (context-rich)
+def process_user_payment(user_id: int, amount: Decimal, currency: str = "USD") -> PaymentResult:
+    """Process a payment using Stripe API for the given user.
+
+    Uses our internal PaymentService from services/payment.py.
+    Follows company audit logging requirements.
+    """
+    pass  # Now AI has context for suggestions
+```
+
+### "Generated Code Has Bugs"
+
+**Verification Checklist**:
+
+| Check | What to Look For |
+|-------|------------------|
+| API existence | Method names actually exist in the library |
+| Type correctness | Parameters match expected types |
+| Error handling | All failure paths handled |
+| Edge cases | Empty inputs, nulls, boundaries |
+| Security | SQL injection, XSS, path traversal |
+| Performance | No O(n²) where O(n) is possible |
+
+### "AI Keeps Suggesting Deprecated Code"
+
+**Why it happens**: Training data cutoff means models don't know recent library updates.
+
+**Fixes**:
+1. Include version comments: `# Using TensorFlow 2.15`
+2. Add import statements before generating: `from tensorflow.keras import ...`
+3. Use inline documentation links: `# See: https://docs.library.com/v2/migration`
+4. Consider RAG-enabled tools like Cursor that can index documentation
+
+### Real-Time Model Comparison
+
+When evaluating which model to use, test with your actual codebase:
+
+```python
+# Test prompt for model comparison
+test_prompts = [
+    "Implement a rate limiter using Redis",
+    "Write a retry decorator with exponential backoff",
+    "Create a database migration for adding user preferences",
+    "Generate unit tests for the UserService class"
+]
+
+# Score each model on:
+# - Correctness (does it run?)
+# - Relevance (uses your patterns?)
+# - Security (no vulnerabilities?)
+# - Efficiency (reasonable performance?)
+```
+
+---
+
+## Real-World Success Stories
+
+### GitHub: Internal Copilot Adoption
+
+GitHub dogfoods Copilot internally. Their engineering team found:
+
+- **46% of code** written with Copilot enabled was AI-suggested
+- **55% faster** completion for repetitive tasks (boilerplate, tests)
+- **27% reduction** in context-switching (fewer Stack Overflow visits)
+
+But they also learned: senior engineers benefited more than juniors. Seniors knew when to accept vs reject suggestions. Juniors sometimes accepted buggy code without understanding it.
+
+**Key insight**: They implemented "Copilot mentorship" — pairing juniors with seniors specifically to learn when to trust AI suggestions.
+
+### Shopify: Security-First AI Coding
+
+Shopify processes billions in transactions. They built a custom code generation pipeline:
+
+1. **Semgrep integration**: Every AI suggestion scanned for security vulnerabilities
+2. **Custom model fine-tuning**: Trained on their internal coding standards
+3. **Blocklist patterns**: AI cannot suggest certain patterns (raw SQL, eval())
+
+Results after 6 months:
+- Zero security incidents from AI-generated code
+- 32% productivity improvement
+- 89% developer satisfaction
+
+**Architecture lesson**: They treat AI suggestions as "untrusted input" — same security posture as user-submitted data.
+
+### Stripe: Documentation-Driven Development
+
+Stripe's engineering team uses code generation differently. Instead of accepting inline suggestions, they:
+
+1. Write detailed docstrings and type hints first
+2. Let AI generate implementation based on spec
+3. Test against the documented contract
+4. Reject if implementation doesn't match spec
+
+This "spec-first" approach reduced bugs by 40% compared to traditional "accept suggestion, fix later" workflow.
+
+**Philosophy**: "The AI implements our spec; we don't adopt the AI's interpretation."
+
+### Meta: CodeCompose at Scale
+
+Meta deployed CodeCompose (their internal code model) to 20,000+ engineers:
+
+- **Acceptance rate**: 22% of suggestions accepted (higher than external tools)
+- **Languages**: Most useful for Hack, Python; less useful for C++
+- **Context matters**: Suggestions improved dramatically when internal libraries were in training data
+
+**Scaling insight**: They retrain monthly on internal repositories, keeping the model current with internal patterns and APIs.
+
+---
+
+## Future of Code Generation
+
+### What's Coming Next
+
+**Agent-Based Development**: Instead of suggestion-by-suggestion, AI agents will handle entire features. You'll describe "add user authentication with OAuth" and the agent will create routes, models, tests, and migrations. Claude Computer Use and Devin are early examples of this paradigm.
+
+**Multi-File Awareness**: Current tools see one file at a time. Next-gen tools (like Cursor) index your entire codebase, understanding how changes in one file affect others. This dramatically improves suggestion relevance for large projects.
+
+**Self-Correcting Models**: Models that run tests on their suggestions and iterate until tests pass. Instead of generating once and hoping, they'll generate-test-fix in a loop, catching more bugs before you see them.
+
+**Domain-Specific Models**: General code models are giving way to specialized versions. Expect models fine-tuned for: frontend (React/Vue), backend (Django/Rails), infrastructure (Terraform/Kubernetes), mobile (Swift/Kotlin), and data science (pandas/PyTorch).
+
+**Real-Time Documentation Grounding**: Models that can access live documentation APIs, ensuring suggestions use current library methods. No more hallucinated method names from outdated training data.
+
+### What Won't Change
+
+Despite all these advances, some fundamentals will remain constant: AI assists, but humans must verify. Security review stays absolutely essential for any production code. Understanding your own code is completely non-negotiable — you cannot debug what you don't understand. The best developers of the future will be those who leverage AI tools effectively while still maintaining deep technical expertise and sound engineering judgment.
+
+---
+
+## Key Takeaways
+
+1. **Code models are pattern matchers**, not code understanders — verify everything
+2. **Context is king**: Provide comments, open related files, use descriptive names
+3. **Security review is non-negotiable** for AI-generated code
+4. **Hallucination is real**: Always verify API methods exist
+5. **ROI is massive** when combined with proper guardrails
+6. **Training data cutoff matters**: Models don't know your latest dependencies
+7. **Enterprise needs guardrails**: Audit logging, security scanning, code provenance
+8. **Local models for privacy**: CodeLlama for sensitive codebases
+9. **Test AI suggestions rigorously**: Edge cases, security, performance
+10. **Human judgment remains essential**: AI assists, humans decide
+
+---
+
 ## ⏭️ Next Steps
 
 You now understand how AI coding assistants work under the hood! In Module 35, we'll explore **RLHF (Reinforcement Learning from Human Feedback)**—how models like ChatGPT learn to be helpful, harmless, and honest.

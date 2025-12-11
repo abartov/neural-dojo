@@ -1375,6 +1375,118 @@ Vary batch size from 8 to 512 and measure the effect on each.
 
 ---
 
+## Production War Stories
+
+### The $2.3 Million Training Collapse
+
+A major tech company trained a large language model for 6 weeks on expensive GPU clusters. At week 5, training loss suddenly spiked to infinity and never recovered. **Root cause**: No gradient clipping, and a rare data batch caused gradient explosion. They had to restart from scratch because their checkpoint from week 4 was corrupted.
+
+**Lesson learned**: Always use gradient clipping (max_norm=1.0), checkpoint frequently (every 1000 steps), and validate checkpoint integrity.
+
+### The BatchNorm Batch Size Bug
+
+A computer vision team deployed a model that worked perfectly in training but gave random predictions in production. The model used BatchNorm, but production inference ran with batch_size=1. BatchNorm's running statistics were wrong because they forgot to call `model.eval()`.
+
+```python
+# The bug that cost 3 weeks of debugging
+model = load_model(checkpoint)
+predictions = model(batch)  # WRONG: model still in train mode
+
+# The fix
+model = load_model(checkpoint)
+model.eval()  # Critical for BatchNorm and Dropout!
+with torch.no_grad():
+    predictions = model(batch)
+```
+
+**Lesson learned**: Always verify model mode. Add assertions in production code:
+```python
+assert not model.training, "Model must be in eval mode for inference"
+```
+
+---
+
+## Common Mistakes and Fixes
+
+### 1. Learning Rate Too High
+
+**Symptom**: Loss oscillates wildly or explodes to NaN
+
+**Fix**: Use learning rate finder, start with 1e-4 for Adam, 1e-2 for SGD
+
+### 2. Forgetting to Zero Gradients
+
+**Symptom**: Gradients accumulate, training diverges
+
+```python
+# Bug: gradients accumulate across batches
+for batch in dataloader:
+    loss = criterion(model(batch), targets)
+    loss.backward()
+    optimizer.step()  # Gradients keep accumulating!
+
+# Fix: zero gradients each step
+for batch in dataloader:
+    optimizer.zero_grad()  # Reset gradients
+    loss = criterion(model(batch), targets)
+    loss.backward()
+    optimizer.step()
+```
+
+### 3. Wrong Initialization for Activation
+
+**Symptom**: Dead neurons (ReLU) or vanishing gradients (sigmoid/tanh)
+
+```python
+# Wrong: Xavier for ReLU
+nn.init.xavier_uniform_(layer.weight)  # Assumes linear activation
+
+# Right: He/Kaiming for ReLU
+nn.init.kaiming_uniform_(layer.weight, nonlinearity='relu')
+```
+
+### 4. No Warmup for Large Learning Rates
+
+**Symptom**: Training crashes in first few batches
+
+```python
+# Add warmup: start low, ramp up over first 1000 steps
+warmup_steps = 1000
+for step in range(total_steps):
+    if step < warmup_steps:
+        lr = base_lr * (step / warmup_steps)
+    else:
+        lr = base_lr
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
+```
+
+---
+
+## Interview Preparation
+
+**Q: What's the difference between BatchNorm and LayerNorm? When would you use each?**
+
+BatchNorm normalizes across the batch dimension — great for CNNs with large batches (32+). LayerNorm normalizes across feature dimensions — essential for Transformers and when batch sizes vary. Use BatchNorm for computer vision, LayerNorm for NLP and variable batch sizes.
+
+**Q: Why does gradient clipping help training?**
+
+Gradient clipping prevents exploding gradients by capping the gradient norm. Without it, a single bad batch can produce huge gradients that destroy learned weights. It's essential for RNNs and helpful for any deep network. Typical values: max_norm=1.0 for RNNs, max_norm=5.0 for Transformers.
+
+**Q: Explain the 1cycle learning rate policy.**
+
+1cycle starts with a low learning rate, ramps up to a maximum over 30% of training, then gradually decreases back down. It achieves "super-convergence" — training faster with better final accuracy than constant learning rate. The key insight is that high learning rates help escape local minima early in training.
+
+**Q: How would you debug a model that trains well but performs poorly on validation?**
+
+This is overfitting. Debugging steps: (1) Add/increase dropout, (2) Use data augmentation, (3) Add L2 regularization (weight decay), (4) Early stopping based on validation loss, (5) Reduce model capacity, (6) Get more training data. Monitor the gap between train and val loss — should be small.
+
+**Q: What learning rate would you start with for a new project?**
+
+For Adam optimizer, start with 1e-4 (0.0001) — it's a safe default that works for most architectures. For SGD with momentum, try 1e-2 (0.01). Then use a learning rate finder: train for a few hundred steps while exponentially increasing LR from 1e-7 to 1. Plot loss vs LR and pick a value just before the loss starts climbing. Always add warmup for the first 5-10% of training steps.
+
+---
+
 ## Deliverables
 
 - [ ] **Training Toolkit**: A reusable training class with all best practices
