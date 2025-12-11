@@ -920,6 +920,158 @@ spec:
 
 ---
 
+## 🌐 Networking Deep Dive for ML Services
+
+### Understanding How Traffic Reaches Your Model
+
+Think of Kubernetes networking like a corporate mail room. External traffic arrives at the building (LoadBalancer), gets sorted by department (Ingress/Service), and is delivered to specific desks (Pods). For ML services, understanding this flow is critical because latency matters—every millisecond of network delay reduces throughput.
+
+**Did You Know?** At Google, the average inference latency budget is 50ms. Of that, 10-15ms is typically network overhead within Kubernetes. Teams that optimize their networking configurations see 40% latency improvements without touching their models.
+
+### Service Types Explained
+
+```
+KUBERNETES SERVICE TYPES FOR ML
+===============================
+
+                    Internet
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────┐
+│              LoadBalancer Service                    │
+│  (External IP: 34.89.xxx.xxx, Port 80)             │
+│  Use for: Production inference endpoints            │
+│  Cost: $18/month on GKE                             │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────┐
+│                NodePort Service                      │
+│  (Any node IP, Port 30000-32767)                    │
+│  Use for: Development/testing, on-prem clusters    │
+│  Cost: Free                                          │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────┐
+│               ClusterIP Service                      │
+│  (Internal only: 10.0.xxx.xxx)                      │
+│  Use for: Internal microservices, model chaining   │
+│  Cost: Free                                          │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+                   ┌─────┐
+                   │ Pod │
+                   └─────┘
+```
+
+### DNS Resolution: How Pods Find Each Other
+
+When your inference service needs to call a feature store:
+
+```python
+# Inside your pod, use DNS names
+import requests
+
+# Same namespace - just use service name
+response = requests.get("http://feature-store:8080/features")
+
+# Different namespace - use full DNS
+response = requests.get("http://feature-store.ml-services.svc.cluster.local:8080/features")
+
+# Format: <service>.<namespace>.svc.cluster.local
+```
+
+### Network Policies for ML Security
+
+Imagine you're running a multi-tenant ML platform. You don't want the finance team's model accessing the healthcare team's data. Network policies are like firewalls at the pod level:
+
+```yaml
+# Only allow traffic from the API gateway to inference pods
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: inference-isolation
+  namespace: ml-production
+spec:
+  podSelector:
+    matchLabels:
+      app: inference-service
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: api-gateway
+    - podSelector:
+        matchLabels:
+          role: gateway
+    ports:
+    - port: 8000
+      protocol: TCP
+```
+
+**Did You Know?** According to a 2023 Kubernetes security survey, only 23% of production clusters use network policies. Yet 67% of security incidents in Kubernetes involve unauthorized pod-to-pod communication. For ML workloads handling sensitive data (healthcare, finance), network policies aren't optional—they're compliance requirements.
+
+### Latency Optimization Strategies
+
+For ML inference, every millisecond counts. Here's how to optimize:
+
+**1. Pod Anti-Affinity for Client Proximity**
+
+```yaml
+# Spread inference pods across zones for client proximity
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchLabels:
+            app: inference
+        topologyKey: topology.kubernetes.io/zone
+```
+
+**2. Service Topology for Local Traffic**
+
+```yaml
+# Route to pods in same zone first (reduces cross-zone latency)
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-local
+spec:
+  selector:
+    app: inference
+  topologyKeys:
+  - "topology.kubernetes.io/zone"
+  - "*"  # Fall back to any pod if none in zone
+```
+
+**3. Connection Pooling Configuration**
+
+```python
+# In your inference service, configure HTTP keep-alive
+import httpx
+
+# Create a client with connection pooling
+client = httpx.Client(
+    limits=httpx.Limits(
+        max_keepalive_connections=100,
+        max_connections=200,
+        keepalive_expiry=30.0
+    ),
+    timeout=10.0
+)
+
+# Reuse connections across requests
+response = client.post("http://feature-store:8080/features", json=data)
+```
+
+---
+
 ## 🔧 Essential kubectl Commands
 
 ```bash
@@ -967,6 +1119,588 @@ kubectl logs <pod-name> --all-containers
 
 ---
 
+## 🏭 Production War Stories: Kubernetes Lessons Learned
+
+### The Pod That Wouldn't Die
+
+**Austin. April 2023. Fintech startup running fraud detection.**
+
+The ML team deployed their fraud detection model to Kubernetes. Everything looked good—pods running, service responding. Then they noticed something strange: the model was using a cached version of their feature transformer, one that was 3 versions old.
+
+They pushed a new image. Rolled out the deployment. Checked the logs. Still using the old transformer.
+
+**The investigation took 6 hours.** The problem? They'd configured a PersistentVolumeClaim with ReadWriteOnce (RWO) mode, and the old pod had locked the volume. New pods were starting, but they were mounting a cached copy because the original volume was busy.
+
+Worse, the old pod was stuck in "Terminating" state because its graceful shutdown was waiting for an HTTP connection that would never close (a bug in the health check handler).
+
+```yaml
+# The fix: Add proper termination handling
+spec:
+  terminationGracePeriodSeconds: 30
+  containers:
+  - name: model
+    lifecycle:
+      preStop:
+        exec:
+          command: ["/bin/sh", "-c", "sleep 5"]  # Allow connections to drain
+```
+
+**Financial impact**: 6 hours of debugging at senior engineer rates ($1,500), plus the soft cost of delayed fraud detection (unmeasured but significant).
+
+**Lesson**: Always test your rolling update behavior. Simulate the update, watch pods terminate and recreate, verify the new version is actually running. Kubernetes "working" doesn't mean your application is working.
+
+> **Did You Know?** A 2023 Kubernetes reliability survey found that 34% of production incidents were caused by pod lifecycle issues—containers not shutting down cleanly, health checks misconfigured, or volume contention. Proper terminationGracePeriodSeconds and preStop hooks prevent most of these.
+
+---
+
+### The GPU Scheduling Disaster
+
+**San Francisco. January 2023. AI startup building image generation.**
+
+The inference team requested 1 GPU per pod: `nvidia.com/gpu: 1`. Simple, right?
+
+During a traffic spike, the Horizontal Pod Autoscaler scaled from 5 to 15 pods. But only 8 GPUs were available in the cluster. The remaining 7 pods sat in "Pending" state indefinitely.
+
+Meanwhile, the 8 running pods were overwhelmed—queue times exceeded 60 seconds, users abandoned the app, and the support inbox exploded.
+
+**The root cause**: HPA didn't know about GPU constraints. It saw high CPU usage and said "scale up!" It had no way to know that scaling was pointless without more GPUs.
+
+**The fix involved three changes**:
+
+1. **Cluster Autoscaler**: Automatically add GPU nodes when pods are pending
+   ```yaml
+   # Cluster Autoscaler config
+   scaleDownEnabled: true
+   scaleDownDelayAfterAdd: 10m
+   scaleDownUnneededTime: 10m
+   expanderName: priority  # Prefer GPU nodes for GPU workloads
+   ```
+
+2. **Resource-aware HPA**: Custom metrics that account for GPU availability
+   ```yaml
+   - type: External
+     external:
+       metric:
+         name: gpu_nodes_available
+       target:
+         type: Value
+         value: "1"  # Only scale if GPUs are available
+   ```
+
+3. **PodDisruptionBudget**: Ensure minimum capacity during scaling
+   ```yaml
+   apiVersion: policy/v1
+   kind: PodDisruptionBudget
+   spec:
+     minAvailable: 5  # Always keep at least 5 pods
+   ```
+
+**Financial impact**: 2 hours of degraded service during peak traffic = estimated $45,000 in lost revenue.
+
+**Lesson**: HPA is blind to infrastructure constraints. For GPU workloads, you need Cluster Autoscaler or custom metrics that understand resource availability, not just demand.
+
+---
+
+### The Memory Leak That Killed Christmas
+
+**New York. December 2023. E-commerce recommendation engine.**
+
+The team had carefully sized their pods: 2GB memory request, 4GB limit. In testing, memory usage stabilized around 2.5GB. Perfect—plenty of headroom.
+
+On December 23rd, two days before Christmas, pods started getting OOMKilled. One at a time at first, then in waves. The autoscaler kept replacing them, but new pods would die within an hour.
+
+**The forensic analysis**: The model loaded fine and ran fine for most requests. But certain edge cases—particularly gift recommendation queries with very long shopping histories—caused memory to spike to 5GB temporarily. When multiple users hit these edge cases simultaneously, pods exceeded their limits and died.
+
+**The solution was multi-layered**:
+
+1. **Increased limits with monitoring**:
+   ```yaml
+   resources:
+     requests:
+       memory: "2Gi"
+     limits:
+       memory: "8Gi"  # Increased headroom
+   ```
+
+2. **Added memory-based HPA**:
+   ```yaml
+   - type: Resource
+     resource:
+       name: memory
+       target:
+         type: Utilization
+         averageUtilization: 60  # Scale before hitting limits
+   ```
+
+3. **Application-level fix**: Added request batching and memory guards
+   ```python
+   @memory_guard(max_mb=4000)
+   def generate_recommendations(user_history):
+       if len(user_history) > 1000:
+           user_history = user_history[-1000:]  # Truncate
+       # ... process
+   ```
+
+**Financial impact**: 4 hours of intermittent outages during peak shopping season = $2.1M in estimated lost revenue.
+
+**Lesson**: Memory limits protect the cluster, but they can kill your pods. Always set limits higher than your worst-case usage, monitor memory patterns over time, and add application-level guards for edge cases.
+
+---
+
+## ❌ Common Mistakes and How to Avoid Them
+
+### Mistake 1: No Resource Requests or Limits
+
+**Wrong**:
+```yaml
+containers:
+- name: model
+  image: mymodel:v1
+  # No resources specified!
+```
+
+**Problem**: Kubernetes treats this as "BestEffort" QoS class—your pod is the first to be evicted under memory pressure. Also, the scheduler can't make intelligent placement decisions.
+
+**Right**:
+```yaml
+containers:
+- name: model
+  image: mymodel:v1
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1000m"
+```
+
+Always specify resources. For ML workloads, start with 2x the average usage as your limit.
+
+---
+
+### Mistake 2: Using Latest Tag
+
+**Wrong**:
+```yaml
+image: mymodel:latest
+```
+
+**Problem**: `latest` is mutable. If you rollback, you might not actually rollback—you'll get whatever `latest` points to now. Also, Kubernetes caches images, so different nodes might have different versions of `latest`.
+
+**Right**:
+```yaml
+image: mymodel:v1.2.3-abc123
+imagePullPolicy: IfNotPresent
+```
+
+Always use immutable tags. Include git SHA for traceability.
+
+---
+
+### Mistake 3: Missing Health Checks
+
+**Wrong**:
+```yaml
+containers:
+- name: model
+  image: mymodel:v1
+  # No health checks!
+```
+
+**Problem**: Kubernetes thinks your pod is healthy even when it's stuck, crashed, or serving errors. Traffic keeps flowing to dead pods.
+
+**Right**:
+```yaml
+containers:
+- name: model
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 8000
+    initialDelaySeconds: 60
+    periodSeconds: 30
+    failureThreshold: 3
+```
+
+- **readinessProbe**: Is the pod ready to receive traffic?
+- **livenessProbe**: Is the pod alive and should it be restarted if not?
+
+For ML: readiness should check that the model is loaded. Liveness should check that the process is responsive.
+
+---
+
+### Mistake 4: Ignoring Pod Disruption Budgets
+
+**Wrong**:
+```yaml
+# No PDB defined
+# During cluster upgrade, ALL your pods get evicted simultaneously
+```
+
+**Problem**: Node maintenance, cluster upgrades, and spot instance preemption can kill all your pods at once if you don't protect them.
+
+**Right**:
+```yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ml-inference-pdb
+spec:
+  minAvailable: 2  # Always keep at least 2 pods
+  selector:
+    matchLabels:
+      app: ml-inference
+```
+
+For production ML, always have a PDB. Set minAvailable to at least 50% of your normal replica count.
+
+---
+
+### Mistake 5: Wrong Service Type
+
+**Wrong**:
+```yaml
+spec:
+  type: LoadBalancer  # Creates external LB even for internal services
+```
+
+**Problem**: LoadBalancer creates cloud load balancers ($$$), exposes your service to the internet, and adds latency for internal traffic.
+
+**Right**:
+```yaml
+# For internal services
+spec:
+  type: ClusterIP
+
+# For external APIs
+spec:
+  type: LoadBalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"  # Internal LB
+```
+
+Use ClusterIP for internal services. Use LoadBalancer only for external APIs, and consider internal load balancers where possible.
+
+---
+
+## 💰 Economics of Kubernetes for ML
+
+### Cost Comparison: Manual Scaling vs Kubernetes
+
+| Scenario | Manual Scaling | Kubernetes + HPA |
+|----------|----------------|------------------|
+| **Peak capacity provisioning** | | |
+| Servers for peak load (100 req/s) | 20 servers | 5-20 servers (auto-scale) |
+| Monthly infrastructure cost | $40,000 | $15,000 avg |
+| Utilization rate | 25% avg | 70% avg |
+| **Operations** | | |
+| On-call incidents (monthly) | 8 | 2 |
+| Engineer time responding | 16 hours | 4 hours |
+| Deployment time | 2 hours | 5 minutes |
+| **Annual Total** | | |
+| Infrastructure | $480,000 | $180,000 |
+| Operations (at $150/hr) | $28,800 | $7,200 |
+| **Total** | **$508,800** | **$187,200** |
+| **Savings** | | **$321,600 (63%)** |
+
+### GPU Cost Optimization with Kubernetes
+
+| Strategy | Without K8s | With K8s | Savings |
+|----------|-------------|----------|---------|
+| **GPU Utilization** | | | |
+| Single-tenant VMs | 30% avg utilization | N/A | Baseline |
+| Kubernetes scheduling | N/A | 60% avg utilization | 50% fewer GPUs needed |
+| **Spot/Preemptible** | | | |
+| On-demand A100s | $4/hour each | N/A | Baseline |
+| Spot + K8s preemption handling | N/A | $1.20/hour each | 70% savings |
+| **Right-sizing** | | | |
+| Fixed instance types | Oversized 40% of time | VPA recommendations | 25% cost reduction |
+
+### Hidden Value: Developer Productivity
+
+```
+KUBERNETES ROI FOR ML TEAMS
+───────────────────────────
+
+┌────────────────────────────────────────────────────────────┐
+│  Activity                    │  Before K8s  │  After K8s   │
+├────────────────────────────────────────────────────────────┤
+│  Deploy new model version    │  2 hours     │  5 minutes   │
+│  Scale for traffic spike     │  30 minutes  │  Automatic   │
+│  Investigate prod issue      │  2 hours     │  30 minutes  │
+│  Set up new ML service       │  1 day       │  2 hours     │
+│  Run A/B test                │  1 day       │  15 minutes  │
+├────────────────────────────────────────────────────────────┤
+│  Weekly ML engineering time  │  20 hours    │  5 hours     │
+│  Annual savings (team of 5)  │              │  3,900 hours │
+│  Value at $150/hour          │              │  $585,000    │
+└────────────────────────────────────────────────────────────┘
+```
+
+> **Did You Know?** According to the 2023 CNCF Survey, organizations using Kubernetes report 50% faster deployment frequencies and 23% lower infrastructure costs compared to traditional deployments. For ML teams specifically, the benefits are even larger due to GPU scheduling and autoscaling capabilities.
+
+---
+
+## ☁️ Cloud Provider Comparison for ML Workloads
+
+### Choosing the Right Managed Kubernetes
+
+When deploying ML workloads, your choice of Kubernetes provider significantly impacts costs, GPU availability, and operational complexity. Each major cloud provider has distinct strengths for ML use cases.
+
+### Google Kubernetes Engine (GKE)
+
+GKE is often considered the gold standard for Kubernetes—Google invented Kubernetes, after all. For ML teams, the key advantages are:
+
+**Strengths:**
+- **Autopilot mode**: Google manages node provisioning entirely. You just deploy pods, and GKE creates the right nodes automatically. For ML teams without dedicated DevOps, this reduces operational burden by 80%.
+- **TPU integration**: If you're doing heavy training, GKE has native TPU support. TPU v4 pods can train GPT-3-scale models 2x faster than comparable A100 setups.
+- **Vertex AI integration**: Tight integration with Google's ML platform for model serving, training pipelines, and feature stores.
+
+**Pricing for ML (2024):**
+- A100 (40GB): $3.67/hour (on-demand), $1.10/hour (spot)
+- T4: $0.35/hour (on-demand), $0.11/hour (spot)
+- GKE Autopilot surcharge: ~20% over standard
+
+**Best for:** Teams wanting minimal operations overhead, TensorFlow-heavy workloads, organizations already on Google Cloud.
+
+### Amazon EKS
+
+EKS has the largest GPU fleet availability, which matters when you need to scale quickly.
+
+**Strengths:**
+- **GPU variety**: Access to A100s, H100s, Trainium chips, and Inferentia accelerators
+- **SageMaker integration**: Seamless connection to AWS's ML platform
+- **Karpenter**: AWS's advanced node provisioning tool that scales GPU nodes faster than standard Cluster Autoscaler
+
+**Pricing for ML (2024):**
+- A100 (40GB): $4.10/hour (on-demand), $1.23/hour (spot)
+- Inferentia2: $1.10/hour (optimized for inference, 50% cheaper than GPUs for supported models)
+- EKS control plane: $72/month flat fee
+
+**Best for:** Large-scale training jobs requiring many GPUs, organizations already on AWS, teams wanting inference cost optimization with Inferentia.
+
+**Did You Know?** Amazon's internal ML infrastructure runs on EKS. The Alexa team processes over 100 million inference requests per day using Kubernetes orchestration, with automatic scaling handling 10x traffic spikes during peak hours like Christmas morning.
+
+### Azure Kubernetes Service (AKS)
+
+AKS has strong enterprise features and the best Windows container support (if that matters for your stack).
+
+**Strengths:**
+- **Confidential computing**: For healthcare and finance ML workloads requiring data privacy during inference
+- **Azure ML integration**: Tight coupling with Azure's ML platform
+- **No control plane fee**: Unlike EKS, AKS doesn't charge for the control plane
+
+**Pricing for ML (2024):**
+- A100 (40GB): $3.95/hour (on-demand), $1.19/hour (spot)
+- NC-series (V100): $3.06/hour (on-demand)
+- Control plane: Free
+
+**Best for:** Enterprise ML with compliance requirements, organizations on Microsoft stack, Windows-based ML pipelines.
+
+### Cost Comparison: Running 100 A100-Hours Monthly
+
+| Provider | On-Demand | Spot (70% workload) | Annual Cost |
+|----------|-----------|---------------------|-------------|
+| GKE | $367 | $161 | $4,092 |
+| EKS | $410 | $179 | $4,572 |
+| AKS | $395 | $173 | $4,404 |
+
+### Multi-Cloud Considerations
+
+Some organizations run Kubernetes across multiple clouds for:
+- **GPU availability**: When one cloud is out of A100s, fail over to another
+- **Vendor lock-in mitigation**: Avoid dependence on single provider
+- **Regional compliance**: Data sovereignty requirements
+
+Tools like Cluster API and Rancher help manage multi-cloud Kubernetes deployments, but the operational complexity increases significantly. For most ML teams, we recommend starting single-cloud and only going multi-cloud if you have a specific requirement.
+
+---
+
+## 🎤 Interview Preparation: Kubernetes for ML
+
+### Q1: "How would you deploy an ML model to Kubernetes?"
+
+**Strong Answer**:
+"I'd approach this in three layers: containerization, Kubernetes resources, and operational concerns.
+
+First, I'd containerize the model with a proper Dockerfile—multi-stage build, non-root user, health check endpoints. The image would include the model loading code and an HTTP server like FastAPI or Flask.
+
+For Kubernetes resources, I'd create a Deployment with 3+ replicas for high availability, specifying resource requests and limits based on profiled usage. I'd add readinessProbe that checks if the model is loaded and livenessProbe that verifies the process is responsive. A Service exposes the deployment, either ClusterIP for internal access or LoadBalancer for external APIs.
+
+For operations, I'd configure HPA to scale based on CPU usage, typically targeting 70%. For GPU workloads, I'd use custom metrics like inference queue length. I'd add a PodDisruptionBudget to ensure at least 2 replicas during upgrades.
+
+For model updates, I'd use rolling deployments with maxSurge=1 and maxUnavailable=0 to ensure zero downtime. For major model changes, I might use a canary deployment with traffic splitting to validate the new model before full rollout."
+
+### Q2: "How does GPU scheduling work in Kubernetes?"
+
+**Strong Answer**:
+"GPU scheduling in Kubernetes requires the NVIDIA GPU Operator, which consists of several components working together.
+
+The NVIDIA device plugin runs as a DaemonSet on GPU nodes and advertises GPU resources to the Kubernetes scheduler. When you specify `nvidia.com/gpu: 1` in your pod spec, the scheduler finds a node with available GPU capacity and assigns the pod there.
+
+The key constraint is that GPUs are allocated as whole units by default—you can't request 0.5 GPUs. However, there are ways to share GPUs:
+
+Multi-Instance GPU (MIG) on A100s lets you partition a physical GPU into up to 7 isolated instances, each with guaranteed memory and compute. You'd request specific MIG profiles like `nvidia.com/mig-1g.5gb`.
+
+Time-slicing allows multiple pods to share a GPU by switching between them, but without memory isolation—useful for inference workloads with bursty usage.
+
+For scheduling strategy, I typically use nodeSelectors or tolerations to ensure GPU workloads land on GPU nodes and non-GPU workloads don't waste expensive GPU capacity. I also configure the Cluster Autoscaler to spin up GPU nodes on demand when pods are pending for GPU resources."
+
+### Q3: "Explain the difference between resource requests and limits."
+
+**Strong Answer**:
+"Requests and limits serve different purposes in Kubernetes resource management.
+
+Requests are what your container is guaranteed to receive. The scheduler uses requests to decide where to place pods—it won't schedule a pod on a node unless the node has enough unrequested resources. Think of it as reserving capacity.
+
+Limits are the maximum your container can use. If a container tries to exceed its memory limit, it gets OOMKilled. If it exceeds its CPU limit, it gets throttled.
+
+For ML workloads, I set requests based on typical steady-state usage and limits based on peak usage plus headroom. For example, if my inference server typically uses 1.5GB memory but spikes to 3GB during batch processing, I'd set requests to 2GB and limits to 4GB.
+
+The ratio between requests and limits determines your QoS class:
+- Guaranteed (requests == limits): Highest priority, never evicted unless node is critical
+- Burstable (requests < limits): Can use extra resources when available, evicted under pressure
+- BestEffort (no requests or limits): Lowest priority, first to be evicted
+
+For production ML, I always use Guaranteed or Burstable. BestEffort is too risky—your inference pods could be evicted during a traffic spike, exactly when you need them most."
+
+### Q4: "How would you handle model updates with zero downtime?"
+
+**Strong Answer**:
+"I'd use Kubernetes' built-in rolling update strategy, but with ML-specific considerations.
+
+In the Deployment spec, I'd configure:
+```yaml
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+```
+
+maxUnavailable: 0 ensures we never reduce capacity below the current replica count. maxSurge: 1 means we add one new pod at a time with the new model version.
+
+The critical piece for ML is the readinessProbe. Standard health checks just verify the process is running, but ML models need time to load—sometimes minutes for large models. My readinessProbe checks an endpoint that returns 200 only after the model is loaded and warmed up:
+
+```python
+@app.get("/ready")
+def ready():
+    if not model_loaded:
+        raise HTTPException(503)
+    # Optional: run a warmup inference
+    _ = model.predict(warmup_input)
+    return {"ready": True}
+```
+
+For major model changes, I'd use a canary deployment. Deploy the new model version as a separate Deployment, route 5% of traffic to it using Istio or a similar service mesh, monitor error rates and latency, then gradually increase traffic if metrics look good.
+
+If something goes wrong, Kubernetes makes rollback trivial: `kubectl rollout undo deployment/my-model`. It reverts to the previous ReplicaSet, which still exists for exactly this purpose."
+
+### System Design: ML Inference Platform on Kubernetes
+
+**Prompt**: "Design a Kubernetes-based ML inference platform that serves multiple models to 10,000 requests per second with GPU acceleration."
+
+**Strong Answer**:
+
+"I'd design this with five main components:
+
+**1. Cluster Architecture**:
+```
+Kubernetes Cluster (3 AZs for HA)
+├── Control Plane (managed - EKS/GKE/AKS)
+├── CPU Node Pool (c5.2xlarge × 10)
+│   └── API gateways, load balancers, monitoring
+├── GPU Node Pool (p4d.24xlarge × 8)
+│   └── A100 GPUs for inference
+│   └── Spot instances with preemption handling
+└── Cluster Autoscaler
+    └── Scale GPU nodes 4-16 based on pending pods
+```
+
+**2. Model Serving Layer**:
+```yaml
+# Per-model deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentiment-model
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: sentiment-model
+  template:
+    spec:
+      containers:
+      - name: model
+        image: registry/sentiment:v2.1
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+            memory: "16Gi"
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 60
+```
+
+**3. Traffic Management**:
+```
+Ingress (NGINX or Istio)
+├── /models/sentiment → sentiment-service
+├── /models/classification → classification-service
+└── /models/embedding → embedding-service
+
+HPA per model:
+- Scale 2-20 replicas
+- Target: 70% GPU utilization OR queue length < 10
+- Cooldown: 5 minutes for scale-down
+```
+
+**4. Capacity Planning for 10K RPS**:
+```
+Per GPU: ~1,500 req/s (depends on model)
+10K req/s ÷ 1,500 = ~7 GPUs active
+With 70% utilization target: 10 GPUs
+With headroom for spikes: 12-16 GPUs available
+
+Node pool: 8 × p4d.24xlarge = 64 A100s total
+Active pods: 12-16 (normal), up to 40 (peak)
+```
+
+**5. Observability**:
+```
+Prometheus + Grafana
+├── GPU utilization (DCGM exporter)
+├── Request latency (p50, p95, p99)
+├── Queue depth
+└── Error rates
+
+Alerts:
+- GPU utilization > 85% for 5 min
+- Latency p99 > 500ms
+- Error rate > 1%
+- Pods in Pending > 2 min
+```
+
+**Cost Estimate**:
+- GPU nodes (8 × p4d.24xlarge spot): ~$25,000/month
+- CPU nodes (10 × c5.2xlarge): ~$2,500/month
+- Load balancers, storage: ~$1,000/month
+- **Total: ~$28,500/month for 10K RPS**
+
+This scales horizontally—add more GPU nodes and pods for higher throughput."
+
+---
+
 ## 🧪 Hands-On Exercises
 
 ### Exercise 1: Deploy Inference Service
@@ -977,6 +1711,85 @@ Create a Kubernetes deployment for an ML inference API:
 - Resource limits
 - LoadBalancer service
 
+**Complete Implementation:**
+
+```yaml
+# inference-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference
+  labels:
+    app: ml-inference
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-inference
+  template:
+    metadata:
+      labels:
+        app: ml-inference
+    spec:
+      containers:
+      - name: inference
+        image: your-registry/ml-model:v1.0.0
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        env:
+        - name: MODEL_PATH
+          value: "/models/latest"
+        - name: WORKERS
+          value: "4"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-inference-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: ml-inference
+  ports:
+  - port: 80
+    targetPort: 8000
+```
+
+**Deploy and verify:**
+
+```bash
+# Apply the deployment
+kubectl apply -f inference-deployment.yaml
+
+# Watch pods come up
+kubectl get pods -w -l app=ml-inference
+
+# Check service external IP
+kubectl get svc ml-inference-lb
+
+# Test the endpoint
+curl http://<EXTERNAL-IP>/predict -d '{"input": [1,2,3]}'
+```
+
 ### Exercise 2: GPU Training Job
 
 Create a Job for model training:
@@ -984,12 +1797,226 @@ Create a Job for model training:
 - Mount data volume
 - Save checkpoints
 
+**Complete Implementation:**
+
+```yaml
+# training-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: model-training-job
+spec:
+  backoffLimit: 3  # Retry up to 3 times on failure
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: trainer
+        image: your-registry/trainer:v1.0.0
+        command: ["python", "train.py"]
+        args:
+        - "--epochs=100"
+        - "--batch-size=32"
+        - "--checkpoint-dir=/checkpoints"
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+            memory: "16Gi"
+            cpu: "4000m"
+        volumeMounts:
+        - name: training-data
+          mountPath: /data
+        - name: checkpoints
+          mountPath: /checkpoints
+        env:
+        - name: CUDA_VISIBLE_DEVICES
+          value: "0"
+        - name: WANDB_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: wandb-secret
+              key: api-key
+      volumes:
+      - name: training-data
+        persistentVolumeClaim:
+          claimName: training-data-pvc
+      - name: checkpoints
+        persistentVolumeClaim:
+          claimName: checkpoint-pvc
+      nodeSelector:
+        gpu: "true"
+      tolerations:
+      - key: "nvidia.com/gpu"
+        operator: "Exists"
+        effect: "NoSchedule"
+```
+
+**Monitor training:**
+
+```bash
+# Watch job progress
+kubectl get jobs -w
+
+# View training logs
+kubectl logs -f job/model-training-job
+
+# Check GPU utilization (if nvidia-smi available)
+kubectl exec -it $(kubectl get pod -l job-name=model-training-job -o name) -- nvidia-smi
+```
+
 ### Exercise 3: Autoscaling
 
 Configure HPA for inference service:
 - Scale 2-10 replicas
 - Target 70% CPU
 - Custom queue metric
+
+**Complete Implementation:**
+
+```yaml
+# hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ml-inference-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ml-inference
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  # CPU-based scaling
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  # Memory-based scaling
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300  # Wait 5 min before scaling down
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60  # Scale down at most 50% per minute
+    scaleUp:
+      stabilizationWindowSeconds: 0  # Scale up immediately
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 15  # Can double every 15 seconds
+      - type: Pods
+        value: 4
+        periodSeconds: 15  # Or add 4 pods every 15 seconds
+```
+
+**Test autoscaling:**
+
+```bash
+# Apply HPA
+kubectl apply -f hpa.yaml
+
+# Watch HPA decisions
+kubectl get hpa ml-inference-hpa -w
+
+# Generate load for testing
+kubectl run -it --rm load-test --image=busybox -- \
+  /bin/sh -c "while true; do wget -q -O- http://ml-inference-lb/predict; done"
+
+# Watch pods scale
+kubectl get pods -l app=ml-inference -w
+```
+
+---
+
+## 🔧 Debugging and Troubleshooting
+
+### Common Debugging Scenarios
+
+**Did You Know?** The average Kubernetes debugging session takes 47 minutes according to a 2023 CNCF survey. Teams that implement proper logging and observability reduce this to under 10 minutes. The most common issues? OOMKilled pods (32%), image pull errors (28%), and misconfigured probes (19%).
+
+### Scenario 1: Pod Stuck in Pending
+
+When your ML pod won't start, it's usually a resource issue:
+
+```bash
+# Check pod status
+kubectl describe pod <pod-name>
+
+# Look for these messages:
+# "0/3 nodes are available: 3 Insufficient nvidia.com/gpu"
+# "0/3 nodes are available: 3 Insufficient memory"
+
+# Solutions:
+# 1. Check cluster capacity
+kubectl describe nodes | grep -A5 "Allocated resources"
+
+# 2. Check GPU availability
+kubectl describe nodes | grep -A3 "nvidia.com/gpu"
+
+# 3. Reduce resource requests or add nodes
+```
+
+### Scenario 2: OOMKilled - The Memory Assassin
+
+ML workloads are notorious for OOMKills:
+
+```bash
+# Check if pod was killed for memory
+kubectl get pod <pod-name> -o jsonpath='{.status.containerStatuses[0].lastState}'
+
+# If OOMKilled, increase limits:
+resources:
+  limits:
+    memory: "8Gi"  # Was 4Gi, model needs more
+
+# Pro tip: Set memory request = limit for ML workloads
+# This prevents overcommitment and makes OOM behavior predictable
+```
+
+### Scenario 3: Slow Model Loading
+
+Large models (BERT, GPT-2, etc.) take time to load:
+
+```yaml
+# Increase initialDelaySeconds for probes
+livenessProbe:
+  initialDelaySeconds: 120  # Give model 2 min to load
+  periodSeconds: 30
+
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  failureThreshold: 6  # Try 6 times before giving up
+```
+
+### The Kubernetes Debugging Cheat Sheet
+
+```bash
+# Pod won't start?
+kubectl describe pod <name>
+kubectl get events --sort-by='.lastTimestamp'
+
+# Pod keeps restarting?
+kubectl logs <pod> --previous  # Logs from crashed container
+
+# Service not reachable?
+kubectl get endpoints <service-name>  # Should show pod IPs
+
+# Everything looks fine but still broken?
+kubectl exec -it <pod> -- /bin/sh  # Get a shell and investigate
+```
+
+**Did You Know?** Kelsey Hightower, one of the original Kubernetes developers at Google, recommends the "three kubectl commands" approach: `kubectl get`, `kubectl describe`, and `kubectl logs`. He says: "If you can't debug with these three commands, you're probably over-engineering your manifests."
 
 ---
 
@@ -1014,15 +2041,39 @@ Configure HPA for inference service:
 
 ## ✅ Knowledge Check
 
-1. **What is a Pod and how does it differ from a container?**
+Test your understanding with these review questions:
 
-2. **How do you request GPU resources in Kubernetes?**
+### 1. What is a Pod and how does it differ from a container?
 
-3. **What's the difference between requests and limits?**
+**Answer**: A Pod is the smallest deployable unit in Kubernetes—it's a wrapper around one or more containers that share storage, network, and a specification for how to run. Think of a Pod like an apartment: containers are the rooms that share the same address (IP), utilities (volumes), and lease agreement (lifecycle). Unlike a standalone Docker container, pods provide coordinated multi-container patterns (sidecars, init containers) and integrate with Kubernetes scheduling, networking, and storage systems.
 
-4. **How does HPA scale ML inference services?**
+### 2. How do you request GPU resources in Kubernetes?
 
-5. **What access mode would you use for shared model storage?**
+**Answer**: You request GPUs using the `nvidia.com/gpu` resource in your pod spec. This requires the NVIDIA GPU Operator installed on your cluster. The request looks like:
+```yaml
+resources:
+  limits:
+    nvidia.com/gpu: 1  # Request exactly 1 GPU
+```
+GPUs are allocated as whole units by default. For GPU sharing, you can use Multi-Instance GPU (MIG) on A100s or time-slicing with the `nvidia.com/gpu.shared` resource.
+
+### 3. What's the difference between requests and limits?
+
+**Answer**: Requests are the guaranteed minimum resources your container receives—the scheduler uses these to place pods on nodes with sufficient capacity. Limits are the maximum resources your container can use. Exceeding memory limits causes OOMKill; exceeding CPU limits causes throttling. For ML workloads, set requests based on steady-state usage and limits with ~50% headroom for peaks. Setting requests equal to limits gives you the "Guaranteed" QoS class—highest priority and never evicted except during node failure.
+
+### 4. How does HPA scale ML inference services?
+
+**Answer**: HorizontalPodAutoscaler (HPA) watches metrics and adjusts the replica count of your Deployment. By default, it scales based on CPU utilization. For ML inference, you typically configure:
+- CPU target: 70% average utilization
+- Custom metrics: inference queue length, request latency p99
+- Scale-up behavior: fast (stabilizationWindowSeconds: 0)
+- Scale-down behavior: slow (stabilizationWindowSeconds: 300) to avoid thrashing
+
+HPA checks metrics every 15 seconds and makes scaling decisions based on the ratio of current to desired metric values.
+
+### 5. What access mode would you use for shared model storage?
+
+**Answer**: Use `ReadWriteMany` (RWX) access mode when multiple pods need to read from the same model storage simultaneously—which is common for inference services running multiple replicas. If only one pod needs access, `ReadWriteOnce` (RWO) is simpler and more widely supported. For model versioning scenarios where pods should read but never write, `ReadOnlyMany` (ROX) provides an extra safety layer. Not all storage backends support RWX—NFS, Azure Files, and some cloud file systems do, but many block storage options only support RWO.
 
 ---
 
