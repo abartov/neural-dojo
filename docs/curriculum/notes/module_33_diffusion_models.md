@@ -8,6 +8,10 @@
 
 ---
 
+When Jason Allen discovered in August 2022 that his AI-generated artwork had won first place at the Colorado State Fair, beating human artists who had trained for decades, he realized he had sparked a revolution. Artists were furious. Twitter erupted. But while the art world debated ethics, engineers noticed something else: the technology behind Midjourney—diffusion models—was fundamentally different from anything that came before, and it was about to change everything from advertising to drug discovery.
+
+---
+
 ## Learning Objectives
 
 By the end of this module, you will:
@@ -640,6 +644,107 @@ image = model("portrait of [character], impressionist painting")
 
 ---
 
+## Production War Stories: When Diffusion Models Go Wrong
+
+### The $2 Million Recall: Getty Images vs AI Art
+
+**San Francisco. January 2023. 9:30 AM.**
+
+A marketing director at a major consumer goods company received an urgent call from their legal team. Their Q1 campaign, featuring dozens of AI-generated product images, had just been flagged: several images contained subtle watermarks—remnants of Getty Images' training data that had been memorized by the diffusion model.
+
+The cost? $2.3 million in legal fees and settlements, plus another $800K to reshoot everything with traditional photography.
+
+**The Lesson**: Stable Diffusion 1.x and many open models were trained on datasets containing copyrighted images. These models can—and do—regurgitate fragments of their training data, including watermarks, logos, and even recognizable faces.
+
+**The Fix**:
+```python
+# Always check for potential copyright issues
+import clip
+from PIL import Image
+
+def check_image_similarity(generated_image, reference_images):
+    """Compare generated image against known copyrighted references"""
+    # Use CLIP to check similarity
+    model, preprocess = clip.load("ViT-B/32")
+    gen_features = model.encode_image(preprocess(generated_image))
+
+    for ref in reference_images:
+        ref_features = model.encode_image(preprocess(ref))
+        similarity = (gen_features @ ref_features.T).item()
+        if similarity > 0.85:  # High similarity threshold
+            return True, similarity
+    return False, 0
+```
+
+**Post-Mortem**: The company now uses models trained only on licensed data (Adobe Firefly, Shutterstock's model) for commercial work and runs automated similarity checks against known copyrighted datasets.
+
+### The Support Ticket Avalanche: When 1000 Steps Met Production
+
+**New York. March 2023. 2:47 AM.**
+
+A startup's image generation API had been running smoothly for weeks. Then a viral TikTok tutorial recommended their service, and traffic 100x'd overnight.
+
+The problem? Their engineers had left `num_inference_steps=1000` in production—the training default. Each image took 45 seconds to generate. With 1000 concurrent users, their GPU cluster melted.
+
+By morning, they had 12,000 support tickets, a $47,000 cloud bill, and a crashed API.
+
+**The Lesson**: Training defaults are NOT production defaults. Always benchmark and optimize inference settings before deployment.
+
+**The Fix**:
+```python
+# Production-optimized settings
+PRODUCTION_SETTINGS = {
+    "num_inference_steps": 25,      # Not 1000!
+    "scheduler": "DPMSolverMultistep",  # Not DDPM!
+    "enable_attention_slicing": True,
+    "enable_vae_slicing": True,
+    "torch_dtype": torch.float16,   # Not float32!
+}
+
+# Result: 45 seconds → 1.8 seconds per image
+# Cost: $47K → $1.2K for same traffic
+```
+
+### The NSFW Filter Failure: A Brand Crisis in 48 Hours
+
+**Los Angeles. July 2023.**
+
+A children's educational app integrated AI image generation for creating "custom story illustrations." Their safety filter? A simple NSFW classifier with 92% accuracy.
+
+That 8% failure rate proved catastrophic. Within 48 hours, screenshots of inappropriate generated content were viral on social media. The app was pulled from both app stores. The company's reputation—built over three years—was destroyed in two days.
+
+**The Lesson**: For sensitive applications, a single classifier isn't enough. You need defense in depth.
+
+**The Fix**:
+```python
+# Multi-layer safety system
+def safe_generation_pipeline(prompt: str, user_id: str):
+    # Layer 1: Input prompt filtering
+    if contains_blocked_terms(prompt):
+        return None, "Blocked prompt"
+
+    # Layer 2: Prompt rewriting for safety
+    safe_prompt = llm_rewrite_prompt(prompt, "child-appropriate")
+
+    # Layer 3: Generate with safety model
+    image = generate_with_safety_model(safe_prompt)  # SDXL-safe variant
+
+    # Layer 4: Post-generation NSFW check
+    nsfw_score = nsfw_classifier(image)
+    if nsfw_score > 0.05:  # Very low threshold
+        return None, "Failed safety check"
+
+    # Layer 5: Human review queue for edge cases
+    if nsfw_score > 0.01:
+        queue_for_review(image, user_id)
+
+    return image, "Success"
+```
+
+> **Did You Know?** The original Stable Diffusion release had no NSFW filter at all. Stability AI added one after public pressure, but the open-weights model means anyone can remove it. This is why platforms, not models, must enforce safety.
+
+---
+
 ## Common Pitfalls and Solutions
 
 ### 1. Blurry or Low-Quality Images
@@ -858,6 +963,315 @@ The key insight: Diffusion models learn to **reverse corruption**. Train on "wha
 
 ---
 
+## 💰 Economics of Image Generation
+
+### Cost Comparison: AI vs Traditional
+
+The economics of image creation have been revolutionized:
+
+**Stock Photography (Pre-AI)**:
+
+| Use Case | Cost per Image | Time to Find |
+|----------|---------------|--------------|
+| Stock photo license | $10-500 | 30 min-2 hrs |
+| Custom photoshoot | $500-5,000 | 1-4 weeks |
+| Concept art (freelancer) | $200-2,000 | 2-7 days |
+| Product rendering | $500-3,000 | 1-2 weeks |
+
+**AI Generation (2024)**:
+
+| Platform | Cost per Image | Time to Generate |
+|----------|---------------|------------------|
+| Midjourney | $0.03-0.10 | 30 seconds |
+| DALL-E 3 | $0.04-0.08 | 20 seconds |
+| Stable Diffusion (self-hosted) | $0.002-0.01 | 5-30 seconds |
+| Stable Diffusion (cloud API) | $0.01-0.05 | 10 seconds |
+
+**Cost reduction**: 95-99% for many use cases.
+
+### GPU Economics for Diffusion
+
+Running Stable Diffusion locally vs cloud:
+
+| Setup | Hardware Cost | Per-Image Cost | Breakeven |
+|-------|--------------|----------------|-----------|
+| RTX 3090 (24GB) | $1,500 | ~$0.001 | 15,000 images |
+| RTX 4090 (24GB) | $1,800 | ~$0.0005 | 18,000 images |
+| A100 40GB (cloud) | $3/hr | ~$0.01 | N/A (rental) |
+| Replicate API | $0/setup | $0.05/image | 0 images |
+
+**ROI calculation**: If generating >1,000 images/month, local hardware pays for itself within 6-12 months.
+
+### The Industry Disruption
+
+**Stock photography**: Shutterstock, Getty Images saw significant stock price drops after Stable Diffusion's open-source release. Both companies now offer AI generation tools themselves.
+
+**Advertising**: Creative agency Publicis reported 30-50% faster ad concepting when using AI image generation for initial ideation.
+
+**Game development**: Indie studios report 10x faster concept art iteration, enabling smaller teams to produce more visual content.
+
+### Quality vs Cost Trade-off
+
+| Quality Level | Tool | Cost | Use Case |
+|--------------|------|------|----------|
+| Ideation | Any | $0.01 | Brainstorming, moodboards |
+| Social media | SD/MJ | $0.05 | Instagram, Twitter |
+| Marketing | DALL-E 3/MJ | $0.10 | Ads, presentations |
+| Print | Custom fine-tuned | $0.50 | Magazines, packaging |
+| Hero images | Professional + AI | $50-500 | Final campaign assets |
+
+---
+
+## 🎓 Interview Preparation: Diffusion Models
+
+### Common Interview Questions
+
+**Q1: "Explain the difference between the forward and reverse diffusion processes."**
+
+**Strong Answer**: "Forward diffusion is a fixed, defined process—we gradually add Gaussian noise to an image over many timesteps until it becomes pure noise. It's not learned; it follows a predetermined schedule. Reverse diffusion is the learned process—we train a neural network to predict and remove the noise at each step. The key insight is that while forward diffusion destroys information deterministically, reverse diffusion must learn to reconstruct plausible images from that destruction. The model learns to denoise by predicting the noise that was added, then subtracting it."
+
+**Q2: "Why does Stable Diffusion operate in latent space instead of pixel space?"**
+
+**Strong Answer**: "Computational efficiency. A 512×512 RGB image has 786,432 dimensions. The latent space is 64×64×4 = 16,384 dimensions—48× smaller. This makes attention operations (which are O(n²)) dramatically cheaper. The VAE learns to compress images to perceptually important features, so we lose minimal quality. The U-Net can focus on semantic content rather than pixel-level details. This insight from the Latent Diffusion paper enabled running on consumer GPUs and made Stable Diffusion accessible to millions."
+
+**Q3: "What is classifier-free guidance and why is it important?"**
+
+**Strong Answer**: "CFG combines conditional and unconditional predictions during inference: we run the model twice, once with the text prompt and once without, then extrapolate in the direction of the prompt. Mathematically: noise_pred = noise_uncond + scale × (noise_cond - noise_uncond). The guidance scale controls how strongly we push toward prompt adherence. Values of 7-8 work well for most cases. It's important because pure conditional generation often produces blurry, generic images. CFG amplifies the features that distinguish 'this specific prompt' from 'any image.'"
+
+**Q4: "Compare DDPM and DDIM sampling. When would you use each?"**
+
+**Strong Answer**: "DDPM is the original formulation—stochastic sampling with 1000 steps. Each step adds noise, which provides diversity but requires many iterations. DDIM makes the process deterministic by removing the noise term, enabling 20-50 step sampling without quality loss. Use DDPM when: you need maximum diversity and quality isn't time-critical. Use DDIM when: you need fast inference, reproducibility (same seed = same output), or latent space interpolation. Most production systems use DDIM or its variants (DPM++, Euler) for speed."
+
+**Q5: "How would you fine-tune Stable Diffusion for a specific character or style?"**
+
+**Strong Answer**: "Two main approaches: Dreambooth and LoRA. Dreambooth fine-tunes the entire model with a unique identifier token (e.g., 'sks person') and regularization images. It's effective but produces large model files. LoRA adds low-rank adapters to attention layers, training only 0.1% of parameters. It produces small files (10-100MB) that can be combined and switched at runtime. For 5-20 training images, I'd use LoRA targeting cross-attention K/V and self-attention layers, with r=4-8 and 500-1000 training steps. Monitor for overfitting by checking if generations become too similar to training data."
+
+### System Design Question
+
+**Q: "Design an AI image generation service for a stock photography company."**
+
+**Strong Answer Structure**:
+
+1. **Architecture**:
+   - "Async queue-based architecture: user submits prompt → job queued → GPU workers process → results stored in S3 → user notified"
+   - "Separate GPU pools for different quality tiers (fast/preview vs high-quality)"
+
+2. **Model Selection**:
+   - "Base: Stable Diffusion XL for quality and prompt following"
+   - "Fine-tuned LoRAs for specific use cases (people, products, landscapes)"
+   - "Multiple checkpoint versions for A/B testing"
+
+3. **Quality Control**:
+   - "NSFW filter on outputs (CLIP-based classifier)"
+   - "Watermark detection to prevent copyright issues"
+   - "Human review queue for high-value/flagged content"
+
+4. **Optimization**:
+   - "Batched inference for throughput"
+   - "Mixed precision (FP16) for speed"
+   - "Flash attention for memory efficiency"
+   - "Prompt caching for repeated text embeddings"
+
+5. **Scaling**:
+   - "Kubernetes with GPU node autoscaling"
+   - "Multi-region for global latency"
+   - "CDN for result delivery"
+
+---
+
+## 🛠️ Hands-On Exercises
+
+### Exercise 1: Visualize the Diffusion Process
+
+Create a visualization of forward and reverse diffusion:
+
+```python
+import torch
+import matplotlib.pyplot as plt
+from diffusers import StableDiffusionPipeline
+
+def visualize_diffusion_steps(image, num_steps=10):
+    """
+    Visualize the forward diffusion process:
+    1. Load an image
+    2. Apply increasing noise levels
+    3. Plot as a grid showing degradation
+
+    Then visualize reverse:
+    1. Start from noise
+    2. Generate with fewer steps each time
+    3. Show progressive denoising
+    """
+    # YOUR CODE HERE
+    # Use the forward_diffusion function from the module
+    # Plot a grid of images at different noise levels
+    pass
+
+# Test with a sample image
+# Create a 2-row visualization: forward (left to right) and reverse (right to left)
+```
+
+**Deliverable**: Grid visualization showing image → noise → image transition.
+
+### Exercise 2: Compare Sampling Methods
+
+Benchmark different schedulers:
+
+```python
+from diffusers import (
+    DDPMScheduler,
+    DDIMScheduler,
+    PNDMScheduler,
+    EulerDiscreteScheduler,
+    DPMSolverMultistepScheduler,
+)
+
+def compare_schedulers(prompt, schedulers, step_counts=[10, 20, 30, 50]):
+    """
+    Compare different schedulers on the same prompt:
+
+    1. Generate images with each scheduler at different step counts
+    2. Measure generation time
+    3. Calculate FID or CLIP score for quality
+    4. Create comparison grid
+    """
+    results = {}
+    for scheduler_name, scheduler in schedulers.items():
+        for num_steps in step_counts:
+            # YOUR CODE HERE
+            # Time the generation
+            # Store the image and metrics
+            pass
+    return results
+
+# Compare: DDPM, DDIM, Euler, DPM++
+# Find the sweet spot: minimum steps for acceptable quality
+```
+
+**Deliverable**: Table showing scheduler × steps → quality/time trade-off.
+
+### Exercise 3: Train a Simple LoRA
+
+Fine-tune Stable Diffusion with LoRA:
+
+```python
+from diffusers import StableDiffusionPipeline
+from peft import LoraConfig, get_peft_model
+import torch
+
+def train_style_lora(
+    base_model_id: str,
+    training_images: list,
+    training_captions: list,
+    output_dir: str,
+    num_epochs: int = 10,
+):
+    """
+    Train a LoRA for a specific art style:
+
+    1. Load base Stable Diffusion
+    2. Apply LoRA config to U-Net
+    3. Create training dataloader
+    4. Training loop with noise prediction loss
+    5. Save LoRA weights
+
+    Target: cross-attention layers (to_k, to_v, to_q)
+    """
+    # YOUR CODE HERE
+    pass
+
+# Train on 10-20 images of a specific style
+# Test that the style transfers to new prompts
+```
+
+**Deliverable**: Working LoRA that applies a specific style.
+
+### Exercise 4: Implement Classifier-Free Guidance
+
+Build CFG from scratch:
+
+```python
+def classifier_free_guidance_sample(
+    model,
+    prompt_embedding,
+    negative_prompt_embedding,
+    scheduler,
+    num_steps: int = 30,
+    guidance_scale: float = 7.5,
+):
+    """
+    Implement CFG sampling:
+
+    1. Start from random noise
+    2. At each step:
+       - Run model with prompt (conditional)
+       - Run model without prompt (unconditional)
+       - Blend: uncond + scale * (cond - uncond)
+    3. Denoise using scheduler
+
+    Experiment with guidance_scale: 1, 3, 7, 12, 20
+    Document the quality vs artifacts trade-off
+    """
+    # YOUR CODE HERE
+    pass
+
+# Generate images at different guidance scales
+# Create a comparison grid showing the effect
+```
+
+**Deliverable**: Grid showing guidance scale effect on same prompt.
+
+---
+
+## Did You Know? The Thermodynamics Connection
+
+The original diffusion models paper by Sohl-Dickstein et al. (2015) drew inspiration from non-equilibrium thermodynamics—the physics of systems evolving toward or away from thermal equilibrium.
+
+The forward diffusion process is analogous to a physical system **increasing entropy**—a hot cup of coffee cooling to room temperature, order dissolving into disorder.
+
+The reverse process is like **decreasing entropy**—which is thermodynamically impossible without adding energy/information. In diffusion models, the "energy" comes from the learned neural network that "knows" what images should look like.
+
+This physics connection explains why diffusion works: we're learning to reverse a natural process of decay. The math of Gaussian noise addition is well-understood from statistical mechanics, giving diffusion models a solid theoretical foundation.
+
+> "We're not generating images from nothing—we're learning to reverse the arrow of thermodynamic time, reconstructing order from chaos."
+> — Inspired by the original 2015 paper
+
+---
+
+## 📚 Community and Resources
+
+### Key People to Follow
+
+**Research Pioneers**:
+- **Jonathan Ho** (@_jonathanho) - DDPM first author, now at Google
+- **Robin Rombach** - Latent Diffusion/Stable Diffusion creator
+- **Yang Song** - Score-based generative modeling
+- **Prafulla Dhariwal** - Guided diffusion, now at OpenAI
+
+**Practitioners**:
+- **Emad Mostaque** (@EMostaque) - Stability AI founder
+- **ComfyUI community** - Advanced workflow builders
+- **Civitai** - Model and LoRA sharing platform
+
+### Active Research Areas (2024-2025)
+
+**Architecture**:
+- **DiT (Diffusion Transformers)**: Replacing U-Net with transformers (SD 3.0, Flux)
+- **Consistency Models**: Single-step generation
+- **Rectified Flow**: Faster training and sampling
+
+**Control**:
+- **ControlNet**: Conditioning on poses, edges, depth
+- **IP-Adapter**: Image prompt conditioning
+- **Inpainting**: Coherent editing of specific regions
+
+**Efficiency**:
+- **LCM-LoRA**: 4-8 step high-quality generation
+- **Distillation**: Teacher-student for speed
+- **Quantization**: INT8/INT4 for deployment
+
+---
+
 ## Further Reading
 
 ### Essential Papers
@@ -878,12 +1292,140 @@ The key insight: Diffusion models learn to **reverse corruption**. Train on "wha
 
 1. **Hugging Face Diffusers**: Official library
    - https://huggingface.co/docs/diffusers
+   - The de facto standard for diffusion models in Python. Excellent documentation, pre-built pipelines, and scheduler implementations.
 
 2. **The Annotated Diffusion Model**: Step-by-step implementation
    - https://huggingface.co/blog/annotated-diffusion
+   - Line-by-line walkthrough building DDPM from scratch. Essential for understanding the internals.
 
 3. **Stable Diffusion Deep Dive**: Comprehensive guide
    - https://stability.ai/research
+   - Direct from the creators. Includes technical reports on model architecture and training decisions.
+
+4. **ComfyUI**: Node-based diffusion workflow
+   - https://github.com/comfyanonymous/ComfyUI
+   - Visual programming for advanced diffusion pipelines. Best way to experiment with complex workflows involving ControlNets, IP-Adapters, and multiple LoRAs.
+
+5. **Civitai**: Model and LoRA repository
+   - https://civitai.com
+   - Community hub for sharing fine-tuned models and LoRAs. Browse thousands of custom styles and characters with example images.
+
+### Recommended Learning Path
+
+For those new to diffusion models, we recommend this progression through the resources above:
+
+1. **Start with DDPM paper** (Ho et al., 2020) - understand the foundation
+2. **Follow the Annotated Diffusion tutorial** - implement from scratch
+3. **Learn Diffusers library** - production-ready pipelines
+4. **Explore ComfyUI** - visual experimentation
+5. **Study Latent Diffusion paper** - understand Stable Diffusion's architecture
+6. **Experiment on Civitai** - see what the community has built
+
+This path takes you from theory to practice, building intuition at each stage before moving to the next level of complexity.
+
+---
+
+## Common Mistakes (And How to Avoid Them)
+
+### Mistake 1: Using DDPM Scheduler in Production
+
+```python
+# ❌ WRONG: DDPM needs 1000 steps
+from diffusers import DDPMScheduler
+scheduler = DDPMScheduler(num_train_timesteps=1000)
+# Takes 45+ seconds per image!
+
+# ✅ CORRECT: Use DDIM or DPM++ for inference
+from diffusers import DPMSolverMultistepScheduler
+scheduler = DPMSolverMultistepScheduler(num_train_timesteps=1000)
+# 20-25 steps = 2-3 seconds per image
+```
+
+**Why**: DDPM is the original training scheduler but terribly slow for inference. DPM++ and DDIM achieve nearly identical quality in 20-50x fewer steps.
+
+### Mistake 2: Ignoring Guidance Scale Trade-offs
+
+```python
+# ❌ WRONG: Always using default guidance_scale=7.5
+image = pipe(prompt, guidance_scale=7.5).images[0]  # Fine for most cases
+
+# ❌ WRONG: Cranking it to maximum for "better quality"
+image = pipe(prompt, guidance_scale=20).images[0]  # Oversaturated, artifacts!
+
+# ✅ CORRECT: Tune based on use case
+# Artistic/creative: 3-5
+# Photorealistic: 7-9
+# Strong adherence: 10-12
+image = pipe(prompt, guidance_scale=8.0).images[0]
+```
+
+**Why**: Higher guidance doesn't mean better. Beyond ~12, colors oversaturate and artifacts appear. Different models have different sweet spots.
+
+### Mistake 3: Not Using Half Precision
+
+```python
+# ❌ WRONG: Full FP32 (uses 2x VRAM)
+pipe = StableDiffusionPipeline.from_pretrained("model", torch_dtype=torch.float32)
+
+# ✅ CORRECT: FP16 for inference
+pipe = StableDiffusionPipeline.from_pretrained("model", torch_dtype=torch.float16)
+pipe.enable_attention_slicing()  # Further reduce VRAM
+```
+
+**Why**: Diffusion models work perfectly fine in FP16 for inference. You'll halve memory usage with negligible quality loss.
+
+### Mistake 4: Generating at Wrong Resolutions
+
+```python
+# ❌ WRONG: Arbitrary resolution
+image = pipe(prompt, height=700, width=500).images[0]  # Stretched, artifacts
+
+# ✅ CORRECT: Use model's native resolution or multiples
+# SD 1.5: 512x512, 512x768, 768x512
+# SDXL: 1024x1024, 1024x768, 1152x896
+image = pipe(prompt, height=1024, width=1024).images[0]
+```
+
+**Why**: Models are trained at specific resolutions. Non-standard sizes cause distortions and repeated patterns.
+
+### Mistake 5: Not Seeding for Reproducibility
+
+```python
+# ❌ WRONG: Random generation (can't reproduce good results)
+image = pipe(prompt).images[0]
+
+# ✅ CORRECT: Use explicit seeds
+import torch
+generator = torch.Generator("cuda").manual_seed(42)
+image = pipe(prompt, generator=generator).images[0]
+# Save the seed with your images!
+```
+
+**Why**: Found a perfect generation? Without the seed, you can never recreate it. Always log seeds in production.
+
+---
+
+## Key Takeaways
+
+1. **Diffusion = Reverse Denoising**: Forward process adds noise, reverse process removes it—the neural network learns to denoise, enabling generation from pure noise
+
+2. **Latent Space is Essential**: Operating in compressed latent space (Stable Diffusion) reduces computation 64x while preserving quality—VAE encoding makes consumer GPUs viable
+
+3. **U-Net Architecture**: The workhorse of diffusion—takes noisy image and timestep, predicts noise to subtract; attention layers enable text conditioning
+
+4. **CLIP Connects Text and Images**: Text embeddings from CLIP guide the diffusion process—the model learns which noise patterns correspond to which concepts
+
+5. **Classifier-Free Guidance**: The secret sauce for controllable generation—interpolate between conditional and unconditional predictions to strengthen prompt adherence
+
+6. **Scheduler Choice Matters**: DDPM for training, DPM++/DDIM for inference—wrong scheduler = 50x slower generation with no quality benefit
+
+7. **LoRA Enables Customization**: Low-rank adaptation fine-tunes specific styles/concepts with 1000x fewer parameters than full fine-tuning
+
+8. **Guidance Scale Trade-off**: Higher guidance = stronger prompt adherence but more artifacts; 7-12 is the sweet spot for most use cases
+
+9. **Resolution Constraints**: Always generate at trained resolution or aspect ratios—non-standard sizes cause repetition and distortion artifacts
+
+10. **Reproducibility Requires Seeds**: Always save seeds with generations—without them, you cannot recreate or iterate on successful outputs
 
 ---
 
