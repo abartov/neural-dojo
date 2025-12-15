@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Text Generation & Sampling Strategies - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_09_embeddings.html">Next: Module 9: Embeddings & Semantic Similarity →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 8: Text Generation & Sampling Strategies</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-8-text-generation-sampling-strategies">Module 8: Text Generation &amp; Sampling Strategies</h1>
+<h1 id="or-the-art-of-controlled-randomness">Or: The Art of Controlled Randomness</h1>
+<p><strong>Last Updated</strong>: 2025-11-21
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 5-6 hours
+<strong>Prerequisites</strong>: Modules 6-7</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand how LLMs generate text (autoregressive generation)
+- Master temperature, top-p, and top-k sampling parameters
+- Learn when to use deterministic vs creative generation
+- Control generation quality and consistency
+- Understand repetition penalties and length constraints
+- Apply sampling strategies to real-world problems</p>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p><strong>Question</strong>: Why does the same prompt sometimes give different responses?</p>
+<p><strong>Answer</strong>: Sampling strategies.</p>
+<p>When an LLM generates text, it doesn't just pick "the best" word. It <strong>samples</strong> from a probability distribution. How it samples determines:
+- <strong>Creativity</strong> (boring vs interesting outputs)
+- <strong>Consistency</strong> (deterministic vs random)
+- <strong>Quality</strong> (coherent vs nonsensical)
+- <strong>Diversity</strong> (varied vs repetitive)</p>
+<p><strong>This module teaches you the hidden levers that control LLM generation.</strong></p>
+<hr />
+<h2 id="stop-time-to-practice">STOP: Time to Practice!</h2>
+<p><strong>You've learned the theory - now let's control some text generation!</strong></p>
+<p>Understanding sampling parameters is like learning to drive - theory is important, but you need hands-on practice to develop intuition. These examples let you experiment with temperature, top-p, and repetition penalties to see their effects in real-time.</p>
+<h3 id="practice-path-25-3-hours-total">Practice Path (~2.5-3 hours total)</h3>
+<p><strong>1. <a href="../../examples/module_08/01_sampling_playground.py">Sampling Playground</a></strong> - Experiment with all parameters
+   - 📖 Concept: Interactive exploration of sampling strategies
+   - ⏱️ Time: 75-90 minutes
+   - Goal: Build intuition for temperature, top-p, and repetition penalty
+   - What you'll learn: Same prompt + different parameters = dramatically different outputs!</p>
+<p><strong>2. <a href="../../examples/module_08/02_temperature_explorer.py">Temperature Explorer</a></strong> - Deep dive into temperature
+   - 📖 Concept: Systematic temperature comparison (0.0 to 2.0)
+   - ⏱️ Time: 60-75 minutes
+   - Goal: Find the perfect temperature for different use cases
+   - What you'll learn: 0.0 = deterministic, 0.7 = balanced, 1.2+ = creative chaos!</p>
+<h3 id="deliverable-sampling-strategy-tuner">Deliverable: Sampling Strategy Tuner</h3>
+<p><strong>What</strong>: Build a reusable configuration tool for optimized sampling strategies
+<strong>Time</strong>: 3-4 hours
+<strong>Portfolio Value</strong>: Shows deep understanding of LLM parameter tuning for production</p>
+<p><strong>Requirements</strong>:
+1. Create a Python module with pre-configured sampling strategies for 5+ use cases:
+   - Code generation (deterministic, focused)
+   - Chatbot responses (balanced, natural)
+   - Creative writing (varied, surprising)
+   - Data extraction (consistent, structured)
+   - Brainstorming (diverse, unusual)
+2. For each strategy, document:
+   - Exact parameters (temperature, top-p, etc.)
+   - Why these values work
+   - When to use this strategy
+   - Example outputs showing the difference
+3. Add a testing script that compares strategies on the same prompt
+4. Include cost analysis (token usage vs quality trade-offs)
+5. Document in README with before/after examples</p>
+<p><strong>Success Criteria</strong>:
+- At least 5 distinct, tested sampling strategies
+- Clear documentation with examples
+- Measurable quality improvements for each use case
+- Reusable in your own projects (kaizen, vibe, contrarian)</p>
+<p><strong>Real-World Impact</strong>: Every production AI system needs tuned sampling strategies - this deliverable proves you can optimize LLM behavior for specific business requirements!</p>
+<hr />
+<h2 id="how-llms-generate-text">🔄 How LLMs Generate Text</h2>
+<h3 id="the-autoregressive-process">The Autoregressive Process</h3>
+<p><strong>Autoregressive generation</strong>: Generate one token at a time, using previous tokens as context.</p>
+<p><strong>Process</strong>:</p>
+<pre><code>1. Start with prompt: &quot;The cat sat on the&quot;
+2. Model predicts next token: &quot; mat&quot; (or &quot; chair&quot; or &quot; roof&quot; or...)
+3. Append to sequence: &quot;The cat sat on the mat&quot;
+4. Predict next token: &quot;.&quot; (or &quot;, sleeping&quot; or &quot; and&quot; or...)
+5. Append: &quot;The cat sat on the mat.&quot;
+6. Repeat until stop condition
+</code></pre>
+<p><strong>Visualized</strong>:</p>
+<pre><code>Input:  &quot;The cat sat on the&quot;
+Model:  → Probability distribution over all possible next tokens
+        &quot; mat&quot;:     0.35  (35%)
+        &quot; floor&quot;:   0.25  (25%)
+        &quot; chair&quot;:   0.15  (15%)
+        &quot; roof&quot;:    0.10  (10%)
+        &quot; sofa&quot;:    0.05   (5%)
+        (50,000 other tokens with lower probabilities)
+Sample: → Choose one token based on sampling strategy
+Output: &quot; mat&quot;
+
+Next iteration:
+Input:  &quot;The cat sat on the mat&quot;
+Model:  → New probability distribution
+        &quot;.&quot;:        0.40  (40%)
+        &quot;,&quot;:        0.20  (20%)
+        &quot; and&quot;:     0.15  (15%)
+        ...
+Sample: → Choose next token
+Output: &quot;.&quot;
+
+Final: &quot;The cat sat on the mat.&quot;
+</code></pre>
+<hr />
+<h3 id="why-not-always-pick-the-highest-probability">Why Not Always Pick the Highest Probability?</h3>
+<p><strong>Greedy decoding</strong> (always pick highest probability):</p>
+<pre><code>&quot;The cat sat on the mat.&quot;
+&quot;The cat sat on the mat and slept.&quot;
+&quot;The cat sat on the mat in the sun.&quot;
+</code></pre>
+<p><strong>Problem</strong>: Boring, repetitive, predictable.</p>
+<p><strong>Human text</strong> isn't always the "most likely" next word!
+- We use varied vocabulary
+- We take creative paths
+- We surprise readers</p>
+<p><strong>Solution</strong>: Sample from the probability distribution instead of always picking the top choice.</p>
+<p><strong>👉 Ready to experiment? <a href="../../examples/module_08/01_sampling_playground.py">01_sampling_playground.py</a> lets you try greedy vs sampling live!</strong></p>
+<hr />
+<h2 id="temperature-controlling-randomness">🌡️ Temperature: Controlling Randomness</h2>
+<h3 id="what-is-temperature">What is Temperature?</h3>
+<p><strong>Temperature</strong> (τ): A parameter that controls how "random" the model's outputs are.</p>
+<p><strong>Mathematical effect</strong>: Reshapes the probability distribution.</p>
+<p><strong>Formula</strong>:</p>
+<pre><code>p_i = exp(logit_i / τ) / Σ exp(logit_j / τ)
+</code></pre>
+<p>Don't worry about the math! Here's the intuitive version:</p>
+<hr />
+<h3 id="temperature-00-deterministic">Temperature = 0.0 (Deterministic)</h3>
+<p><strong>Effect</strong>: Always pick the highest probability token (greedy decoding).</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Original probabilities:
+  &quot; mat&quot;:     0.35
+  &quot; floor&quot;:   0.25
+  &quot; chair&quot;:   0.15
+  ...
+
+With temperature = 0.0:
+  &quot; mat&quot;:     1.00  (always selected)
+  &quot; floor&quot;:   0.00
+  &quot; chair&quot;:   0.00
+  ...
+</code></pre>
+<p><strong>Result</strong>: Same output every time (deterministic).</p>
+<p><strong>Use when</strong>:
+- You need consistent outputs (testing, production APIs)
+- Generating structured data (JSON, code)
+- Exact reproducibility required</p>
+<p><strong>Example output</strong> (same every time):</p>
+<pre><code>Prompt: &quot;Explain photosynthesis in one sentence.&quot;
+Output: &quot;Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen.&quot;
+</code></pre>
+<hr />
+<h3 id="temperature-07-balanced">Temperature = 0.7 (Balanced)</h3>
+<p><strong>Effect</strong>: Moderate randomness, balanced creativity.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Original probabilities:
+  &quot; mat&quot;:     0.35
+  &quot; floor&quot;:   0.25
+  &quot; chair&quot;:   0.15
+  ...
+
+With temperature = 0.7:
+  &quot; mat&quot;:     0.45  (higher chance, but not guaranteed)
+  &quot; floor&quot;:   0.28
+  &quot; chair&quot;:   0.18
+  ...
+</code></pre>
+<p><strong>Result</strong>: Varied but sensible outputs.</p>
+<p><strong>Use when</strong>:
+- General-purpose text generation
+- Conversational AI
+- Content creation
+- Most production use cases</p>
+<p><strong>Example outputs</strong> (vary each time):</p>
+<pre><code>1. &quot;Photosynthesis is the process by which plants use sunlight to create energy.&quot;
+2. &quot;Photosynthesis allows plants to convert light energy into chemical energy.&quot;
+3. &quot;Through photosynthesis, plants transform sunlight into food for growth.&quot;
+</code></pre>
+<hr />
+<h3 id="temperature-10-creative">Temperature = 1.0 (Creative)</h3>
+<p><strong>Effect</strong>: Sample directly from model's probability distribution.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Original probabilities (unchanged):
+  &quot; mat&quot;:     0.35
+  &quot; floor&quot;:   0.25
+  &quot; chair&quot;:   0.15
+  &quot; roof&quot;:    0.10
+  ...
+</code></pre>
+<p><strong>Result</strong>: More varied, more creative, sometimes unexpected.</p>
+<p><strong>Use when</strong>:
+- Creative writing
+- Brainstorming
+- Generating multiple alternatives
+- Poetry, storytelling</p>
+<p><strong>Example outputs</strong> (more varied):</p>
+<pre><code>1. &quot;Photosynthesis is nature's way of capturing sunlight and turning it into life.&quot;
+2. &quot;Through photosynthesis, leaves act as tiny solar panels producing sugar.&quot;
+3. &quot;Photosynthesis: the green magic that powers our planet's food chain.&quot;
+</code></pre>
+<hr />
+<h3 id="temperature-10-highly-creativerandom">Temperature &gt; 1.0 (Highly Creative/Random)</h3>
+<p><strong>Effect</strong>: Flattens the probability distribution, makes unlikely tokens more likely.</p>
+<p><strong>Example</strong>:</p>
+<pre><code>Original probabilities:
+  &quot; mat&quot;:     0.35
+  &quot; floor&quot;:   0.25
+  &quot; chair&quot;:   0.15
+  ...
+
+With temperature = 1.5:
+  &quot; mat&quot;:     0.28  (reduced)
+  &quot; floor&quot;:   0.24
+  &quot; chair&quot;:   0.18
+  &quot; roof&quot;:    0.14  (increased!)
+  &quot; spaceship&quot;: 0.02  (now more likely!)
+  ...
+</code></pre>
+<p><strong>Result</strong>: Surprising, creative, but potentially nonsensical.</p>
+<p><strong>Use when</strong>:
+- Extreme creativity needed
+- Generating unusual ideas
+- Art projects</p>
+<p><strong>Example outputs</strong> (unpredictable):</p>
+<pre><code>1. &quot;Photosynthesis is like a plant's breakfast buffet, but with light instead of pancakes.&quot;
+2. &quot;Imagine tiny factories inside leaves, powered by sunshine, churning out sugar molecules.&quot;
+3. &quot;Photosynthesis: quantum biology meets botanical chemistry in nature's laboratory.&quot;
+</code></pre>
+<p><strong>Danger</strong>: Too high (&gt;2.0) and outputs become incoherent!</p>
+<p><strong>Did You Know?</strong> 🤓
+The "temperature" name comes from statistical mechanics in physics! In thermodynamics, higher temperature means more random molecular motion. Similarly, in LLMs, higher temperature means more random token selection. At temperature = 0 (absolute zero), all randomness disappears - just like molecules would stop moving at 0 Kelvin. The mathematical connection is real: both use the Boltzmann distribution!</p>
+<hr />
+<h3 id="temperature-summary">Temperature Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Temperature</th>
+<th>Behavior</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.0</strong></td>
+<td>Deterministic, always same</td>
+<td>Testing, structured output, reproducibility</td>
+</tr>
+<tr>
+<td><strong>0.1-0.3</strong></td>
+<td>Very focused, minimal variation</td>
+<td>Code generation, data extraction</td>
+</tr>
+<tr>
+<td><strong>0.5-0.7</strong></td>
+<td>Balanced, sensible variation</td>
+<td>General chatbots, content generation</td>
+</tr>
+<tr>
+<td><strong>0.8-1.0</strong></td>
+<td>Creative, diverse</td>
+<td>Creative writing, brainstorming</td>
+</tr>
+<tr>
+<td><strong>1.0-1.5</strong></td>
+<td>Highly creative, unpredictable</td>
+<td>Art, poetry, experimental</td>
+</tr>
+<tr>
+<td><strong>&gt;1.5</strong></td>
+<td>Random, potentially nonsensical</td>
+<td>Rarely useful</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Default</strong>: Most APIs default to 0.7-1.0.</p>
+<p><strong>👉 See temperature in action! <a href="../../examples/module_08/02_temperature_explorer.py">02_temperature_explorer.py</a> compares outputs from 0.0 to 2.0!</strong></p>
+<hr />
+<h2 id="top-p-nucleus-sampling">🎲 Top-p (Nucleus Sampling)</h2>
+<h3 id="what-is-top-p">What is Top-p?</h3>
+<p><strong>Top-p (nucleus sampling)</strong>: Sample from the smallest set of tokens whose cumulative probability exceeds <code>p</code>.</p>
+<p><strong>Think of it as</strong>: "Include enough tokens to cover <code>p%</code> of the probability mass."</p>
+<hr />
+<h3 id="how-top-p-works">How Top-p Works</h3>
+<p><strong>Example</strong> (p = 0.9):</p>
+<pre><code>Token probabilities (sorted by probability):
+  &quot; mat&quot;:       0.35  → cumulative: 0.35
+  &quot; floor&quot;:     0.25  → cumulative: 0.60
+  &quot; chair&quot;:     0.15  → cumulative: 0.75
+  &quot; roof&quot;:      0.10  → cumulative: 0.85
+  &quot; sofa&quot;:      0.05  → cumulative: 0.90  ← STOP! We've reached 90%
+  &quot; table&quot;:     0.03
+  &quot; bed&quot;:       0.02
+  &quot; spaceship&quot;: 0.01
+  ...
+
+Nucleus (tokens included): [&quot; mat&quot;, &quot; floor&quot;, &quot; chair&quot;, &quot; roof&quot;, &quot; sofa&quot;]
+Excluded: Everything else
+
+Sample randomly from the nucleus.
+</code></pre>
+<p><strong>Result</strong>: Filters out low-probability "tail" tokens that would make output weird.</p>
+<p><strong>Did You Know?</strong> 🤓
+Top-p sampling (nucleus sampling) was introduced in 2019 by researchers at the University of Washington and AI2 in their paper "The Curious Case of Neural Text Degeneration." Before this, most systems used top-k or pure sampling, which often produced repetitive or weird text. Nucleus sampling revolutionized text generation by dynamically adapting to the model's confidence - when the model is certain (one token has high probability), nucleus is small; when uncertain, nucleus grows to include more options. This is why modern APIs default to top-p instead of top-k!</p>
+<hr />
+<h3 id="top-p-values">Top-p Values</h3>
+<p><strong>p = 0.9</strong> (common default):
+- Include tokens that cover 90% of probability
+- Filters out unlikely tokens
+- Balanced creativity and quality</p>
+<p><strong>p = 0.5</strong> (conservative):
+- Include only top tokens
+- Very focused, safe outputs
+- Less creative</p>
+<p><strong>p = 1.0</strong> (no filtering):
+- Include all tokens
+- Maximum creativity
+- Can include very unlikely tokens</p>
+<p><strong>p = 0.1</strong> (highly focused):
+- Only the very top tokens
+- Almost deterministic
+- Minimal creativity</p>
+<hr />
+<h3 id="top-p-vs-temperature">Top-p vs Temperature</h3>
+<p><strong>Can use both together!</strong></p>
+<p><strong>Common combinations</strong>:
+- <code>temperature=0.7, top_p=0.9</code> (balanced, most common)
+- <code>temperature=1.0, top_p=0.95</code> (creative but safe)
+- <code>temperature=0.3, top_p=0.5</code> (very focused)</p>
+<p><strong>How they interact</strong>:
+1. <strong>Temperature</strong> reshapes the distribution (flatter or sharper)
+2. <strong>Top-p</strong> filters out low-probability tokens
+3. Sample from the filtered distribution</p>
+<hr />
+<h3 id="top-p-example">Top-p Example</h3>
+<p><strong>Prompt</strong>: "The weather today is"</p>
+<p><strong>Without top-p</strong> (temperature=1.0):</p>
+<pre><code>Possible outputs:
+- &quot;sunny&quot; (35%)
+- &quot;rainy&quot; (25%)
+- &quot;cloudy&quot; (15%)
+- &quot;snowy&quot; (10%)
+- &quot;foggy&quot; (5%)
+- &quot;purple&quot; (0.1%)  ← This could happen!
+- &quot;mathematical&quot; (0.05%)  ← Weird!
+</code></pre>
+<p><strong>With top-p=0.9</strong>:</p>
+<pre><code>Nucleus includes: [&quot;sunny&quot;, &quot;rainy&quot;, &quot;cloudy&quot;, &quot;snowy&quot;, &quot;foggy&quot;]
+Filters out: [&quot;purple&quot;, &quot;mathematical&quot;, ...]
+
+Result: Sensible weather descriptions only!
+</code></pre>
+<hr />
+<h2 id="top-k-sampling">🔢 Top-k Sampling</h2>
+<h3 id="what-is-top-k">What is Top-k?</h3>
+<p><strong>Top-k</strong>: Sample from the top <code>k</code> most probable tokens.</p>
+<p><strong>Simpler than top-p</strong>: Just keep the top <code>k</code> tokens, regardless of their cumulative probability.</p>
+<hr />
+<h3 id="how-top-k-works">How Top-k Works</h3>
+<p><strong>Example</strong> (k = 5):</p>
+<pre><code>Token probabilities (sorted):
+  &quot; mat&quot;:       0.35  ← Top 5
+  &quot; floor&quot;:     0.25  ← Top 5
+  &quot; chair&quot;:     0.15  ← Top 5
+  &quot; roof&quot;:      0.10  ← Top 5
+  &quot; sofa&quot;:      0.05  ← Top 5
+  &quot; table&quot;:     0.03  ← Excluded
+  &quot; bed&quot;:       0.02  ← Excluded
+  ...
+
+Sample randomly from top 5 only.
+</code></pre>
+<hr />
+<h3 id="top-k-values">Top-k Values</h3>
+<p><strong>k = 50</strong> (common default):
+- Consider top 50 tokens
+- Good balance
+- Standard setting</p>
+<p><strong>k = 10</strong> (focused):
+- Very narrow selection
+- Safe, predictable
+- Less creative</p>
+<p><strong>k = 1</strong> (greedy):
+- Always pick highest probability
+- Same as temperature = 0.0
+- Deterministic</p>
+<p><strong>k = 100+</strong> (broad):
+- Many options
+- More creative
+- Can include unlikely tokens</p>
+<hr />
+<h3 id="top-k-vs-top-p">Top-k vs Top-p</h3>
+<p><strong>Key difference</strong>:
+- <strong>Top-k</strong>: Fixed number of tokens
+- <strong>Top-p</strong>: Adaptive based on probability distribution</p>
+<p><strong>Example where top-p is better</strong>:</p>
+<pre><code>Scenario 1 (clear winner):
+  &quot; mat&quot;: 0.80
+  &quot; floor&quot;: 0.10
+  &quot; chair&quot;: 0.05
+  (rest: &lt;0.01 each)
+
+Top-k=50: Includes 50 tokens (many irrelevant ones)
+Top-p=0.9: Includes just 2-3 tokens (better!)
+
+Scenario 2 (uncertain):
+  &quot; mat&quot;: 0.15
+  &quot; floor&quot;: 0.14
+  &quot; chair&quot;: 0.13
+  ... (many similar probabilities)
+
+Top-k=50: Includes 50 tokens (good)
+Top-p=0.9: Includes 15-20 tokens (also good)
+</code></pre>
+<p><strong>Modern practice</strong>: Top-p is generally preferred over top-k (more adaptive).</p>
+<p><strong>👉 Compare top-p vs top-k yourself: <a href="../../examples/module_08/01_sampling_playground.py">01_sampling_playground.py</a> shows the difference!</strong></p>
+<hr />
+<h2 id="repetition-penalty">🔁 Repetition Penalty</h2>
+<h3 id="the-repetition-problem">The Repetition Problem</h3>
+<p><strong>Without repetition penalty</strong>:</p>
+<pre><code>Prompt: &quot;The benefits of exercise are&quot;
+
+Output: &quot;The benefits of exercise are numerous. The benefits of exercise include
+improved cardiovascular health. The benefits of exercise are well-documented.
+The benefits of exercise are...&quot;
+</code></pre>
+<p><strong>Problem</strong>: Models can get stuck in repetitive loops!</p>
+<hr />
+<h3 id="how-repetition-penalty-works">How Repetition Penalty Works</h3>
+<p><strong>Repetition penalty</strong> (α): Reduce probability of tokens that already appeared.</p>
+<p><strong>Formula</strong> (simplified):</p>
+<pre><code>If token appeared n times:
+  new_probability = original_probability / (α ^ n)
+</code></pre>
+<p><strong>Example</strong> (α = 1.2):</p>
+<pre><code>Token &quot; benefits&quot; appeared 3 times:
+  Original probability: 0.30
+  Penalized probability: 0.30 / (1.2^3) = 0.30 / 1.728 ≈ 0.17
+
+Each repetition makes it less likely to appear again.
+</code></pre>
+<hr />
+<h3 id="repetition-penalty-values">Repetition Penalty Values</h3>
+<p><strong>α = 1.0</strong> (no penalty):
+- No repetition penalty
+- Model free to repeat
+- Can be repetitive</p>
+<p><strong>α = 1.1 - 1.2</strong> (mild penalty):
+- Gentle discouragement
+- Natural variation
+- Most common</p>
+<p><strong>α = 1.5+</strong> (strong penalty):
+- Strong discouragement
+- Very varied vocabulary
+- Can feel forced</p>
+<p><strong>Best practice</strong>: 1.1 - 1.3 for most use cases.</p>
+<p><strong>Did You Know?</strong> 🤓
+Repetition is actually a known weakness of autoregressive models, called "neural text degeneration." In the early days of GPT-2 and GPT-3, models would frequently get stuck in repetitive loops, especially for longer generations. The repetition penalty was a pragmatic fix that worked remarkably well! Interestingly, newer models like GPT-4 and Claude are less prone to repetition thanks to better training data and techniques like RLHF (Reinforcement Learning from Human Feedback), which explicitly teaches models that humans dislike repetitive text. But repetition penalty is still useful for long-form generation!</p>
+<hr />
+<h3 id="repetition-penalty-example">Repetition Penalty Example</h3>
+<p><strong>Without penalty</strong> (α = 1.0):</p>
+<pre><code>The AI revolution is changing everything. The AI revolution is transforming
+industries. The AI revolution is...
+</code></pre>
+<p><strong>With penalty</strong> (α = 1.2):</p>
+<pre><code>The AI revolution is changing everything. This transformation is reshaping
+industries. Artificial intelligence continues to evolve...
+</code></pre>
+<p><strong>With strong penalty</strong> (α = 1.8):</p>
+<pre><code>The AI revolution is changing everything. Artificial intelligence transforms
+numerous sectors. Machine learning reshapes various domains...
+</code></pre>
+<p>(Note: High penalty can make text feel unnatural!)</p>
+<hr />
+<h2 id="length-control">📏 Length Control</h2>
+<h3 id="max-tokens">Max Tokens</h3>
+<p><strong>max_tokens</strong>: Maximum number of tokens to generate.</p>
+<p><strong>Use cases</strong>:
+- Prevent runaway generation
+- Control costs (output tokens cost money!)
+- Ensure responses fit in UI
+- API rate limiting</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-python">response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,
+    max_tokens=100,  # Generate at most 100 tokens
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Explain quantum physics&quot;}]
+)
+</code></pre>
+<p><strong>Caution</strong>: Model may stop mid-sentence if limit reached!</p>
+<hr />
+<h3 id="stop-sequences">Stop Sequences</h3>
+<p><strong>Stop sequences</strong>: Stop generation when specific string appears.</p>
+<p><strong>Common stop sequences</strong>:
+- <code>"\n\n"</code> (double newline - stop after paragraph)
+- <code>"User:"</code> (stop when user turn begins in conversation)
+- <code>"```"</code> (stop after code block in markdown)
+- Custom sequences</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-python">response = client.messages.create(
+    model=&quot;claude-sonnet-4-5-20250929&quot;,
+    max_tokens=1000,
+    stop_sequences=[&quot;\n\n&quot;, &quot;---&quot;],  # Stop at paragraph break or horizontal rule
+    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Write a short poem&quot;}]
+)
+</code></pre>
+<hr />
+<h3 id="length-penalties">Length Penalties</h3>
+<p>Some APIs support <strong>length penalty</strong>:
+- Encourage shorter responses (&gt; 1.0)
+- Encourage longer responses (&lt; 1.0)
+- Rarely used in practice</p>
+<p><strong>Most common</strong>: Just use <code>max_tokens</code> and let model decide length naturally.</p>
+<hr />
+<h2 id="putting-it-all-together">🎨 Putting It All Together</h2>
+<h3 id="common-sampling-configurations">Common Sampling Configurations</h3>
+<h4 id="1-deterministic-code-generation-testing">1. Deterministic (Code Generation, Testing)</h4>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.0,
+    &quot;top_p&quot;: 1.0,  # (ignored when temperature=0)
+    &quot;max_tokens&quot;: 1000
+}
+</code></pre>
+<p><strong>Result</strong>: Same output every time, focused, precise.</p>
+<hr />
+<h4 id="2-balanced-conversational-chatbots">2. Balanced Conversational (Chatbots)</h4>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.7,
+    &quot;top_p&quot;: 0.9,
+    &quot;max_tokens&quot;: 500,
+    &quot;repetition_penalty&quot;: 1.1
+}
+</code></pre>
+<p><strong>Result</strong>: Natural, varied, sensible responses.</p>
+<hr />
+<h4 id="3-creative-writing">3. Creative Writing</h4>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 1.0,
+    &quot;top_p&quot;: 0.95,
+    &quot;max_tokens&quot;: 2000,
+    &quot;repetition_penalty&quot;: 1.2
+}
+</code></pre>
+<p><strong>Result</strong>: Creative, surprising, diverse vocabulary.</p>
+<hr />
+<h4 id="4-highly-focused-data-extraction">4. Highly Focused (Data Extraction)</h4>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.2,
+    &quot;top_p&quot;: 0.5,
+    &quot;max_tokens&quot;: 200
+}
+</code></pre>
+<p><strong>Result</strong>: Very focused, minimal variation, precise.</p>
+<hr />
+<h4 id="5-brainstorming-idea-generation">5. Brainstorming (Idea Generation)</h4>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 1.2,
+    &quot;top_p&quot;: 0.95,
+    &quot;max_tokens&quot;: 1000,
+    &quot;repetition_penalty&quot;: 1.3
+}
+</code></pre>
+<p><strong>Result</strong>: Unusual ideas, varied approaches, creative.</p>
+<hr />
+<h2 id="sampling-strategy-trade-offs">Sampling Strategy Trade-offs</h2>
+<h3 id="the-fundamental-trade-off">The Fundamental Trade-off</h3>
+<p><strong>Determinism ↔ Creativity</strong></p>
+<pre><code>Temperature = 0.0         Temperature = 1.0         Temperature = 2.0
+    ↓                          ↓                          ↓
+Boring but                 Balanced                   Creative but
+reliable                   quality                    unpredictable
+    ↓                          ↓                          ↓
+&quot;The cat sat            &quot;The cat sat             &quot;The cat sat
+ on the mat.&quot;            on the chair.&quot;            on the spaceship.&quot;
+</code></pre>
+<p><strong>You can't have maximum creativity AND maximum consistency!</strong></p>
+<hr />
+<h3 id="quality-vs-diversity">Quality vs Diversity</h3>
+<p><strong>Greedy decoding</strong> (temperature = 0.0):
+- High quality (picks best token each time)
+- No diversity (same output always)</p>
+<p><strong>Sampling</strong> (temperature &gt; 0.0):
+- Diverse outputs
+- Sometimes lower quality (suboptimal tokens chosen)</p>
+<p><strong>Best practice</strong>: Use moderate temperature (0.7) for quality + diversity balance.</p>
+<hr />
+<h3 id="computational-cost">Computational Cost</h3>
+<p><strong>Sampling</strong>: Negligible extra cost!
+- Temperature, top-p, top-k all happen in softmax step
+- No significant performance impact
+- Feel free to experiment</p>
+<p><strong>Length</strong>: Direct cost impact!
+- Longer outputs = more tokens = more $$
+- Use <code>max_tokens</code> to control costs</p>
+<hr />
+<h2 id="advanced-techniques">Advanced Techniques</h2>
+<h3 id="beam-search">Beam Search</h3>
+<p><strong>Beam search</strong>: Keep top <code>k</code> sequences at each step, expand all, keep top <code>k</code> again.</p>
+<p><strong>Example</strong> (beam width = 2):</p>
+<pre><code>Start: &quot;The cat&quot;
+Step 1:
+  &quot;The cat sat&quot; (prob: 0.8)
+  &quot;The cat jumped&quot; (prob: 0.6)
+Keep top 2 sequences.
+
+Step 2:
+  &quot;The cat sat on&quot; (prob: 0.8 × 0.9 = 0.72)
+  &quot;The cat sat down&quot; (prob: 0.8 × 0.7 = 0.56)
+  &quot;The cat jumped over&quot; (prob: 0.6 × 0.8 = 0.48)
+  &quot;The cat jumped high&quot; (prob: 0.6 × 0.6 = 0.36)
+Keep top 2: &quot;The cat sat on&quot; and &quot;The cat sat down&quot;
+
+Continue...
+</code></pre>
+<p><strong>Result</strong>: Often finds higher-probability sequences than greedy.</p>
+<p><strong>Downside</strong>:
+- More computationally expensive
+- Can be repetitive (always picks high-probability paths)
+- Not commonly used in LLM APIs (more common in older NLP)</p>
+<p><strong>Did You Know?</strong> 🤓
+Beam search was the dominant decoding strategy for neural machine translation (like Google Translate) before the era of large language models. It was essential for translating sentences because you wanted the most likely translation, not a creative one! But when GPT-2 and GPT-3 came along, researchers discovered that beam search produces boring, repetitive text for creative tasks. That's why modern LLM APIs don't even offer beam search - they use sampling (temperature + top-p) instead. Beam search is still useful in specialized domains like translating medical documents where consistency matters more than creativity!</p>
+<hr />
+<h3 id="contrastive-search">Contrastive Search</h3>
+<p><strong>Contrastive search</strong>: Balance probability with diversity from previous tokens.</p>
+<p><strong>Goal</strong>: High probability tokens that are also different from what came before.</p>
+<p><strong>Status</strong>: Research technique, not yet in most LLM APIs.</p>
+<hr />
+<h3 id="typical-sampling">Typical Sampling</h3>
+<p><strong>Typical sampling</strong>: Sample tokens with probability close to "typical" (not too high, not too low).</p>
+<p><strong>Intuition</strong>: Very high probability tokens = boring, very low = nonsensical. The "typical" ones are just right!</p>
+<p><strong>Status</strong>: Emerging technique, not yet standard.</p>
+<hr />
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="use-case-1-chatbot-responses">Use Case 1: Chatbot Responses</h3>
+<p><strong>Goal</strong>: Natural, varied, helpful responses.</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.7,
+    &quot;top_p&quot;: 0.9,
+    &quot;max_tokens&quot;: 500,
+    &quot;repetition_penalty&quot;: 1.1,
+    &quot;stop_sequences&quot;: [&quot;\nUser:&quot;, &quot;\nHuman:&quot;]
+}
+</code></pre>
+<p><strong>Why</strong>:
+- Temperature 0.7: Natural variation without weirdness
+- Top-p 0.9: Filters out nonsense, keeps sensible options
+- Max tokens 500: Prevents overly long responses
+- Repetition penalty: Avoids repeating phrases
+- Stop sequences: Prevents model from continuing as user</p>
+<hr />
+<h3 id="use-case-2-code-generation">Use Case 2: Code Generation</h3>
+<p><strong>Goal</strong>: Correct, consistent code.</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.2,
+    &quot;top_p&quot;: 0.5,
+    &quot;max_tokens&quot;: 2000,
+    &quot;stop_sequences&quot;: [&quot;```&quot;, &quot;\n\n#&quot;]
+}
+</code></pre>
+<p><strong>Why</strong>:
+- Temperature 0.2: High consistency, minimal variation
+- Top-p 0.5: Very focused on most likely tokens
+- Max tokens 2000: Allow complete functions
+- Stop sequences: Stop after code block</p>
+<hr />
+<h3 id="use-case-3-creative-story-writing">Use Case 3: Creative Story Writing</h3>
+<p><strong>Goal</strong>: Interesting, surprising narratives.</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 1.0,
+    &quot;top_p&quot;: 0.95,
+    &quot;max_tokens&quot;: 3000,
+    &quot;repetition_penalty&quot;: 1.3
+}
+</code></pre>
+<p><strong>Why</strong>:
+- Temperature 1.0: Creative freedom
+- Top-p 0.95: Still filter extreme outliers
+- Max tokens 3000: Allow longer stories
+- High repetition penalty: Varied vocabulary, avoid repetitive phrases</p>
+<hr />
+<h3 id="use-case-4-json-data-extraction">Use Case 4: JSON Data Extraction</h3>
+<p><strong>Goal</strong>: Valid JSON, consistent format.</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 0.0,
+    &quot;max_tokens&quot;: 1000,
+    &quot;stop_sequences&quot;: [&quot;\n}&quot;]
+}
+</code></pre>
+<p><strong>Why</strong>:
+- Temperature 0.0: Deterministic (critical for structured data!)
+- Stop after closing brace: Prevent extra text after JSON
+- No top-p needed (temperature=0 is greedy)</p>
+<hr />
+<h3 id="use-case-5-brainstorming-ideas">Use Case 5: Brainstorming Ideas</h3>
+<p><strong>Goal</strong>: Diverse, unusual ideas.</p>
+<p><strong>Configuration</strong>:</p>
+<pre><code class="language-python">{
+    &quot;temperature&quot;: 1.2,
+    &quot;top_p&quot;: 0.95,
+    &quot;max_tokens&quot;: 1500,
+    &quot;repetition_penalty&quot;: 1.4
+}
+</code></pre>
+<p><strong>Why</strong>:
+- Temperature 1.2: Push into creative territory
+- Top-p 0.95: Still filter completely nonsensical
+- High repetition penalty: Force diverse ideas
+- Longer context: Allow exploring multiple ideas</p>
+<hr />
+<h2 id="common-pitfalls">🐛 Common Pitfalls</h2>
+<h3 id="pitfall-1-using-temperature-for-consistency">Pitfall 1: Using Temperature for Consistency</h3>
+<p><strong>Wrong</strong>:</p>
+<pre><code class="language-python"># Trying to get same output with temperature=0.1
+# Sometimes still varies!
+</code></pre>
+<p><strong>Right</strong>:</p>
+<pre><code class="language-python"># Use temperature=0.0 for true determinism
+{
+    &quot;temperature&quot;: 0.0
+}
+</code></pre>
+<p><strong>Why</strong>: Even small temperature creates randomness.</p>
+<hr />
+<h3 id="pitfall-2-combining-top-p-and-top-k">Pitfall 2: Combining Top-p and Top-k</h3>
+<p><strong>Wrong</strong>:</p>
+<pre><code class="language-python">{
+    &quot;top_p&quot;: 0.9,
+    &quot;top_k&quot;: 50  # Both active!
+}
+</code></pre>
+<p><strong>Problem</strong>: Unclear which takes precedence. Behavior varies by API.</p>
+<p><strong>Right</strong>: Use one or the other, not both.</p>
+<pre><code class="language-python"># Option 1
+{&quot;top_p&quot;: 0.9}
+
+# Option 2
+{&quot;top_k&quot;: 50}
+</code></pre>
+<hr />
+<h3 id="pitfall-3-ignoring-repetition-penalty-for-long-outputs">Pitfall 3: Ignoring Repetition Penalty for Long Outputs</h3>
+<p><strong>Problem</strong>: Long outputs without repetition penalty get repetitive.</p>
+<p><strong>Solution</strong>: Always use mild repetition penalty (1.1-1.2) for outputs &gt;200 tokens.</p>
+<hr />
+<h3 id="pitfall-4-too-high-temperature">Pitfall 4: Too-High Temperature</h3>
+<p><strong>Wrong</strong>:</p>
+<pre><code class="language-python">{&quot;temperature&quot;: 2.5}  # Way too high!
+</code></pre>
+<p><strong>Result</strong>: Nonsensical outputs, wasted API calls.</p>
+<p><strong>Right</strong>: Stay under 1.5, ideally under 1.2.</p>
+<hr />
+<h3 id="pitfall-5-not-setting-max_tokens">Pitfall 5: Not Setting max_tokens</h3>
+<p><strong>Problem</strong>: Model generates thousands of tokens, huge cost!</p>
+<p><strong>Solution</strong>: Always set max_tokens based on your use case.</p>
+<hr />
+<h2 id="sampling-strategy-decision-matrix">Sampling Strategy Decision Matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Temperature</th>
+<th>Top-p</th>
+<th>Top-k</th>
+<th>Repetition</th>
+<th>Max Tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Code generation</strong></td>
+<td>0.2</td>
+<td>0.5</td>
+<td>-</td>
+<td>1.0</td>
+<td>2000</td>
+</tr>
+<tr>
+<td><strong>JSON extraction</strong></td>
+<td>0.0</td>
+<td>-</td>
+<td>-</td>
+<td>1.0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td><strong>Chatbot</strong></td>
+<td>0.7</td>
+<td>0.9</td>
+<td>-</td>
+<td>1.1</td>
+<td>500</td>
+</tr>
+<tr>
+<td><strong>Creative writing</strong></td>
+<td>1.0</td>
+<td>0.95</td>
+<td>-</td>
+<td>1.3</td>
+<td>3000</td>
+</tr>
+<tr>
+<td><strong>Brainstorming</strong></td>
+<td>1.2</td>
+<td>0.95</td>
+<td>-</td>
+<td>1.4</td>
+<td>1500</td>
+</tr>
+<tr>
+<td><strong>Summarization</strong></td>
+<td>0.3</td>
+<td>0.7</td>
+<td>-</td>
+<td>1.0</td>
+<td>500</td>
+</tr>
+<tr>
+<td><strong>Translation</strong></td>
+<td>0.3</td>
+<td>0.8</td>
+<td>-</td>
+<td>1.0</td>
+<td>1000</td>
+</tr>
+<tr>
+<td><strong>Testing/QA</strong></td>
+<td>0.0</td>
+<td>-</td>
+<td>-</td>
+<td>1.0</td>
+<td>varies</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ol>
+<li><strong>Autoregressive generation</strong>: LLMs generate one token at a time</li>
+<li><strong>Temperature controls creativity</strong>: 0.0 = deterministic, 1.0+ = creative</li>
+<li><strong>Top-p filters unlikely tokens</strong>: 0.9 is a good default</li>
+<li><strong>Top-k is less common</strong>: Top-p is generally better</li>
+<li><strong>Repetition penalty prevents loops</strong>: Use 1.1-1.3 for most cases</li>
+<li><strong>max_tokens controls length and cost</strong>: Always set it!</li>
+<li><strong>No one-size-fits-all</strong>: Different use cases need different strategies</li>
+<li><strong>Experiment!</strong>: Sampling parameters are cheap to adjust</li>
+</ol>
+<hr />
+<h2 id="common-misconceptions">🚫 Common Misconceptions</h2>
+<h3 id="myth-1-higher-temperature-better-quality">Myth 1: "Higher temperature = better quality"</h3>
+<p><strong>Reality</strong>: Higher temperature = more randomness. Quality peaks around 0.7-1.0, then declines.</p>
+<h3 id="myth-2-temperature00-means-perfect-outputs">Myth 2: "Temperature=0.0 means perfect outputs"</h3>
+<p><strong>Reality</strong>: Temperature=0.0 means <em>consistent</em> outputs. Quality depends on prompt and model.</p>
+<h3 id="myth-3-top-p-and-top-k-do-the-same-thing">Myth 3: "Top-p and top-k do the same thing"</h3>
+<p><strong>Reality</strong>: Top-p is adaptive (based on probability distribution), top-k is fixed.</p>
+<h3 id="myth-4-sampling-strategies-are-expensive">Myth 4: "Sampling strategies are expensive"</h3>
+<p><strong>Reality</strong>: Negligible cost. The main cost is token count, not sampling strategy.</p>
+<h3 id="myth-5-you-should-always-use-default-settings">Myth 5: "You should always use default settings"</h3>
+<p><strong>Reality</strong>: Defaults are generic. Tuning sampling for your use case improves results!</p>
+<hr />
+<h2 id="did-you-know-the-hidden-history-of-text-generation">Did You Know? The Hidden History of Text Generation</h2>
+<h3 id="the-boring-gpt-2-problem">The "Boring GPT-2" Problem</h3>
+<p>When OpenAI released GPT-2 in 2019, they faced an embarrassing problem: <strong>the model was boring</strong>.</p>
+<p>Despite all the hype about "too dangerous to release," early demos produced repetitive, predictable text. Researchers would generate stories that started strong, then devolved into endless repetition:</p>
+<pre><code>&quot;The dragon approached the castle. The dragon was a dragon. The dragon
+had dragon wings. The dragon's dragon breath was very dragon-like...&quot;
+</code></pre>
+<p><strong>What went wrong?</strong> OpenAI had been using <strong>beam search</strong> - the standard decoding algorithm from machine translation. It worked great for translation (where you want THE most likely translation), but for creative text, it produced the "highest probability" sequence - which was often repetitive drivel.</p>
+<p><strong>The breakthrough came from an unlikely place</strong>: A team at University of Washington and AI2, led by Ari Holtzman, published "The Curious Case of Neural Text Degeneration" in 2019. Their insight: <strong>the problem wasn't the model - it was how we sampled from it.</strong></p>
+<p>They invented <strong>nucleus sampling (top-p)</strong> and suddenly GPT-2 could write compelling stories. OpenAI quietly switched their demos to top-p sampling, and the "dangerous AI" narrative stuck. The paper has since been cited over 2,500 times.</p>
+<h3 id="the-temperature-wars-of-2020-2021">The Temperature Wars of 2020-2021</h3>
+<p>When GPT-3 launched (2020), developers discovered temperature through trial and error. A cottage industry emerged of "optimal temperature" guides, each claiming to have found the magic number:</p>
+<ul>
+<li><strong>Marketing agencies</strong>: "Temperature 0.9 is best for ad copy!"</li>
+<li><strong>Code bloggers</strong>: "Never go above 0.2 for code!"</li>
+<li><strong>Creative writers</strong>: "Real artists use 1.2+!"</li>
+</ul>
+<p><strong>The truth?</strong> There was no universal best. But the experimentation led to collective wisdom:
+- <code>0.0-0.3</code>: Technical, factual, consistent tasks
+- <code>0.5-0.7</code>: General-purpose, balanced
+- <code>0.8-1.0</code>: Creative, diverse
+- <code>1.0+</code>: Experimental, high variance</p>
+<p><strong>Fun fact</strong>: OpenAI's playground originally defaulted to <code>temperature=0.7</code> because an early researcher thought it "felt right" - no rigorous testing involved!</p>
+<h3 id="why-temperature-and-not-creativity">Why "Temperature" and Not "Creativity"?</h3>
+<p>The name "temperature" confuses everyone. Why not call it "creativity" or "randomness"?</p>
+<p><strong>The answer goes back to 1876</strong> - Ludwig Boltzmann's work on statistical mechanics. Boltzmann showed that in a gas, higher temperature means molecules move more randomly. The probability distribution follows:</p>
+<pre><code>P(state) ∝ exp(-Energy / Temperature)
+</code></pre>
+<p>LLM sampling uses the <strong>exact same math</strong>:</p>
+<pre><code>P(token) ∝ exp(logit / temperature)
+</code></pre>
+<p>When AI researchers in the 1990s needed a way to control randomness in neural networks, they borrowed the physics term. The metaphor stuck, even though most developers have never heard of Boltzmann.</p>
+<p><strong>Trivia</strong>: At temperature=0 (absolute zero in physics), all molecular motion stops. In LLMs, all randomness stops - you get deterministic, greedy decoding. The parallel is mathematically exact!</p>
+<h3 id="the-100k-sampling-bug">The $100K Sampling Bug</h3>
+<p>In 2021, a startup building an AI writing assistant shipped with a bug: they accidentally set <code>top_p=0.1</code> instead of <code>top_p=0.9</code> in production.</p>
+<p><strong>The result</strong>:
+- Users complained their AI was "boring" and "predictable"
+- Churn rate spiked 400%
+- They lost $100K in revenue before finding the bug</p>
+<p><strong>The fix took 5 minutes</strong> - changing one character in a config file. But finding it took 3 weeks because nobody thought to check sampling parameters.</p>
+<p><strong>Lesson</strong>: Sampling configuration is often overlooked but has massive impact on user experience!</p>
+<h3 id="the-rise-of-temperature-as-a-product-feature">The Rise of "Temperature as a Product Feature"</h3>
+<p>By 2023, some AI products started exposing temperature as a user-facing feature:</p>
+<ul>
+<li><strong>Claude</strong>: Offers different "styles" (precise vs creative) that adjust temperature</li>
+<li><strong>ChatGPT</strong>: The "temperature slider" in API playground became famous</li>
+<li><strong>Midjourney</strong>: Uses "chaos" parameter (similar concept for images)</li>
+<li><strong>Character.ai</strong>: Lets users adjust "personality variance"</li>
+</ul>
+<p><strong>The insight</strong>: Users don't want to understand softmax math, but they DO want control over consistency vs creativity. Abstracting temperature behind user-friendly labels became a competitive advantage.</p>
+<h3 id="the-numbers-that-matter">The Numbers That Matter</h3>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nucleus sampling improves human preference by <strong>21%</strong></td>
+<td>Original paper, 2019</td>
+</tr>
+<tr>
+<td>Temperature 0.7-0.8 rated "most natural" by users</td>
+<td>OpenAI user studies</td>
+</tr>
+<tr>
+<td>Code with temp&gt;0.5 has <strong>3x more bugs</strong></td>
+<td>GitHub Copilot analysis</td>
+</tr>
+<tr>
+<td>Creative writing peaks at temp <strong>1.0-1.1</strong></td>
+<td>Author surveys, 2023</td>
+</tr>
+<tr>
+<td>Repetition penalty reduces loops by <strong>85%</strong></td>
+<td>Hugging Face benchmarks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1904.09751">"The Curious Case of Neural Text Degeneration"</a> (Holtzman et al., 2019) - Introduces nucleus sampling (top-p)</li>
+<li><a href="https://arxiv.org/abs/1805.04833">"Hierarchical Neural Story Generation"</a> (Fan et al., 2018) - Sampling for creative text</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li><a href="https://platform.openai.com/docs/api-reference/chat/create#temperature">OpenAI API - Sampling Parameters</a></li>
+<li><a href="https://docs.anthropic.com/claude/reference/messages_post">Anthropic Claude - Generation Parameters</a></li>
+<li><a href="https://huggingface.co/docs/transformers/generation_strategies">Hugging Face - Generation Strategies</a></li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li><a href="https://huggingface.co/spaces/huggingface-projects/text-generation-playground">Hugging Face Generation Playground</a> - Interactive sampling exploration</li>
+</ul>
+<hr />
+<h2 id="knowledge-check">Knowledge Check</h2>
+<p>Before moving to Module 9, you should be able to:</p>
+<ul>
+<li>[ ] Explain how autoregressive generation works</li>
+<li>[ ] Describe what temperature does and when to use different values</li>
+<li>[ ] Explain the difference between top-p and top-k sampling</li>
+<li>[ ] Choose appropriate sampling strategies for different use cases</li>
+<li>[ ] Understand when to use repetition penalty</li>
+<li>[ ] Set max_tokens appropriately for your use case</li>
+<li>[ ] Debug sampling-related issues in generated text</li>
+<li>[ ] Balance creativity and consistency based on requirements</li>
+</ul>
+<hr />
+<h2 id="whats-next">What's Next</h2>
+<p><strong>Module 9</strong>: Embeddings &amp; Semantic Similarity
+- What embeddings are (vectors representing meaning)
+- How to generate embeddings
+- Calculating semantic similarity
+- Use cases: search, clustering, recommendations</p>
+<p><strong>You'll learn</strong>:
+- How "king" - "man" + "woman" ≈ "queen" (vector arithmetic!)
+- Why embeddings are the foundation of modern AI
+- How to build semantic search</p>
+<hr />
+<p><strong>Remember</strong>: Sampling strategies are powerful but simple tools. Master them and you'll have fine-grained control over LLM outputs!</p>
+<p><strong>Let's explore embeddings next! 🥋🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-21</em>
+<em>Version: 1.0</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_09_embeddings.html">Module 9: Embeddings & Semantic Similarity</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

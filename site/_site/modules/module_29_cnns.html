@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 29: Convolutional Neural Networks (CNNs) - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_30_transformers.html">Next: Module 30: Transformers & Attention Mechanisms →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 29: Convolutional Neural Networks (CNNs)</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-29-convolutional-neural-networks-cnns">Module 29: Convolutional Neural Networks (CNNs)</h1>
+<h1 id="or-how-ai-learned-to-see-and-why-it-still-cant-find-waldo">Or: How AI Learned to See (And Why It Still Can't Find Waldo)</h1>
+<p><strong>Last Updated</strong>: 2025-11-27
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 6-8 hours
+<strong>Prerequisites</strong>: Module 28</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand how convolution operations extract features from images
+- Know why CNNs revolutionized computer vision (and the stories behind it)
+- Build custom CNN architectures from scratch
+- Master pooling, striding, and receptive fields
+- Navigate classic architectures (LeNet, AlexNet, VGG, ResNet)
+- Apply transfer learning to get 95%+ accuracy with minimal training
+- Understand when CNNs fail and why transformers are challenging them</p>
+<hr />
+<h2 id="the-computer-vision-revolution-from-impossible-to-ubiquitous">The Computer Vision Revolution: From Impossible to Ubiquitous</h2>
+<p>Let's set the stage with a shocking fact: <strong>in 2010, computers were worse at recognizing objects than a four-year-old child</strong>.</p>
+<p>The ImageNet challenge — a competition to classify images into 1,000 categories like "golden retriever," "volcano," and "espresso" — had error rates around 25%. That means one in four images was misclassified. For reference, humans make mistakes about 5% of the time.</p>
+<p>Then, in 2012, everything changed.</p>
+<blockquote>
+<p><strong>Did You Know?</strong> At the 2012 ImageNet competition, a team from the University of Toronto submitted an entry called "AlexNet." It won by a landslide — 15% error rate versus 26% for the runner-up. This wasn't just winning; it was demolishing the competition by the largest margin in the contest's history. The winning team? Alex Krizhevsky, Ilya Sutskever (later co-founder of OpenAI), and Geoffrey Hinton. This single result is often credited with starting the modern AI boom.</p>
+</blockquote>
+<p>What made AlexNet so special? It was a <strong>convolutional neural network</strong> — a type of neural network specifically designed to process images. CNNs weren't new in 2012 (they were invented in the 1980s), but AlexNet was the first to combine them with GPUs and massive datasets. The result changed the world.</p>
+<p>Today, CNNs power:
+- <strong>Your phone's camera</strong>: Face detection, portrait mode, night sight
+- <strong>Self-driving cars</strong>: Lane detection, obstacle recognition
+- <strong>Medical imaging</strong>: Cancer detection, X-ray analysis
+- <strong>Social media</strong>: Content moderation, auto-tagging
+- <strong>Security systems</strong>: Facial recognition, anomaly detection</p>
+<p>Let's understand how they work.</p>
+<hr />
+<h2 id="the-biological-inspiration-how-vision-actually-works">The Biological Inspiration: How Vision Actually Works</h2>
+<p>Before we dive into the math, let's understand why CNNs look the way they do. They're directly inspired by how the human visual cortex works.</p>
+<h3 id="the-nobel-prize-discovery">The Nobel Prize Discovery</h3>
+<p>In 1959, David Hubel and Torsten Wiesel did something that sounds like mad science: they inserted electrodes into a cat's brain and showed it different images. What they discovered won them the Nobel Prize in 1981.</p>
+<blockquote>
+<p><strong>Did You Know?</strong> Hubel and Wiesel discovered that neurons in the visual cortex respond to very specific patterns. Some neurons fire only when they see a vertical line. Others respond to horizontal lines. Some detect edges at 45-degree angles. The visual system doesn't try to process the whole image at once — it builds understanding from simple features. This hierarchical processing is exactly what CNNs replicate.</p>
+</blockquote>
+<p>They found two key types of cells:
+1. <strong>Simple cells</strong>: Respond to edges at specific orientations in specific locations
+2. <strong>Complex cells</strong>: Respond to the same features but are more tolerant of position</p>
+<p>This is exactly what CNNs do:
+- <strong>Convolutional layers</strong>: Detect simple features (like edge detectors)
+- <strong>Pooling layers</strong>: Add position tolerance (like complex cells)
+- <strong>Deeper layers</strong>: Combine simple features into complex ones</p>
+<p>The analogy isn't perfect, but it's striking how well the architecture maps onto biology.</p>
+<hr />
+<h2 id="from-pixels-to-features-the-convolution-operation">From Pixels to Features: The Convolution Operation</h2>
+<p>Here's the fundamental problem with using regular neural networks on images:</p>
+<p>An image is 224×224×3 pixels (RGB). That's 150,528 input values. If your first hidden layer has 1,000 neurons, you need 150 million weights — just for the first layer! This is:
+1. <strong>Computationally insane</strong>: Too many parameters to train
+2. <strong>Wasteful</strong>: Most of those connections don't matter
+3. <strong>Missing the point</strong>: Images have spatial structure that fully-connected networks ignore</p>
+<p>Convolutions solve all three problems elegantly.</p>
+<h3 id="what-is-convolution-the-intuitive-version">What Is Convolution? (The Intuitive Version)</h3>
+<p>Imagine you're looking for a specific pattern in an image — say, vertical edges. You have a small "stencil" that knows what vertical edges look like. You slide this stencil across every position in the image, and at each position, you compute how well the image matches the stencil.</p>
+<p>The stencil is called a <strong>kernel</strong> or <strong>filter</strong>. The sliding operation is called <strong>convolution</strong>.</p>
+<p>Here's a concrete example. This 3×3 kernel detects vertical edges:</p>
+<pre><code>Vertical Edge Detector:
+[-1  0  1]
+[-1  0  1]
+[-1  0  1]
+</code></pre>
+<p>When you slide this over an image:
+- Where there's a vertical edge (dark on left, light on right), you get a high positive value
+- Where there's no edge or a horizontal edge, you get near zero
+- Where there's a reverse edge (light on left, dark on right), you get a negative value</p>
+<p>The brilliant insight is that <strong>the same kernel is applied everywhere in the image</strong>. This means:
+1. <strong>Parameter sharing</strong>: A 3×3 kernel has only 9 parameters, not millions
+2. <strong>Translation equivariance</strong>: A cat in the corner uses the same features as a cat in the center
+3. <strong>Hierarchy</strong>: Stack many layers to detect increasingly complex patterns</p>
+<h3 id="the-math-how-convolution-works">The Math: How Convolution Works</h3>
+<p>Let's make this concrete. For a single-channel image (grayscale), convolution computes:</p>
+<pre><code>Output[i,j] = Σ Σ Input[i+m, j+n] × Kernel[m, n]
+             m n
+</code></pre>
+<p>Where the sums run over the kernel dimensions.</p>
+<p><strong>Worked Example</strong>: Let's apply a 3×3 kernel to a 5×5 image:</p>
+<pre><code>Input (5×5):                    Kernel (3×3):
+[1  2  3  4  5]                 [1  0 -1]
+[6  7  8  9  10]                [1  0 -1]
+[11 12 13 14 15]                [1  0 -1]
+[16 17 18 19 20]
+[21 22 23 24 25]
+
+Computing Output[0,0] (top-left corner of output):
+= 1×1 + 2×0 + 3×(-1) + 6×1 + 7×0 + 8×(-1) + 11×1 + 12×0 + 13×(-1)
+= 1 + 0 - 3 + 6 + 0 - 8 + 11 + 0 - 13
+= -6
+
+Computing Output[0,1] (slide right by 1):
+= 2×1 + 3×0 + 4×(-1) + 7×1 + 8×0 + 9×(-1) + 12×1 + 13×0 + 14×(-1)
+= 2 + 0 - 4 + 7 + 0 - 9 + 12 + 0 - 14
+= -6
+</code></pre>
+<p>Notice the output is consistent because the input has no edges (just a uniform gradient).</p>
+<h3 id="output-size-the-formula-youll-use-daily">Output Size: The Formula You'll Use Daily</h3>
+<p>The output size depends on several parameters:</p>
+<pre><code>Output Size = floor((Input - Kernel + 2×Padding) / Stride) + 1
+</code></pre>
+<p>Let's break this down:
+- <strong>Input</strong>: The input dimension (e.g., 224)
+- <strong>Kernel</strong>: The kernel size (e.g., 3)
+- <strong>Padding</strong>: Extra zeros around the border (e.g., 1)
+- <strong>Stride</strong>: How many pixels to skip between applications (e.g., 1)</p>
+<p><strong>Common configurations:</strong>
+- <code>kernel=3, padding=1, stride=1</code>: Output same size as input (most common)
+- <code>kernel=3, padding=0, stride=1</code>: Output shrinks by 2 pixels each side
+- <code>kernel=3, padding=1, stride=2</code>: Output is half the input size (downsampling)</p>
+<p><strong>Worked Example</strong>:</p>
+<pre><code>Input: 224×224
+Conv2d(kernel=3, padding=1, stride=2)
+
+Output = (224 - 3 + 2×1) / 2 + 1 = (224 - 3 + 2) / 2 + 1 = 223/2 + 1 = 111.5 + 1 = 112
+
+Output: 112×112
+</code></pre>
+<h3 id="pytorch-implementation">PyTorch Implementation</h3>
+<p>Here's how convolution looks in code. We'll build intuition by comparing with manual computation:</p>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+
+# Create a simple 5x5 image (batch_size=1, channels=1)
+image = torch.tensor([
+    [1., 2., 3., 4., 5.],
+    [6., 7., 8., 9., 10.],
+    [11., 12., 13., 14., 15.],
+    [16., 17., 18., 19., 20.],
+    [21., 22., 23., 24., 25.]
+]).unsqueeze(0).unsqueeze(0)  # Shape: (1, 1, 5, 5)
+
+# Create a vertical edge detector
+conv = nn.Conv2d(
+    in_channels=1,
+    out_channels=1,
+    kernel_size=3,
+    padding=0,  # No padding, output will be 3x3
+    bias=False
+)
+
+# Set the kernel manually
+with torch.no_grad():
+    conv.weight = nn.Parameter(torch.tensor([
+        [[[ 1.,  0., -1.],
+          [ 1.,  0., -1.],
+          [ 1.,  0., -1.]]]
+    ]))
+
+output = conv(image)
+print(output.shape)  # torch.Size([1, 1, 3, 3])
+print(output[0, 0])  # The 3x3 output
+</code></pre>
+<p>Notice how PyTorch handles all the sliding and summation for you. The key parameters are:
+- <code>in_channels</code>: Number of input channels (1 for grayscale, 3 for RGB)
+- <code>out_channels</code>: Number of filters (each learns a different feature)
+- <code>kernel_size</code>: Size of the filter (3×3 is most common)
+- <code>padding</code>: Zeros to add around the border
+- <code>stride</code>: How many pixels to skip</p>
+<h3 id="multiple-filters-learning-different-features">Multiple Filters: Learning Different Features</h3>
+<p>A single kernel detects one pattern. To detect many patterns, we use <strong>multiple filters</strong>:</p>
+<pre><code class="language-python"># 32 filters, each learning a different feature
+conv_block = nn.Conv2d(
+    in_channels=3,     # RGB input
+    out_channels=32,   # 32 different filters
+    kernel_size=3,
+    padding=1
+)
+
+rgb_image = torch.randn(1, 3, 224, 224)  # Batch of 1 RGB image
+features = conv_block(rgb_image)
+print(features.shape)  # torch.Size([1, 32, 224, 224])
+</code></pre>
+<p>Each of those 32 output channels represents a different "feature map" — one might detect vertical edges, another horizontal, another corners, etc. The network <strong>learns</strong> what features to detect during training.</p>
+<blockquote>
+<p><strong>Did You Know?</strong> When researchers visualize what early convolutional layers learn, they consistently find edge detectors, color blob detectors, and gradient detectors — remarkably similar to what Hubel and Wiesel found in cats' brains. The network "rediscovers" the visual features that evolution took millions of years to develop.</p>
+</blockquote>
+<hr />
+<h2 id="pooling-making-networks-translation-invariant">Pooling: Making Networks Translation-Invariant</h2>
+<p>You've detected that there's a cat in the image. Do you care if it's 3 pixels to the left? No! You want your network to be robust to small shifts in position.</p>
+<p>This is what <strong>pooling</strong> provides.</p>
+<h3 id="max-pooling-the-dominant-approach">Max Pooling: The Dominant Approach</h3>
+<p>Max pooling is simple: divide the feature map into regions and keep only the maximum value in each region.</p>
+<pre><code>Input (4×4):              Max Pool 2×2, stride 2:
+[1  3  2  4]
+[5  6  7  8]     →        [6   8]
+[9  1  3  4]              [9   7]
+[2  3  7  1]
+
+Top-left output: max(1,3,5,6) = 6
+Top-right output: max(2,4,7,8) = 8
+Bottom-left output: max(9,1,2,3) = 9
+Bottom-right output: max(3,4,7,1) = 7
+</code></pre>
+<p>Max pooling provides:
+1. <strong>Downsampling</strong>: Reduces spatial dimensions (2× with 2×2 pooling)
+2. <strong>Translation invariance</strong>: Small shifts don't change the output
+3. <strong>Computation savings</strong>: Fewer values to process in later layers
+4. <strong>Feature selection</strong>: Keeps the strongest activation in each region</p>
+<h3 id="average-pooling-the-alternative">Average Pooling: The Alternative</h3>
+<p>Average pooling takes the mean instead of the maximum:</p>
+<pre><code>Same input with Average Pool 2×2:
+Top-left: (1+3+5+6)/4 = 3.75
+Top-right: (2+4+7+8)/4 = 5.25
+...
+</code></pre>
+<p>Average pooling is smoother and doesn't throw away information as aggressively. It's often used at the very end of networks (Global Average Pooling) to reduce feature maps to a single value per channel.</p>
+<h3 id="pytorch-pooling-layers">PyTorch Pooling Layers</h3>
+<pre><code class="language-python"># Max pooling: keep strongest activation
+max_pool = nn.MaxPool2d(kernel_size=2, stride=2)
+
+# Average pooling: take the mean
+avg_pool = nn.AvgPool2d(kernel_size=2, stride=2)
+
+# Global average pooling: reduce entire feature map to single value
+# Usually done with nn.AdaptiveAvgPool2d(1)
+gap = nn.AdaptiveAvgPool2d(1)  # Output is 1×1 regardless of input size
+
+features = torch.randn(1, 64, 14, 14)  # Some feature map
+pooled = gap(features)
+print(pooled.shape)  # torch.Size([1, 64, 1, 1])
+</code></pre>
+<h3 id="the-decline-of-manual-pooling">The Decline of Manual Pooling</h3>
+<p>Here's an interesting trend: modern networks often <strong>skip explicit pooling layers</strong> and use strided convolutions instead.</p>
+<p>Why? A strided convolution (stride=2) also reduces spatial dimensions, but unlike pooling, it's <strong>learnable</strong>. The network can decide how to downsample rather than using fixed max/average rules.</p>
+<pre><code class="language-python"># Traditional: Conv + Pool
+traditional = nn.Sequential(
+    nn.Conv2d(64, 128, kernel_size=3, padding=1),
+    nn.ReLU(),
+    nn.MaxPool2d(2)  # Fixed downsampling
+)
+
+# Modern: Strided Conv
+modern = nn.Sequential(
+    nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1),  # Learnable downsampling
+    nn.ReLU()
+)
+</code></pre>
+<p>Both reduce spatial dimensions by 2×, but the strided convolution approach is more flexible.</p>
+<hr />
+<h2 id="receptive-fields-how-cnns-see-the-big-picture">Receptive Fields: How CNNs See the Big Picture</h2>
+<p>Here's a crucial concept that trips up beginners: a neuron in a deep layer doesn't just "see" a 3×3 patch — it sees a much larger region called its <strong>receptive field</strong>.</p>
+<h3 id="building-intuition">Building Intuition</h3>
+<p>Consider three 3×3 convolutions stacked:
+- Layer 1: Each neuron sees a 3×3 region of the input
+- Layer 2: Each neuron sees a 3×3 region of Layer 1's output. But each of those Layer 1 neurons saw 3×3, so effectively Layer 2 sees 5×5 of the original input
+- Layer 3: Following the same logic, sees 7×7 of the original input</p>
+<h3 id="the-receptive-field-formula">The Receptive Field Formula</h3>
+<p>For convolutions with kernel size k and no stride or dilation:</p>
+<pre><code>Receptive Field = 1 + L × (k - 1)
+</code></pre>
+<p>Where L is the number of layers.</p>
+<p><strong>Example</strong>: 5 layers of 3×3 convolutions:</p>
+<pre><code>RF = 1 + 5 × (3 - 1) = 1 + 5 × 2 = 11
+</code></pre>
+<p>With stride and pooling, receptive fields grow much faster.</p>
+<h3 id="dilated-atrous-convolutions-expanding-receptive-fields-without-downsampling">Dilated (Atrous) Convolutions: Expanding Receptive Fields Without Downsampling</h3>
+<p>Sometimes you need a large receptive field but can't afford to downsample (common in semantic segmentation where you need full-resolution output). <strong>Dilated convolutions</strong> solve this by inserting gaps in the kernel:</p>
+<pre><code>Standard 3×3 kernel:        Dilated 3×3 (dilation=2):
+[× × ×]                     [×   ×   ×]
+[× × ×]  → 3×3 RF           [         ]
+[× × ×]                     [×   ×   ×]  → 5×5 RF
+                            [         ]
+                            [×   ×   ×]
+</code></pre>
+<p>A 3×3 kernel with dilation=2 has a 5×5 receptive field but still only 9 parameters. With dilation=4, you get a 9×9 receptive field.</p>
+<pre><code class="language-python"># Dilated convolution in PyTorch
+dilated_conv = nn.Conv2d(
+    64, 64, kernel_size=3,
+    padding=2,      # Adjust padding to maintain size
+    dilation=2      # Insert 1 gap between kernel elements
+)
+</code></pre>
+<p>Dilated convolutions are crucial for:
+- <strong>Semantic segmentation</strong> (DeepLab uses them extensively)
+- <strong>WaveNet</strong> (audio generation)
+- Any task needing large receptive fields at high resolution</p>
+<h3 id="why-this-matters">Why This Matters</h3>
+<p>Receptive fields explain several design choices:
+1. <strong>Deep &gt; Wide</strong>: To "see" a 224×224 image, you need enough layers for the receptive field to cover it
+2. <strong>Stacking 3×3</strong>: Two 3×3 convolutions = 5×5 receptive field with fewer parameters than one 5×5 kernel
+3. <strong>Global operations</strong>: Later layers can make global decisions because they see the whole image</p>
+<blockquote>
+<p><strong>Did You Know?</strong> The VGGNet paper (2014) demonstrated that stacking small 3×3 filters is more effective than using larger filters. Three 3×3 layers have the same receptive field as one 7×7 layer but with fewer parameters (3×3×3 = 27 vs 7×7 = 49) and more non-linearities (three ReLUs vs one). This insight influenced almost all subsequent architectures.</p>
+</blockquote>
+<hr />
+<h2 id="the-classic-architectures-a-journey-through-history">The Classic Architectures: A Journey Through History</h2>
+<p>Understanding classic architectures gives you the vocabulary to discuss modern ones. Each breakthrough solved a specific problem.</p>
+<h3 id="lenet-5-1998-the-original-cnn">LeNet-5 (1998): The Original CNN</h3>
+<p>Yann LeCun at Bell Labs created LeNet-5 for reading handwritten digits on checks. It's the blueprint all modern CNNs follow.</p>
+<p><strong>Architecture</strong>:</p>
+<pre><code>Input (32×32 grayscale)
+    ↓
+Conv1 (6 filters, 5×5) → 28×28×6
+    ↓
+Pool1 (2×2) → 14×14×6
+    ↓
+Conv2 (16 filters, 5×5) → 10×10×16
+    ↓
+Pool2 (2×2) → 5×5×16
+    ↓
+Flatten → 400
+    ↓
+FC1 → 120
+    ↓
+FC2 → 84
+    ↓
+Output → 10 (digits 0-9)
+</code></pre>
+<p><strong>Key innovations</strong>:
+- Convolution + pooling pattern
+- Local connectivity (not fully connected)
+- Learned features instead of hand-crafted</p>
+<p><strong>Limitation</strong>: Only worked on simple, centered images. Real-world images were still too hard.</p>
+<h3 id="alexnet-2012-the-deep-learning-big-bang">AlexNet (2012): The Deep Learning Big Bang</h3>
+<p>AlexNet won ImageNet 2012 by a huge margin and kickstarted the deep learning revolution.</p>
+<p><strong>What made it work</strong>:
+1. <strong>Depth</strong>: 8 layers (considered "deep" at the time)
+2. <strong>ReLU</strong>: Replaced sigmoid/tanh, enabling faster training
+3. <strong>Dropout</strong>: Prevented overfitting on 60M parameters
+4. <strong>GPUs</strong>: Trained on two GTX 580s (3GB each!) in parallel
+5. <strong>Data augmentation</strong>: Translations, reflections, color jittering
+6. <strong>Huge data</strong>: 1.2 million training images</p>
+<p><strong>Architecture Sketch</strong>:</p>
+<pre><code>Input: 224×224×3
+Conv1 (96, 11×11, stride 4) → 55×55×96
+MaxPool → 27×27×96
+Conv2 (256, 5×5) → 27×27×256
+MaxPool → 13×13×256
+Conv3 (384, 3×3) → 13×13×384
+Conv4 (384, 3×3) → 13×13×384
+Conv5 (256, 3×3) → 13×13×256
+MaxPool → 6×6×256
+FC1 → 4096 (with dropout)
+FC2 → 4096 (with dropout)
+Output → 1000 classes
+</code></pre>
+<blockquote>
+<p><strong>Did You Know?</strong> AlexNet was trained for about 6 days on two GPUs. Today, the same model can be trained in under an hour on modern hardware. But here's the crazy part: the original GPUs only had 3GB of VRAM, so the network was literally split across two GPUs with layers communicating between them. This "model parallelism" was a necessity, not a choice!</p>
+</blockquote>
+<h3 id="vggnet-2014-the-power-of-simplicity">VGGNet (2014): The Power of Simplicity</h3>
+<p>Karen Simonyan and Andrew Zisserman at Oxford asked a simple question: what if we just go deeper with 3×3 convolutions?</p>
+<p><strong>The insight</strong>: Stack 3×3 convolutions instead of using larger kernels. Two 3×3 = 5×5 receptive field. Three 3×3 = 7×7. Same receptive field, fewer parameters, more non-linearities.</p>
+<p><strong>VGG-16 Architecture</strong>:</p>
+<pre><code>Input: 224×224×3
+
+Block 1: 2× Conv3-64 + Pool → 112×112×64
+Block 2: 2× Conv3-128 + Pool → 56×56×128
+Block 3: 3× Conv3-256 + Pool → 28×28×256
+Block 4: 3× Conv3-512 + Pool → 14×14×512
+Block 5: 3× Conv3-512 + Pool → 7×7×512
+
+FC1 → 4096
+FC2 → 4096
+Output → 1000
+
+Total: 138 million parameters
+</code></pre>
+<p><strong>Legacy</strong>: VGG's feature extractor is still widely used for style transfer, perceptual losses, and feature matching because its features are interpretable and hierarchical.</p>
+<p><strong>Limitation</strong>: 138M parameters is a lot. Most are in the fully-connected layers. Modern networks avoid this.</p>
+<h3 id="googlenetinception-2014-going-wider-not-just-deeper">GoogLeNet/Inception (2014): Going Wider, Not Just Deeper</h3>
+<p>While everyone was stacking layers, Google took a different approach: what if we use <strong>multiple filter sizes in parallel</strong>?</p>
+<p><strong>The Inception Module</strong>:</p>
+<pre><code>            Input
+     ┌───────┼───────┬───────┐
+     │       │       │       │
+   1×1     3×3     5×5    Pool
+     │       │       │       │
+     └───────┴───────┴───────┘
+              Concat
+</code></pre>
+<p>Each branch uses a different kernel size, then outputs are concatenated. The network can choose which scale of features to use.</p>
+<p><strong>The 1×1 convolution trick</strong>: Before the 3×3 and 5×5 convolutions, 1×1 convolutions reduce the channel count, massively reducing computation. A 1×1 convolution is basically a per-pixel fully-connected layer.</p>
+<p><strong>Impact</strong>: GoogLeNet achieved similar accuracy to VGG with only 4 million parameters (vs VGG's 138 million). 22 layers deep.</p>
+<blockquote>
+<p><strong>Did You Know?</strong> The name "Inception" came from the 2010 movie where characters enter dreams within dreams. The Google team thought it fit perfectly — their module was networks within networks. The famous "we need to go deeper" meme from the movie became an inside joke in the deep learning community during 2014-2015.</p>
+</blockquote>
+<h3 id="resnet-2015-the-depth-breakthrough">ResNet (2015): The Depth Breakthrough</h3>
+<p>This is the most important architecture for understanding modern deep learning. Kaiming He and colleagues at Microsoft Research solved the degradation problem.</p>
+<p><strong>The Problem</strong>: When you make networks deeper, training accuracy gets <em>worse</em>, not better. This wasn't overfitting — training accuracy degraded. Something was fundamentally wrong.</p>
+<p><strong>The Solution</strong>: Skip connections (residual connections).</p>
+<p>Instead of learning H(x), learn F(x) = H(x) - x, then add x back:</p>
+<pre><code>Output = F(x) + x
+</code></pre>
+<p>This is called a <strong>residual block</strong>:</p>
+<pre><code>     Input (x)
+        │
+    ┌───┴───┐
+    │       │
+  Conv-BN   │
+    │       │
+  ReLU      │
+    │       │
+  Conv-BN   │
+    │       │
+    └───┬───┘
+        +  ←── skip connection
+        │
+      ReLU
+        │
+     Output
+</code></pre>
+<p><strong>Why it works</strong>: The skip connection provides a "gradient highway" that lets gradients flow directly through the network. Even if the learned transformation F(x) has vanishing gradients, the skip connection preserves the gradient from the loss.</p>
+<p><strong>Impact</strong>: ResNets can be 100+ layers deep without degradation. ResNet-152 won ImageNet 2015 with 3.6% error — better than humans (5%)!</p>
+<blockquote>
+<p><strong>Did You Know?</strong> ResNets were so influential that the original paper has over 200,000 citations. To put that in perspective, that's more than any physics paper ever published, including Einstein's foundational work. The skip connection is one of the most important ideas in deep learning.</p>
+</blockquote>
+<h3 id="the-resnet-family">The ResNet Family</h3>
+<pre><code class="language-python">import torch
+import torchvision.models as models
+
+# Standard ResNets (increasingly deeper)
+resnet18 = models.resnet18(pretrained=True)   # 11M params
+resnet34 = models.resnet34(pretrained=True)   # 21M params
+resnet50 = models.resnet50(pretrained=True)   # 25M params
+resnet101 = models.resnet101(pretrained=True) # 44M params
+resnet152 = models.resnet152(pretrained=True) # 60M params
+</code></pre>
+<h3 id="efficientnet-2019-optimal-scaling">EfficientNet (2019): Optimal Scaling</h3>
+<p>Google's EfficientNet asked: what's the optimal way to scale a network? More layers? More channels? Higher resolution?</p>
+<p><strong>The insight</strong>: All three should scale together with a compound coefficient.</p>
+<pre><code>depth = α^φ
+width = β^φ
+resolution = γ^φ
+</code></pre>
+<p>Where α, β, γ are found by neural architecture search and φ is the scaling coefficient.</p>
+<p><strong>Result</strong>: EfficientNet-B0 matches ResNet-50 accuracy with 5× fewer parameters. EfficientNet-B7 achieves state-of-the-art with reasonable compute.</p>
+<p><strong>Key technique</strong>: EfficientNet uses <strong>depthwise separable convolutions</strong> (from MobileNet). Instead of one convolution that mixes spatial and channel information together, it uses two steps:
+1. <strong>Depthwise</strong>: One filter per input channel (spatial only)
+2. <strong>Pointwise</strong>: 1×1 convolution (channel mixing only)</p>
+<p>This reduces computation by ~8-9× with minimal accuracy loss. If you see "MBConv" in architecture diagrams, that's a mobile inverted bottleneck block using this technique.</p>
+<hr />
+<h2 id="building-a-cnn-from-scratch">Building a CNN from Scratch</h2>
+<p>Let's build a modern CNN architecture incorporating everything we've learned:</p>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+
+class ConvBlock(nn.Module):
+    &quot;&quot;&quot;
+    A standard convolutional block: Conv -&gt; BatchNorm -&gt; ReLU.
+    Optionally includes residual connection.
+    &quot;&quot;&quot;
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int = 3,
+        stride: int = 1,
+        residual: bool = False
+    ):
+        super().__init__()
+        self.residual = residual
+
+        # Calculate padding to maintain spatial dimensions (when stride=1)
+        padding = kernel_size // 2
+
+        self.conv = nn.Conv2d(
+            in_channels, out_channels,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=padding,
+            bias=False  # BatchNorm handles the bias
+        )
+        self.bn = nn.BatchNorm2d(out_channels)
+        self.relu = nn.ReLU(inplace=True)
+
+        # Shortcut for residual connection when dimensions change
+        self.shortcut = nn.Identity()
+        if residual and (in_channels != out_channels or stride != 1):
+            self.shortcut = nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, 1, stride, bias=False),
+                nn.BatchNorm2d(out_channels)
+            )
+
+    def forward(self, x):
+        identity = x
+
+        out = self.conv(x)
+        out = self.bn(out)
+
+        if self.residual:
+            out = out + self.shortcut(identity)
+
+        out = self.relu(out)
+        return out
+
+
+class SimpleCNN(nn.Module):
+    &quot;&quot;&quot;
+    A modern CNN incorporating best practices:
+    - BatchNorm after every conv
+    - Residual connections in deeper blocks
+    - Global average pooling instead of flattening
+    - Dropout for regularization
+    &quot;&quot;&quot;
+    def __init__(self, num_classes: int = 10, in_channels: int = 3):
+        super().__init__()
+
+        # Initial convolution
+        self.stem = ConvBlock(in_channels, 32, kernel_size=3)
+
+        # Feature extraction blocks
+        self.block1 = nn.Sequential(
+            ConvBlock(32, 64, stride=2),  # Downsample
+            ConvBlock(64, 64, residual=True)
+        )
+
+        self.block2 = nn.Sequential(
+            ConvBlock(64, 128, stride=2),  # Downsample
+            ConvBlock(128, 128, residual=True),
+            ConvBlock(128, 128, residual=True)
+        )
+
+        self.block3 = nn.Sequential(
+            ConvBlock(128, 256, stride=2),  # Downsample
+            ConvBlock(256, 256, residual=True),
+            ConvBlock(256, 256, residual=True)
+        )
+
+        # Classification head
+        self.global_pool = nn.AdaptiveAvgPool2d(1)
+        self.dropout = nn.Dropout(0.5)
+        self.fc = nn.Linear(256, num_classes)
+
+        # Initialize weights properly
+        self._init_weights()
+
+    def _init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.normal_(m.weight, 0, 0.01)
+                nn.init.constant_(m.bias, 0)
+
+    def forward(self, x):
+        # Feature extraction
+        x = self.stem(x)      # 32 channels
+        x = self.block1(x)    # 64 channels, 1/2 spatial
+        x = self.block2(x)    # 128 channels, 1/4 spatial
+        x = self.block3(x)    # 256 channels, 1/8 spatial
+
+        # Classification
+        x = self.global_pool(x)  # 256×1×1
+        x = x.view(x.size(0), -1)  # Flatten to 256
+        x = self.dropout(x)
+        x = self.fc(x)
+        return x
+
+
+# Test the architecture
+model = SimpleCNN(num_classes=10, in_channels=3)
+dummy_input = torch.randn(2, 3, 32, 32)  # CIFAR-10 size
+output = model(dummy_input)
+print(f&quot;Input shape: {dummy_input.shape}&quot;)
+print(f&quot;Output shape: {output.shape}&quot;)
+print(f&quot;Total parameters: {sum(p.numel() for p in model.parameters()):,}&quot;)
+</code></pre>
+<p><strong>Key design choices explained:</strong></p>
+<ol>
+<li>
+<p><strong><code>bias=False</code> in Conv2d</strong>: BatchNorm has its own learnable bias (β), so the conv bias is redundant</p>
+</li>
+<li>
+<p><strong>Strided convolutions for downsampling</strong>: More flexible than max pooling, and we save parameters</p>
+</li>
+<li>
+<p><strong>Global average pooling</strong>: Instead of flattening (which would give 256×4×4=4096 values for 32×32 input), we pool to 256 values. This:</p>
+</li>
+<li>Dramatically reduces parameters</li>
+<li>Works with any input size</li>
+<li>
+<p>Acts as regularization</p>
+</li>
+<li>
+<p><strong>Residual connections in later blocks</strong>: Help gradient flow in deeper parts</p>
+</li>
+<li>
+<p><strong>Kaiming initialization</strong>: Proper initialization for ReLU networks</p>
+</li>
+</ol>
+<p><strong>A Note on BatchNorm Placement</strong>: There's an ongoing debate about whether to place BatchNorm before or after ReLU:</p>
+<pre><code class="language-python"># Original ResNet (BN after conv, before ReLU)
+Conv → BatchNorm → ReLU
+
+# &quot;Pre-activation&quot; ResNet (BN before conv)
+BatchNorm → ReLU → Conv
+</code></pre>
+<p>The original placement is most common, but pre-activation can work better for very deep networks. In practice, both work well — the difference is usually small. Most pretrained models use the original placement, so stick with that unless you have a specific reason to change.</p>
+<hr />
+<h2 id="transfer-learning-standing-on-giants-shoulders">Transfer Learning: Standing on Giants' Shoulders</h2>
+<p>Training a CNN from scratch requires:
+- Millions of labeled images
+- Days of GPU time
+- Expertise in hyperparameter tuning</p>
+<p>Transfer learning says: <strong>don't start from scratch</strong>.</p>
+<h3 id="the-key-insight">The Key Insight</h3>
+<p>Early layers of CNNs learn general features — edges, textures, patterns. These are useful for almost any image task! Later layers learn task-specific features.</p>
+<p><strong>Strategy</strong>:
+1. Take a network pretrained on ImageNet (1.2M images, 1000 classes)
+2. Remove the final classification layer
+3. Add your own classification layer
+4. Fine-tune (optionally freeze early layers)</p>
+<blockquote>
+<p><strong>Did You Know?</strong> Transfer learning is so effective that it's now the default approach for almost all computer vision tasks. In a 2020 study, researchers found that pretrained ImageNet models transfer well to tasks as different as medical imaging, satellite imagery, and art classification — domains with completely different visual statistics than the natural photos in ImageNet. The learned features are surprisingly universal.</p>
+</blockquote>
+<h3 id="transfer-learning-in-pytorch">Transfer Learning in PyTorch</h3>
+<pre><code class="language-python">import torch
+import torch.nn as nn
+import torchvision.models as models
+from torchvision import transforms
+
+def create_transfer_model(num_classes: int, freeze_backbone: bool = True):
+    &quot;&quot;&quot;
+    Create a model using transfer learning from ResNet-18.
+    &quot;&quot;&quot;
+    # Load pretrained ResNet-18
+    model = models.resnet18(weights='IMAGENET1K_V1')
+
+    # Freeze backbone if requested (faster training, prevents overfitting)
+    if freeze_backbone:
+        for param in model.parameters():
+            param.requires_grad = False
+
+    # Replace the final fully connected layer
+    # ResNet-18's fc layer is: Linear(512, 1000)
+    # We replace it with our own
+    num_features = model.fc.in_features
+    model.fc = nn.Sequential(
+        nn.Dropout(0.5),
+        nn.Linear(num_features, num_classes)
+    )
+
+    return model
+
+
+# Example: Fine-tune for a 5-class flower classification task
+model = create_transfer_model(num_classes=5, freeze_backbone=True)
+
+# Check which layers will be trained
+trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+total_params = sum(p.numel() for p in model.parameters())
+print(f&quot;Trainable: {trainable_params:,} / {total_params:,} ({100*trainable_params/total_params:.1f}%)&quot;)
+# Output: Trainable: 2,565 / 11,179,077 (0.0%)
+</code></pre>
+<p>With a frozen backbone, you're only training 2,565 parameters instead of 11 million! This:
+- Trains in minutes instead of hours
+- Works with tiny datasets (even 100 images)
+- Rarely overfits</p>
+<h3 id="the-transfer-learning-recipe">The Transfer Learning Recipe</h3>
+<p><strong>For small datasets (&lt;1,000 images per class):</strong>
+1. Freeze the entire backbone
+2. Train only the new classification head
+3. Use data augmentation aggressively</p>
+<p><strong>For medium datasets (1,000-10,000 per class):</strong>
+1. Start with frozen backbone
+2. Train classification head until convergence
+3. Unfreeze last few layers
+4. Fine-tune with very low learning rate (10× lower than head)</p>
+<p><strong>For large datasets (&gt;10,000 per class):</strong>
+1. Initialize with pretrained weights (still helps!)
+2. Train entire network
+3. Use lower learning rate for early layers (discriminative learning rates)</p>
+<h3 id="data-augmentation-for-transfer-learning">Data Augmentation for Transfer Learning</h3>
+<p>Pretrained models expect ImageNet-like preprocessing. Always include:</p>
+<pre><code class="language-python"># Standard ImageNet normalization
+normalize = transforms.Normalize(
+    mean=[0.485, 0.456, 0.406],  # ImageNet statistics
+    std=[0.229, 0.224, 0.225]
+)
+
+# Training transforms (with augmentation)
+train_transform = transforms.Compose([
+    transforms.RandomResizedCrop(224),  # Crop and resize to 224
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(15),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+    transforms.ToTensor(),
+    normalize
+])
+
+# Validation transforms (no augmentation)
+val_transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    normalize
+])
+</code></pre>
+<hr />
+<h2 id="memory-performance-considerations">Memory &amp; Performance Considerations</h2>
+<p>CNNs are memory-intensive. Understanding the costs helps you make practical decisions.</p>
+<h3 id="memory-breakdown">Memory Breakdown</h3>
+<p>For a single forward pass, memory is consumed by:</p>
+<ol>
+<li><strong>Weights</strong>: ~4 bytes per parameter (float32)</li>
+<li><strong>Activations</strong>: Output of every layer (needed for backprop)</li>
+<li><strong>Gradients</strong>: Same size as weights (during training)</li>
+</ol>
+<p><strong>ResNet-50 example</strong>:
+- Weights: 25M params × 4 bytes = 100MB
+- Activations at 224×224, batch_size=32: ~2.5GB
+- Gradients: ~100MB</p>
+<p>Total: ~2.7GB minimum. Mixed precision (FP16) roughly halves this.</p>
+<h3 id="batch-size-vs-gpu-memory">Batch Size vs. GPU Memory</h3>
+<p>Activation memory scales linearly with batch size. If batch_size=32 uses 4GB:
+- batch_size=16 → ~2.5GB
+- batch_size=64 → ~6.5GB</p>
+<p><strong>Quick estimation</strong>: Measure memory at batch_size=1, then scale linearly.</p>
+<h3 id="common-oom-solutions">Common OOM Solutions</h3>
+<ol>
+<li><strong>Reduce batch size</strong>: First thing to try</li>
+<li><strong>Mixed precision training</strong>: Uses FP16 for activations</li>
+<li><strong>Gradient checkpointing</strong>: Recompute activations during backward pass</li>
+<li><strong>Smaller input size</strong>: 224→192 reduces memory ~25%</li>
+<li><strong>Smaller model</strong>: ResNet-18 vs ResNet-50</li>
+</ol>
+<pre><code class="language-python"># Mixed precision training (PyTorch 1.6+)
+from torch.cuda.amp import autocast, GradScaler
+
+scaler = GradScaler()
+
+for inputs, targets in dataloader:
+    optimizer.zero_grad()
+
+    # Forward pass in FP16
+    with autocast():
+        outputs = model(inputs)
+        loss = criterion(outputs, targets)
+
+    # Backward pass with gradient scaling
+    scaler.scale(loss).backward()
+    scaler.step(optimizer)
+    scaler.update()
+</code></pre>
+<h3 id="input-size-trade-offs">Input Size Trade-offs</h3>
+<table>
+<thead>
+<tr>
+<th>Resolution</th>
+<th>Memory</th>
+<th>Speed</th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>224×224</td>
+<td>Baseline</td>
+<td>Baseline</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>192×192</td>
+<td>0.73×</td>
+<td>1.36×</td>
+<td>-1%</td>
+</tr>
+<tr>
+<td>160×160</td>
+<td>0.51×</td>
+<td>1.96×</td>
+<td>-2%</td>
+</tr>
+<tr>
+<td>320×320</td>
+<td>2.04×</td>
+<td>0.49×</td>
+<td>+1%</td>
+</tr>
+</tbody>
+</table>
+<p>For prototyping, use smaller resolutions. For final training, use 224 or higher.</p>
+<hr />
+<h2 id="when-cnns-fail-understanding-limitations">When CNNs Fail: Understanding Limitations</h2>
+<p>CNNs aren't magic. Understanding their failures helps you know when to use alternatives.</p>
+<h3 id="the-texture-bias-problem">The Texture Bias Problem</h3>
+<blockquote>
+<p><strong>Did You Know?</strong> In 2019, researchers discovered something disturbing: CNNs classify images primarily by texture, not shape. They showed that a cat with elephant skin texture gets classified as "elephant" by ImageNet-trained CNNs. Humans, by contrast, rely primarily on shape. This explains why CNNs are fooled by adversarial examples — small texture changes that are invisible to humans but completely fool the network.</p>
+</blockquote>
+<h3 id="limited-receptive-field">Limited Receptive Field</h3>
+<p>CNNs process images through local windows. Very large objects or global relationships can be missed. This is why Vision Transformers (ViT) are gaining popularity — they can attend to the entire image at once.</p>
+<h3 id="lack-of-rotation-invariance">Lack of Rotation Invariance</h3>
+<p>CNNs are translation-invariant (a cat anywhere is still a cat) but <strong>not</strong> rotation-invariant. An upside-down cat looks different to a CNN. Data augmentation helps, but doesn't fully solve this.</p>
+<h3 id="poor-sample-efficiency">Poor Sample Efficiency</h3>
+<p>CNNs need thousands of examples to learn. Humans can learn from one or two examples ("one-shot learning"). This is an active research area.</p>
+<h3 id="the-rise-of-vision-transformers">The Rise of Vision Transformers</h3>
+<p>Starting in 2020, Vision Transformers (ViT) began challenging CNN dominance. They:
+- Use self-attention instead of convolution
+- Can attend to global relationships
+- Scale better with data and compute</p>
+<blockquote>
+<p><strong>Did You Know?</strong> The original Vision Transformer paper (Dosovitskiy et al., 2020) had a surprising result: ViT <em>underperformed</em> CNNs when trained on ImageNet alone. But when pretrained on larger datasets (JFT-300M with 300 million images), it dramatically outperformed every CNN. The conclusion? Transformers need more data to learn good visual features, but once they have enough, they scale better. This sparked a race to build larger vision datasets and hybrid CNN-transformer architectures like Swin Transformer.</p>
+</blockquote>
+<p>But CNNs aren't dead! For smaller datasets and edge deployment, CNNs still dominate. The future is likely hybrid architectures that combine CNN's inductive biases (locality, translation equivariance) with the global attention of transformers.</p>
+<hr />
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<h3 id="1-forgetting-to-normalize-inputs">1. Forgetting to Normalize Inputs</h3>
+<p>Pretrained models expect ImageNet normalization. Without it:</p>
+<pre><code class="language-python"># Wrong - raw pixel values [0, 255]
+outputs = model(raw_images)  # Garbage predictions
+
+# Wrong - [0, 1] but not normalized
+outputs = model(images / 255.0)  # Still wrong
+
+# Correct - ImageNet normalization
+normalize = transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+outputs = model(normalize(images / 255.0))  # Correct!
+</code></pre>
+<h3 id="2-wrong-input-dimensions">2. Wrong Input Dimensions</h3>
+<p>PyTorch expects <code>(batch, channels, height, width)</code>. Common mistakes:</p>
+<pre><code class="language-python"># Wrong - missing batch dimension
+image = torch.randn(3, 224, 224)
+output = model(image)  # Error!
+
+# Correct - add batch dimension
+output = model(image.unsqueeze(0))  # Shape: (1, 3, 224, 224)
+
+# Wrong - channels last (common in numpy/PIL)
+image = torch.randn(1, 224, 224, 3)  # HWC format
+output = model(image)  # Wrong results!
+
+# Correct - convert to channels first
+output = model(image.permute(0, 3, 1, 2))  # CHW format
+</code></pre>
+<h3 id="3-forgetting-modeleval-for-inference">3. Forgetting model.eval() for Inference</h3>
+<p>BatchNorm and Dropout behave differently in training vs evaluation:</p>
+<pre><code class="language-python"># Wrong - using training mode for inference
+model.train()  # Default mode
+predictions = model(test_images)  # BatchNorm uses batch statistics, dropout active
+
+# Correct
+model.eval()
+with torch.no_grad():
+    predictions = model(test_images)
+</code></pre>
+<h3 id="4-using-the-wrong-pretrained-weights">4. Using the Wrong Pretrained Weights</h3>
+<pre><code class="language-python"># Wrong - ImageNet V2 weights have different preprocessing
+model = models.resnet50(weights='IMAGENET1K_V2')  # Uses different transforms!
+
+# Check what transforms your weights expect
+weights = models.ResNet50_Weights.IMAGENET1K_V1
+preprocess = weights.transforms()  # Use this!
+</code></pre>
+<h3 id="5-overfitting-on-small-datasets">5. Overfitting on Small Datasets</h3>
+<p>With transfer learning on small datasets:</p>
+<pre><code class="language-python"># Wrong - training everything from the start
+model = models.resnet50(weights='IMAGENET1K_V1')
+optimizer = optim.Adam(model.parameters(), lr=0.001)  # All params!
+
+# Correct - freeze backbone, train head first
+for param in model.parameters():
+    param.requires_grad = False
+model.fc = nn.Linear(2048, num_classes)
+optimizer = optim.Adam(model.fc.parameters(), lr=0.001)  # Only head
+</code></pre>
+<hr />
+<h2 id="quiz-test-your-understanding">Quiz: Test Your Understanding</h2>
+<p><strong>Q1</strong>: Why do we use 3×3 kernels instead of larger ones like 7×7?</p>
+<details>
+<summary>Answer</summary>
+Three stacked 3×3 kernels have the same receptive field as one 7×7 kernel, but with fewer parameters (3×9=27 vs 49) and more non-linearities (3 ReLUs vs 1). This makes the network more expressive and easier to train. The VGGNet paper demonstrated this principle in 2014.
+</details>
+
+<p><strong>Q2</strong>: Calculate the output shape: Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=2, padding=1) on input (B, 64, 56, 56).</p>
+<details>
+<summary>Answer</summary>
+Output spatial size = floor((56 - 3 + 2×1) / 2) + 1 = floor(55/2) + 1 = 27 + 1 = 28
+
+Output shape: **(B, 128, 28, 28)**
+
+The number of output channels becomes 128, and spatial dimensions are halved (rounded).
+</details>
+
+<p><strong>Q3</strong>: Why does ResNet's skip connection help training?</p>
+<details>
+<summary>Answer</summary>
+Skip connections provide a "gradient highway" that allows gradients to flow directly from the loss to early layers without being multiplied through many weight matrices. Even if the learned function F(x) has vanishing gradients, the identity mapping x preserves gradient magnitude. Additionally, skip connections make the optimization landscape smoother, making it easier to find good minima.
+</details>
+
+<p><strong>Q4</strong>: When should you freeze the backbone in transfer learning?</p>
+<details>
+<summary>Answer</summary>
+Freeze the backbone when:
+- You have a small dataset (<1000 images per class)
+- Your images are similar to ImageNet (natural photos)
+- You want fast training
+- You're doing initial experiments
+
+Unfreeze gradually when:
+- You have more data
+- Your images differ significantly from ImageNet (medical images, satellite imagery)
+- You've already trained the head and want better performance
+</details>
+
+<p><strong>Q5</strong>: Your CNN gets 95% accuracy on training data but only 60% on validation. What's happening and how do you fix it?</p>
+<details>
+<summary>Answer</summary>
+This is classic **overfitting**. The model memorized training data instead of learning generalizable features.
+
+Fixes to try:
+1. **Data augmentation**: More variety in training data
+2. **Dropout**: Add or increase dropout rate
+3. **Weight decay**: Add L2 regularization
+4. **Simpler model**: Fewer layers or channels
+5. **Early stopping**: Stop before overfitting
+6. **Transfer learning**: Use pretrained weights (better features)
+7. **More data**: If possible, collect more training examples
+</details>
+
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ol>
+<li><strong>"ImageNet Classification with Deep Convolutional Neural Networks"</strong> (Krizhevsky et al., 2012) - The AlexNet paper that started it all</li>
+<li><strong>"Very Deep Convolutional Networks for Large-Scale Image Recognition"</strong> (Simonyan &amp; Zisserman, 2014) - VGGNet</li>
+<li><strong>"Deep Residual Learning for Image Recognition"</strong> (He et al., 2016) - ResNet</li>
+<li><strong>"EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks"</strong> (Tan &amp; Le, 2019)</li>
+<li><strong>"ImageNet-trained CNNs are biased towards textures"</strong> (Geirhos et al., 2019) - Understanding CNN failures</li>
+</ol>
+<h3 id="online-resources">Online Resources</h3>
+<ul>
+<li><a href="https://pytorch.org/vision/stable/models.html">PyTorch Vision Models</a> - All pretrained models</li>
+<li><a href="https://paperswithcode.com/task/image-classification">Papers With Code - Image Classification</a> - State-of-the-art benchmarks</li>
+<li><a href="http://cs231n.stanford.edu/">CS231n: CNNs for Visual Recognition</a> - Stanford's famous course</li>
+</ul>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>You've learned:</p>
+<ol>
+<li><strong>Convolution</strong>: Sliding filters extract features efficiently with parameter sharing</li>
+<li><strong>Pooling</strong>: Downsampling adds translation invariance</li>
+<li><strong>Receptive fields</strong>: Deep stacks of small kernels see large regions</li>
+<li><strong>Classic architectures</strong>: LeNet → AlexNet → VGG → GoogLeNet → ResNet</li>
+<li><strong>Transfer learning</strong>: Pretrained features + new head = fast, accurate models</li>
+<li><strong>Practical tips</strong>: Normalization, input dimensions, eval mode, memory management</li>
+</ol>
+<p>CNNs are the backbone of computer vision. Even as transformers gain ground, understanding CNNs is essential — they're still the right tool for many tasks and provide the foundation for understanding more advanced architectures.</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<p>Move on to <strong>Module 30: Transformers &amp; Attention</strong> where you'll learn:
+- Why "Attention Is All You Need" changed everything
+- How self-attention works (and why it's O(n²))
+- Building a transformer from scratch
+- Vision Transformers: CNNs' newest challenger</p>
+<p>This is where CNNs and transformers meet — and where you'll understand why modern AI is what it is.</p>
+<hr />
+<p><em>Last updated: 2025-11-27</em>
+<em>Status: Complete</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_30_transformers.html">Module 30: Transformers & Attention Mechanisms</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

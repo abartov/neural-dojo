@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 27: PyTorch Fundamentals - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_28_training_deep_networks.html">Next: Module 28: Training Deep Networks →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 27: PyTorch Fundamentals</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-27-pytorch-fundamentals">Module 27: PyTorch Fundamentals</h1>
+<h1 id="or-the-framework-that-made-deep-learning-accessible">Or: The Framework That Made Deep Learning Accessible</h1>
+<p><strong>Last Updated</strong>: 2025-11-27
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 6-7 hours
+<strong>Prerequisites</strong>: Module 26</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand PyTorch tensors and their relationship to NumPy arrays
+- Master automatic differentiation with autograd
+- Build neural networks using <code>nn.Module</code>
+- Implement training loops with optimizers and loss functions
+- Move computations between CPU and GPU
+- Appreciate the elegance of PyTorch compared to manual implementations</p>
+<hr />
+<h2 id="introduction-from-pain-to-power">Introduction: From Pain to Power</h2>
+<p>In Module 26, you built neural networks from scratch. You computed gradients by hand using the chain rule. You tracked intermediate values in caches. You debugged NaN explosions at 2am.</p>
+<p><strong>It was educational. It was also painful.</strong></p>
+<p>That pain was the point. You now understand what happens under the hood. But here's the truth: nobody builds production neural networks from scratch. It would be like writing a web application in assembly language - technically possible, intellectually impressive, practically insane.</p>
+<p><strong>PyTorch is the power tool that makes deep learning practical.</strong></p>
+<p>Think of it this way: In Module 26, you learned to chop down a tree with a hand axe. Now you get a chainsaw. The chainsaw doesn't make the hand axe knowledge useless - understanding how to fell a tree helps you use the chainsaw safely and effectively.</p>
+<hr />
+<h2 id="did-you-know-the-birth-of-pytorch">Did You Know? The Birth of PyTorch</h2>
+<h3 id="the-framework-wars">The Framework Wars</h3>
+<p>In 2015, Google released TensorFlow. It was powerful, backed by Google's resources, and quickly became the dominant deep learning framework. But researchers had a problem: TensorFlow was <em>painful</em> to use.</p>
+<p>TensorFlow 1.x used something called <strong>static graphs</strong>. You had to:
+1. Define your entire computation as a graph
+2. Compile the graph
+3. Create a "session" to run it
+4. Feed data through placeholders</p>
+<p>It was like writing a recipe, translating it to assembly language, compiling it, and only then cooking - for every single meal.</p>
+<pre><code class="language-python"># TensorFlow 1.x - The pain was real
+import tensorflow as tf
+
+# Step 1: Define placeholders (not real data yet!)
+x = tf.placeholder(tf.float32, shape=[None, 784])
+y = tf.placeholder(tf.float32, shape=[None, 10])
+
+# Step 2: Build the graph (nothing runs!)
+W = tf.Variable(tf.zeros([784, 10]))
+logits = tf.matmul(x, W)
+
+# Step 3: Create a session
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())  # Initialize
+    result = sess.run(logits, feed_dict={x: data})  # Finally run!
+</code></pre>
+<p>Debugging was a nightmare. You couldn't just print a variable - you had to evaluate it in a session. Error messages pointed to the graph construction, not where the actual problem was.</p>
+<h3 id="the-facebook-answer">The Facebook Answer</h3>
+<p>Enter <strong>Soumith Chintala</strong> at Facebook AI Research. He and his team created PyTorch in 2016 with a radical philosophy: <strong>define-by-run</strong>.</p>
+<p>Instead of building a graph and then running it, PyTorch builds the graph <em>as you run Python code</em>. You write normal Python. You can use print statements. You can use Python debuggers. If statements, for loops - they all just work.</p>
+<pre><code class="language-python"># PyTorch - The relief was immediate
+import torch
+
+x = torch.randn(32, 784)  # This creates actual data!
+W = torch.randn(784, 10, requires_grad=True)
+
+logits = x @ W  # This actually computes the result!
+print(logits.shape)  # You can just print it!
+</code></pre>
+<h3 id="the-research-takeover">The Research Takeover</h3>
+<p>By 2019, PyTorch had conquered academia:
+- <strong>NeurIPS 2019</strong>: 75% of papers used PyTorch
+- <strong>ICLR 2020</strong>: 80% PyTorch
+- <strong>CVPR 2020</strong>: 70% PyTorch</p>
+<p>Why? Researchers need to iterate fast. They try crazy ideas. Many don't work. Static graphs meant recompiling for every experiment. Dynamic graphs meant instant feedback.</p>
+<p><strong>TensorFlow noticed.</strong> TensorFlow 2.0 (2019) adopted eager execution by default - essentially admitting PyTorch got it right.</p>
+<h3 id="the-name">The Name</h3>
+<p>Why "PyTorch"? It's the Python version of <strong>Torch</strong>, a scientific computing framework written in Lua that was popular in academia during the early 2010s. The original Torch was named after the Olympic torch - a symbol of passing knowledge forward.</p>
+<p>The PyTorch logo is a stylized flame - representing both the torch and the "fire" of GPU-accelerated computing.</p>
+<hr />
+<h2 id="part-1-tensors-the-universal-container">Part 1: Tensors - The Universal Container</h2>
+<h3 id="what-is-a-tensor-really">What is a Tensor, Really?</h3>
+<p>You've heard "tensor" thrown around. Let's demystify it.</p>
+<p>A <strong>tensor</strong> is just a multi-dimensional array. That's it. No magic. But this simple concept is the foundation of <em>everything</em> in deep learning.</p>
+<p>Think of tensors like containers of different dimensions:</p>
+<table>
+<thead>
+<tr>
+<th>Dimensions</th>
+<th>Math Name</th>
+<th>Real Example</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Scalar</td>
+<td>The temperature right now: 72.5°F</td>
+<td><code>[]</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Vector</td>
+<td>Today's hourly temperatures: [68, 70, 72, 75, 73]</td>
+<td><code>[5]</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Matrix</td>
+<td>A grayscale image with pixel values</td>
+<td><code>[28, 28]</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>3D Tensor</td>
+<td>A color image (RGB channels × height × width)</td>
+<td><code>[3, 224, 224]</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>4D Tensor</td>
+<td>A batch of color images</td>
+<td><code>[32, 3, 224, 224]</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>5D Tensor</td>
+<td>A batch of video clips (batch × frames × channels × H × W)</td>
+<td><code>[8, 16, 3, 224, 224]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The key insight</strong>: Neural networks don't care about what data means. They just see tensors of numbers. An image, a sentence, a stock price history - all become tensors.</p>
+<h3 id="why-pytorch-tensors-instead-of-numpy-arrays">Why PyTorch Tensors Instead of NumPy Arrays?</h3>
+<p>You might wonder: we already have NumPy. Why learn another array type?</p>
+<p>Three killer features:</p>
+<p><strong>1. Automatic Differentiation</strong></p>
+<p>NumPy can do math on arrays. PyTorch can do math on arrays <em>and track how to compute gradients</em>. This is the magic that makes deep learning practical.</p>
+<pre><code class="language-python"># NumPy: Just computation
+import numpy as np
+x = np.array([2.0, 3.0])
+y = x ** 2  # [4, 9]
+# Now compute dy/dx manually? Good luck!
+
+# PyTorch: Computation + gradient tracking
+import torch
+x = torch.tensor([2.0, 3.0], requires_grad=True)
+y = (x ** 2).sum()  # 13
+y.backward()        # Compute gradients automatically
+print(x.grad)       # tensor([4., 6.]) - that's dy/dx = 2x!
+</code></pre>
+<p><strong>2. GPU Acceleration</strong></p>
+<p>Moving computation to a GPU in NumPy requires different libraries and painful code changes. In PyTorch, it's one line:</p>
+<pre><code class="language-python"># CPU tensor
+x = torch.randn(1000, 1000)
+
+# GPU tensor - one line!
+x_gpu = x.cuda()  # or x.to('cuda')
+</code></pre>
+<p><strong>3. Deep Learning Ecosystem</strong></p>
+<p>PyTorch tensors integrate seamlessly with neural network layers, optimizers, data loaders, and the entire deep learning workflow.</p>
+<h3 id="creating-tensors">Creating Tensors</h3>
+<p>Let's get hands-on. There are many ways to create tensors:</p>
+<p><strong>From Python Data</strong></p>
+<p>The most direct way - convert Python lists:</p>
+<pre><code class="language-python">import torch
+
+# From a simple list
+x = torch.tensor([1, 2, 3, 4, 5])
+print(x)  # tensor([1, 2, 3, 4, 5])
+
+# From nested lists (creates a matrix)
+matrix = torch.tensor([[1, 2, 3],
+                       [4, 5, 6]])
+print(matrix.shape)  # torch.Size([2, 3])
+</code></pre>
+<p><strong>Common Initializations</strong></p>
+<p>In practice, you rarely type out values. You create tensors filled with specific patterns:</p>
+<pre><code class="language-python"># Zeros and ones - common for initialization
+zeros = torch.zeros(3, 4)       # 3×4 matrix of zeros
+ones = torch.ones(2, 3, 4)      # 2×3×4 tensor of ones
+
+# Random values - essential for weight initialization
+uniform = torch.rand(5, 5)      # Uniform between [0, 1)
+normal = torch.randn(5, 5)      # Normal distribution (mean=0, std=1)
+
+# Sequences - useful for indices and positions
+sequence = torch.arange(0, 10, 2)    # [0, 2, 4, 6, 8]
+linspace = torch.linspace(0, 1, 5)   # [0.0, 0.25, 0.5, 0.75, 1.0]
+
+# Identity matrix - useful in linear algebra
+identity = torch.eye(4)  # 4×4 identity matrix
+</code></pre>
+<p><strong>Copying Shape from Another Tensor</strong></p>
+<p>Often you need a tensor the same shape as another:</p>
+<pre><code class="language-python">x = torch.randn(3, 4, 5)
+
+# Create zeros/ones with the same shape, dtype, and device
+zeros_like_x = torch.zeros_like(x)
+ones_like_x = torch.ones_like(x)
+random_like_x = torch.randn_like(x)
+</code></pre>
+<p>This is especially useful when you need to create tensors on the same device (CPU or GPU) as your model.</p>
+<h3 id="tensor-properties">Tensor Properties</h3>
+<p>Every tensor has properties you'll check constantly:</p>
+<pre><code class="language-python">t = torch.randn(3, 4, 5)
+
+# Shape: The dimensions of the tensor
+print(t.shape)      # torch.Size([3, 4, 5])
+print(t.size())     # Same thing, method form
+
+# Data type: What kind of numbers
+print(t.dtype)      # torch.float32 (default for randn)
+
+# Device: Where the tensor lives
+print(t.device)     # cpu (or cuda:0, cuda:1, etc.)
+
+# Number of dimensions
+print(t.ndim)       # 3
+
+# Total number of elements
+print(t.numel())    # 60 (3 × 4 × 5)
+</code></pre>
+<h3 id="did-you-know-data-types-matter-more-than-you-think">Did You Know? Data Types Matter More Than You Think</h3>
+<p>PyTorch supports many data types, and choosing the right one affects both <strong>correctness</strong> and <strong>performance</strong>.</p>
+<p><strong>For Neural Networks (most common)</strong>:
+- <code>torch.float32</code> (or <code>torch.float</code>) - The default. Good balance of precision and speed.
+- <code>torch.float16</code> (or <code>torch.half</code>) - Half precision. 2× faster on modern GPUs, but less precise.
+- <code>torch.bfloat16</code> - "Brain float". Better for training than float16 because it has more exponent bits.</p>
+<p><strong>For Indices and Counts</strong>:
+- <code>torch.int64</code> (or <code>torch.long</code>) - Required for indices in PyTorch. Most common integer type.
+- <code>torch.int32</code> - When you know values fit and want to save memory.</p>
+<p><strong>For Images</strong>:
+- <code>torch.uint8</code> - Unsigned 8-bit integers (0-255). Raw image format.</p>
+<pre><code class="language-python"># Creating tensors with specific types
+weights = torch.randn(100, 100, dtype=torch.float32)
+indices = torch.tensor([0, 5, 3, 7], dtype=torch.long)
+image = torch.randint(0, 256, (3, 224, 224), dtype=torch.uint8)
+
+# Converting between types
+weights_half = weights.half()      # to float16
+weights_back = weights_half.float()  # back to float32
+</code></pre>
+<p><strong>The fp16 Training Revolution</strong></p>
+<p>In 2017, researchers discovered you could train neural networks in half precision (float16) with almost no accuracy loss - but 2× faster and using half the memory. This "mixed precision training" is now standard for large models.</p>
+<pre><code class="language-python"># Modern training uses automatic mixed precision
+with torch.cuda.amp.autocast():
+    output = model(input)  # Automatically uses fp16 where safe
+</code></pre>
+<h3 id="the-numpy-bridge">The NumPy Bridge</h3>
+<p>PyTorch and NumPy are best friends. They can share memory, making conversion instant:</p>
+<pre><code class="language-python">import numpy as np
+
+# NumPy → PyTorch (shared memory!)
+numpy_array = np.array([1, 2, 3, 4, 5])
+tensor = torch.from_numpy(numpy_array)
+
+# They share memory - changes propagate!
+numpy_array[0] = 100
+print(tensor)  # tensor([100, 2, 3, 4, 5]) - changed too!
+
+# If you want a copy instead:
+tensor_copy = torch.tensor(numpy_array)  # Independent copy
+
+# PyTorch → NumPy
+tensor = torch.randn(3, 4)
+numpy_array = tensor.numpy()  # Shared memory (if on CPU)
+
+# Safe conversion (handles GPU tensors too)
+numpy_array = tensor.detach().cpu().numpy()
+</code></pre>
+<p><strong>Warning</strong>: The shared memory behavior is a feature, not a bug. It's fast and memory-efficient. But it can surprise you if you modify one and expect the other unchanged!</p>
+<hr />
+<h2 id="part-2-autograd-the-magic-behind-deep-learning">Part 2: Autograd - The Magic Behind Deep Learning</h2>
+<p>This is where PyTorch becomes truly magical. Remember computing gradients by hand in Module 26? All those partial derivatives, the chain rule applied recursively, the careful tracking of intermediate values?</p>
+<p><strong>PyTorch does all of that automatically.</strong></p>
+<h3 id="the-computational-graph">The Computational Graph</h3>
+<p>When you create a tensor with <code>requires_grad=True</code>, PyTorch starts recording every operation. It builds an invisible "computational graph" that tracks how to compute gradients.</p>
+<p>Let's see it in action:</p>
+<pre><code class="language-python"># Create a tensor that tracks gradients
+x = torch.tensor([2.0, 3.0], requires_grad=True)
+
+# Perform operations - PyTorch records them!
+y = x ** 2        # y = [4, 9]
+z = y.sum()       # z = 13
+
+# Compute gradients
+z.backward()
+
+# Gradients are stored in .grad
+print(x.grad)     # tensor([4., 6.])
+</code></pre>
+<p>What happened? Let's trace through:
+- <code>z = x[0]² + x[1]²</code>
+- <code>∂z/∂x[0] = 2·x[0] = 2·2 = 4</code>
+- <code>∂z/∂x[1] = 2·x[1] = 2·3 = 6</code></p>
+<p>PyTorch computed exactly the gradients we'd compute by hand - but automatically!</p>
+<h3 id="why-this-matters">Why This Matters</h3>
+<p>In Module 26, you implemented backpropagation manually. For a simple network, it was manageable. But modern networks have:
+- Millions of parameters
+- Hundreds of layers
+- Complex architectures (skip connections, attention, normalization)</p>
+<p>Computing gradients by hand for GPT-4? That would be tens of thousands of lines of gradient code. With PyTorch:</p>
+<pre><code class="language-python">loss.backward()  # That's it. Gradients for every parameter.
+</code></pre>
+<h3 id="the-chain-rule-in-action">The Chain Rule in Action</h3>
+<p>The real power shows with complex computations:</p>
+<pre><code class="language-python">x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
+
+# Complex computation with multiple steps
+y = x * 2          # y = [2, 4, 6]
+z = y ** 2         # z = [4, 16, 36]
+loss = z.mean()    # loss = 56/3 ≈ 18.67
+
+# One backward call - all gradients computed!
+loss.backward()
+
+print(x.grad)  # tensor([2.6667, 5.3333, 8.0000])
+</code></pre>
+<p>Let's verify: The chain rule says:
+- <code>∂loss/∂x = ∂loss/∂z · ∂z/∂y · ∂y/∂x</code>
+- <code>∂loss/∂z = 1/3</code> (derivative of mean)
+- <code>∂z/∂y = 2y = [4, 8, 12]</code>
+- <code>∂y/∂x = 2</code>
+- Result: <code>[4·2/3, 8·2/3, 12·2/3] = [8/3, 16/3, 24/3]</code> ✓</p>
+<h3 id="did-you-know-the-secret-history-of-automatic-differentiation">Did You Know? The Secret History of Automatic Differentiation</h3>
+<p>Automatic differentiation isn't a deep learning invention. It was developed in the 1960s and 1970s for computational physics and engineering!</p>
+<p><strong>Reverse-mode automatic differentiation</strong> (what PyTorch uses) was published by Seppo Linnainmaa in 1970 for his master's thesis. Backpropagation in neural networks was rediscovered independently in the 1980s - it's the same algorithm applied to neural network computation graphs.</p>
+<p>The key insight: forward-mode AD is efficient when you have few inputs and many outputs. Reverse-mode is efficient when you have many inputs and few outputs. Neural networks have millions of inputs (weights) and one output (loss) - reverse mode wins!</p>
+<h3 id="critical-gotcha-gradients-accumulate">Critical Gotcha: Gradients Accumulate!</h3>
+<p>This trips up every PyTorch beginner:</p>
+<pre><code class="language-python">x = torch.tensor([1.0], requires_grad=True)
+
+y = x * 2
+y.backward()
+print(x.grad)  # tensor([2.])
+
+y = x * 3
+y.backward()
+print(x.grad)  # tensor([5.]) - Not 3! It's 2 + 3!
+</code></pre>
+<p>By default, calling <code>.backward()</code> <strong>adds</strong> to existing gradients. This is actually useful for some advanced techniques (like gradient accumulation), but usually you want fresh gradients each time.</p>
+<p><strong>The fix</strong>: Zero gradients before each backward pass:</p>
+<pre><code class="language-python">x.grad.zero_()  # Zero out accumulated gradients
+y = x * 4
+y.backward()
+print(x.grad)  # tensor([4.]) - Fresh gradient
+</code></pre>
+<p>In training loops, you'll see <code>optimizer.zero_grad()</code> - this zeros all parameter gradients.</p>
+<h3 id="when-to-detach-from-the-graph">When to Detach from the Graph</h3>
+<p>Sometimes you want to use a computed value without tracking gradients:</p>
+<pre><code class="language-python">x = torch.tensor([2.0], requires_grad=True)
+y = x ** 2
+
+# Detach: Creates a new tensor, no gradient tracking
+z = y.detach()
+print(z.requires_grad)  # False
+
+# Or use no_grad context
+with torch.no_grad():
+    z = y * 2
+    print(z.requires_grad)  # False
+</code></pre>
+<p><strong>When to use this</strong>:
+- Computing metrics (accuracy, etc.) during training
+- Using a frozen pretrained model
+- Preventing gradients from flowing to certain parts of the network</p>
+<hr />
+<h2 id="part-3-building-neural-networks-with-nnmodule">Part 3: Building Neural Networks with nn.Module</h2>
+<p>Now we get to build actual neural networks! PyTorch provides <code>torch.nn</code>, a module specifically designed for deep learning.</p>
+<h3 id="the-nnmodule-class">The nn.Module Class</h3>
+<p>Every neural network in PyTorch inherits from <code>nn.Module</code>. This base class provides:
+- Automatic parameter registration
+- Easy device movement (CPU ↔ GPU)
+- Training/evaluation mode switching
+- Model saving and loading</p>
+<p>Here's the pattern you'll use hundreds of times:</p>
+<pre><code class="language-python">import torch.nn as nn
+
+class SimpleNetwork(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()  # Always call this first!
+
+        # Define layers (registered automatically!)
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, output_size)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        # Define how data flows through the network
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        return x
+
+# Create the network
+model = SimpleNetwork(784, 128, 10)
+
+# Forward pass - just call the model!
+x = torch.randn(32, 784)  # Batch of 32 images
+output = model(x)         # Calls forward() automatically
+print(output.shape)       # torch.Size([32, 10])
+</code></pre>
+<p>Compare this to Module 26 where you manually created weight matrices, implemented forward propagation, and tracked everything yourself. The PyTorch version is almost self-documenting!</p>
+<h3 id="did-you-know-why-superinit">Did You Know? Why super().<strong>init</strong>()?</h3>
+<p>That <code>super().__init__()</code> call isn't just Python formality. It initializes PyTorch's internal machinery that:
+- Creates a registry for parameters
+- Enables recursive calls like <code>.to(device)</code> on all submodules
+- Sets up hooks for saving/loading</p>
+<p>Forget it, and your model silently breaks in confusing ways. Every PyTorch tutorial includes it, and now you know why!</p>
+<h3 id="common-layers-explained">Common Layers Explained</h3>
+<p>PyTorch provides layers for every architecture. Here are the ones you'll use most:</p>
+<p><strong>Linear (Fully Connected) Layers</strong></p>
+<p>These are the basic building blocks - matrix multiplication plus bias:</p>
+<pre><code class="language-python"># Linear: y = xW^T + b
+layer = nn.Linear(in_features=784, out_features=128)
+
+# What it creates internally:
+# - weight: [128, 784] matrix
+# - bias: [128] vector (optional, bias=True by default)
+</code></pre>
+<p><strong>Activation Functions</strong></p>
+<p>Activations introduce non-linearity (without them, a deep network is just one linear transformation):</p>
+<pre><code class="language-python"># As modules (use in __init__)
+nn.ReLU()           # max(0, x) - most common
+nn.LeakyReLU(0.01)  # Allows small negative values
+nn.GELU()           # Used in transformers (smoother than ReLU)
+nn.Sigmoid()        # Squashes to [0, 1]
+nn.Tanh()           # Squashes to [-1, 1]
+
+# As functions (use in forward)
+import torch.nn.functional as F
+output = F.relu(x)
+output = F.gelu(x)
+</code></pre>
+<p><strong>Normalization Layers</strong></p>
+<p>These stabilize training by normalizing intermediate values:</p>
+<pre><code class="language-python">nn.BatchNorm1d(num_features)  # Normalize across batch
+nn.LayerNorm(normalized_shape)  # Normalize across features (transformers)
+</code></pre>
+<p><strong>Dropout</strong></p>
+<p>Randomly zeroes elements during training to prevent overfitting:</p>
+<pre><code class="language-python">nn.Dropout(p=0.5)  # 50% of elements set to zero during training
+</code></pre>
+<h3 id="sequential-the-quick-way">Sequential: The Quick Way</h3>
+<p>For simple architectures, you don't need a custom class:</p>
+<pre><code class="language-python">model = nn.Sequential(
+    nn.Linear(784, 256),
+    nn.ReLU(),
+    nn.Dropout(0.2),
+    nn.Linear(256, 128),
+    nn.ReLU(),
+    nn.Dropout(0.2),
+    nn.Linear(128, 10)
+)
+
+# Works exactly like a custom nn.Module
+output = model(input)
+</code></pre>
+<p>Use Sequential for prototypes and simple models. Use custom classes when you need complex control flow (if statements, loops, skip connections).</p>
+<h3 id="inspecting-your-model">Inspecting Your Model</h3>
+<p>PyTorch makes it easy to see what's inside:</p>
+<pre><code class="language-python">model = SimpleNetwork(784, 128, 10)
+
+# Print model structure
+print(model)
+# SimpleNetwork(
+#   (fc1): Linear(in_features=784, out_features=128, bias=True)
+#   (fc2): Linear(in_features=128, out_features=10, bias=True)
+#   (relu): ReLU()
+# )
+
+# List all parameters with names
+for name, param in model.named_parameters():
+    print(f&quot;{name}: {param.shape}&quot;)
+# fc1.weight: torch.Size([128, 784])
+# fc1.bias: torch.Size([128])
+# fc2.weight: torch.Size([10, 128])
+# fc2.bias: torch.Size([10])
+
+# Count total parameters
+total = sum(p.numel() for p in model.parameters())
+print(f&quot;Total parameters: {total:,}&quot;)  # 101,770
+</code></pre>
+<hr />
+<h2 id="part-4-training-neural-networks">Part 4: Training Neural Networks</h2>
+<p>Now for the payoff - actually training a network!</p>
+<h3 id="loss-functions-measuring-wrongness">Loss Functions: Measuring Wrongness</h3>
+<p>A loss function measures how wrong your predictions are. Lower is better.</p>
+<p><strong>For Classification</strong> (choosing between categories):</p>
+<pre><code class="language-python"># Cross-entropy loss - the workhorse of classification
+criterion = nn.CrossEntropyLoss()
+
+# It expects:
+# - Input: Raw logits (NOT softmaxed!)  Shape: [batch, num_classes]
+# - Target: Class indices (NOT one-hot!)  Shape: [batch]
+
+logits = torch.randn(32, 10)          # Raw network output
+labels = torch.randint(0, 10, (32,))  # Class labels 0-9
+loss = criterion(logits, labels)
+</code></pre>
+<p><strong>Critical</strong>: <code>CrossEntropyLoss</code> applies softmax internally. Don't softmax your outputs first - you'll get wrong gradients and worse training!</p>
+<p><strong>For Regression</strong> (predicting numbers):</p>
+<pre><code class="language-python">criterion = nn.MSELoss()   # Mean squared error
+criterion = nn.L1Loss()    # Mean absolute error
+</code></pre>
+<h3 id="optimizers-updating-weights">Optimizers: Updating Weights</h3>
+<p>Optimizers implement gradient descent algorithms. They take gradients and update parameters:</p>
+<pre><code class="language-python">import torch.optim as optim
+
+# SGD: Simple, but needs tuning
+optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+
+# Adam: Usually works well out of the box
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# AdamW: Adam with proper weight decay (recommended for transformers)
+optimizer = optim.AdamW(model.parameters(), lr=0.001, weight_decay=0.01)
+</code></pre>
+<h3 id="did-you-know-the-adam-story">Did You Know? The Adam Story</h3>
+<p>Adam (2014) combined ideas from two earlier optimizers:
+- <strong>Momentum</strong>: Use exponentially weighted average of past gradients
+- <strong>RMSprop</strong>: Adapt learning rate per-parameter based on gradient history</p>
+<p>The name "Adam" comes from "adaptive moment estimation". Within a year of publication, it became the default optimizer for most deep learning - it just works in most situations without careful tuning.</p>
+<p>But it's not perfect! Researchers later found that Adam's weight decay implementation was subtly wrong. <strong>AdamW</strong> (2017) fixed this, and it's now preferred for large models.</p>
+<h3 id="the-training-loop">The Training Loop</h3>
+<p>Here's the standard PyTorch training pattern you'll use forever:</p>
+<pre><code class="language-python">model = SimpleNetwork(784, 128, 10)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+for epoch in range(num_epochs):
+    model.train()  # Enable training mode (dropout, batchnorm behave differently)
+
+    for batch_idx, (data, labels) in enumerate(train_loader):
+        # 1. Zero gradients from previous batch
+        optimizer.zero_grad()
+
+        # 2. Forward pass
+        outputs = model(data)
+
+        # 3. Compute loss
+        loss = criterion(outputs, labels)
+
+        # 4. Backward pass (compute gradients)
+        loss.backward()
+
+        # 5. Update weights
+        optimizer.step()
+
+        if batch_idx % 100 == 0:
+            print(f&quot;Epoch {epoch}, Batch {batch_idx}, Loss: {loss.item():.4f}&quot;)
+</code></pre>
+<p><strong>The five steps are always the same</strong>:
+1. Zero gradients
+2. Forward pass
+3. Compute loss
+4. Backward pass
+5. Update weights</p>
+<p>This pattern works whether you're training a 2-layer network on MNIST or a billion-parameter language model.</p>
+<h3 id="evaluation-mode">Evaluation Mode</h3>
+<p>When evaluating (not training), you need to:
+1. Switch to evaluation mode (changes dropout/batchnorm behavior)
+2. Disable gradient computation (faster, uses less memory)</p>
+<pre><code class="language-python">model.eval()  # Evaluation mode
+
+correct = 0
+total = 0
+
+with torch.no_grad():  # Don't compute gradients
+    for data, labels in test_loader:
+        outputs = model(data)
+        _, predicted = outputs.max(1)  # Get predicted class
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+accuracy = 100 * correct / total
+print(f&quot;Accuracy: {accuracy:.2f}%&quot;)
+</code></pre>
+<hr />
+<h2 id="part-5-gpu-computing">Part 5: GPU Computing</h2>
+<p>GPUs can make training 10-100× faster. PyTorch makes GPU computing almost trivially easy.</p>
+<h3 id="moving-to-gpu">Moving to GPU</h3>
+<pre><code class="language-python"># Check if CUDA (GPU) is available
+if torch.cuda.is_available():
+    print(f&quot;GPU: {torch.cuda.get_device_name(0)}&quot;)
+    print(f&quot;GPU Count: {torch.cuda.device_count()}&quot;)
+else:
+    print(&quot;No GPU available, using CPU&quot;)
+
+# The standard pattern: create a device variable
+device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)
+
+# Move tensors
+x = torch.randn(1000, 1000)
+x_gpu = x.to(device)
+
+# Move models (moves all parameters)
+model = SimpleNetwork(784, 128, 10).to(device)
+
+# Create tensors directly on GPU
+y = torch.randn(1000, 1000, device=device)
+</code></pre>
+<h3 id="gpu-training-loop">GPU Training Loop</h3>
+<p>The only change from CPU training: move data to the GPU each batch.</p>
+<pre><code class="language-python">device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)
+
+model = SimpleNetwork(784, 128, 10).to(device)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+for epoch in range(num_epochs):
+    for data, labels in train_loader:
+        # Move data to GPU
+        data = data.to(device)
+        labels = labels.to(device)
+
+        optimizer.zero_grad()
+        outputs = model(data)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+</code></pre>
+<h3 id="did-you-know-gpu-memory-gotchas">Did You Know? GPU Memory Gotchas</h3>
+<p>GPU memory is precious and limited. Common mistakes:</p>
+<p><strong>Memory Leak #1: Storing Tensors in Python Lists</strong></p>
+<pre><code class="language-python"># BAD - keeps entire computation graph!
+losses = []
+for batch in loader:
+    loss = criterion(model(batch), labels)
+    losses.append(loss)  # Full tensor with gradient graph!
+
+# GOOD - just keep the number
+losses = []
+for batch in loader:
+    loss = criterion(model(batch), labels)
+    losses.append(loss.item())  # Just the Python float
+</code></pre>
+<p><strong>Memory Leak #2: Not Using no_grad() During Evaluation</strong></p>
+<pre><code class="language-python"># BAD - builds computation graph unnecessarily
+accuracy = (model(data).argmax(1) == labels).float().mean()
+
+# GOOD - no gradient tracking needed
+with torch.no_grad():
+    accuracy = (model(data).argmax(1) == labels).float().mean()
+</code></pre>
+<p><strong>Checking Memory</strong>:</p>
+<pre><code class="language-python">print(f&quot;Allocated: {torch.cuda.memory_allocated() / 1e9:.2f} GB&quot;)
+print(f&quot;Reserved: {torch.cuda.memory_reserved() / 1e9:.2f} GB&quot;)
+</code></pre>
+<hr />
+<h2 id="part-6-data-loading">Part 6: Data Loading</h2>
+<p>PyTorch's <code>DataLoader</code> handles batching, shuffling, and parallel loading.</p>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre><code class="language-python">from torch.utils.data import DataLoader, TensorDataset
+
+# Create a dataset from tensors
+X = torch.randn(1000, 784)
+y = torch.randint(0, 10, (1000,))
+dataset = TensorDataset(X, y)
+
+# Create a data loader
+loader = DataLoader(
+    dataset,
+    batch_size=32,       # Samples per batch
+    shuffle=True,        # Shuffle each epoch (for training)
+    num_workers=4,       # Parallel data loading processes
+    pin_memory=True      # Faster GPU transfer
+)
+
+# Iterate
+for batch_x, batch_y in loader:
+    print(batch_x.shape, batch_y.shape)  # [32, 784], [32]
+</code></pre>
+<h3 id="built-in-datasets">Built-in Datasets</h3>
+<p>PyTorch provides standard datasets through <code>torchvision</code>:</p>
+<pre><code class="language-python">from torchvision import datasets, transforms
+
+# Define preprocessing
+transform = transforms.Compose([
+    transforms.ToTensor(),              # PIL Image → Tensor
+    transforms.Normalize((0.1307,), (0.3081,))  # MNIST mean/std
+])
+
+# Load MNIST
+train_data = datasets.MNIST('./data', train=True, download=True, transform=transform)
+test_data = datasets.MNIST('./data', train=False, download=True, transform=transform)
+
+# Create loaders
+train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
+test_loader = DataLoader(test_data, batch_size=1000)
+</code></pre>
+<hr />
+<h2 id="part-7-saving-and-loading-models">Part 7: Saving and Loading Models</h2>
+<p>Always save your trained models!</p>
+<h3 id="recommended-save-state-dict">Recommended: Save State Dict</h3>
+<pre><code class="language-python"># Save just the weights (recommended)
+torch.save(model.state_dict(), 'model_weights.pth')
+
+# Load
+model = SimpleNetwork(784, 128, 10)  # Create architecture first
+model.load_state_dict(torch.load('model_weights.pth'))
+model.eval()  # Set to evaluation mode
+</code></pre>
+<h3 id="checkpointing-for-training">Checkpointing for Training</h3>
+<p>For long training runs, save checkpoints to resume later:</p>
+<pre><code class="language-python"># Save checkpoint
+checkpoint = {
+    'epoch': epoch,
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'loss': loss,
+}
+torch.save(checkpoint, 'checkpoint.pth')
+
+# Load checkpoint
+checkpoint = torch.load('checkpoint.pth')
+model.load_state_dict(checkpoint['model_state_dict'])
+optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+start_epoch = checkpoint['epoch']
+</code></pre>
+<h3 id="did-you-know-the-pth-security-risk">Did You Know? The .pth Security Risk</h3>
+<p>PyTorch model files use Python's pickle format. <strong>Pickle can execute arbitrary code when loading!</strong></p>
+<pre><code class="language-python"># This could run malicious code!
+model = torch.load('untrusted_model.pth')  # Dangerous!
+</code></pre>
+<p>Only load models from sources you trust. For sharing models publicly, consider the new <code>safetensors</code> format that can't execute code.</p>
+<hr />
+<h2 id="part-8-pytorch-vs-from-scratch-comparison">Part 8: PyTorch vs From-Scratch Comparison</h2>
+<p>Let's appreciate how far we've come. Here's Module 26 versus PyTorch:</p>
+<h3 id="module-26-manual-backpropagation">Module 26: Manual Backpropagation</h3>
+<pre><code class="language-python"># Forward pass - tracking everything manually
+def forward(self, X):
+    self.cache = {'A0': X}
+    A = X
+    for l in range(1, len(self.layer_dims)):
+        Z = self.params[f'W{l}'] @ A + self.params[f'b{l}']
+        A = self.activation_fn(Z)
+        self.cache[f'A{l}'] = A
+    return A
+
+# Backward pass - chain rule by hand
+def backward(self, Y):
+    m = Y.shape[1]
+    dA = -(Y / self.cache[f'A{L}'])
+
+    for l in reversed(range(1, L + 1)):
+        dZ = dA * self.activation_derivative(self.cache[f'A{l}'])
+        self.grads[f'dW{l}'] = (1/m) * dZ @ self.cache[f'A{l-1}'].T
+        self.grads[f'db{l}'] = (1/m) * np.sum(dZ, axis=1, keepdims=True)
+        dA = self.params[f'W{l}'].T @ dZ
+</code></pre>
+<h3 id="pytorch-elegance">PyTorch: Elegance</h3>
+<pre><code class="language-python">class Network(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        return self.fc2(x)
+
+# Training - all the complexity hidden
+outputs = model(inputs)
+loss = criterion(outputs, labels)
+loss.backward()  # All gradients computed!
+optimizer.step()  # All weights updated!
+</code></pre>
+<p><strong>What PyTorch automates</strong>:
+- Gradient computation for any architecture
+- Cache management
+- Numerical stability
+- GPU support
+- Optimizers
+- Data loading
+- Model serialization</p>
+<hr />
+<h2 id="did-you-know-the-future-torchcompile">Did You Know? The Future: torch.compile()</h2>
+<p>PyTorch 2.0 (2022) introduced something remarkable: <code>torch.compile()</code>.</p>
+<pre><code class="language-python">model = MyModel()
+model = torch.compile(model)  # That's it!
+</code></pre>
+<p>One line turns your dynamic, debuggable PyTorch model into an optimized, compiled version that runs 30-200% faster. The dynamic graph philosophy remains - you can still use Python control flow, print statements, debuggers - but get static-graph performance.</p>
+<p>This represents PyTorch's philosophy: make the right thing easy. Build your model the simple way, debug it, make sure it works. Then compile for production.</p>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>You've learned PyTorch fundamentals:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What You Learned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tensors</strong></td>
+<td>Multi-dimensional arrays with GPU support and NumPy integration</td>
+</tr>
+<tr>
+<td><strong>Autograd</strong></td>
+<td>Automatic differentiation that makes backpropagation trivial</td>
+</tr>
+<tr>
+<td><strong>nn.Module</strong></td>
+<td>Clean abstractions for building neural networks</td>
+</tr>
+<tr>
+<td><strong>Training</strong></td>
+<td>The 5-step training loop that works for any model</td>
+</tr>
+<tr>
+<td><strong>GPU</strong></td>
+<td>One-line device movement for massive speedups</td>
+</tr>
+<tr>
+<td><strong>DataLoader</strong></td>
+<td>Efficient batched, parallel data loading</td>
+</tr>
+<tr>
+<td><strong>Saving</strong></td>
+<td>Checkpointing for long training runs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-key-insight">The Key Insight</h3>
+<p>Having built neural networks from scratch in Module 26, you now deeply appreciate what PyTorch gives you:</p>
+<pre><code class="language-python"># Module 26: Dozens of lines of careful gradient computation
+# PyTorch:
+loss.backward()
+</code></pre>
+<p><strong>PyTorch doesn't replace understanding - it amplifies it.</strong> You know what happens inside that one line. You can debug it when things go wrong. You can extend it when needed.</p>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<p>In Module 28, you'll learn <strong>Training Deep Networks</strong>:
+- Why deep networks are hard to train
+- Batch normalization
+- Dropout and regularization
+- Weight initialization strategies
+- Learning rate scheduling
+- Debugging training failures</p>
+<p>The foundation is set. Now let's learn the art of making networks actually converge!</p>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<ol>
+<li><strong>Official PyTorch Tutorials</strong>: https://pytorch.org/tutorials/</li>
+<li><strong>Deep Learning with PyTorch</strong> (free book): https://pytorch.org/deep-learning-with-pytorch</li>
+<li><strong>Andrej Karpathy's micrograd</strong>: https://github.com/karpathy/micrograd - A tiny autograd engine for educational purposes</li>
+<li><strong>PyTorch Internals</strong>: http://blog.ezyang.com/2019/05/pytorch-internals/ - How the magic works</li>
+</ol>
+<hr />
+<p><em>Last updated: 2025-11-27</em>
+<em>Status: 🟢 Complete</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_28_training_deep_networks.html">Module 28: Training Deep Networks</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 12: Building Your First RAG System - Neural Dojo Theory</title>
+    <style>
+:root {
+    --primary: #1e40af;
+    --secondary: #64748b;
+    --success: #059669;
+    --warning: #d97706;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+}
+.nav {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.nav a:hover { background: rgba(255,255,255,0.2); }
+.nav a.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+header {
+    color: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+header .subtitle { font-size: 1.1rem; opacity: 0.9; }
+.content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 1.4rem;
+}
+.content h3 {
+    color: var(--secondary);
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--card);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: var(--bg);
+    font-weight: 600;
+    color: var(--secondary);
+}
+tr:hover { background: #f1f5f9; }
+code {
+    background: #e2e8f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 0.9em;
+}
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+ul, ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+li { margin: 0.4rem 0; }
+p { margin: 0.75rem 0; }
+a { color: var(--primary); }
+blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--secondary);
+    font-style: italic;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), #34d399);
+    transition: width 0.3s ease;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.stat-box {
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+.stat-box .value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.stat-box .label {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+.module-card {
+    background: var(--card);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.module-card h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+.module-details {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.next-link {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+}
+.next-link a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.next-link a:hover {
+    text-decoration: underline;
+}
+.theory-nav {
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+.theory-nav a {
+    color: var(--primary);
+    text-decoration: none;
+}
+.theory-nav a:hover {
+    text-decoration: underline;
+}
+.next-module-link {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary);
+}
+.next-module-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.next-module-link a:hover {
+    text-decoration: underline;
+}
+@media print {
+    .nav { display: none; }
+    body { padding: 0; background: white; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="theory-nav"><a href="../curriculum/index.html">← Back to Curriculum</a> | <a href="module_13_rag_vs_finetuning.html">Next: Module 13: RAG vs Fine-tuning Trade-offs →</a></div>
+<div class="container">
+    <header style="background: linear-gradient(135deg, #475569, #64748b);">
+        <h1>Module 12: Building Your First RAG System</h1>
+        <div class="subtitle">Neural Dojo Theory</div>
+    </header>
+    <div class="content">
+<h1 id="module-12-building-your-first-rag-system">Module 12: Building Your First RAG System</h1>
+<h1 id="or-teaching-ai-to-look-things-up-before-making-stuff-up">Or: Teaching AI to Look Things Up Before Making Stuff Up</h1>
+<p><strong>Last Updated</strong>: 2025-11-24
+<strong>Status</strong>: Complete
+<strong>Reading Time</strong>: 6-7 hours
+<strong>Prerequisites</strong>: Modules 9-11</p>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this module, you will:
+- Understand RAG architecture (Retrieval-Augmented Generation) deeply
+- Build a production-ready RAG pipeline from scratch
+- Master document chunking strategies (fixed, semantic, recursive)
+- Implement effective retrieval with reranking
+- Measure RAG performance with proper evaluation metrics
+- Handle edge cases (hallucination, context limits, stale data)
+- Apply RAG to real projects (kaizen, vibe, contrarian)</p>
+<p><strong>Why this matters</strong>: RAG is the #1 technique for building AI systems that need current, accurate, domain-specific knowledge. It's how ChatGPT plugins work, how enterprise AI assistants access company data, and how you'll build kaizen's knowledge system.</p>
+<hr />
+<h2 id="did-you-know-the-100-million-problem-rag-solved">Did You Know? The $100 Million Problem RAG Solved</h2>
+<p>In <strong>2020</strong>, a major bank deployed a GPT-3-powered customer service chatbot. Within weeks, disaster struck:</p>
+<p><strong>Customer</strong>: "What's my account balance?"
+<strong>Bot</strong>: "Your account balance is $15,432.67"</p>
+<p><strong>The problem</strong>: The bot hallucinated a random number! GPT-3 had no access to actual account data - it just made up a plausible-sounding answer.</p>
+<p><strong>The fallout</strong>:
+- <strong>$2.3 million</strong> in customer service costs to clean up confusion
+- <strong>Legal investigation</strong> for potentially misleading customers
+- Project scrapped after 3 months
+- CTO resigned</p>
+<p><strong>The insight</strong>: LLMs are <strong>knowledge-frozen</strong> at training time. They can't know your company data, current events, or user-specific information. They can only generate plausible text based on patterns.</p>
+<p><strong>The solution</strong>: RAG (Retrieval-Augmented Generation)</p>
+<p>Instead of asking the LLM to "know" the answer, you:
+1. <strong>Retrieve</strong> relevant documents from your database
+2. <strong>Augment</strong> the prompt with retrieved context
+3. <strong>Generate</strong> an answer based on actual data</p>
+<pre><code>Without RAG:
+User: &quot;What's the status of order #12345?&quot;
+LLM: &quot;Your order is being processed.&quot; (HALLUCINATION - made up!)
+
+With RAG:
+User: &quot;What's the status of order #12345?&quot;
+→ Retrieve order from database: {&quot;id&quot;: 12345, &quot;status&quot;: &quot;shipped&quot;, &quot;tracking&quot;: &quot;1Z999...&quot;}
+→ Prompt: &quot;Based on this order data: {data}, answer: What's the status of order #12345?&quot;
+LLM: &quot;Your order #12345 has shipped! Tracking number: 1Z999...&quot; (ACCURATE!)
+</code></pre>
+<p><strong>The transformation</strong>: RAG turned LLMs from "impressive but unreliable" to "production-ready for enterprise." Every major AI company now uses RAG for knowledge-intensive applications.</p>
+<hr />
+<h2 id="introduction-what-is-rag">Introduction: What Is RAG?</h2>
+<h3 id="the-core-concept">The Core Concept</h3>
+<p><strong>RAG = Retrieval-Augmented Generation</strong></p>
+<p>It's a two-step process:
+1. <strong>Retrieval</strong>: Find relevant information from a knowledge base
+2. <strong>Generation</strong>: Use an LLM to generate an answer using that information</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                         RAG Pipeline                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  User Query: &quot;How do I configure authentication in kaizen?&quot;    │
+│       │                                                        │
+│       ▼                                                        │
+│  ┌─────────────┐                                               │
+│  │   Embed     │  → Convert query to vector                    │
+│  └─────────────┘                                               │
+│       │                                                        │
+│       ▼                                                        │
+│  ┌─────────────┐     ┌──────────────────┐                     │
+│  │   Search    │ ──► │  Vector Database │                     │
+│  └─────────────┘     │  (176K docs)     │                     │
+│       │              └──────────────────┘                     │
+│       ▼                                                        │
+│  Retrieved Context:                                            │
+│  - &quot;auth.md: Configure JWT tokens...&quot;                         │
+│  - &quot;security.md: Best practices for...&quot;                       │
+│  - &quot;api.md: Authentication endpoints...&quot;                      │
+│       │                                                        │
+│       ▼                                                        │
+│  ┌─────────────┐                                               │
+│  │   Generate  │  → LLM creates answer from context           │
+│  └─────────────┘                                               │
+│       │                                                        │
+│       ▼                                                        │
+│  Answer: &quot;To configure authentication in kaizen:               │
+│          1. Set JWT_SECRET in .env                            │
+│          2. Configure auth middleware in app.py               │
+│          3. See auth.md for complete guide...&quot;                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="why-rag-works">Why RAG Works</h3>
+<p><strong>LLMs have two fundamental limitations</strong>:</p>
+<ol>
+<li><strong>Knowledge cutoff</strong>: Trained on data up to a certain date</li>
+<li>GPT-4o: October 2023 (but updates regularly)</li>
+<li>Claude 3.5/4: Early 2024</li>
+<li>Models get updated - always check current cutoff dates!</li>
+<li>
+<p>Can't know about events after training</p>
+</li>
+<li>
+<p><strong>No private data</strong>: Never saw your company's internal documents</p>
+</li>
+<li>Can't answer questions about your codebase</li>
+<li>Can't access your databases</li>
+<li>Can't know your business rules</li>
+</ol>
+<p><strong>RAG solves both</strong> by injecting relevant information into the prompt at query time.</p>
+<hr />
+<h2 id="did-you-know-the-paper-that-started-it-all">Did You Know? The Paper That Started It All</h2>
+<p><strong>May 2020</strong>: Facebook AI Research (FAIR) published "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" - the paper that gave RAG its name.</p>
+<p><strong>The key insight</strong>: Instead of making models bigger to store more knowledge, give them access to external knowledge at inference time.</p>
+<p><strong>The results were stunning</strong>:
+- <strong>Open-domain QA</strong>: RAG outperformed GPT-3 (175B params) with only 400M params
+- <strong>Fact verification</strong>: 94% accuracy vs 72% for pure generation
+- <strong>Knowledge updates</strong>: Change the database, instantly update the model's "knowledge"</p>
+<p><strong>The authors</strong>: Patrick Lewis, Ethan Perez, Aleksandra Piktus, and team at Facebook AI</p>
+<p><strong>Why this matters</strong>: RAG proved that <strong>architecture + retrieval</strong> beats <strong>bigger models alone</strong>. This insight shaped the entire industry - ChatGPT's web browsing, Perplexity, and every enterprise AI assistant uses RAG.</p>
+<p><strong>Citation count</strong>: Over 3,000 citations in 4 years - one of the most influential AI papers of the decade!</p>
+<hr />
+<h2 id="stop-time-to-practice">STOP: Time to Practice!</h2>
+<p><strong>You've learned the concept - now let's build a RAG system!</strong></p>
+<p>RAG is best learned by doing. You'll build a complete RAG pipeline that could power kaizen's documentation assistant.</p>
+<h3 id="practice-path-4-5-hours-total">Practice Path (~4-5 hours total)</h3>
+<p><strong>1. <a href="../../examples/module_12/01_simple_rag.py">Simple RAG Pipeline</a></strong> - Your first RAG system
+   - 📖 Concept: Basic retrieval + generation
+   - ⏱️ Time: 90-120 minutes
+   - Goal: Build working RAG in 100 lines
+   - What you'll learn: The core RAG loop</p>
+<p><strong>2. <a href="../../examples/module_12/02_chunking_strategies.py">Document Chunking</a></strong> - Master chunking
+   - 📖 Concept: Fixed, semantic, and recursive chunking
+   - ⏱️ Time: 60-75 minutes
+   - Goal: Understand how chunking affects retrieval quality
+   - What you'll learn: Chunk size is the #1 RAG parameter!</p>
+<p><strong>3. <a href="../../examples/module_12/03_rag_evaluation.py">RAG Evaluation</a></strong> - Measure quality
+   - 📖 Concept: Retrieval metrics, answer quality, hallucination detection
+   - ⏱️ Time: 60-75 minutes
+   - Goal: Know when your RAG is working well
+   - What you'll learn: You can't improve what you don't measure</p>
+<h3 id="deliverable-production-rag-system">Deliverable: Production RAG System</h3>
+<p><strong>What</strong>: Build a RAG system for one of your projects
+<strong>Time</strong>: 5-6 hours
+<strong>Portfolio Value</strong>: Demonstrates end-to-end AI system building</p>
+<p><strong>Requirements</strong>:
+1. Choose a knowledge base:
+   - <strong>kaizen</strong>: Documentation + code + issues
+   - <strong>vibe</strong>: Course content + student Q&amp;A
+   - <strong>contrarian</strong>: Financial reports + news
+   - <strong>Work</strong>: Infrastructure runbooks + incident reports</p>
+<ol>
+<li>Implement complete pipeline:</li>
+<li>Document ingestion (PDF, Markdown, code)</li>
+<li>Chunking strategy (justify your choice!)</li>
+<li>Vector storage (Qdrant from Module 11)</li>
+<li>Retrieval with reranking</li>
+<li>Answer generation with citations</li>
+<li>
+<p>Streaming responses</p>
+</li>
+<li>
+<p>Evaluation dashboard:</p>
+</li>
+<li>Test set of 20+ queries with expected answers</li>
+<li>Retrieval metrics (recall@k, MRR)</li>
+<li>Answer quality metrics (faithfulness, relevance)</li>
+<li>
+<p>Latency tracking</p>
+</li>
+<li>
+<p>Handle edge cases:</p>
+</li>
+<li>"I don't know" for out-of-scope queries</li>
+<li>Citation verification</li>
+<li>Confidence scoring</li>
+</ol>
+<p><strong>Success Criteria</strong>:
+- Answers questions accurately from your knowledge base
+- Provides citations/sources for answers
+- Handles "I don't know" gracefully
+- &lt; 3 second response time
+- Evaluation metrics documented</p>
+<hr />
+<h2 id="rag-architecture-deep-dive">️ RAG Architecture Deep Dive</h2>
+<h3 id="the-three-phases">The Three Phases</h3>
+<pre><code>┌───────────────────────────────────────────────────────────────────┐
+│                    RAG System Architecture                        │
+├───────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│  PHASE 1: INDEXING (Offline - done once per document update)     │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────────┐   │
+│  │Documents│ →  │ Chunk   │ →  │ Embed   │ →  │Store in     │   │
+│  │(raw)    │    │         │    │         │    │Vector DB    │   │
+│  └─────────┘    └─────────┘    └─────────┘    └─────────────┘   │
+│                                                                   │
+│  PHASE 2: RETRIEVAL (Online - per query)                         │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────────┐   │
+│  │  Query  │ →  │ Embed   │ →  │ Search  │ →  │Top-K        │   │
+│  │         │    │         │    │Vector DB│    │Documents    │   │
+│  └─────────┘    └─────────┘    └─────────┘    └─────────────┘   │
+│                                                                   │
+│  PHASE 3: GENERATION (Online - per query)                        │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────────┐   │
+│  │Context  │ →  │ Build   │ →  │  LLM    │ →  │  Answer     │   │
+│  │+ Query  │    │ Prompt  │    │Generate │    │             │   │
+│  └─────────┘    └─────────┘    └─────────┘    └─────────────┘   │
+│                                                                   │
+└───────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="phase-1-indexing">Phase 1: Indexing</h3>
+<p><strong>Goal</strong>: Convert documents into searchable vectors</p>
+<pre><code class="language-python">def index_documents(documents: list[str], vector_db: QdrantClient):
+    &quot;&quot;&quot;Index documents into vector database.&quot;&quot;&quot;
+    for doc in documents:
+        # 1. Chunk the document
+        chunks = chunk_document(doc, chunk_size=500, overlap=50)
+
+        # 2. Generate embeddings
+        embeddings = embedding_model.encode(chunks)
+
+        # 3. Store in vector database
+        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+            vector_db.upsert(
+                collection_name=&quot;documents&quot;,
+                points=[{
+                    &quot;id&quot;: f&quot;{doc.id}_{i}&quot;,
+                    &quot;vector&quot;: embedding,
+                    &quot;payload&quot;: {
+                        &quot;text&quot;: chunk,
+                        &quot;source&quot;: doc.filename,
+                        &quot;chunk_index&quot;: i
+                    }
+                }]
+            )
+</code></pre>
+<p><strong>Key decisions</strong>:
+- <strong>Chunk size</strong>: Too small = loses context, too large = dilutes relevance
+- <strong>Overlap</strong>: Prevents information loss at chunk boundaries
+- <strong>Metadata</strong>: Store source info for citations</p>
+<h3 id="phase-2-retrieval">Phase 2: Retrieval</h3>
+<p><strong>Goal</strong>: Find the most relevant chunks for a query</p>
+<pre><code class="language-python">def retrieve(query: str, vector_db: QdrantClient, k: int = 5) -&gt; list[dict]:
+    &quot;&quot;&quot;Retrieve top-k relevant chunks.&quot;&quot;&quot;
+    # 1. Embed the query
+    query_embedding = embedding_model.encode(query)
+
+    # 2. Search vector database
+    results = vector_db.search(
+        collection_name=&quot;documents&quot;,
+        query_vector=query_embedding,
+        limit=k
+    )
+
+    # 3. Return chunks with metadata
+    return [
+        {
+            &quot;text&quot;: r.payload[&quot;text&quot;],
+            &quot;source&quot;: r.payload[&quot;source&quot;],
+            &quot;score&quot;: r.score
+        }
+        for r in results
+    ]
+</code></pre>
+<p><strong>Key decisions</strong>:
+- <strong>k value</strong>: More chunks = more context but also more noise
+- <strong>Similarity threshold</strong>: Filter out low-relevance results
+- <strong>Reranking</strong>: Use a second model to reorder results</p>
+<h3 id="phase-3-generation">Phase 3: Generation</h3>
+<p><strong>Goal</strong>: Generate an answer using retrieved context</p>
+<pre><code class="language-python">def generate_answer(query: str, context: list[dict], llm) -&gt; str:
+    &quot;&quot;&quot;Generate answer from retrieved context.&quot;&quot;&quot;
+    # Build prompt with context
+    context_text = &quot;\n\n&quot;.join([
+        f&quot;[Source: {c['source']}]\n{c['text']}&quot;
+        for c in context
+    ])
+
+    prompt = f&quot;&quot;&quot;Answer the question based ONLY on the following context.
+If the context doesn't contain the answer, say &quot;I don't have information about that.&quot;
+
+Context:
+{context_text}
+
+Question: {query}
+
+Answer:&quot;&quot;&quot;
+
+    # Generate with LLM
+    response = llm.generate(prompt)
+
+    return response
+</code></pre>
+<p><strong>Key decisions</strong>:
+- <strong>Prompt engineering</strong>: Instructions for using context, handling unknowns
+- <strong>Citation format</strong>: How to attribute sources
+- <strong>Answer length</strong>: Concise vs detailed responses</p>
+<hr />
+<h2 id="document-chunking-the-most-important-decision">📄 Document Chunking: The Most Important Decision</h2>
+<h3 id="why-chunking-matters">Why Chunking Matters</h3>
+<p><strong>The chunking paradox</strong>:
+- <strong>Too small</strong>: Chunks lack context, retrieval returns fragments
+- <strong>Too large</strong>: Chunks contain irrelevant info, dilute relevance scores
+- <strong>Just right</strong>: Chunks are self-contained units of meaning</p>
+<p><strong>Real example</strong>:</p>
+<pre><code>Original document:
+&quot;Authentication in kaizen uses JWT tokens. To configure authentication,
+set the JWT_SECRET environment variable. The token expires after 24 hours
+by default. You can customize this in config.py. For production, always
+use HTTPS to protect tokens in transit.&quot;
+
+Chunk too small (50 chars):
+- &quot;Authentication in kaizen uses JWT tokens. To conf&quot;
+- &quot;igure authentication, set the JWT_SECRET environ&quot;
+→ Query &quot;How to configure auth?&quot; might not match!
+
+Chunk too large (entire doc):
+- Returns full doc even for specific questions
+→ LLM must parse through irrelevant info
+
+Chunk just right (~200 chars, semantic):
+- &quot;Authentication in kaizen uses JWT tokens. To configure authentication, set the JWT_SECRET environment variable.&quot;
+- &quot;The token expires after 24 hours by default. You can customize this in config.py.&quot;
+- &quot;For production, always use HTTPS to protect tokens in transit.&quot;
+→ Each chunk answers a specific question type!
+</code></pre>
+<h3 id="chunking-strategies">Chunking Strategies</h3>
+<h4 id="1-fixed-size-chunking-simplest">1. Fixed-Size Chunking (Simplest)</h4>
+<pre><code class="language-python">def fixed_chunk(text: str, chunk_size: int = 500, overlap: int = 50) -&gt; list[str]:
+    &quot;&quot;&quot;Split text into fixed-size chunks with overlap.&quot;&quot;&quot;
+    chunks = []
+    start = 0
+
+    while start &lt; len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+        chunks.append(chunk)
+        start = end - overlap  # Overlap for continuity
+
+    return chunks
+</code></pre>
+<p><strong>Pros</strong>: Simple, predictable token counts
+<strong>Cons</strong>: Breaks mid-sentence, loses semantic coherence
+<strong>Use when</strong>: Quick prototyping, uniform documents</p>
+<h4 id="2-sentence-based-chunking">2. Sentence-Based Chunking</h4>
+<pre><code class="language-python">import nltk
+
+def sentence_chunk(text: str, sentences_per_chunk: int = 5) -&gt; list[str]:
+    &quot;&quot;&quot;Chunk by sentence boundaries.&quot;&quot;&quot;
+    sentences = nltk.sent_tokenize(text)
+    chunks = []
+
+    for i in range(0, len(sentences), sentences_per_chunk):
+        chunk = &quot; &quot;.join(sentences[i:i + sentences_per_chunk])
+        chunks.append(chunk)
+
+    return chunks
+</code></pre>
+<p><strong>Pros</strong>: Respects sentence boundaries
+<strong>Cons</strong>: Variable chunk sizes, may still break concepts
+<strong>Use when</strong>: Prose documents, articles</p>
+<h4 id="3-semantic-chunking-best-for-most-cases">3. Semantic Chunking (Best for Most Cases)</h4>
+<pre><code class="language-python">def semantic_chunk(text: str, max_chunk_size: int = 500) -&gt; list[str]:
+    &quot;&quot;&quot;Chunk by semantic units (paragraphs, sections).&quot;&quot;&quot;
+    # Split by paragraph
+    paragraphs = text.split(&quot;\n\n&quot;)
+
+    chunks = []
+    current_chunk = &quot;&quot;
+
+    for para in paragraphs:
+        if len(current_chunk) + len(para) &lt; max_chunk_size:
+            current_chunk += para + &quot;\n\n&quot;
+        else:
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+            current_chunk = para + &quot;\n\n&quot;
+
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+
+    return chunks
+</code></pre>
+<p><strong>Pros</strong>: Preserves semantic units, natural boundaries
+<strong>Cons</strong>: Variable sizes, requires clean formatting
+<strong>Use when</strong>: Documentation, structured content</p>
+<h4 id="4-recursive-chunking-langchains-approach">4. Recursive Chunking (LangChain's Approach)</h4>
+<pre><code class="language-python">def recursive_chunk(text: str, chunk_size: int = 500, separators: list[str] = None) -&gt; list[str]:
+    &quot;&quot;&quot;Recursively split using hierarchy of separators.&quot;&quot;&quot;
+    if separators is None:
+        separators = [&quot;\n\n&quot;, &quot;\n&quot;, &quot;. &quot;, &quot; &quot;, &quot;&quot;]
+
+    separator = separators[0]
+    remaining_separators = separators[1:]
+
+    splits = text.split(separator)
+    chunks = []
+    current_chunk = &quot;&quot;
+
+    for split in splits:
+        if len(current_chunk) + len(split) &lt; chunk_size:
+            current_chunk += split + separator
+        else:
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+
+            # If split itself is too large, recurse with finer separator
+            if len(split) &gt; chunk_size and remaining_separators:
+                sub_chunks = recursive_chunk(split, chunk_size, remaining_separators)
+                chunks.extend(sub_chunks)
+            else:
+                current_chunk = split + separator
+
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+
+    return chunks
+</code></pre>
+<p><strong>Pros</strong>: Best of all worlds, handles varied content
+<strong>Cons</strong>: More complex, slower
+<strong>Use when</strong>: Mixed content, code + prose</p>
+<hr />
+<h2 id="did-you-know-the-chunk-size-discovery">Did You Know? The Chunk Size Discovery</h2>
+<p>In <strong>2023</strong>, researchers at Anthropic ran extensive experiments on chunk size:</p>
+<table>
+<thead>
+<tr>
+<th>Chunk Size</th>
+<th>Retrieval Recall</th>
+<th>Answer Quality</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 tokens</td>
+<td>45%</td>
+<td>Poor</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>250 tokens</td>
+<td>72%</td>
+<td>Good</td>
+<td>Simple QA</td>
+</tr>
+<tr>
+<td><strong>500 tokens</strong></td>
+<td><strong>85%</strong></td>
+<td><strong>Best</strong></td>
+<td><strong>General use</strong></td>
+</tr>
+<tr>
+<td>1000 tokens</td>
+<td>78%</td>
+<td>Good</td>
+<td>Complex questions</td>
+</tr>
+<tr>
+<td>2000 tokens</td>
+<td>65%</td>
+<td>OK</td>
+<td>Long-form analysis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The sweet spot</strong>: 400-600 tokens for most use cases!</p>
+<p><strong>Why?</strong> This is roughly <strong>one paragraph</strong> of information - enough context to be useful, small enough to be relevant.</p>
+<p><strong>The surprise</strong>: Bigger chunks don't always help! After ~600 tokens, retrieval quality actually decreases because irrelevant information dilutes the embedding.</p>
+<hr />
+<h2 id="advanced-rag-techniques">🔄 Advanced RAG Techniques</h2>
+<h3 id="1-hybrid-search-bm25-vector">1. Hybrid Search (BM25 + Vector)</h3>
+<p>Combine keyword search with semantic search:</p>
+<pre><code class="language-python">def hybrid_search(query: str, k: int = 5) -&gt; list[dict]:
+    &quot;&quot;&quot;Combine BM25 and vector search.&quot;&quot;&quot;
+    # Keyword search (BM25)
+    keyword_results = bm25_search(query, k=k*2)
+
+    # Vector search
+    vector_results = vector_search(query, k=k*2)
+
+    # Reciprocal Rank Fusion (RRF)
+    combined = reciprocal_rank_fusion(
+        [keyword_results, vector_results],
+        k=60  # RRF constant
+    )
+
+    return combined[:k]
+
+def reciprocal_rank_fusion(result_lists: list[list], k: int = 60) -&gt; list:
+    &quot;&quot;&quot;Combine multiple result lists using RRF.&quot;&quot;&quot;
+    scores = {}
+
+    for results in result_lists:
+        for rank, doc in enumerate(results):
+            doc_id = doc[&quot;id&quot;]
+            if doc_id not in scores:
+                scores[doc_id] = 0
+            scores[doc_id] += 1 / (k + rank + 1)
+
+    # Sort by combined score
+    sorted_docs = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    return [doc_id for doc_id, score in sorted_docs]
+</code></pre>
+<p><strong>Why hybrid?</strong>
+- <strong>Vector alone</strong> misses exact keyword matches ("error code E1234")
+- <strong>BM25 alone</strong> misses semantic similarity ("restart" vs "reboot")
+- <strong>Combined</strong> catches both!</p>
+<h3 id="2-query-expansion">2. Query Expansion</h3>
+<p>Expand the query to improve recall:</p>
+<pre><code class="language-python">def expand_query(query: str, llm) -&gt; list[str]:
+    &quot;&quot;&quot;Generate related queries for better retrieval.&quot;&quot;&quot;
+    prompt = f&quot;&quot;&quot;Generate 3 alternative phrasings of this question:
+
+Original: {query}
+
+Alternative phrasings (one per line):&quot;&quot;&quot;
+
+    expansions = llm.generate(prompt).strip().split(&quot;\n&quot;)
+
+    return [query] + expansions
+
+# Example:
+# Query: &quot;How to fix authentication?&quot;
+# Expansions:
+#   - &quot;How to fix authentication?&quot;
+#   - &quot;Troubleshooting auth issues&quot;
+#   - &quot;Authentication not working solution&quot;
+#   - &quot;Debug login problems&quot;
+</code></pre>
+<h3 id="3-reranking">3. Reranking</h3>
+<p>Use a cross-encoder to rerank retrieved results:</p>
+<pre><code class="language-python">from sentence_transformers import CrossEncoder
+
+reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+
+def rerank(query: str, documents: list[dict], top_k: int = 5) -&gt; list[dict]:
+    &quot;&quot;&quot;Rerank documents using cross-encoder.&quot;&quot;&quot;
+    # Create query-document pairs
+    pairs = [[query, doc[&quot;text&quot;]] for doc in documents]
+
+    # Score with cross-encoder
+    scores = reranker.predict(pairs)
+
+    # Sort by score
+    ranked = sorted(
+        zip(documents, scores),
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    return [doc for doc, score in ranked[:top_k]]
+</code></pre>
+<p><strong>Why rerank?</strong>
+- <strong>Bi-encoders</strong> (embedding models) are fast but less accurate
+- <strong>Cross-encoders</strong> see query AND document together, more accurate
+- <strong>Best practice</strong>: Retrieve 20 with bi-encoder, rerank to top 5</p>
+<h3 id="4-contextual-compression">4. Contextual Compression</h3>
+<p>Remove irrelevant parts from retrieved chunks:</p>
+<pre><code class="language-python">def compress_context(query: str, chunk: str, llm) -&gt; str:
+    &quot;&quot;&quot;Extract only relevant parts of a chunk.&quot;&quot;&quot;
+    prompt = f&quot;&quot;&quot;Extract only the parts of this text that are relevant to the question.
+If nothing is relevant, respond with &quot;NOT_RELEVANT&quot;.
+
+Question: {query}
+
+Text: {chunk}
+
+Relevant excerpt:&quot;&quot;&quot;
+
+    compressed = llm.generate(prompt)
+
+    if &quot;NOT_RELEVANT&quot; in compressed:
+        return None
+
+    return compressed
+</code></pre>
+<hr />
+<h2 id="did-you-know-perplexitys-secret-sauce">Did You Know? Perplexity's Secret Sauce</h2>
+<p><strong>Perplexity AI</strong> (valued at $9B in 2024) built their entire business on RAG. Their "secret sauce":</p>
+<ol>
+<li><strong>Multi-source retrieval</strong>: Searches web, academic papers, news simultaneously</li>
+<li><strong>Source diversity</strong>: Ensures answers cite multiple independent sources</li>
+<li><strong>Recency bias</strong>: Weights recent sources higher for current events</li>
+<li><strong>Streaming citations</strong>: Shows sources WHILE generating answer</li>
+</ol>
+<p><strong>The insight</strong>: Users trust AI more when they can verify sources. Perplexity's citation-first approach built trust that ChatGPT lacked.</p>
+<p><strong>Revenue impact</strong>: $20M ARR in 2024, growing 300% YoY - all from RAG!</p>
+<hr />
+<h2 id="common-rag-pitfalls">️ Common RAG Pitfalls</h2>
+<h3 id="pitfall-1-ignoring-chunk-boundaries">Pitfall 1: Ignoring Chunk Boundaries</h3>
+<pre><code class="language-python"># BAD: Fixed chunking breaks mid-concept
+chunks = split_every_n_chars(text, 500)
+# &quot;To configure authentication, you need to...&quot; | &quot;...set the JWT_SECRET variable&quot;
+
+# GOOD: Respect semantic boundaries
+chunks = split_by_paragraphs(text, max_size=500)
+# &quot;To configure authentication, you need to set the JWT_SECRET variable.&quot;
+</code></pre>
+<h3 id="pitfall-2-not-handling-i-dont-know">Pitfall 2: Not Handling "I Don't Know"</h3>
+<pre><code class="language-python"># BAD: Forces answer even when context doesn't help
+prompt = f&quot;Answer this question: {query}\nContext: {context}&quot;
+
+# GOOD: Explicit instruction for unknown cases
+prompt = f&quot;&quot;&quot;Answer the question based ONLY on the context below.
+If the context doesn't contain enough information to answer, say:
+&quot;I don't have information about that in my knowledge base.&quot;
+
+Context: {context}
+Question: {query}
+Answer:&quot;&quot;&quot;
+</code></pre>
+<h3 id="pitfall-3-stuffing-too-much-context">Pitfall 3: Stuffing Too Much Context</h3>
+<pre><code class="language-python"># BAD: Include all 20 retrieved chunks
+context = &quot;\n&quot;.join([c[&quot;text&quot;] for c in retrieve(query, k=20)])
+# → Context too long, LLM gets confused, costs more
+
+# GOOD: Quality over quantity
+chunks = retrieve(query, k=20)
+reranked = rerank(query, chunks, top_k=5)
+context = &quot;\n&quot;.join([c[&quot;text&quot;] for c in reranked])
+# → Only most relevant context
+</code></pre>
+<h3 id="pitfall-4-not-including-sources">Pitfall 4: Not Including Sources</h3>
+<pre><code class="language-python"># BAD: Answer without attribution
+answer = llm.generate(f&quot;Answer: {query}\nContext: {context}&quot;)
+
+# GOOD: Include sources in prompt
+context_with_sources = &quot;\n&quot;.join([
+    f&quot;[{i+1}] {c['source']}: {c['text']}&quot;
+    for i, c in enumerate(chunks)
+])
+
+prompt = f&quot;&quot;&quot;Answer the question and cite sources using [1], [2], etc.
+
+Context:
+{context_with_sources}
+
+Question: {query}
+Answer (with citations):&quot;&quot;&quot;
+</code></pre>
+<h3 id="pitfall-5-stale-index">Pitfall 5: Stale Index</h3>
+<pre><code class="language-python"># BAD: Index once, never update
+index_documents(docs)  # Done in 2023
+# → 2024 queries get outdated answers!
+
+# GOOD: Incremental updates
+def update_index(new_docs, modified_docs, deleted_ids):
+    &quot;&quot;&quot;Keep index fresh.&quot;&quot;&quot;
+    # Add new documents
+    for doc in new_docs:
+        add_to_index(doc)
+
+    # Update modified documents
+    for doc in modified_docs:
+        delete_from_index(doc.id)
+        add_to_index(doc)
+
+    # Remove deleted documents
+    for doc_id in deleted_ids:
+        delete_from_index(doc_id)
+
+# Run nightly or on document changes
+</code></pre>
+<hr />
+<h2 id="rag-evaluation-metrics">RAG Evaluation Metrics</h2>
+<h3 id="retrieval-metrics">Retrieval Metrics</h3>
+<h4 id="recallk">Recall@K</h4>
+<p>"Of the relevant documents, how many did we retrieve?"</p>
+<pre><code class="language-python">def recall_at_k(retrieved_ids: list, relevant_ids: list, k: int) -&gt; float:
+    &quot;&quot;&quot;Calculate recall at k.&quot;&quot;&quot;
+    retrieved_k = set(retrieved_ids[:k])
+    relevant = set(relevant_ids)
+
+    return len(retrieved_k &amp; relevant) / len(relevant)
+
+# Example:
+# Relevant docs: [1, 2, 3]
+# Retrieved top-5: [1, 4, 2, 5, 6]
+# Recall@5 = 2/3 = 0.67
+</code></pre>
+<h4 id="mean-reciprocal-rank-mrr">Mean Reciprocal Rank (MRR)</h4>
+<p>"How high is the first relevant document ranked?"</p>
+<pre><code class="language-python">def mrr(retrieved_ids: list, relevant_ids: list) -&gt; float:
+    &quot;&quot;&quot;Calculate mean reciprocal rank.&quot;&quot;&quot;
+    relevant = set(relevant_ids)
+
+    for i, doc_id in enumerate(retrieved_ids):
+        if doc_id in relevant:
+            return 1 / (i + 1)
+
+    return 0
+
+# Example:
+# Relevant: [1, 2, 3]
+# Retrieved: [4, 2, 1, 3, 5]
+# First relevant at position 2 → MRR = 1/2 = 0.5
+</code></pre>
+<h3 id="answer-quality-metrics">Answer Quality Metrics</h3>
+<h4 id="faithfulness">Faithfulness</h4>
+<p>"Is the answer supported by the retrieved context?"</p>
+<pre><code class="language-python">def check_faithfulness(answer: str, context: str, llm) -&gt; float:
+    &quot;&quot;&quot;Check if answer is faithful to context.&quot;&quot;&quot;
+    prompt = f&quot;&quot;&quot;Rate how well the answer is supported by the context.
+Score from 0-1 where:
+- 1.0 = Fully supported, no hallucination
+- 0.5 = Partially supported
+- 0.0 = Not supported / hallucinated
+
+Context: {context}
+Answer: {answer}
+
+Score (just the number):&quot;&quot;&quot;
+
+    score = float(llm.generate(prompt).strip())
+    return score
+</code></pre>
+<h4 id="relevance">Relevance</h4>
+<p>"Does the answer address the question?"</p>
+<pre><code class="language-python">def check_relevance(query: str, answer: str, llm) -&gt; float:
+    &quot;&quot;&quot;Check if answer is relevant to question.&quot;&quot;&quot;
+    prompt = f&quot;&quot;&quot;Rate how well the answer addresses the question.
+Score from 0-1 where:
+- 1.0 = Directly answers the question
+- 0.5 = Partially answers
+- 0.0 = Doesn't answer
+
+Question: {query}
+Answer: {answer}
+
+Score (just the number):&quot;&quot;&quot;
+
+    score = float(llm.generate(prompt).strip())
+    return score
+</code></pre>
+<h3 id="the-ragas-framework">The RAGAS Framework</h3>
+<p><strong>RAGAS</strong> (Retrieval Augmented Generation Assessment) is the standard evaluation framework:</p>
+<pre><code class="language-python">from ragas import evaluate
+from ragas.metrics import faithfulness, answer_relevancy, context_precision
+
+# Evaluate your RAG
+results = evaluate(
+    dataset,
+    metrics=[faithfulness, answer_relevancy, context_precision]
+)
+
+print(f&quot;Faithfulness: {results['faithfulness']:.2f}&quot;)
+print(f&quot;Answer Relevancy: {results['answer_relevancy']:.2f}&quot;)
+print(f&quot;Context Precision: {results['context_precision']:.2f}&quot;)
+</code></pre>
+<hr />
+<h2 id="real-world-applications">Real-World Applications</h2>
+<h3 id="application-1-kaizen-documentation-assistant">Application 1: Kaizen Documentation Assistant</h3>
+<pre><code class="language-python"># Kaizen RAG Configuration
+kaizen_rag = RAGPipeline(
+    knowledge_sources=[
+        &quot;docs/*.md&quot;,           # Documentation
+        &quot;src/**/*.py&quot;,         # Code (with docstrings)
+        &quot;issues/*.json&quot;,       # GitHub issues
+        &quot;runbooks/*.md&quot;        # Operations runbooks
+    ],
+    chunk_strategy=&quot;recursive&quot;,
+    chunk_size=500,
+    embedding_model=&quot;all-MiniLM-L6-v2&quot;,
+    vector_db=&quot;qdrant&quot;,
+    llm=&quot;claude-3-sonnet&quot;,
+    reranker=&quot;cross-encoder/ms-marco&quot;
+)
+
+# Example queries:
+# &quot;How do I deploy to production?&quot;
+# &quot;What's the fix for error E1234?&quot;
+# &quot;Show me the authentication flow&quot;
+</code></pre>
+<h3 id="application-2-vibe-course-assistant">Application 2: Vibe Course Assistant</h3>
+<pre><code class="language-python"># Vibe RAG for student Q&amp;A
+vibe_rag = RAGPipeline(
+    knowledge_sources=[
+        &quot;courses/**/*.md&quot;,     # Course content
+        &quot;videos/*.json&quot;,       # Video transcripts
+        &quot;qa/*.json&quot;,           # Previous Q&amp;A
+        &quot;assignments/*.md&quot;     # Assignment specs
+    ],
+    chunk_strategy=&quot;semantic&quot;,
+    chunk_size=400,
+    # Smaller chunks for focused answers
+    special_handling={
+        &quot;code_blocks&quot;: &quot;keep_intact&quot;,
+        &quot;equations&quot;: &quot;keep_intact&quot;
+    }
+)
+
+# Example queries:
+# &quot;Explain the difference between RAG and fine-tuning&quot;
+# &quot;What's due next week?&quot;
+# &quot;How do I solve problem 3?&quot;
+</code></pre>
+<h3 id="application-3-contrarian-financial-research">Application 3: Contrarian Financial Research</h3>
+<pre><code class="language-python"># Contrarian RAG for financial analysis
+contrarian_rag = RAGPipeline(
+    knowledge_sources=[
+        &quot;sec_filings/*.pdf&quot;,   # 10-K, 10-Q filings
+        &quot;earnings/*.json&quot;,     # Earnings call transcripts
+        &quot;news/*.json&quot;,         # Financial news
+        &quot;analysis/*.md&quot;        # Your analysis notes
+    ],
+    chunk_strategy=&quot;semantic&quot;,
+    chunk_size=600,
+    # Larger chunks for financial context
+    metadata_filters=[
+        &quot;company&quot;,
+        &quot;date&quot;,
+        &quot;document_type&quot;
+    ],
+    freshness_weight=0.3  # Prefer recent documents
+)
+
+# Example queries:
+# &quot;What did AAPL management say about AI in last earnings?&quot;
+# &quot;Compare MSFT and GOOGL R&amp;D spending&quot;
+# &quot;What are the risk factors for TSLA?&quot;
+</code></pre>
+<hr />
+<h2 id="did-you-know-the-10x-developers-rag-setup">Did You Know? The 10x Developer's RAG Setup</h2>
+<p>A senior engineer at Stripe shared their personal RAG setup (2024):</p>
+<pre><code>Personal Knowledge Base RAG:
+├── Work
+│   ├── Codebase (indexed daily)
+│   ├── Confluence docs
+│   ├── Slack threads (saved)
+│   └── Meeting notes
+├── Learning
+│   ├── Papers I've read (PDFs)
+│   ├── Course notes
+│   └── Book highlights
+└── Personal
+    ├── Journal entries
+    └── Project ideas
+
+Daily usage:
+- &quot;What was the decision on the auth refactor?&quot;
+- &quot;Find my notes on transformer attention&quot;
+- &quot;What did Sarah say about the deadline?&quot;
+</code></pre>
+<p><strong>Result</strong>: They reported <strong>2 hours saved daily</strong> from not searching through old messages and documents.</p>
+<p><strong>The insight</strong>: RAG isn't just for products - it's a personal productivity superpower!</p>
+<hr />
+<h2 id="further-reading">Further Reading</h2>
+<h3 id="papers">Papers</h3>
+<ul>
+<li><strong>"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"</strong> (Lewis et al., 2020) - The original RAG paper</li>
+<li><strong>"REALM: Retrieval-Augmented Language Model Pre-Training"</strong> (Guu et al., 2020) - RAG during training</li>
+<li><strong>"Self-RAG"</strong> (Asai et al., 2023) - LLM decides when to retrieve</li>
+</ul>
+<h3 id="tools-frameworks">Tools &amp; Frameworks</h3>
+<ul>
+<li><strong>LangChain</strong>: Popular RAG framework</li>
+<li><strong>LlamaIndex</strong>: Data framework for LLM applications</li>
+<li><strong>Haystack</strong>: End-to-end NLP framework with RAG</li>
+<li><strong>RAGAS</strong>: RAG evaluation framework</li>
+</ul>
+<h3 id="tutorials">Tutorials</h3>
+<ul>
+<li><a href="https://python.langchain.com/docs/use_cases/question_answering/">LangChain RAG Tutorial</a></li>
+<li><a href="https://docs.llamaindex.ai/en/stable/">LlamaIndex Getting Started</a></li>
+<li><a href="https://www.pinecone.io/learn/retrieval-augmented-generation/">Pinecone RAG Guide</a></li>
+</ul>
+<hr />
+<h2 id="module-summary">Module Summary</h2>
+<p><strong>What you learned</strong>:
+- RAG architecture: Retrieve → Augment → Generate
+- Document chunking strategies and their trade-offs
+- Advanced techniques: Hybrid search, reranking, query expansion
+- Evaluation metrics: Recall@K, MRR, Faithfulness, Relevance
+- Common pitfalls and how to avoid them
+- Real-world applications for kaizen, vibe, contrarian</p>
+<p><strong>Key formulas</strong>:</p>
+<pre><code>RAG = Retrieval + Augmented Generation
+
+Recall@K = |Retrieved ∩ Relevant| / |Relevant|
+
+MRR = 1 / (rank of first relevant document)
+</code></pre>
+<p><strong>Best practices</strong>:
+1. <strong>Chunk size</strong>: 400-600 tokens for most use cases
+2. <strong>Retrieval</strong>: Start with k=5-10, rerank if needed
+3. <strong>Context</strong>: Quality over quantity - don't stuff the prompt
+4. <strong>Sources</strong>: Always include citations
+5. <strong>Evaluation</strong>: Measure faithfulness AND relevance
+6. <strong>Updates</strong>: Keep your index fresh</p>
+<hr />
+<h2 id="next-steps">️ Next Steps</h2>
+<p><strong>Next module</strong>: Module 13: RAG vs Fine-tuning Trade-offs 🔮</p>
+<p>You'll learn:
+- When to use RAG vs fine-tuning
+- Parameter-efficient fine-tuning (LoRA, QLoRA)
+- Combining RAG + fine-tuning
+- Cost-benefit analysis</p>
+<p><strong>This is another Heureka Moment</strong> - understanding when each approach is appropriate!</p>
+<hr />
+<p><strong>🥋 Neural Dojo - You built your first RAG system! 🧠⚡</strong></p>
+<hr />
+<p><em>Last updated: 2025-11-24</em>
+<em>Module 12: Building Your First RAG System</em></p><div class="next-module-link"><p>→ <strong>Next:</strong> <a href="module_13_rag_vs_finetuning.html">Module 13: RAG vs Fine-tuning Trade-offs</a></p></div>
+    </div>
+    <footer>
+        <p>Neural Dojo Documentation</p>
+        <p>Generated by Neural Dojo Documentation Generator</p>
+    </footer>
+</div>
+</body>
+</html>
