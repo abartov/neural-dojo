@@ -1,0 +1,36 @@
+# Fill this per run; keep secrets out. Commit alongside artifacts if possible.
+run:
+  id: "2025-12-10-rag-baseline"
+  module: "module_10_vector_spaces"
+  purpose: "baseline search quality before hybrid retrieval"
+  commit: "abc123"
+
+data:
+  source: "s3://bucket/dataset-v1/"
+  hash: "sha256:..."
+  preprocessing: "lowercasing, stopword removal"
+
+model:
+  artifact: "s3://bucket/models/rag-baseline.tar.gz"
+  hash: "sha256:..."
+  hyperparameters:
+    lr: 3e-4
+    batch_size: 32
+    epochs: 5
+  metrics:
+    recall_at_10: 0.42
+    latency_ms_p50: 180
+
+env:
+  python: "3.11"
+  deps_lock: "deps.lock sha256:..."
+  hardware: "m3.large, no GPU"
+  seeds:
+    python: 42
+    numpy: 42
+    torch: 42
+
+notes:
+  safety_checks: "basic prompt-injection tests; no PII in sample set"
+  anomalies: "latency spikes on long documents"
+  followups: "try hybrid search; add latency tracing"
