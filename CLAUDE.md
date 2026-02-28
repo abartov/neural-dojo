@@ -454,32 +454,6 @@ A module is ONLY complete when:
 
 ---
 
-## 🎯 Real-World Applications
-
-Connect modules to user's actual projects:
-
-### User's Projects
-
-1. **kaizen** (Lean DevOps Platform)
-   - Relevant modules: 11-18 (RAG, LangChain, agents)
-   - Applications: Enhanced RAG, multi-agent workflows
-
-2. **vibe** (Teaching Platform)
-   - Relevant modules: 26-29 (Generative AI)
-   - Applications: Content generation, multimodal features
-
-3. **contrarian** (Stock Analysis)
-   - Relevant modules: 19-25 (Deep Learning), 33-34 (Time series)
-   - Applications: Predictive models, anomaly detection
-
-4. **Work** (Geospatial + On-Prem Cloud)
-   - Relevant modules: 33-34 (AI for Infrastructure)
-   - Applications: Proactive monitoring, capacity planning
-
-**In modules**: Reference these projects as examples and build prototype features.
-
----
-
 ## 📝 Documentation Templates
 
 ### Theory Document Template

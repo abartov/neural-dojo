@@ -149,9 +149,15 @@ Generates HTML documentation in `docs/_site/`
 
 ---
 
+## Website
+
+Browse the full curriculum at **[krisztiankoos.github.io/neural-dojo](https://krisztiankoos.github.io/neural-dojo/)**
+
+---
+
 ## License
 
-Private - for personal learning.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 

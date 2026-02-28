@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "From Zero to Hero: Master AI, ML, LLMs, and AI-Driven Development"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "Private"}
+license = {text = "MIT"}
 authors = [
     {name = "Krisztian Koos", email = "krisztiankoos@users.noreply.github.com"}
 ]
