@@ -633,7 +633,7 @@ api_key = os.getenv("ANTHROPIC_API_KEY")  # Safe!
 touch .env
 
 # Verify it's in .gitignore (should already be there)
-cat .gitignore | grep .env
+cat .gitignore | grep \.env
 # Should show: .env
 ```
 
